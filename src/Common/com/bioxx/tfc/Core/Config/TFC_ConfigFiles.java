@@ -35,8 +35,7 @@ import static com.bioxx.tfc.api.TFCOptions.*;
  * @author Dries007
  */
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
-public class TFC_ConfigFiles
-{
+public class TFC_ConfigFiles {
 	// General
 	public static final String GENERAL = "general";
 	public static final String TIME = "time";
@@ -62,49 +61,40 @@ public class TFC_ConfigFiles
 	public static final String CONVERSION = "Conversion";
 	public static final String ENABLE_VANILLA_RECIPES = "Enable Vanilla Recipes";
 	public static final String CRAFTING_OPTIONS = "Crafting Options";
-
+	public static final Map<String, SyncingOption> SYNCING_OPTION_MAP = new CaseInsensitiveHashMap<SyncingOption>();
 	// Used internally to move from top to colors.<name>
 	private static final String[] COLOR_CATEGORIES = {COLOR_NUTRIENT_A, COLOR_NUTRIENT_B, COLOR_NUTRIENT_C, CROP_FERTILIZER_COLOR, ANVIL_RULE_COLOR0, ANVIL_RULE_COLOR1, ANVIL_RULE_COLOR2};
-
 	// Used as allowed values for Ore
-	private static final String[] ALLOWED_TYPES = new String[] {"default", "veins"};
-	private static final String[] ALLOWED_SIZES = new String[] {"small", "medium", "large"};
-	private static final String[] ALLOWED_BASE_ROCKS = ObjectArrays.concat(Global.STONE_ALL, new String[] {"igneous intrusive", "igneous extrusive", "sedimentary", "metamorphic"}, String.class);
-
-	public static final Map<String, SyncingOption> SYNCING_OPTION_MAP = new CaseInsensitiveHashMap<SyncingOption>();
-
+	private static final String[] ALLOWED_TYPES = new String[]{"default", "veins"};
+	private static final String[] ALLOWED_SIZES = new String[]{"small", "medium", "large"};
+	private static final String[] ALLOWED_BASE_ROCKS = ObjectArrays.concat(Global.STONE_ALL, new String[]{"igneous intrusive", "igneous extrusive", "sedimentary", "metamorphic"}, String.class);
 	private static Configuration generalConfig;
 	private static Configuration craftingConfig;
 	private static Configuration oresConfig;
 
-	public static Configuration getGeneralConfig()
-	{
+	public static Configuration getGeneralConfig() {
 		return generalConfig;
 	}
 
-	public static Configuration getCraftingConfig()
-	{
+	public static Configuration getCraftingConfig() {
 		return craftingConfig;
 	}
 
-	public static Configuration getOresConfig()
-	{
+	public static Configuration getOresConfig() {
 		return oresConfig;
 	}
 
 	/**
 	 * Do file setup
 	 */
-	public static void preInit(File configFolder)
-	{
+	public static void preInit(File configFolder) {
 		if (generalConfig != null) throw new IllegalStateException("Preinit can't be called twice.");
 
 		File generalConfigFile = new File(configFolder, "TFCConfig.cfg");
 		if (!generalConfigFile.exists()) // Handle old config file
 		{
 			File oldConfigFile = new File(generalConfigFile, "cfg");
-			if (oldConfigFile.exists() && !oldConfigFile.isDirectory())
-			{
+			if (oldConfigFile.exists() && !oldConfigFile.isDirectory()) {
 				//noinspection ResultOfMethodCallIgnored
 				oldConfigFile.delete();
 			}
@@ -118,33 +108,26 @@ public class TFC_ConfigFiles
 	 * Reloads all configs. While doing inits, don't call this.
 	 * Call the individual config reload methods, at there appropriate times.
 	 */
-	public static void reloadAll()
-	{
+	public static void reloadAll() {
 		reloadGeneral(); // No special needs
 		reloadOres(); // World gen voo-doo
 		TerraFirmaCraft.LOG.info("Reloading TFCCrafting");
-		try
-		{
-			for (SyncingOption option : SYNCING_OPTION_MAP.values())
-			{
+		try {
+			for (SyncingOption option : SYNCING_OPTION_MAP.values()) {
 				option.loadFromConfig();
 			}
-		}
-		catch (IllegalAccessException e)
-		{
+		} catch (IllegalAccessException e) {
 			TerraFirmaCraft.LOG.fatal("Fatal error reloading TFCCrafting", e);
 			Throwables.propagate(e);
 		}
 		if (craftingConfig.hasChanged()) craftingConfig.save();
 	}
 
-	public static void firstLoadCrafting()
-	{
+	public static void firstLoadCrafting() {
 		if (craftingConfig == null) throw new IllegalStateException("Config reload attempt before preinit.");
 		TerraFirmaCraft.LOG.info("Loading TFCCrafting");
 
-		if (craftingConfig.hasCategory("nei hiding"))
-		{
+		if (craftingConfig.hasCategory("nei hiding")) {
 			craftingConfig.removeCategory(craftingConfig.getCategory("nei hiding"));
 		}
 
@@ -152,8 +135,7 @@ public class TFC_ConfigFiles
 		craftingConfig.setCategoryLanguageKey(ENABLE_VANILLA_RECIPES, "config.gui.TFCCrafting.vanilla");
 		craftingConfig.setCategoryLanguageKey(CRAFTING_OPTIONS, "config.gui.TFCCrafting.options");
 
-		try
-		{
+		try {
 			new ConversionOption("appleConversion", getAsShapeless(new ItemStack(Items.apple, 1), new ItemStack(TFCItems.redApple, 1)));
 			new ConversionOption("arrowConversion", getAsShapeless(new ItemStack(Items.arrow, 1), new ItemStack(TFCItems.arrow, 1)),
 					getAsShapeless(new ItemStack(TFCItems.arrow, 1), new ItemStack(Items.arrow, 1)));
@@ -161,18 +143,18 @@ public class TFC_ConfigFiles
 					getAsShapeless(new ItemStack(TFCItems.bow, 1, 0), new ItemStack(Items.bow, 1)));
 			new ConversionOption("coalConversion", getAsShapeless(new ItemStack(Items.coal, 1), new ItemStack(TFCItems.coal, 1)),
 					getAsShapeless(new ItemStack(TFCItems.coal, 1), new ItemStack(Items.coal, 1)));
-			new ConversionOption("diamondConversion", getAsShapeless(new ItemStack(Items.diamond, 1), new ItemStack(TFCItems.gemDiamond,1,2)),
-					getAsShapeless(new ItemStack(Items.diamond, 2), new ItemStack(TFCItems.gemDiamond,1,3)),
-					getAsShapeless(new ItemStack(Items.diamond, 3), new ItemStack(TFCItems.gemDiamond,1,4)),
-					getAsShapeless(new ItemStack(TFCItems.gemDiamond,1,2), new ItemStack(Items.diamond)),
-					getAsShapeless(new ItemStack(TFCItems.gemDiamond,1,3), new ItemStack(Items.diamond), new ItemStack(Items.diamond)),
-					getAsShapeless(new ItemStack(TFCItems.gemDiamond,1,4), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond)));
-			new ConversionOption("emeraldConversion", getAsShapeless(new ItemStack(Items.emerald, 1), new ItemStack(TFCItems.gemEmerald,1,2)),
-					getAsShapeless(new ItemStack(Items.emerald, 2), new ItemStack(TFCItems.gemEmerald,1,3)),
-					getAsShapeless(new ItemStack(Items.emerald, 3), new ItemStack(TFCItems.gemEmerald,1,4)),
-					getAsShapeless(new ItemStack(TFCItems.gemEmerald,1,2), new ItemStack(Items.emerald)),
-					getAsShapeless(new ItemStack(TFCItems.gemEmerald,1,3), new ItemStack(Items.emerald), new ItemStack(Items.emerald)),
-					getAsShapeless(new ItemStack(TFCItems.gemEmerald,1,4), new ItemStack(Items.emerald), new ItemStack(Items.emerald), new ItemStack(Items.emerald)));
+			new ConversionOption("diamondConversion", getAsShapeless(new ItemStack(Items.diamond, 1), new ItemStack(TFCItems.gemDiamond, 1, 2)),
+					getAsShapeless(new ItemStack(Items.diamond, 2), new ItemStack(TFCItems.gemDiamond, 1, 3)),
+					getAsShapeless(new ItemStack(Items.diamond, 3), new ItemStack(TFCItems.gemDiamond, 1, 4)),
+					getAsShapeless(new ItemStack(TFCItems.gemDiamond, 1, 2), new ItemStack(Items.diamond)),
+					getAsShapeless(new ItemStack(TFCItems.gemDiamond, 1, 3), new ItemStack(Items.diamond), new ItemStack(Items.diamond)),
+					getAsShapeless(new ItemStack(TFCItems.gemDiamond, 1, 4), new ItemStack(Items.diamond), new ItemStack(Items.diamond), new ItemStack(Items.diamond)));
+			new ConversionOption("emeraldConversion", getAsShapeless(new ItemStack(Items.emerald, 1), new ItemStack(TFCItems.gemEmerald, 1, 2)),
+					getAsShapeless(new ItemStack(Items.emerald, 2), new ItemStack(TFCItems.gemEmerald, 1, 3)),
+					getAsShapeless(new ItemStack(Items.emerald, 3), new ItemStack(TFCItems.gemEmerald, 1, 4)),
+					getAsShapeless(new ItemStack(TFCItems.gemEmerald, 1, 2), new ItemStack(Items.emerald)),
+					getAsShapeless(new ItemStack(TFCItems.gemEmerald, 1, 3), new ItemStack(Items.emerald), new ItemStack(Items.emerald)),
+					getAsShapeless(new ItemStack(TFCItems.gemEmerald, 1, 4), new ItemStack(Items.emerald), new ItemStack(Items.emerald), new ItemStack(Items.emerald)));
 			new ConversionOption("fishConversion", getAsShapeless(new ItemStack(Items.fish, 1), new ItemStack(TFCItems.fishRaw, 1)));
 			new ConversionOption("fishingRodConversion", getAsShapeless(new ItemStack(Items.fishing_rod, 1), new ItemStack(TFCItems.fishingRod, 1, 0)),
 					getAsShapeless(new ItemStack(TFCItems.fishingRod, 1, 0), new ItemStack(Items.fishing_rod, 1)));
@@ -272,18 +254,16 @@ public class TFC_ConfigFiles
 			  Custom SyncingOption for enableBowlsAlwaysBreak
 			  getRecipes() is unused, but returns an ImmutableList of the bowl crafting recipe for conviniance & consistency.
 			 */
-			new SyncingOption("enableBowlsAlwaysBreak", TFCCrafting.class, craftingConfig, CRAFTING_OPTIONS)
-			{
-				private IRecipe recipesTFC = CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.potteryBowl, 2), new Object[] {
-					"#####",
-					"#####",
-					"#####",
-					" ### ",
-					"#   #", '#', new ItemStack(TFCItems.flatClay, 1, 1)});
+			new SyncingOption("enableBowlsAlwaysBreak", TFCCrafting.class, craftingConfig, CRAFTING_OPTIONS) {
+				private IRecipe recipesTFC = CraftingManagerTFC.getInstance().addRecipe(new ItemStack(TFCItems.potteryBowl, 2), new Object[]{
+						"#####",
+						"#####",
+						"#####",
+						" ### ",
+						"#   #", '#', new ItemStack(TFCItems.flatClay, 1, 1)});
 
 				@Override
-				public void apply(boolean enabled) throws IllegalAccessException
-				{
+				public void apply(boolean enabled) throws IllegalAccessException {
 					if (currentValue != enabled) // if we need to change states
 					{
 						recipesTFC.getRecipeOutput().stackSize = enabled ? 4 : 2;
@@ -295,30 +275,23 @@ public class TFC_ConfigFiles
 				}
 
 				@Override
-				public ImmutableList<IRecipe> getRecipes()
-				{
+				public ImmutableList<IRecipe> getRecipes() {
 					return ImmutableList.of(recipesTFC);
 				}
 
 				@Override
-				public String toString()
-				{
+				public String toString() {
 					return name + "[default:" + defaultValue + " current:" + isAplied() + " config:" + inConfig() + " #ofRecipes: 1]";
 				}
 			};
 
-			for (SyncingOption option : SYNCING_OPTION_MAP.values())
-			{
+			for (SyncingOption option : SYNCING_OPTION_MAP.values()) {
 				option.loadFromConfig();
 			}
-		}
-		catch (NoSuchFieldException e)
-		{
+		} catch (NoSuchFieldException e) {
 			TerraFirmaCraft.LOG.fatal("Fatal error loading TFCCrafting", e);
 			Throwables.propagate(e);
-		}
-		catch (IllegalAccessException e)
-		{
+		} catch (IllegalAccessException e) {
 			TerraFirmaCraft.LOG.fatal("Fatal error loading TFCCrafting ", e);
 			Throwables.propagate(e);
 		}
@@ -326,14 +299,13 @@ public class TFC_ConfigFiles
 		if (craftingConfig.hasChanged()) craftingConfig.save();
 	}
 
-	private static ShapelessRecipes getAsShapeless(ItemStack out, Object... in)
-	{
-		for (int i = 0; i < in.length; i++)
-		{
+	private static ShapelessRecipes getAsShapeless(ItemStack out, Object... in) {
+		for (int i = 0; i < in.length; i++) {
 			if (in[i] instanceof ItemStack) continue;
 			if (in[i] instanceof Item) in[i] = new ItemStack((Item) in[i]);
 			else if (in[i] instanceof Block) in[i] = new ItemStack((Block) in[i]);
-			else throw new IllegalArgumentException("Type of " + in[i] + " (arg #" + i + ") not Itemstack, Item or Block.");
+			else
+				throw new IllegalArgumentException("Type of " + in[i] + " (arg #" + i + ") not Itemstack, Item or Block.");
 		}
 		return new ShapelessRecipes(out, Arrays.asList(in));
 	}
@@ -341,14 +313,14 @@ public class TFC_ConfigFiles
 	/**
 	 * Ordered the same as in TFCOptions!
 	 */
-	public static void reloadGeneral()
-	{
+	public static void reloadGeneral() {
 		if (generalConfig == null) throw new IllegalStateException("Config reload attempt before preinit.");
 		TerraFirmaCraft.LOG.info("Loading TFCConfig");
 
 		generalConfig.setCategoryLanguageKey(GENERAL, "config.gui.TFCConfig.general");
 
-		if (craftingConfig.hasCategory("nei hiding")) generalConfig.get(GENERAL, "enableNEIHiding", enableNEIHiding).set(craftingConfig.getBoolean("enableNEIHiding", "nei hiding", enableNEIHiding, ""));
+		if (craftingConfig.hasCategory("nei hiding"))
+			generalConfig.get(GENERAL, "enableNEIHiding", enableNEIHiding).set(craftingConfig.getBoolean("enableNEIHiding", "nei hiding", enableNEIHiding, ""));
 
 		enableNEIHiding = generalConfig.getBoolean("enableNEIHiding", GENERAL, enableNEIHiding, "Set to false to show hidden items in NEI. Note that most of these items were hidden to prevent players from cheating them in and crashing their game.");
 		enablePowderKegs = generalConfig.getBoolean("enablePowderKegs", GENERAL, enablePowderKegs, "Set this to false to disable powder keg explosions.", "config.gui.TFCConfig.general.enablePowderKegs");
@@ -371,8 +343,7 @@ public class TFC_ConfigFiles
 		enableToolModeIndicator = generalConfig.getBoolean("enableToolModeIndicator", GENERAL, enableToolModeIndicator, "Set to false to hide the tool mode indicator that is displayed next to the hotbar for tools such as chisels and hoes.", "config.gui.TFCConfig.general.enableToolModeIndicator");
 		generalConfig.setCategoryLanguageKey(TIME, "config.gui.TFCConfig.time");
 		yearLength = generalConfig.getInt("yearLength", TIME, yearLength, 96, 12000, "This is how many days are in a year. Keep this to multiples of 12.", "config.gui.TFCConfig.time.yearLength");
-		if (yearLength % 12 != 0) 
-		{
+		if (yearLength % 12 != 0) {
 			Property prop = generalConfig.get(TIME, "yearLength", 96);
 			TerraFirmaCraft.LOG.warn("Invalid yearLength in the config file. Changing to the next multiple of 12.");
 			yearLength = 12 + (12 * (yearLength / 12)); // Extra validation, because we need multiples of 12. Rounds up so it can never be 0.
@@ -446,11 +417,9 @@ public class TFC_ConfigFiles
 
 		if (!generalConfig.hasCategory(COLORS)) // Migrate old colors to there new homes
 		{
-			for (String catName : COLOR_CATEGORIES)
-			{
+			for (String catName : COLOR_CATEGORIES) {
 				ConfigCategory cat = generalConfig.getCategory(catName);
-				for (String propName : ImmutableSet.copyOf(cat.keySet()))
-				{
+				for (String propName : ImmutableSet.copyOf(cat.keySet())) {
 					generalConfig.moveProperty(catName, propName, COLORS + '.' + catName);
 				}
 				generalConfig.removeCategory(cat);
@@ -478,8 +447,7 @@ public class TFC_ConfigFiles
 	 * To deal with the fact that bytes are signed in java, and we like to use 0 - 255 in the config, values are being "& 0xFF".
 	 */
 	@SuppressWarnings("UnusedReturnValue")
-	private static byte[] getColor(Configuration cfg, String subcat, byte[] def, String langKey)
-	{
+	private static byte[] getColor(Configuration cfg, String subcat, byte[] def, String langKey) {
 		final String cat = COLORS + '.' + subcat;
 		cfg.setCategoryLanguageKey(cat, langKey);
 		cfg.setCategoryPropertyOrder(cat, ImmutableList.of("Red", "Green", "Blue", "Alpha"));
@@ -487,11 +455,12 @@ public class TFC_ConfigFiles
 		def[0] = (byte) cfg.getInt("Red", cat, def[0] & 0xFF, 0, 255, "", "config.gui.TFCConfig.colors.r");
 		def[1] = (byte) cfg.getInt("Green", cat, def[1] & 0xFF, 0, 255, "", "config.gui.TFCConfig.colors.g");
 		def[2] = (byte) cfg.getInt("Blue", cat, def[2] & 0xFF, 0, 255, "", "config.gui.TFCConfig.colors.b");
-		if (def.length == 4) def[3] = (byte) cfg.getInt("Alpha", cat, def[3] & 0xFF, 0, 255, "", "config.gui.TFCConfig.colors.a");
+		if (def.length == 4)
+			def[3] = (byte) cfg.getInt("Alpha", cat, def[3] & 0xFF, 0, 255, "", "config.gui.TFCConfig.colors.a");
 		return def;
 	}
-	public static void reloadOres()
-	{
+
+	public static void reloadOres() {
 		if (oresConfig == null) throw new IllegalStateException("Config reload attempt before preinit.");
 		TerraFirmaCraft.LOG.info("Loading TFCOres");
 
@@ -513,7 +482,6 @@ public class TFC_ConfigFiles
 		oreList.put("Bauxite", getOreData("Bauxite", "veins", "medium", MOD_ID + ":Ore1", 15, 120, new String[]{"granite", "gneiss", "basalt", "shale"}, 5, 128, 80, 60));
 		oreList.put("Scheelite", getOreData("Scheelite", "veins", "medium", MOD_ID + ":Ore2", 0, 150, new String[]{"igneous intrusive"}, 5, 128, 80, 60));
 		oreList.put("Wolframite", getOreData("Wolframite", "veins", "medium", MOD_ID + ":Ore2", 1, 150, new String[]{"igneous intrusive"}, 5, 128, 80, 60));
-
 
 
 		oreList.put("Kaolinite", getOreData("Kaolinite", "default", "medium", MOD_ID + ":Ore3", 0, 90, new String[]{"sedimentary"}, 5, 128, 80, 60));
@@ -552,17 +520,16 @@ public class TFC_ConfigFiles
 		oreList.put("Scheelite Surface", getOreData("Scheelite Surface", "veins", "medium", MOD_ID + ":Ore1", 2, 120, new String[]{"granite"}, 128, 240, 40, 40));
 
 		// getCategoryNames returns an ImmutableSet
-		for (String s : oresConfig.getCategoryNames())
-		{
+		for (String s : oresConfig.getCategoryNames()) {
 			// If this is a new entry, otherwise it has already been added by the previous bit of code.
-			if (!oreList.containsKey(s)) oreList.put(s, getOreData(s, "default", "small", "Ore", 0, 100, new String[] {"granite", "basalt", "sedimentary"}, 5, 128, 50, 50));
+			if (!oreList.containsKey(s))
+				oreList.put(s, getOreData(s, "default", "small", "Ore", 0, 100, new String[]{"granite", "basalt", "sedimentary"}, 5, 128, 50, 50));
 		}
 
 		if (oresConfig.hasChanged()) oresConfig.save();
 	}
 
-	private static OreSpawnData getOreData(String category, String type, String size, String blockName, int meta, int rarity, String[] rocks, int min, int max, int v, int h)
-	{
+	private static OreSpawnData getOreData(String category, String type, String size, String blockName, int meta, int rarity, String[] rocks, int min, int max, int v, int h) {
 		return new OreSpawnData(
 				oresConfig.get(category, "type", type).setValidValues(ALLOWED_TYPES).getString(),
 				oresConfig.get(category, "size", size).setValidValues(ALLOWED_SIZES).getString(),

@@ -1,32 +1,40 @@
 package com.bioxx.tfc.WorldGen.GenLayers;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-
-import net.minecraft.world.gen.layer.GenLayer;
-
 import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.WorldGen.TFCBiome;
-import com.bioxx.tfc.WorldGen.TFCWorldType;
 import com.bioxx.tfc.WorldGen.GenLayers.Biome.*;
 import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverInitTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverMixTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverTFC;
+import com.bioxx.tfc.WorldGen.TFCBiome;
+import com.bioxx.tfc.WorldGen.TFCWorldType;
+import net.minecraft.world.gen.layer.GenLayer;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public abstract class GenLayerTFC extends GenLayer
-{
+public abstract class GenLayerTFC extends GenLayer {
+	private static boolean shouldDraw;
 	protected long worldGenSeed;
 	protected GenLayerTFC parent;
 	protected long chunkSeed;
 	protected long baseSeed;
 
-	public static GenLayerTFC[] initialize(long par0, TFCWorldType par2)
-	{
+	public GenLayerTFC(long par1) {
+		super(par1);
+		this.baseSeed = par1;
+		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
+		this.baseSeed += par1;
+		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
+		this.baseSeed += par1;
+		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
+		this.baseSeed += par1;
+
+	}
+
+	public static GenLayerTFC[] initialize(long par0, TFCWorldType par2) {
 		GenLayerTFC continent = genContinent(0, false);
 		continent = new GenLayerDeepOcean(4L, continent);
 		drawImage(512, continent, "8b Continents Done Deep Ocean");
@@ -43,14 +51,12 @@ public abstract class GenLayerTFC extends GenLayer
 		drawImage(512, continentCopy2, "16 ZoomBiome");
 		GenLayerTFC var18 = new GenLayerBiomeEdge(1000L, continentCopy2);
 		drawImage(512, var18, "17 BiomeEdge");
-		for (int var7 = 0; var7 < var4; ++var7)
-		{
+		for (int var7 = 0; var7 < var4; ++var7) {
 			var18 = new GenLayerZoomTFC(1000 + var7, var18);
-			drawImage(512, var18, "18-"+var7+" Zoom");
+			drawImage(512, var18, "18-" + var7 + " Zoom");
 			if (var7 == 0)
 				var18 = new GenLayerAddIslandTFC(3L, var18);
-			if (var7 == 1)
-			{
+			if (var7 == 1) {
 				var18 = new GenLayerShoreTFC(1000L, var18);
 				drawImage(512, var18, "18z Shore");
 			}
@@ -81,9 +87,8 @@ public abstract class GenLayerTFC extends GenLayer
 		return new GenLayerTFC[]{riverMix, finalCont};
 	}
 
-	public static GenLayerTFC genContinent(long seed, boolean oceanReduction)
-	{
-		GenLayerTFC continentStart = new GenLayerIslandTFC(1L+seed);
+	public static GenLayerTFC genContinent(long seed, boolean oceanReduction) {
+		GenLayerTFC continentStart = new GenLayerIslandTFC(1L + seed);
 		drawImage(512, continentStart, "0 ContinentsStart");
 		GenLayerFuzzyZoomTFC continentFuzzyZoom = new GenLayerFuzzyZoomTFC(2000L, continentStart);
 		drawImage(512, continentFuzzyZoom, "1 ContinentsFuzzyZoom");
@@ -104,52 +109,49 @@ public abstract class GenLayerTFC extends GenLayer
 		return continent;
 	}
 
-	private static boolean shouldDraw;
-	public static void drawImage(int size, GenLayerTFC genlayer, String name)
-	{
-		if(!shouldDraw)
+	public static void drawImage(int size, GenLayerTFC genlayer, String name) {
+		if (!shouldDraw)
 			return;
-		try 
-		{
-			File outFile = new File(name+".bmp");
-			if(outFile.exists())
+		try {
+			File outFile = new File(name + ".bmp");
+			if (outFile.exists())
 				return;
 			int[] ints = genlayer.getInts(0, 0, size, size);
-			BufferedImage outBitmap = new BufferedImage(size,size,BufferedImage.TYPE_INT_RGB);
+			BufferedImage outBitmap = new BufferedImage(size, size, BufferedImage.TYPE_INT_RGB);
 			Graphics2D graphics = (Graphics2D) outBitmap.getGraphics();
 			graphics.clearRect(0, 0, size, size);
 			TerraFirmaCraft.LOG.info(name + ".bmp");
-			for(int x = 0; x < size; x++)
-			{
-				for(int z = 0; z < size; z++)
-				{
-					if(ints[x*size+z] != -1 && TFCBiome.getBiomeGenArray()[ints[x*size+z]] != null)
-					{
-						graphics.setColor(Color.getColor("", TFCBiome.getBiome(ints[x*size+z]).getBiomeColor()));	
+			for (int x = 0; x < size; x++) {
+				for (int z = 0; z < size; z++) {
+					if (ints[x * size + z] != -1 && TFCBiome.getBiomeGenArray()[ints[x * size + z]] != null) {
+						graphics.setColor(Color.getColor("", TFCBiome.getBiome(ints[x * size + z]).getBiomeColor()));
 						graphics.drawRect(x, z, 1, 1);
 					}
 				}
 			}
 			TerraFirmaCraft.LOG.info(name + ".bmp");
 			ImageIO.write(outBitmap, "BMP", outFile);
-		}
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 	}
 
-	public GenLayerTFC(long par1)
-	{
-		super(par1);
-		this.baseSeed = par1;
-		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-		this.baseSeed += par1;
-		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-		this.baseSeed += par1;
-		this.baseSeed *= this.baseSeed * 6364136223846793005L + 1442695040888963407L;
-		this.baseSeed += par1;
+	@SuppressWarnings("UnusedReturnValue")
+	public static int validateInt(int[] array, int index) {
+		/*if(TFCBiome.biomeList[array[index]] == null)
+			TerraFirmaCraft.log.error("Error garbage data: "+array[index]);*/
+		return array[index];
+	}
 
+	public static void validateIntArray(int[] array, int xSize, int zSize) {
+		for (int z = 0; z < zSize; z++) {
+			for (int x = 0; x < xSize; x++) {
+				if (TFCBiome.biomeList[array[x + z * xSize]] == null) {
+					TerraFirmaCraft.LOG.error("Error Array garbage data: " + array[x + z * xSize]);
+					return;
+				}
+			}
+		}
 	}
 
 	/**
@@ -157,8 +159,7 @@ public abstract class GenLayerTFC extends GenLayer
 	 * argument).
 	 */
 	@Override
-	public void initWorldGenSeed(long par1)
-	{
+	public void initWorldGenSeed(long par1) {
 		worldGenSeed = par1;
 		if (this.parent != null)
 			parent.initWorldGenSeed(par1);
@@ -175,8 +176,7 @@ public abstract class GenLayerTFC extends GenLayer
 	 * Initialize layer's current chunkSeed based on the local worldGenSeed and the (x,z) chunk coordinates.
 	 */
 	@Override
-	public void initChunkSeed(long par1, long par3)
-	{
+	public void initChunkSeed(long par1, long par3) {
 		chunkSeed = worldGenSeed;
 		chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
 		chunkSeed += par1;
@@ -192,9 +192,8 @@ public abstract class GenLayerTFC extends GenLayer
 	 * returns a LCG pseudo random number from [0, x). Args: int x
 	 */
 	@Override
-	protected int nextInt(int par1)
-	{
-		int var2 = (int)((this.chunkSeed >> 24) % par1);
+	protected int nextInt(int par1) {
+		int var2 = (int) ((this.chunkSeed >> 24) % par1);
 		if (var2 < 0)
 			var2 += par1;
 		chunkSeed *= chunkSeed * 6364136223846793005L + 1442695040888963407L;
@@ -208,27 +207,4 @@ public abstract class GenLayerTFC extends GenLayer
 	 */
 	@Override
 	public abstract int[] getInts(int var1, int var2, int var3, int var4);
-
-	@SuppressWarnings("UnusedReturnValue")
-	public static int validateInt(int[] array, int index)
-	{
-		/*if(TFCBiome.biomeList[array[index]] == null)
-			TerraFirmaCraft.log.error("Error garbage data: "+array[index]);*/
-		return array[index];
-	}
-
-	public static void validateIntArray(int[] array, int xSize, int zSize)
-	{
-		for(int z = 0; z < zSize; z++)
-		{
-			for(int x = 0; x < xSize; x++)
-			{
-				if(TFCBiome.biomeList[array[x+z*xSize]] == null)
-				{
-					TerraFirmaCraft.LOG.error("Error Array garbage data: " + array[x + z * xSize]);
-					return;
-				}
-			}
-		}
-	}
 }

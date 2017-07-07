@@ -1,7 +1,8 @@
 package com.bioxx.tfc.Render.TESR;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TileEntities.TEQuern;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
@@ -11,34 +12,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.IBlockAccess;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TileEntities.TEQuern;
+import java.util.Random;
 
 @SuppressWarnings("SameParameterValue")
-public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
-{
+public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler {
 	private static final ResourceLocation BASE_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Quern Base.png");
 	private static final ResourceLocation TOP1_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Quern Top 1.png");
 	private static final ResourceLocation TOP2_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Quern Top 2.png");
 	private static final ResourceLocation WOOD_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/wood/Oak Plank.png");
 
 	@Override
-	public void renderTileEntityAt(TileEntity te, double xDis, double yDis, double zDis, float f)
-	{
+	public void renderTileEntityAt(TileEntity te, double xDis, double yDis, double zDis, float f) {
 		TEQuern teq = (TEQuern) te;
 
 		Tessellator tess = Tessellator.instance;
 		GL11.glPushMatrix();
 		{
-			GL11.glTranslatef((float)xDis, (float)yDis, (float)zDis);
+			GL11.glTranslatef((float) xDis, (float) yDis, (float) zDis);
 			this.renderBase(tess);
-			if(teq.hasQuern)
-			{
+			if (teq.hasQuern) {
 				/*
 				  Both renderRoundTop and renderSquareTop can be used if you want the square block top + the round stone animation
 				  The last parameter is for rendering the round stone sides, no need to render if you can't see them :)
@@ -47,36 +41,34 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 				//this.renderSquareTop(tess); // Renders the top Quern box
 
 				renderWoodHandle(tess, teq.rotatetimer, teq.getWorldObj().rand, 0.8); // Renders the wooden handle
-				
-				if(teq.storage[0] != null) renderItem(teq.storage[0]); // Renders the input slot item
+
+				if (teq.storage[0] != null) renderItem(teq.storage[0]); // Renders the input slot item
 			}
 		}
 		GL11.glPopMatrix();
 	}
 
-	private void renderItem(ItemStack is)
-	{
+	private void renderItem(ItemStack is) {
 		EntityItem customitem = new EntityItem(field_147501_a.field_147550_f);
 		float blockScale = 0.7F;
 		float timeD = (float) -(360.0 * (System.currentTimeMillis() & 0x3FFFL) / 0x3FFFL);
-		
+
 		bindTexture(TextureMap.locationItemsTexture);
 		customitem.setEntityItemStack(is);
 		customitem.hoverStart = 0f;
-		
+
 		GL11.glTranslatef(0.5f, 0.83f, 0.5f);
 		GL11.glRotatef(timeD, 0.0f, 1.0F, 0.0F);
 		GL11.glScalef(blockScale, blockScale, blockScale);
 		itemRenderer.doRender(customitem, 0, 0, 0, 0, 0);
 	}
 
-	private void renderRoundTop(Tessellator t, int pos, Random rand, double angle, Boolean renderSides)
-	{
+	private void renderRoundTop(Tessellator t, int pos, Random rand, double angle, Boolean renderSides) {
 		int sides = 4; // how many sides should the quern stone have
 		double speed = pos * 4; // * 4 will make 2 turns, * 1 will make 1 turn, also look at TEQuern
 		double i = 0.625; // where should top rendering start
 		double j = i + 0.2; // thickness of the quern stone
-		if(!renderSides) j = i + 0.201; // fixes the double render glitch when rendering the square top box
+		if (!renderSides) j = i + 0.201; // fixes the double render glitch when rendering the square top box
 		//double k = j + 0.175; // height of the wooden handle
 		double center = 0.5; // center
 		double rad = 0.5; // radius of the quern stone
@@ -85,8 +77,7 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 		if (pos > 0)
 			center = 0.494 + (rand.nextDouble() * (0.003 - (-0.003))) + 0.003;
 
-		for(int l = 0; l < sides; l++)
-		{
+		for (int l = 0; l < sides; l++) {
 			double a = ((l * (360 / sides) + speed + (4 * pos)) * Math.PI) / 180;
 			double b = (((1 + l) * (360 / sides) + speed + (4 * pos)) * Math.PI) / 180;
 			double x1 = Math.cos(a + angle) * rad + center;
@@ -109,8 +100,7 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 			t.addVertexWithUV(x2, j, y2, xx2, yy2);
 			t.draw();
 
-			if(renderSides)
-			{
+			if (renderSides) {
 				bindTexture(BASE_TEXTURE);
 				t.startDrawingQuads();
 				t.addVertexWithUV(x1, i, y1, 1 - 0.27, 1 - j);
@@ -159,8 +149,7 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 		t.draw();
 	}*/
 
-	private void renderWoodHandle(Tessellator t, int pos, Random rand, double angle)
-	{
+	private void renderWoodHandle(Tessellator t, int pos, Random rand, double angle) {
 		double speed = pos * 4; // * 4 will make 2 turns, * 1 will make 1 turn, also look at TEQuern
 		double j = 0.825; // where should wood handle rendering start
 		double k = j + 0.175; // height of the wooden handle
@@ -219,8 +208,7 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 		t.draw();
 	}
 
-	private void renderBase(Tessellator t)
-	{
+	private void renderBase(Tessellator t) {
 		double i = 0.625;
 		bindTexture(BASE_TEXTURE);
 		t.startDrawingQuads();
@@ -264,14 +252,12 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderblocks)
-	{
+	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderblocks) {
 		return false;
 	}
 
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-	{
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		renderer.setRenderBounds(0, 0, 0, 1, 0.625, 1);
 		Tessellator var14 = Tessellator.instance;
 		var14.startDrawingQuads();
@@ -297,14 +283,12 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory(int modelId)
-	{
+	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
 	}
 
 	@Override
-	public int getRenderId()
-	{
+	public int getRenderId() {
 		return 0;
 	}
 }

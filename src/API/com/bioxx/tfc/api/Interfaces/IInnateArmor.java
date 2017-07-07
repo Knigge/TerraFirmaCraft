@@ -1,7 +1,6 @@
 package com.bioxx.tfc.api.Interfaces;
 
-public interface IInnateArmor 
-{
+public interface IInnateArmor {
 	int getCrushArmor();
 
 	int getSlashArmor();

@@ -1,7 +1,6 @@
 package com.bioxx.tfc.api.Enums;
 
-public enum TFCDirection 
-{
+public enum TFCDirection {
 	NORTH,
 	SOUTH,
 	EAST,

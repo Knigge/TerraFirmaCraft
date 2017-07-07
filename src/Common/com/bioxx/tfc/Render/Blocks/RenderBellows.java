@@ -1,59 +1,16 @@
 package com.bioxx.tfc.Render.Blocks;
 
+import com.bioxx.tfc.Blocks.Devices.BlockBellows;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Blocks.Devices.BlockBellows;
-
 @SuppressWarnings("WeakerAccess")
-public class RenderBellows implements ISimpleBlockRenderingHandler
-{
-	@Override
-	public boolean shouldRender3DInInventory(int modelId)
-	{
-		return true;
-	}
-
-	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-	{
-		//forward
-		renderer.overrideBlockTexture = BlockBellows.bellowsFront;
-		renderer.setRenderBounds(0.0F, 0.0F, 0.9F, 1.0F, 1.0F, 1.0F);
-		renderInvBlock(block, renderer);
-		//mid
-		renderer.clearOverrideBlockTexture();
-		renderer.setRenderBounds(0.1F, 0.1F, 0.05F, 0.9F, 0.9F, 0.95F);
-		renderInvBlock(block, renderer);
-		//back
-		renderer.overrideBlockTexture = BlockBellows.bellowsBack;
-		renderer.setRenderBounds(0.0F, 0.0F, 0, 1.0F, 1.0F, 0.1F);
-		renderInvBlock(block, renderer);
-
-		renderer.clearOverrideBlockTexture();
-	}
-
-	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-	{
-		//renderBlock(modelId, renderer, block, x, y, z);
-		return false;
-	}
-
-	@Override
-	public int getRenderId()
-	{
-		return 0;
-	}
-
-	public static void renderInvBlock(Block block, RenderBlocks renderer)
-	{
+public class RenderBellows implements ISimpleBlockRenderingHandler {
+	public static void renderInvBlock(Block block, RenderBlocks renderer) {
 		Tessellator var14 = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		var14.startDrawingQuads();
@@ -81,6 +38,40 @@ public class RenderBellows implements ISimpleBlockRenderingHandler
 		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, 0));
 		var14.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+	}
+
+	@Override
+	public boolean shouldRender3DInInventory(int modelId) {
+		return true;
+	}
+
+	@Override
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
+		//forward
+		renderer.overrideBlockTexture = BlockBellows.bellowsFront;
+		renderer.setRenderBounds(0.0F, 0.0F, 0.9F, 1.0F, 1.0F, 1.0F);
+		renderInvBlock(block, renderer);
+		//mid
+		renderer.clearOverrideBlockTexture();
+		renderer.setRenderBounds(0.1F, 0.1F, 0.05F, 0.9F, 0.9F, 0.95F);
+		renderInvBlock(block, renderer);
+		//back
+		renderer.overrideBlockTexture = BlockBellows.bellowsBack;
+		renderer.setRenderBounds(0.0F, 0.0F, 0, 1.0F, 1.0F, 0.1F);
+		renderInvBlock(block, renderer);
+
+		renderer.clearOverrideBlockTexture();
+	}
+
+	@Override
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		//renderBlock(modelId, renderer, block, x, y, z);
+		return false;
+	}
+
+	@Override
+	public int getRenderId() {
+		return 0;
 	}
 
 	/*private void renderBlock(int modelId, RenderBlocks renderer, Block block, int x, int y, int z)

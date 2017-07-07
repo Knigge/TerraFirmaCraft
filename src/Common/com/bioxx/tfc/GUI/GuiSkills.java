@@ -1,48 +1,41 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Containers.ContainerSkills;
+import com.bioxx.tfc.Core.Player.SkillStats;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Textures;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.SkillsManager;
+import com.bioxx.tfc.api.SkillsManager.Skill;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Containers.ContainerSkills;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Textures;
-import com.bioxx.tfc.Core.Player.SkillStats;
-import com.bioxx.tfc.api.SkillsManager;
-import com.bioxx.tfc.api.SkillsManager.Skill;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class GuiSkills extends GuiContainerTFC
-{
+public class GuiSkills extends GuiContainerTFC {
+	private static final int SKILLS_PER_PAGE = 9;
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_skills.png");
 	protected EntityPlayer player;
 	private int skillsPage;
-	private static final int SKILLS_PER_PAGE = 9;
 
-	public GuiSkills(EntityPlayer player)
-	{
+	public GuiSkills(EntityPlayer player) {
 		super(new ContainerSkills(player), 176, 166);
 		this.setDrawInventory(false);
 		this.player = player;
 	}
 
 	@Override
-	protected void drawGuiContainerForegroundLayer(int par1, int par2)
-	{
+	protected void drawGuiContainerForegroundLayer(int par1, int par2) {
 		fontRendererObj.drawString(TFC_Core.translate("gui.skillpage"), this.xSize / 2 - fontRendererObj.getStringWidth(TFC_Core.translate("gui.skillpage")) / 2, 4, 4210752, false);
 		SkillStats ss = TFC_Core.getSkillStats(player);
 		int y = 10;
 		int count = -1;
-		for (Skill o : SkillsManager.instance.getSkillsArray())
-		{
+		for (Skill o : SkillsManager.instance.getSkillsArray()) {
 			count++;
-			if (count < (SKILLS_PER_PAGE * skillsPage) + SKILLS_PER_PAGE && count >= (SKILLS_PER_PAGE * skillsPage))
-			{
+			if (count < (SKILLS_PER_PAGE * skillsPage) + SKILLS_PER_PAGE && count >= (SKILLS_PER_PAGE * skillsPage)) {
 				bindTexture(texture);
 				drawTexturedModalRect(4, y, 4, 208, 168, 16);
 				y += 12;
@@ -57,14 +50,12 @@ public class GuiSkills extends GuiContainerTFC
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		this.drawGui(texture);
 	}
 
 	@Override
-	protected void drawGui(ResourceLocation rl)
-	{
+	protected void drawGui(ResourceLocation rl) {
 		bindTexture(rl);
 		guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2 - 3; //Shifted 3 pixels up to match other inventory tabs
@@ -72,36 +63,30 @@ public class GuiSkills extends GuiContainerTFC
 	}
 
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 		createButtons();
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton)
-	{
+	protected void actionPerformed(GuiButton guibutton) {
 		if (guibutton.id == 0)
 			Minecraft.getMinecraft().displayGuiScreen(new GuiInventoryTFC(Minecraft.getMinecraft().thePlayer));
 		else if (guibutton.id == 2)
 			Minecraft.getMinecraft().displayGuiScreen(new GuiCalendar(Minecraft.getMinecraft().thePlayer));
 		else if (guibutton.id == 3)
 			Minecraft.getMinecraft().displayGuiScreen(new GuiHealth(Minecraft.getMinecraft().thePlayer));
-		else if (guibutton.id == 4)
-		{
+		else if (guibutton.id == 4) {
 			if (skillsPage > 0)
 				skillsPage--;
-		}
-		else if (guibutton.id == 5)
-		{
+		} else if (guibutton.id == 5) {
 			if (9 + (skillsPage * SKILLS_PER_PAGE) < SkillsManager.instance.getSkillsArray().size())
 				skillsPage++;
 		}
 	}
 
 	@Override
-	public void updateScreen()
-	{
+	public void updateScreen() {
 		super.updateScreen();
 		((GuiButton) buttonList.get(4)).enabled = skillsPage != 0;
 		((GuiButton) buttonList.get(5)).enabled =
@@ -109,8 +94,7 @@ public class GuiSkills extends GuiContainerTFC
 	}
 
 	@SuppressWarnings("unchecked")
-	public void createButtons()
-	{
+	public void createButtons() {
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
 		buttonList.clear();
@@ -123,22 +107,18 @@ public class GuiSkills extends GuiContainerTFC
 	}
 
 	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
-	public class GuiButtonPage extends GuiButton
-	{
+	public class GuiButtonPage extends GuiButton {
 		private int u, v;
 
-		public GuiButtonPage(int id, int xPos, int yPos, int xSize, int ySize, int u, int v)
-		{
+		public GuiButtonPage(int id, int xPos, int yPos, int xSize, int ySize, int u, int v) {
 			super(id, xPos, yPos, xSize, ySize, "");
 			this.u = u;
 			this.v = v;
 		}
 
 		@Override
-		public void drawButton(Minecraft par1Minecraft, int xPos, int yPos)
-		{
-			if (this.visible)
-			{
+		public void drawButton(Minecraft par1Minecraft, int xPos, int yPos) {
+			if (this.visible) {
 				bindTexture(texture);
 				GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				this.field_146123_n = xPos >= this.xPosition && yPos >= this.yPosition && xPos < this.xPosition + this.width && yPos < this.yPosition + this.height;

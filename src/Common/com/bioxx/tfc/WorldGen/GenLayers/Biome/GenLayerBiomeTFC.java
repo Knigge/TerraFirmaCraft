@@ -1,18 +1,18 @@
 package com.bioxx.tfc.WorldGen.GenLayers.Biome;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
+import com.bioxx.tfc.WorldGen.TFCBiome;
+import com.bioxx.tfc.WorldGen.TFCWorldType;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.WorldGen.TFCBiome;
-import com.bioxx.tfc.WorldGen.TFCWorldType;
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
 @SuppressWarnings({"SameParameterValue", "CanBeFinal"})
-public class GenLayerBiomeTFC extends GenLayerTFC
-{
-	/** this sets all the biomes that are allowed to appear in the overworld */
-	private TFCBiome[] allowedBiomes = new TFCBiome[] {
+public class GenLayerBiomeTFC extends GenLayerTFC {
+	/**
+	 * this sets all the biomes that are allowed to appear in the overworld
+	 */
+	private TFCBiome[] allowedBiomes = new TFCBiome[]{
 			TFCBiome.OCEAN,
 			TFCBiome.HIGH_HILLS,
 			TFCBiome.PLAINS,
@@ -22,8 +22,7 @@ public class GenLayerBiomeTFC extends GenLayerTFC
 			TFCBiome.MOUNTAINS,
 	};
 
-	public GenLayerBiomeTFC(long par1, GenLayer par3GenLayer, TFCWorldType par4)
-	{
+	public GenLayerBiomeTFC(long par1, GenLayer par3GenLayer, TFCWorldType par4) {
 		super(par1);
 		this.parent = (GenLayerTFC) par3GenLayer;
 	}
@@ -33,16 +32,13 @@ public class GenLayerBiomeTFC extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int par1, int par2, int par3, int par4)
-	{
+	public int[] getInts(int par1, int par2, int par3, int par4) {
 		int[] var5 = this.parent.getInts(par1, par2, par3, par4);
 		validateIntArray(var5, par3, par4);
 		int[] var6 = IntCache.getIntCache(par3 * par4);
 
-		for (int var7 = 0; var7 < par4; ++var7)
-		{
-			for (int var8 = 0; var8 < par3; ++var8)
-			{
+		for (int var7 = 0; var7 < par4; ++var7) {
+			for (int var8 = 0; var8 < par3; ++var8) {
 				this.initChunkSeed(var8 + par1, var7 + par2);
 				int id = var5[var8 + var7 * par3];
 				if (TFC_Core.isOceanicBiome(id))

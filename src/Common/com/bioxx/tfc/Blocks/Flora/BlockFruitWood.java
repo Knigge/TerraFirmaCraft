@@ -1,7 +1,12 @@
 package com.bioxx.tfc.Blocks.Flora;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Blocks.BlockTerraContainer;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TileEntities.TEFruitTreeWood;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,111 +19,109 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Blocks.BlockTerraContainer;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.TileEntities.TEFruitTreeWood;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.Random;
 
 @SuppressWarnings("CanBeFinal")
-public class BlockFruitWood extends BlockTerraContainer
-{
+public class BlockFruitWood extends BlockTerraContainer {
 	private IIcon[] icons = new IIcon[Global.FRUIT_META_NAMES.length];
 
-	public BlockFruitWood()
-	{
+	public BlockFruitWood() {
 		super(Material.wood);
 		this.setBlockBounds(0.3f, 0, 0.3f, 0.7f, 1, 0.7f); //Default block bounds set to trunk state
 	}
 
-	private boolean checkOut(World world, int i, int j, int k, int l)
-	{
+	public static String getType(int meta) {
+		switch (meta) {
+			case 0:
+				return Global.FRUIT_META_NAMES[0];
+			case 1:
+				return Global.FRUIT_META_NAMES[1];
+			case 2:
+				return Global.FRUIT_META_NAMES[2];
+			case 3:
+				return Global.FRUIT_META_NAMES[3];
+			case 4:
+				return Global.FRUIT_META_NAMES[4];
+			case 5:
+				return Global.FRUIT_META_NAMES[5];
+			case 6:
+				return Global.FRUIT_META_NAMES[6];
+			case 7:
+				return Global.FRUIT_META_NAMES[7];
+			case 8:
+				return Global.FRUIT_META_NAMES[8];
+		}
+		return "";
+	}
+
+	private boolean checkOut(World world, int i, int j, int k, int l) {
 		return world.getBlock(i, j, k) == this && world.getBlockMetadata(i, j, k) == l;
 	}
 
 	@Override
-	public int damageDropped(int j)
-	{
+	public int damageDropped(int j) {
 		return j;
 	}
 
 	@Override
-	public IIcon getIcon(int i, int j)
-	{
+	public IIcon getIcon(int i, int j) {
 		return icons[j];
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister registerer)
-	{
-		for(int i = 0; i < 9; i++)
+	public void registerBlockIcons(IIconRegister registerer) {
+		for (int i = 0; i < 9; i++)
 			icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "wood/fruit trees/" + Global.FRUIT_META_NAMES[i] + " Wood");
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
-	{
+	public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l) {
 		//we need to make sure the player has the correct tool out
 		boolean isAxeorSaw = false;
 		ItemStack equip = entityplayer.getCurrentEquippedItem();
-		if (equip != null)
-		{
+		if (equip != null) {
 			int[] equipIDs = OreDictionary.getOreIDs(equip);
-			for (int id : equipIDs)
-			{
+			for (int id : equipIDs) {
 				String name = OreDictionary.getOreName(id);
-				if (name.startsWith("itemAxe") || name.startsWith("itemSaw"))
-				{
+				if (name.startsWith("itemAxe") || name.startsWith("itemSaw")) {
 					isAxeorSaw = true;
 					break;
 				}
 			}
 		}
-		if(isAxeorSaw)
-		{
+		if (isAxeorSaw) {
 			int y = 0;
 			//int count = 0;
 
-			if(world.getBlock(i, j+1, k) == this || world.getBlock(i, j-1, k) == this)
-			{
+			if (world.getBlock(i, j + 1, k) == this || world.getBlock(i, j - 1, k) == this) {
 				//super.harvestBlock(world, entityplayer, i, j, k, l);
 				boolean checkArray[][][] = new boolean[11][50][11];
 
-				if(TFC_Core.isGrass(world.getBlock(i, j+y-1, k)) || TFC_Core.isDirt(world.getBlock(i, j+y-1, k)))
-				{
+				if (TFC_Core.isGrass(world.getBlock(i, j + y - 1, k)) || TFC_Core.isDirt(world.getBlock(i, j + y - 1, k))) {
 					boolean reachedTop = false;
-					while(!reachedTop)
-					{
-						if (world.isAirBlock(i, j+y+1, k))
-						{
+					while (!reachedTop) {
+						if (world.isAirBlock(i, j + y + 1, k)) {
 							reachedTop = true;
 						}
-						scanLogs(world,i,j+y,k,l,checkArray,6,y,6);
+						scanLogs(world, i, j + y, k, l, checkArray, 6, y, 6);
 						y++;
 					}
 				}
-			}
-			else if(world.getBlock(i + 1, j, k) == this ||
+			} else if (world.getBlock(i + 1, j, k) == this ||
 					world.getBlock(i - 1, j, k) == this ||
 					world.getBlock(i, j, k + 1) == this ||
-					world.getBlock(i, j, k - 1) == this)
-			{
+					world.getBlock(i, j, k - 1) == this) {
 				Random r = new Random();
-				if(r.nextInt(100) > 50/* && isAxeorSaw*/)
-				{
-					if(l < 8 && (
+				if (r.nextInt(100) > 50/* && isAxeorSaw*/) {
+					if (l < 8 && (
 							world.getBlock(i + 1, j, k) == TFCBlocks.fruitTreeLeaves2 ||
-							world.getBlock(i - 1, j, k) == TFCBlocks.fruitTreeLeaves2 ||
-							world.getBlock(i, j, k + 1) == TFCBlocks.fruitTreeLeaves2 ||
-							world.getBlock(i, j, k - 1) == TFCBlocks.fruitTreeLeaves2 ||
-							world.getBlock(i, j + 1, k) == TFCBlocks.fruitTreeLeaves2 ||
-							world.getBlock(i, j - 1, k) == TFCBlocks.fruitTreeLeaves2))
-					{
+									world.getBlock(i - 1, j, k) == TFCBlocks.fruitTreeLeaves2 ||
+									world.getBlock(i, j, k + 1) == TFCBlocks.fruitTreeLeaves2 ||
+									world.getBlock(i, j, k - 1) == TFCBlocks.fruitTreeLeaves2 ||
+									world.getBlock(i, j + 1, k) == TFCBlocks.fruitTreeLeaves2 ||
+									world.getBlock(i, j - 1, k) == TFCBlocks.fruitTreeLeaves2)) {
 						l += 8;
 					}
 					dropBlockAsItem(world, i, j, k, new ItemStack(TFCBlocks.fruitTreeSapling, 1, l));
@@ -132,46 +135,35 @@ public class BlockFruitWood extends BlockTerraContainer
 	}
 
 	@Override
-	public Item getItemDropped(int i, Random random, int j)
-	{
+	public Item getItemDropped(int i, Random random, int j) {
 		return TFCItems.logs;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int i, int j, int k, Block block)
-	{
+	public void onNeighborBlockChange(World world, int i, int j, int k, Block block) {
 		boolean check = false;
-		for(int h = -1; h <= 1; h++)
-		{
-			for(int g = -1; g <= 1; g++)
-			{
-				for(int f = -1; f <= 1; f++)
-				{
-					if(world.getBlock(i + h, j + g, k + f) == this && world.getBlockMetadata(i + h, j + g, k + f) == world.getBlockMetadata(i, j, k))
+		for (int h = -1; h <= 1; h++) {
+			for (int g = -1; g <= 1; g++) {
+				for (int f = -1; f <= 1; f++) {
+					if (world.getBlock(i + h, j + g, k + f) == this && world.getBlockMetadata(i + h, j + g, k + f) == world.getBlockMetadata(i, j, k))
 						check = true;
 				}
 			}
 		}
-		if(!check)
+		if (!check)
 			world.setBlockToAir(i, j, k);
 	}
 
-	private void scanLogs(World world, int i, int j, int k, int l, boolean[][][] checkArray,int x, int y, int z)
-	{
-		if(y >= 0)
-		{
+	private void scanLogs(World world, int i, int j, int k, int l, boolean[][][] checkArray, int x, int y, int z) {
+		if (y >= 0) {
 			checkArray[x][y][z] = true;
 
-			for (int offsetY = 0; offsetY <= 1; offsetY++)
-			{
-				for (int offsetX = -1; offsetX <= 1; offsetX++)
-				{
-					for (int offsetZ = -1; offsetZ <= 1; offsetZ++)
-					{
-						if(x + offsetX < 11 && x + offsetX >= 0 && z + offsetZ < 11 && z + offsetZ >= 0 && y + offsetY < 50 && y + offsetY >= 0)
-						{
-							if(checkOut(world, i + offsetX, j + offsetY, k + offsetZ, l) && !checkArray[x + offsetX][y + offsetY][z + offsetZ])
-								scanLogs(world,i + offsetX, j + offsetY, k + offsetZ, l, checkArray, x + offsetX, y + offsetY, z + offsetZ);
+			for (int offsetY = 0; offsetY <= 1; offsetY++) {
+				for (int offsetX = -1; offsetX <= 1; offsetX++) {
+					for (int offsetZ = -1; offsetZ <= 1; offsetZ++) {
+						if (x + offsetX < 11 && x + offsetX >= 0 && z + offsetZ < 11 && z + offsetZ >= 0 && y + offsetY < 50 && y + offsetY >= 0) {
+							if (checkOut(world, i + offsetX, j + offsetY, k + offsetZ, l) && !checkArray[x + offsetX][y + offsetY][z + offsetZ])
+								scanLogs(world, i + offsetX, j + offsetY, k + offsetZ, l, checkArray, x + offsetX, y + offsetY, z + offsetZ);
 						}
 					}
 				}
@@ -181,60 +173,73 @@ public class BlockFruitWood extends BlockTerraContainer
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.woodFruitRenderId;
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5)
-	{
+	public boolean shouldSideBeRendered(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
 		return true;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
-	{
-		if(world.getBlock(i, j-1, k) == this || world.getBlock(i, j-1, k).isOpaqueCube())
-			return AxisAlignedBB.getBoundingBox(i+0.3, j, k+0.3, i+0.7, j+1, k+0.7);
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
+		if (world.getBlock(i, j - 1, k) == this || world.getBlock(i, j - 1, k).isOpaqueCube())
+			return AxisAlignedBB.getBoundingBox(i + 0.3, j, k + 0.3, i + 0.7, j + 1, k + 0.7);
 		return AxisAlignedBB.getBoundingBox(i, j + 0.4, k, i + 1, j + 0.6, k + 1);
 	}
 
 	@Override
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
-	{
-		if(world.getBlock(i, j-1, k) == this || world.getBlock(i, j-1, k).isOpaqueCube())
-			return AxisAlignedBB.getBoundingBox(i+0.3, j, k+0.3, i+0.7, j+1, k+0.7);
-		return AxisAlignedBB.getBoundingBox(i, j+0.4, k, i+1, j+0.6, k+1);
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k) {
+		if (world.getBlock(i, j - 1, k) == this || world.getBlock(i, j - 1, k).isOpaqueCube())
+			return AxisAlignedBB.getBoundingBox(i + 0.3, j, k + 0.3, i + 0.7, j + 1, k + 0.7);
+		return AxisAlignedBB.getBoundingBox(i, j + 0.4, k, i + 1, j + 0.6, k + 1);
 	}
 
 	/**
 	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
 	 */
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, int i, int j, int k)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int i, int j, int k) {
 		if (world.getBlock(i, j - 1, k) == this || world.getBlock(i, j - 1, k).isOpaqueCube())
 			this.setBlockBounds(0.3f, 0, 0.3f, 0.7f, 1, 0.7f);
 		else
 			this.setBlockBounds(0, 0.4f, 0, 1, 0.6f, 1);
 	}
 
-	@Override
-	public void updateTick(World world, int i, int j, int k, Random rand)
+	/*public void surroundWithLeaves(World world, int i, int j, int k)
 	{
+		for (int y = 0; y <= 1; y++)
+		{
+			for (int x = 1; x >= -1; x--)
+			{
+				for (int z = 1; z >= -1; z--)
+				{
+					if(world.isAirBlock(i+x, j+y, k+z) && (world.isAirBlock(i+x, j+y+1, k+z) || world.isAirBlock(i+x, j+y+2, k+z)))
+					{
+						int meta = world.getBlockMetadata(i, j, k);
+						Block block = meta < 8 ? TFCBlocks.fruitTreeLeaves : TFCBlocks.fruitTreeLeaves2;
+						if(world.getBlock(i, j, k) != TFCBlocks.fruitTreeWood)
+							block = Blocks.air;
+						world.setBlock(i+x, j+y, k+z, block, world.getBlockMetadata(i, j, k), 0x2);
+					}
+				}
+			}
+		}
+	}*/
+
+	@Override
+	public void updateTick(World world, int i, int j, int k, Random rand) {
 		// Growth is handled in TEFruitTreeWood
 		/*if (!world.isRemote)
 		{
@@ -347,62 +352,21 @@ public class BlockFruitWood extends BlockTerraContainer
 		}*/
 	}
 
-	/*public void surroundWithLeaves(World world, int i, int j, int k)
-	{
-		for (int y = 0; y <= 1; y++)
-		{
-			for (int x = 1; x >= -1; x--)
-			{
-				for (int z = 1; z >= -1; z--)
-				{
-					if(world.isAirBlock(i+x, j+y, k+z) && (world.isAirBlock(i+x, j+y+1, k+z) || world.isAirBlock(i+x, j+y+2, k+z)))
-					{
-						int meta = world.getBlockMetadata(i, j, k);
-						Block block = meta < 8 ? TFCBlocks.fruitTreeLeaves : TFCBlocks.fruitTreeLeaves2;
-						if(world.getBlock(i, j, k) != TFCBlocks.fruitTreeWood)
-							block = Blocks.air;
-						world.setBlock(i+x, j+y, k+z, block, world.getBlockMetadata(i, j, k), 0x2);
-					}
-				}
-			}
-		}
-	}*/
-
-	public static String getType(int meta)
-	{
-		switch(meta)
-		{
-		case 0: return Global.FRUIT_META_NAMES[0];
-		case 1: return Global.FRUIT_META_NAMES[1];
-		case 2: return Global.FRUIT_META_NAMES[2];
-		case 3: return Global.FRUIT_META_NAMES[3];
-		case 4: return Global.FRUIT_META_NAMES[4];
-		case 5: return Global.FRUIT_META_NAMES[5];
-		case 6: return Global.FRUIT_META_NAMES[6];
-		case 7: return Global.FRUIT_META_NAMES[7];
-		case 8: return Global.FRUIT_META_NAMES[8];
-		}
-		return "";
-	}
-
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
+	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TEFruitTreeWood();
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int metadata)
-	{
-		if(!world.isRemote && checkOut(world,x,y-1,z,metadata) && world.getTileEntity(x, y-1, z) != null)
-			((TEFruitTreeWood)world.getTileEntity(x, y-1, z)).initBirth();
+	public void breakBlock(World world, int x, int y, int z, Block block, int metadata) {
+		if (!world.isRemote && checkOut(world, x, y - 1, z, metadata) && world.getTileEntity(x, y - 1, z) != null)
+			((TEFruitTreeWood) world.getTileEntity(x, y - 1, z)).initBirth();
 		super.breakBlock(world, x, y, z, block, metadata);
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
-	{
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return null;
 	}
 }

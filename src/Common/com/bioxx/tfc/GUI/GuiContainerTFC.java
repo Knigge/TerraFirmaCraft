@@ -1,36 +1,31 @@
 package com.bioxx.tfc.GUI;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.Core.TFC_Core;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
-public class GuiContainerTFC extends GuiContainer
-{
+public class GuiContainerTFC extends GuiContainer {
 	protected boolean drawInventory = true;
 	protected Slot activeSlot;
 
-	public GuiContainerTFC(Container container, int xsize, int ysize)
-	{
+	public GuiContainerTFC(Container container, int xsize, int ysize) {
 		super(container);
 		xSize = xsize;
 		ySize = ysize + PlayerInventory.invYSize;
 	}
 
-	protected void setDrawInventory(boolean b)
-	{
+	protected void setDrawInventory(boolean b) {
 		if (!drawInventory && b)
 			ySize += PlayerInventory.invYSize;
 		else if (drawInventory && !b)
@@ -39,32 +34,26 @@ public class GuiContainerTFC extends GuiContainer
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3)
-	{
+	public void drawScreen(int par1, int par2, float par3) {
 		super.drawScreen(par1, par2, par3);
-		for (int j1 = 0; j1 < this.inventorySlots.inventorySlots.size(); ++j1)
-		{
+		for (int j1 = 0; j1 < this.inventorySlots.inventorySlots.size(); ++j1) {
 			Slot slot = (Slot) this.inventorySlots.inventorySlots.get(j1);
 			if (this.isMouseOverSlot(slot, par1, par2) && slot.func_111238_b())
 				this.activeSlot = slot;
 		}
 	}
 
-	protected boolean isMouseOverSlot(Slot par1Slot, int par2, int par3)
-	{
+	protected boolean isMouseOverSlot(Slot par1Slot, int par2, int par3) {
 		return this.func_146978_c/*isPointInRegion*/(par1Slot.xDisplayPosition, par1Slot.yDisplayPosition, 16, 16, par2, par3);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		drawGui(null);
 	}
 
-	protected void drawGui(ResourceLocation rl)
-	{
-		if (rl != null)
-		{
+	protected void drawGui(ResourceLocation rl) {
+		if (rl != null) {
 			bindTexture(rl);
 			guiLeft = (width - xSize) / 2;
 			guiTop = (height - ySize) / 2;
@@ -82,26 +71,22 @@ public class GuiContainerTFC extends GuiContainer
 	 * Draws extra pieces on a GUI such as moving gauges and arrows.
 	 * Must be called before PlayerInventory.drawInventory() to avoid extra binding of textures.
 	 */
-	protected void drawForeground(int guiLeft, int guiTop)
-	{
+	protected void drawForeground(int guiLeft, int guiTop) {
 		// Intentionally blank.
 	}
 
-	protected boolean mouseInRegion(int x, int y, int width, int height, int mouseX, int mouseY)
-	{
+	protected boolean mouseInRegion(int x, int y, int width, int height, int mouseX, int mouseY) {
 		mouseX -= guiLeft;
 		mouseY -= guiTop;
 		return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
 	}
 
-	protected void bindTexture(ResourceLocation rl)
-	{
+	protected void bindTexture(ResourceLocation rl) {
 		TFC_Core.bindTexture(rl);
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 	}
 
-	public void drawTooltip(int mx, int my, String text)
-	{
+	public void drawTooltip(int mx, int my, String text) {
 		List<String> list = new ArrayList<String>();
 		list.add(text);
 		this.drawHoveringText(list, mx, my + 15, this.fontRendererObj);
@@ -110,10 +95,8 @@ public class GuiContainerTFC extends GuiContainer
 		//GL11.glDisable(GL11.GL_DEPTH_TEST);
 	}
 
-	protected void drawHoveringTextZLevel(List par1List, int par2, int par3, FontRenderer font, float z)
-	{
-		if (!par1List.isEmpty())
-		{
+	protected void drawHoveringTextZLevel(List par1List, int par2, int par3, FontRenderer font, float z) {
+		if (!par1List.isEmpty()) {
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 			RenderHelper.disableStandardItemLighting();
 			GL11.glDisable(GL11.GL_LIGHTING);
@@ -155,8 +138,7 @@ public class GuiContainerTFC extends GuiContainer
 			this.drawGradientRect(i1 - 3, j1 - 3, i1 + k + 3, j1 - 3 + 1, i2, i2);
 			this.drawGradientRect(i1 - 3, j1 + k1 + 2, i1 + k + 3, j1 + k1 + 3, j2, j2);
 
-			for (int k2 = 0; k2 < par1List.size(); ++k2)
-			{
+			for (int k2 = 0; k2 < par1List.size(); ++k2) {
 				String s1 = (String) par1List.get(k2);
 				font.drawStringWithShadow(s1, i1, j1, -1);
 
@@ -173,8 +155,7 @@ public class GuiContainerTFC extends GuiContainer
 		}
 	}
 
-	protected int getShiftedYSize()
-	{
+	protected int getShiftedYSize() {
 		return this.ySize - PlayerInventory.invYSize;
 	}
 

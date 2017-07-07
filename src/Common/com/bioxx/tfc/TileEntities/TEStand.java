@@ -1,8 +1,6 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.List;
-import java.util.Random;
-
+import com.bioxx.tfc.Entities.EntityStand;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -15,21 +13,20 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 
-import com.bioxx.tfc.Entities.EntityStand;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class TEStand extends TileEntity implements IInventory
-{
+public class TEStand extends TileEntity implements IInventory {
 
 	public ItemStack[] items;
 	public EntityStand entity;
 	public float yaw;
 	public boolean isTop;
-	private boolean hasEntity;
 	public int highlightedSlot;
+	private boolean hasEntity;
 
-	public TEStand()
-	{
+	public TEStand() {
 		items = new ItemStack[5];
 		highlightedSlot = -1;
 		//items[4] = new ItemStack(TFCItems.CopperHelmet,1,0);
@@ -39,47 +36,37 @@ public class TEStand extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void openInventory()
-	{
+	public void openInventory() {
 	}
 
 	@Override
-	public void closeInventory()
-	{
+	public void closeInventory() {
 	}
 
-	public void destroy()
-	{
-		if(!isTop && entity!= null)
+	public void destroy() {
+		if (!isTop && entity != null)
 			entity.setDead();
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if(items[i] != null && !isTop)
-		{
-			if(items[i].stackSize <= j)
-			{
+	public ItemStack decrStackSize(int i, int j) {
+		if (items[i] != null && !isTop) {
+			if (items[i].stackSize <= j) {
 				ItemStack itemstack2 = items[i];
 				items[i] = null;
 				return itemstack2;
 			}
 			ItemStack itemstack1 = items[i].splitStack(j);
-			if(items[i].stackSize == 0)
+			if (items[i].stackSize == 0)
 				items[i] = null;
 			return itemstack1;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
 
-	public void ejectContents()
-	{
-		if(!isTop)
-		{
+	public void ejectContents() {
+		if (!isTop) {
 			float f3 = 0.05F;
 			EntityItem entityitem;
 			Random rand = new Random();
@@ -87,14 +74,12 @@ public class TEStand extends TileEntity implements IInventory
 			float f1 = rand.nextFloat() * 2.0F + 0.4F;
 			float f2 = rand.nextFloat() * 0.8F + 0.1F;
 
-			for (int i = 0; i < getSizeInventory(); i++)
-			{
-				if(items[i] != null)
-				{
+			for (int i = 0; i < getSizeInventory(); i++) {
+				if (items[i] != null) {
 					entityitem = new EntityItem(worldObj, xCoord + f, yCoord + f1, zCoord + f2, items[i]);
-					entityitem.motionX = (float)rand.nextGaussian() * f3;
-					entityitem.motionY = (float)rand.nextGaussian() * f3 + 0.2F;
-					entityitem.motionZ = (float)rand.nextGaussian() * f3;
+					entityitem.motionX = (float) rand.nextGaussian() * f3;
+					entityitem.motionY = (float) rand.nextGaussian() * f3 + 0.2F;
+					entityitem.motionZ = (float) rand.nextGaussian() * f3;
 					worldObj.spawnEntityInWorld(entityitem);
 				}
 			}
@@ -102,63 +87,52 @@ public class TEStand extends TileEntity implements IInventory
 	}
 
 	@Override
-	public int getInventoryStackLimit()
-	{
+	public int getInventoryStackLimit() {
 		return 1;
 	}
 
 	@Override
-	public String getInventoryName()
-	{
+	public String getInventoryName() {
 		return "Stand";
 	}
 
 	@Override
-	public int getSizeInventory()
-	{
+	public int getSizeInventory() {
 		return 5;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		if(!isTop)
+	public ItemStack getStackInSlot(int i) {
+		if (!isTop)
 			return items[i];
 		return null;
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
-	{
+	public ItemStack getStackInSlotOnClosing(int var1) {
 		return null;
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
 		return false;
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		if(!isTop)
-		{
-			if(items[i]==null || itemstack == null)
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
+		if (!isTop) {
+			if (items[i] == null || itemstack == null)
 				items[i] = itemstack;
 
-			if(items[i] != null && items[i].stackSize > getInventoryStackLimit())
+			if (items[i] != null && items[i].stackSize > getInventoryStackLimit())
 				items[i].stackSize = getInventoryStackLimit();
 		}
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		if(!worldObj.isRemote && !isTop)
-		{
-			if(hasWorldObj() && !hasEntity)
-			{
+	public void updateEntity() {
+		if (!worldObj.isRemote && !isTop) {
+			if (hasWorldObj() && !hasEntity) {
 				//entity = new EntityStand(worldObj,this);
 				entity.setLocationAndAngles(xCoord, yCoord, zCoord, yaw, 0);
 				worldObj.spawnEntityInWorld(entity);
@@ -166,14 +140,13 @@ public class TEStand extends TileEntity implements IInventory
 				hasEntity = true;
 			}
 
-			if(hasEntity && entity == null)
-			{
+			if (hasEntity && entity == null) {
 				List list = worldObj.getEntitiesWithinAABB(EntityStand.class, AxisAlignedBB.getBoundingBox(
 						xCoord, yCoord, zCoord,
-						xCoord+1, yCoord+2, zCoord+1));
+						xCoord + 1, yCoord + 2, zCoord + 1));
 
 				if (!list.isEmpty())
-					entity = (EntityStand)list.get(0);
+					entity = (EntityStand) list.get(0);
 				else
 					hasEntity = false;
 			}
@@ -181,31 +154,26 @@ public class TEStand extends TileEntity implements IInventory
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack)
-	{
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
-	{
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbttagcompound)
-	{
+	public void writeToNBT(NBTTagCompound nbttagcompound) {
 		super.writeToNBT(nbttagcompound);
 		NBTTagList nbttaglist = new NBTTagList();
 		nbttagcompound.setBoolean("hasEntity", hasEntity);
 		nbttagcompound.setFloat("yaw", yaw);
-		nbttagcompound.setBoolean("isTop",isTop);
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i] != null)
-			{
+		nbttagcompound.setBoolean("isTop", isTop);
+		for (int i = 0; i < items.length; i++) {
+			if (items[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
+				nbttagcompound1.setByte("Slot", (byte) i);
 				items[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
@@ -214,41 +182,37 @@ public class TEStand extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbttagcompound)
-	{
+	public void readFromNBT(NBTTagCompound nbttagcompound) {
 		super.readFromNBT(nbttagcompound);
 		hasEntity = nbttagcompound.getBoolean("hasEntity");
 		yaw = nbttagcompound.getFloat("yaw");
 		isTop = nbttagcompound.getBoolean("isTop");
 		items = new ItemStack[getSizeInventory()];
 		NBTTagList nbttaglist = nbttagcompound.getTagList("Items", 10);
-		for(int i = 0; i < nbttaglist.tagCount(); i++)
-		{
+		for (int i = 0; i < nbttaglist.tagCount(); i++) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if(byte0 >= 0 && byte0 < items.length)
+			if (byte0 >= 0 && byte0 < items.length)
 				items[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 		}
 	}
 
 	@Override
-	public Packet getDescriptionPacket()
-	{
+	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbt);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-	{
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.func_148857_g());
 	}
-///////////////////////////////////////////////////////////////////
+
+	///////////////////////////////////////////////////////////////////
 	//TODO Update packet
 	@SuppressWarnings("EmptyMethod")
-	public void updateGui()
-	{
+	public void updateGui() {
 //		if(!worldObj.isRemote)
 //			TerraFirmaCraft.proxy.sendCustomPacketToPlayersInRange(xCoord, yCoord, zCoord, createUpdatePacket(), 5);
 	}

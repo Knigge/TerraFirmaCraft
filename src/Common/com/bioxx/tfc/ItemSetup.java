@@ -1,23 +1,10 @@
 package com.bioxx.tfc;
 
-import java.util.ArrayList;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemBow;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
-
-import net.minecraftforge.common.util.EnumHelper;
-
-import com.bioxx.tfc.Core.Recipes;
-import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Core.Metal.Alloy;
 import com.bioxx.tfc.Core.Metal.AlloyManager;
 import com.bioxx.tfc.Core.Metal.MetalRegistry;
+import com.bioxx.tfc.Core.Recipes;
+import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Food.*;
 import com.bioxx.tfc.Handlers.TFCFuelHandler;
 import com.bioxx.tfc.Items.*;
@@ -33,35 +20,45 @@ import com.bioxx.tfc.api.Enums.EnumDamageType;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemBow;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraftforge.common.util.EnumHelper;
+
+import java.util.ArrayList;
 
 import static net.minecraft.init.Items.glass_bottle;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class ItemSetup extends TFCItems {
 
-	public static void setup()
-	{
-																 // Harvest Level	Durability			Mining Speed		Damage	Enchant
+	public static void setup() {
+		// Harvest Level	Durability			Mining Speed		Damage	Enchant
 		//Tier 0
-		igInToolMaterial = EnumHelper.addToolMaterial("IgIn", 					1,	igInStoneUses, 		igInStoneEff, 		40,		5);
-		sedToolMaterial = EnumHelper.addToolMaterial("Sed", 					1, 	sedStoneUses, 		sedStoneEff, 		40, 	5);
-		igExToolMaterial = EnumHelper.addToolMaterial("IgEx", 					1,	igExStoneUses, 		igExStoneEff, 		40,		5);
-		mMToolMaterial = EnumHelper.addToolMaterial("MM", 						1,	mMStoneUses, 		mMStoneEff, 		40, 	5);
+		igInToolMaterial = EnumHelper.addToolMaterial("IgIn", 1, igInStoneUses, igInStoneEff, 40, 5);
+		sedToolMaterial = EnumHelper.addToolMaterial("Sed", 1, sedStoneUses, sedStoneEff, 40, 5);
+		igExToolMaterial = EnumHelper.addToolMaterial("IgEx", 1, igExStoneUses, igExStoneEff, 40, 5);
+		mMToolMaterial = EnumHelper.addToolMaterial("MM", 1, mMStoneUses, mMStoneEff, 40, 5);
 		//Tier 1
-		copperToolMaterial = EnumHelper.addToolMaterial("Copper", 				2,	copperUses, 		copperEff, 			65, 	8);
+		copperToolMaterial = EnumHelper.addToolMaterial("Copper", 2, copperUses, copperEff, 65, 8);
 		//Tier 2
-		bronzeToolMaterial = EnumHelper.addToolMaterial("Bronze", 				2,	bronzeUses, 		bronzeEff, 			100, 	13);
-		bismuthBronzeToolMaterial = EnumHelper.addToolMaterial("BismuthBronze", 2, 	bismuthBronzeUses, 	bismuthBronzeEff, 	90, 	10);
-		blackBronzeToolMaterial = EnumHelper.addToolMaterial("BlackBronze", 	2,	blackBronzeUses, 	blackBronzeEff, 	95, 	10);
+		bronzeToolMaterial = EnumHelper.addToolMaterial("Bronze", 2, bronzeUses, bronzeEff, 100, 13);
+		bismuthBronzeToolMaterial = EnumHelper.addToolMaterial("BismuthBronze", 2, bismuthBronzeUses, bismuthBronzeEff, 90, 10);
+		blackBronzeToolMaterial = EnumHelper.addToolMaterial("BlackBronze", 2, blackBronzeUses, blackBronzeEff, 95, 10);
 		//Tier 3
-		ironToolMaterial = EnumHelper.addToolMaterial("Iron", 					2, 	wroughtIronUses, 	wroughtIronEff, 	135, 	10);
+		ironToolMaterial = EnumHelper.addToolMaterial("Iron", 2, wroughtIronUses, wroughtIronEff, 135, 10);
 		//Tier 4
-		steelToolMaterial = EnumHelper.addToolMaterial("Steel", 				2,	steelUses, 			steelEff, 			170, 	10);
+		steelToolMaterial = EnumHelper.addToolMaterial("Steel", 2, steelUses, steelEff, 170, 10);
 		//Tier 5
-		blackSteelToolMaterial = EnumHelper.addToolMaterial("BlackSteel", 		2,	blackSteelUses, 	blackSteelEff, 		205, 	12);
+		blackSteelToolMaterial = EnumHelper.addToolMaterial("BlackSteel", 2, blackSteelUses, blackSteelEff, 205, 12);
 		//Tier 6
-		blueSteelToolMaterial = EnumHelper.addToolMaterial("BlueSteel", 		3,	blueSteelUses, 		blueSteelEff, 		240, 	22);
-		redSteelToolMaterial = EnumHelper.addToolMaterial("RedSteel", 			3,	redSteelUses, 		redSteelEff, 		240, 	22);
+		blueSteelToolMaterial = EnumHelper.addToolMaterial("BlueSteel", 3, blueSteelUses, blueSteelEff, 240, 22);
+		redSteelToolMaterial = EnumHelper.addToolMaterial("RedSteel", 3, redSteelUses, redSteelEff, 240, 22);
 
 		TerraFirmaCraft.LOG.info("Loading Items");
 
@@ -84,15 +81,15 @@ public class ItemSetup extends TFCItems {
 		shears = new ItemShears(0, ironToolMaterial).setUnlocalizedName("shears").setTextureName("shears");
 		shearsBlackSteel = new ItemShears(0, blackSteelToolMaterial).setUnlocalizedName("Black Steel Shears").setMaxDamage(16).setTextureName("Black Steel Shears");
 
-		proPickBismuthBronze = new ItemProPick().setUnlocalizedName("Bismuth Bronze ProPick").setMaxDamage(bismuthBronzeUses/3);
-		proPickBlackBronze = new ItemProPick().setUnlocalizedName("Black Bronze ProPick").setMaxDamage(blackBronzeUses/3);
-		proPickBlackSteel = new ItemProPick().setUnlocalizedName("Black Steel ProPick").setMaxDamage(blackSteelUses/3);
-		proPickBlueSteel = new ItemProPick().setUnlocalizedName("Blue Steel ProPick").setMaxDamage(blueSteelUses/3);
-		proPickBronze = new ItemProPick().setUnlocalizedName("Bronze ProPick").setMaxDamage(bronzeUses/3);
-		proPickCopper = new ItemProPick().setUnlocalizedName("Copper ProPick").setMaxDamage(copperUses/3);
-		proPickIron = new ItemProPick().setUnlocalizedName("Wrought Iron ProPick").setMaxDamage(wroughtIronUses/3);
-		proPickRedSteel = new ItemProPick().setUnlocalizedName("Red Steel ProPick").setMaxDamage(redSteelUses/3);
-		proPickSteel = new ItemProPick().setUnlocalizedName("Steel ProPick").setMaxDamage(steelUses/3);
+		proPickBismuthBronze = new ItemProPick().setUnlocalizedName("Bismuth Bronze ProPick").setMaxDamage(bismuthBronzeUses / 3);
+		proPickBlackBronze = new ItemProPick().setUnlocalizedName("Black Bronze ProPick").setMaxDamage(blackBronzeUses / 3);
+		proPickBlackSteel = new ItemProPick().setUnlocalizedName("Black Steel ProPick").setMaxDamage(blackSteelUses / 3);
+		proPickBlueSteel = new ItemProPick().setUnlocalizedName("Blue Steel ProPick").setMaxDamage(blueSteelUses / 3);
+		proPickBronze = new ItemProPick().setUnlocalizedName("Bronze ProPick").setMaxDamage(bronzeUses / 3);
+		proPickCopper = new ItemProPick().setUnlocalizedName("Copper ProPick").setMaxDamage(copperUses / 3);
+		proPickIron = new ItemProPick().setUnlocalizedName("Wrought Iron ProPick").setMaxDamage(wroughtIronUses / 3);
+		proPickRedSteel = new ItemProPick().setUnlocalizedName("Red Steel ProPick").setMaxDamage(redSteelUses / 3);
+		proPickSteel = new ItemProPick().setUnlocalizedName("Steel ProPick").setMaxDamage(steelUses / 3);
 
 		bismuthIngot = new ItemIngot().setUnlocalizedName("Bismuth Ingot");
 		bismuthBronzeIngot = new ItemIngot().setUnlocalizedName("Bismuth Bronze Ingot");
@@ -121,32 +118,32 @@ public class ItemSetup extends TFCItems {
 		aluminumIngot = new ItemIngot().setUnlocalizedName("Aluminum Ingot");
 		tungstenIngot = new ItemIngot().setUnlocalizedName("Tungsten Ingot");
 
-		bismuthIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Bismuth Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bismuth", 200);
-		bismuthBronzeIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Bismuth Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bismuth Bronze", 200);
-		blackBronzeIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Black Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Black Bronze", 200);
-		blackSteelIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Black Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Black Steel", 200);
-		blueSteelIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Blue Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Blue Steel", 200);
-		brassIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Brass Double Ingot")).setSize(EnumSize.LARGE).setMetal("Brass", 200);
-		bronzeIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bronze", 200);
-		copperIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Copper Double Ingot")).setSize(EnumSize.LARGE).setMetal("Copper", 200);
-		goldIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Gold Double Ingot")).setSize(EnumSize.LARGE).setMetal("Gold", 200);
-		wroughtIronIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Wrought Iron Double Ingot")).setSize(EnumSize.LARGE).setMetal("Wrought Iron", 200);
-		leadIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Lead Double Ingot")).setSize(EnumSize.LARGE).setMetal("Lead", 200);
-		nickelIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Nickel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Nickel", 200);
-		pigIronIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Pig Iron Double Ingot")).setSize(EnumSize.LARGE).setMetal("Pig Iron", 200);
-		platinumIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Platinum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Platinum", 200);
-		redSteelIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Red Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Red Steel", 200);
-		roseGoldIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Rose Gold Double Ingot")).setSize(EnumSize.LARGE).setMetal("Rose Gold", 200);
-		silverIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Silver Double Ingot")).setSize(EnumSize.LARGE).setMetal("Silver", 200);
-		steelIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Steel", 200);
-		sterlingSilverIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Sterling Silver Double Ingot")).setSize(EnumSize.LARGE).setMetal("Sterling Silver", 200);
-		tinIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Tin Double Ingot")).setSize(EnumSize.LARGE).setMetal("Tin", 200);
-		zincIngot2x  = ((ItemIngot)new ItemIngot().setUnlocalizedName("Zinc Double Ingot")).setSize(EnumSize.LARGE).setMetal("Zinc", 200);
-		electrumIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Electrum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Electrum", 200);
-		cupronickelIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Cupronickel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Cupronickel", 200);
-		osmiumIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Osmium Double Ingot")).setSize(EnumSize.LARGE).setMetal("Osmium", 200);
-		aluminumIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Aluminum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Aluminum", 200);
-		tungstenIngot2x = ((ItemIngot)new ItemIngot().setUnlocalizedName("Tungsten Double Ingot")).setSize(EnumSize.LARGE).setMetal("Tungsten", 200);
+		bismuthIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Bismuth Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bismuth", 200);
+		bismuthBronzeIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Bismuth Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bismuth Bronze", 200);
+		blackBronzeIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Black Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Black Bronze", 200);
+		blackSteelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Black Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Black Steel", 200);
+		blueSteelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Blue Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Blue Steel", 200);
+		brassIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Brass Double Ingot")).setSize(EnumSize.LARGE).setMetal("Brass", 200);
+		bronzeIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Bronze Double Ingot")).setSize(EnumSize.LARGE).setMetal("Bronze", 200);
+		copperIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Copper Double Ingot")).setSize(EnumSize.LARGE).setMetal("Copper", 200);
+		goldIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Gold Double Ingot")).setSize(EnumSize.LARGE).setMetal("Gold", 200);
+		wroughtIronIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Wrought Iron Double Ingot")).setSize(EnumSize.LARGE).setMetal("Wrought Iron", 200);
+		leadIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Lead Double Ingot")).setSize(EnumSize.LARGE).setMetal("Lead", 200);
+		nickelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Nickel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Nickel", 200);
+		pigIronIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Pig Iron Double Ingot")).setSize(EnumSize.LARGE).setMetal("Pig Iron", 200);
+		platinumIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Platinum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Platinum", 200);
+		redSteelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Red Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Red Steel", 200);
+		roseGoldIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Rose Gold Double Ingot")).setSize(EnumSize.LARGE).setMetal("Rose Gold", 200);
+		silverIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Silver Double Ingot")).setSize(EnumSize.LARGE).setMetal("Silver", 200);
+		steelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Steel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Steel", 200);
+		sterlingSilverIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Sterling Silver Double Ingot")).setSize(EnumSize.LARGE).setMetal("Sterling Silver", 200);
+		tinIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Tin Double Ingot")).setSize(EnumSize.LARGE).setMetal("Tin", 200);
+		zincIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Zinc Double Ingot")).setSize(EnumSize.LARGE).setMetal("Zinc", 200);
+		electrumIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Electrum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Electrum", 200);
+		cupronickelIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Cupronickel Double Ingot")).setSize(EnumSize.LARGE).setMetal("Cupronickel", 200);
+		osmiumIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Osmium Double Ingot")).setSize(EnumSize.LARGE).setMetal("Osmium", 200);
+		aluminumIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Aluminum Double Ingot")).setSize(EnumSize.LARGE).setMetal("Aluminum", 200);
+		tungstenIngot2x = ((ItemIngot) new ItemIngot().setUnlocalizedName("Tungsten Double Ingot")).setSize(EnumSize.LARGE).setMetal("Tungsten", 200);
 
 		gemRuby = new ItemGem().setUnlocalizedName("Ruby");
 		gemSapphire = new ItemGem().setUnlocalizedName("Sapphire");
@@ -167,11 +164,11 @@ public class ItemSetup extends TFCItems {
 		igInAxe = new ItemCustomAxe(igInToolMaterial, 60).setUnlocalizedName("IgIn Stone Axe").setMaxDamage(igInStoneUses);
 		igInHoe = new ItemCustomHoe(igInToolMaterial).setUnlocalizedName("IgIn Stone Hoe").setMaxDamage(igInStoneUses);
 
-		sedShovel= new ItemCustomShovel(sedToolMaterial).setUnlocalizedName("Sed Stone Shovel").setMaxDamage(sedStoneUses);
+		sedShovel = new ItemCustomShovel(sedToolMaterial).setUnlocalizedName("Sed Stone Shovel").setMaxDamage(sedStoneUses);
 		sedAxe = new ItemCustomAxe(sedToolMaterial, 60).setUnlocalizedName("Sed Stone Axe").setMaxDamage(sedStoneUses);
 		sedHoe = new ItemCustomHoe(sedToolMaterial).setUnlocalizedName("Sed Stone Hoe").setMaxDamage(sedStoneUses);
 
-		igExShovel= new ItemCustomShovel(igExToolMaterial).setUnlocalizedName("IgEx Stone Shovel").setMaxDamage(igExStoneUses);
+		igExShovel = new ItemCustomShovel(igExToolMaterial).setUnlocalizedName("IgEx Stone Shovel").setMaxDamage(igExStoneUses);
 		igExAxe = new ItemCustomAxe(igExToolMaterial, 60).setUnlocalizedName("IgEx Stone Axe").setMaxDamage(igExStoneUses);
 		igExHoe = new ItemCustomHoe(igExToolMaterial).setUnlocalizedName("IgEx Stone Hoe").setMaxDamage(igExStoneUses);
 
@@ -236,24 +233,24 @@ public class ItemSetup extends TFCItems {
 		steelChisel = new ItemChisel(steelToolMaterial).setUnlocalizedName("Steel Chisel").setMaxDamage(steelUses);
 
 		bismuthBronzeSword = new ItemCustomSword(bismuthBronzeToolMaterial, 210).setUnlocalizedName("Bismuth Bronze Sword").setMaxDamage(bismuthBronzeUses);
-		blackBronzeSword = new ItemCustomSword(blackBronzeToolMaterial, 	230).setUnlocalizedName("Black Bronze Sword").setMaxDamage(blackBronzeUses);
-		blackSteelSword = new ItemCustomSword(blackSteelToolMaterial, 		270).setUnlocalizedName("Black Steel Sword").setMaxDamage(blackSteelUses);
-		blueSteelSword = new ItemCustomSword(blueSteelToolMaterial,			315).setUnlocalizedName("Blue Steel Sword").setMaxDamage(blueSteelUses);
-		bronzeSword = new ItemCustomSword(bronzeToolMaterial,				220).setUnlocalizedName("Bronze Sword").setMaxDamage(bronzeUses);
-		copperSword = new ItemCustomSword(copperToolMaterial, 				165).setUnlocalizedName("Copper Sword").setMaxDamage(copperUses);
-		wroughtIronSword = new ItemCustomSword(ironToolMaterial,			240).setUnlocalizedName("Wrought Iron Sword").setMaxDamage(wroughtIronUses);
-		redSteelSword = new ItemCustomSword(redSteelToolMaterial,			315).setUnlocalizedName("Red Steel Sword").setMaxDamage(redSteelUses);
-		steelSword = new ItemCustomSword(steelToolMaterial,					265).setUnlocalizedName("Steel Sword").setMaxDamage(steelUses);
+		blackBronzeSword = new ItemCustomSword(blackBronzeToolMaterial, 230).setUnlocalizedName("Black Bronze Sword").setMaxDamage(blackBronzeUses);
+		blackSteelSword = new ItemCustomSword(blackSteelToolMaterial, 270).setUnlocalizedName("Black Steel Sword").setMaxDamage(blackSteelUses);
+		blueSteelSword = new ItemCustomSword(blueSteelToolMaterial, 315).setUnlocalizedName("Blue Steel Sword").setMaxDamage(blueSteelUses);
+		bronzeSword = new ItemCustomSword(bronzeToolMaterial, 220).setUnlocalizedName("Bronze Sword").setMaxDamage(bronzeUses);
+		copperSword = new ItemCustomSword(copperToolMaterial, 165).setUnlocalizedName("Copper Sword").setMaxDamage(copperUses);
+		wroughtIronSword = new ItemCustomSword(ironToolMaterial, 240).setUnlocalizedName("Wrought Iron Sword").setMaxDamage(wroughtIronUses);
+		redSteelSword = new ItemCustomSword(redSteelToolMaterial, 315).setUnlocalizedName("Red Steel Sword").setMaxDamage(redSteelUses);
+		steelSword = new ItemCustomSword(steelToolMaterial, 265).setUnlocalizedName("Steel Sword").setMaxDamage(steelUses);
 
-		bismuthBronzeMace = new ItemCustomSword(bismuthBronzeToolMaterial,  210,EnumDamageType.CRUSHING).setUnlocalizedName("Bismuth Bronze Mace").setMaxDamage(bismuthBronzeUses);
-		blackBronzeMace = new ItemCustomSword(blackBronzeToolMaterial, 		230,EnumDamageType.CRUSHING).setUnlocalizedName("Black Bronze Mace").setMaxDamage(blackBronzeUses);
-		blackSteelMace = new ItemCustomSword(blackSteelToolMaterial, 		270,EnumDamageType.CRUSHING).setUnlocalizedName("Black Steel Mace").setMaxDamage(blackSteelUses);
-		blueSteelMace = new ItemCustomSword(blueSteelToolMaterial, 			315,EnumDamageType.CRUSHING).setUnlocalizedName("Blue Steel Mace").setMaxDamage(blueSteelUses);
-		bronzeMace = new ItemCustomSword(bronzeToolMaterial, 				220,EnumDamageType.CRUSHING).setUnlocalizedName("Bronze Mace").setMaxDamage(bronzeUses);
-		copperMace = new ItemCustomSword(copperToolMaterial, 				165,EnumDamageType.CRUSHING).setUnlocalizedName("Copper Mace").setMaxDamage(copperUses);
-		wroughtIronMace = new ItemCustomSword(ironToolMaterial, 			240,EnumDamageType.CRUSHING).setUnlocalizedName("Wrought Iron Mace").setMaxDamage(wroughtIronUses);
-		redSteelMace = new ItemCustomSword(redSteelToolMaterial, 			315,EnumDamageType.CRUSHING).setUnlocalizedName("Red Steel Mace").setMaxDamage(redSteelUses);
-		steelMace = new ItemCustomSword(steelToolMaterial, 					265,EnumDamageType.CRUSHING).setUnlocalizedName("Steel Mace").setMaxDamage(steelUses);
+		bismuthBronzeMace = new ItemCustomSword(bismuthBronzeToolMaterial, 210, EnumDamageType.CRUSHING).setUnlocalizedName("Bismuth Bronze Mace").setMaxDamage(bismuthBronzeUses);
+		blackBronzeMace = new ItemCustomSword(blackBronzeToolMaterial, 230, EnumDamageType.CRUSHING).setUnlocalizedName("Black Bronze Mace").setMaxDamage(blackBronzeUses);
+		blackSteelMace = new ItemCustomSword(blackSteelToolMaterial, 270, EnumDamageType.CRUSHING).setUnlocalizedName("Black Steel Mace").setMaxDamage(blackSteelUses);
+		blueSteelMace = new ItemCustomSword(blueSteelToolMaterial, 315, EnumDamageType.CRUSHING).setUnlocalizedName("Blue Steel Mace").setMaxDamage(blueSteelUses);
+		bronzeMace = new ItemCustomSword(bronzeToolMaterial, 220, EnumDamageType.CRUSHING).setUnlocalizedName("Bronze Mace").setMaxDamage(bronzeUses);
+		copperMace = new ItemCustomSword(copperToolMaterial, 165, EnumDamageType.CRUSHING).setUnlocalizedName("Copper Mace").setMaxDamage(copperUses);
+		wroughtIronMace = new ItemCustomSword(ironToolMaterial, 240, EnumDamageType.CRUSHING).setUnlocalizedName("Wrought Iron Mace").setMaxDamage(wroughtIronUses);
+		redSteelMace = new ItemCustomSword(redSteelToolMaterial, 315, EnumDamageType.CRUSHING).setUnlocalizedName("Red Steel Mace").setMaxDamage(redSteelUses);
+		steelMace = new ItemCustomSword(steelToolMaterial, 265, EnumDamageType.CRUSHING).setUnlocalizedName("Steel Mace").setMaxDamage(steelUses);
 
 		bismuthBronzeSaw = new ItemCustomSaw(bismuthBronzeToolMaterial).setUnlocalizedName("Bismuth Bronze Saw").setMaxDamage(bismuthBronzeUses);
 		blackBronzeSaw = new ItemCustomSaw(blackBronzeToolMaterial).setUnlocalizedName("Black Bronze Saw").setMaxDamage(blackBronzeUses);
@@ -506,14 +503,14 @@ public class ItemSetup extends TFCItems {
 		steelKnifeHead = new ItemMiscToolHead().setUnlocalizedName("Steel Knife Blade");
 
 		bismuthBronzeKnife = new ItemKnife(bismuthBronzeToolMaterial, 155).setUnlocalizedName("Bismuth Bronze Knife").setMaxDamage(bismuthBronzeUses);
-		blackBronzeKnife = new ItemKnife(blackBronzeToolMaterial, 	165).setUnlocalizedName("Black Bronze Knife").setMaxDamage(blackBronzeUses);
-		blackSteelKnife = new ItemKnife(blackSteelToolMaterial, 		205).setUnlocalizedName("Black Steel Knife").setMaxDamage(blackSteelUses);
-		blueSteelKnife = new ItemKnife(blueSteelToolMaterial, 		250).setUnlocalizedName("Blue Steel Knife").setMaxDamage(blueSteelUses);
-		bronzeKnife = new ItemKnife(bronzeToolMaterial, 				150).setUnlocalizedName("Bronze Knife").setMaxDamage(bronzeUses);
-		copperKnife = new ItemKnife(copperToolMaterial, 				100).setUnlocalizedName("Copper Knife").setMaxDamage(copperUses);
-		wroughtIronKnife = new ItemKnife(ironToolMaterial, 			175).setUnlocalizedName("Wrought Iron Knife").setMaxDamage(wroughtIronUses);
-		redSteelKnife = new ItemKnife(redSteelToolMaterial, 			250).setUnlocalizedName("Red Steel Knife").setMaxDamage(redSteelUses);
-		steelKnife = new ItemKnife(steelToolMaterial,					200).setUnlocalizedName("Steel Knife").setMaxDamage(steelUses);
+		blackBronzeKnife = new ItemKnife(blackBronzeToolMaterial, 165).setUnlocalizedName("Black Bronze Knife").setMaxDamage(blackBronzeUses);
+		blackSteelKnife = new ItemKnife(blackSteelToolMaterial, 205).setUnlocalizedName("Black Steel Knife").setMaxDamage(blackSteelUses);
+		blueSteelKnife = new ItemKnife(blueSteelToolMaterial, 250).setUnlocalizedName("Blue Steel Knife").setMaxDamage(blueSteelUses);
+		bronzeKnife = new ItemKnife(bronzeToolMaterial, 150).setUnlocalizedName("Bronze Knife").setMaxDamage(bronzeUses);
+		copperKnife = new ItemKnife(copperToolMaterial, 100).setUnlocalizedName("Copper Knife").setMaxDamage(copperUses);
+		wroughtIronKnife = new ItemKnife(ironToolMaterial, 175).setUnlocalizedName("Wrought Iron Knife").setMaxDamage(wroughtIronUses);
+		redSteelKnife = new ItemKnife(redSteelToolMaterial, 250).setUnlocalizedName("Red Steel Knife").setMaxDamage(redSteelUses);
+		steelKnife = new ItemKnife(steelToolMaterial, 200).setUnlocalizedName("Steel Knife").setMaxDamage(steelUses);
 
 		flatRock = new ItemFlatGeneric().setFolder("rocks/flatrocks/").setMetaNames(Global.STONE_ALL).setUnlocalizedName("FlatRock");
 		looseRock = new ItemLooseRock().setSpecialCraftingType(flatRock).setFolder("rocks/").setMetaNames(Global.STONE_ALL).setUnlocalizedName("LooseRock");
@@ -587,7 +584,7 @@ public class ItemSetup extends TFCItems {
 		spindle = new ItemSpindle().setUnlocalizedName("Spindle").setCreativeTab(TFCTabs.TFC_POTTERY);
 
 		spindleHead = new ItemPotteryBase().setMetaNames(new String[]
-				{ "Clay Spindle", "Spindle Head" }).setUnlocalizedName("Spindle Head").setCreativeTab(TFCTabs.TFC_POTTERY);
+				{"Clay Spindle", "Spindle Head"}).setUnlocalizedName("Spindle Head").setCreativeTab(TFCTabs.TFC_POTTERY);
 		stoneBrick = new ItemStoneBrick().setFolder("tools/").setUnlocalizedName("ItemStoneBrick");
 		mortar = new ItemTerra().setFolder("tools/").setUnlocalizedName("Mortar").setCreativeTab(TFCTabs.TFC_MATERIALS);
 		vinegar = new ItemCustomBucket(Blocks.air).setFolder("food/").setUnlocalizedName("Vinegar").setContainerItem(woodenBucketEmpty).setCreativeTab(TFCTabs.TFC_FOODS);
@@ -607,42 +604,42 @@ public class ItemSetup extends TFCItems {
 
 		straw = new ItemTerra().setFolder("plants/").setUnlocalizedName("Straw").setCreativeTab(TFCTabs.TFC_MATERIALS);
 		flatClay = new ItemFlatGeneric().setFolder("pottery/").setMetaNames(new String[]
-		{ "clay flat light", "clay flat dark", "clay flat fire", "clay flat dark fire" }).setUnlocalizedName("Flat Clay");
+				{"clay flat light", "clay flat dark", "clay flat fire", "clay flat dark fire"}).setUnlocalizedName("Flat Clay");
 
 		potteryJug = new ItemPotteryJug().setUnlocalizedName("Jug");
 		potterySmallVessel = new ItemPotterySmallVessel().setUnlocalizedName("Small Vessel");
 		//PotteryPot = new ItemPotteryPot().setUnlocalizedName("Pot");
-		ceramicMold = new ItemPotteryBase().setMetaNames(new String[]{"Clay Mold","Ceramic Mold"}).setUnlocalizedName("Mold");
-		potteryBowl = new ItemPotteryBase().setMetaNames(new String[]{"Clay Bowl","Ceramic Bowl"}).setUnlocalizedName("ClayBowl");
+		ceramicMold = new ItemPotteryBase().setMetaNames(new String[]{"Clay Mold", "Ceramic Mold"}).setUnlocalizedName("Mold");
+		potteryBowl = new ItemPotteryBase().setMetaNames(new String[]{"Clay Bowl", "Ceramic Bowl"}).setUnlocalizedName("ClayBowl");
 		clayBall = new ItemClay().setSpecialCraftingType(flatClay, new ItemStack(flatClay, 1, 1)).setMetaNames(new String[]{"Clay", "Fire Clay"}).setUnlocalizedName("Clay");
-		fireBrick = new ItemPotteryBase().setMetaNames(new String[]{"Clay Fire Brick","Fire Brick"}).setUnlocalizedName("Fire Brick");
+		fireBrick = new ItemPotteryBase().setMetaNames(new String[]{"Clay Fire Brick", "Fire Brick"}).setUnlocalizedName("Fire Brick");
 
-		clayMoldAxe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Axe","Ceramic Mold Axe",
-				"Ceramic Mold Axe Copper","Ceramic Mold Axe Bronze","Ceramic Mold Axe Bismuth Bronze","Ceramic Mold Axe Black Bronze"}).setUnlocalizedName("Axe Mold");
-		clayMoldChisel = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Chisel","Ceramic Mold Chisel",
-				"Ceramic Mold Chisel Copper","Ceramic Mold Chisel Bronze","Ceramic Mold Chisel Bismuth Bronze","Ceramic Mold Chisel Black Bronze"}).setUnlocalizedName("Chisel Mold");
-		clayMoldHammer = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Hammer","Ceramic Mold Hammer",
-				"Ceramic Mold Hammer Copper","Ceramic Mold Hammer Bronze","Ceramic Mold Hammer Bismuth Bronze","Ceramic Mold Hammer Black Bronze"}).setUnlocalizedName("Hammer Mold");
-		clayMoldHoe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Hoe","Ceramic Mold Hoe",
-				"Ceramic Mold Hoe Copper","Ceramic Mold Hoe Bronze","Ceramic Mold Hoe Bismuth Bronze","Ceramic Mold Hoe Black Bronze"}).setUnlocalizedName("Hoe Mold");
-		clayMoldKnife = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Knife","Ceramic Mold Knife",
-				"Ceramic Mold Knife Copper","Ceramic Mold Knife Bronze","Ceramic Mold Knife Bismuth Bronze","Ceramic Mold Knife Black Bronze"}).setUnlocalizedName("Knife Mold");
-		clayMoldMace = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Mace","Ceramic Mold Mace",
-				"Ceramic Mold Mace Copper","Ceramic Mold Mace Bronze","Ceramic Mold Mace Bismuth Bronze","Ceramic Mold Mace Black Bronze"}).setUnlocalizedName("Mace Mold");
-		clayMoldPick = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Pick","Ceramic Mold Pick",
-				"Ceramic Mold Pick Copper","Ceramic Mold Pick Bronze","Ceramic Mold Pick Bismuth Bronze","Ceramic Mold Pick Black Bronze"}).setUnlocalizedName("Pick Mold");
-		clayMoldProPick = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold ProPick","Ceramic Mold ProPick",
-				"Ceramic Mold ProPick Copper","Ceramic Mold ProPick Bronze","Ceramic Mold ProPick Bismuth Bronze","Ceramic Mold ProPick Black Bronze"}).setUnlocalizedName("ProPick Mold");
-		clayMoldSaw = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Saw","Ceramic Mold Saw",
-				"Ceramic Mold Saw Copper","Ceramic Mold Saw Bronze","Ceramic Mold Saw Bismuth Bronze","Ceramic Mold Saw Black Bronze"}).setUnlocalizedName("Saw Mold");
-		clayMoldScythe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Scythe","Ceramic Mold Scythe",
-				"Ceramic Mold Scythe Copper","Ceramic Mold Scythe Bronze","Ceramic Mold Scythe Bismuth Bronze","Ceramic Mold Scythe Black Bronze"}).setUnlocalizedName("Scythe Mold");
-		clayMoldShovel = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Shovel","Ceramic Mold Shovel",
-				"Ceramic Mold Shovel Copper","Ceramic Mold Shovel Bronze","Ceramic Mold Shovel Bismuth Bronze","Ceramic Mold Shovel Black Bronze"}).setUnlocalizedName("Shovel Mold");
-		clayMoldSword = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Sword","Ceramic Mold Sword",
-				"Ceramic Mold Sword Copper","Ceramic Mold Sword Bronze","Ceramic Mold Sword Bismuth Bronze","Ceramic Mold Sword Black Bronze"}).setUnlocalizedName("Sword Mold");
-		clayMoldJavelin = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Javelin","Ceramic Mold Javelin",
-				"Ceramic Mold Javelin Copper","Ceramic Mold Javelin Bronze","Ceramic Mold Javelin Bismuth Bronze","Ceramic Mold Javelin Black Bronze"}).setUnlocalizedName("Javelin Mold");
+		clayMoldAxe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Axe", "Ceramic Mold Axe",
+				"Ceramic Mold Axe Copper", "Ceramic Mold Axe Bronze", "Ceramic Mold Axe Bismuth Bronze", "Ceramic Mold Axe Black Bronze"}).setUnlocalizedName("Axe Mold");
+		clayMoldChisel = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Chisel", "Ceramic Mold Chisel",
+				"Ceramic Mold Chisel Copper", "Ceramic Mold Chisel Bronze", "Ceramic Mold Chisel Bismuth Bronze", "Ceramic Mold Chisel Black Bronze"}).setUnlocalizedName("Chisel Mold");
+		clayMoldHammer = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Hammer", "Ceramic Mold Hammer",
+				"Ceramic Mold Hammer Copper", "Ceramic Mold Hammer Bronze", "Ceramic Mold Hammer Bismuth Bronze", "Ceramic Mold Hammer Black Bronze"}).setUnlocalizedName("Hammer Mold");
+		clayMoldHoe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Hoe", "Ceramic Mold Hoe",
+				"Ceramic Mold Hoe Copper", "Ceramic Mold Hoe Bronze", "Ceramic Mold Hoe Bismuth Bronze", "Ceramic Mold Hoe Black Bronze"}).setUnlocalizedName("Hoe Mold");
+		clayMoldKnife = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Knife", "Ceramic Mold Knife",
+				"Ceramic Mold Knife Copper", "Ceramic Mold Knife Bronze", "Ceramic Mold Knife Bismuth Bronze", "Ceramic Mold Knife Black Bronze"}).setUnlocalizedName("Knife Mold");
+		clayMoldMace = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Mace", "Ceramic Mold Mace",
+				"Ceramic Mold Mace Copper", "Ceramic Mold Mace Bronze", "Ceramic Mold Mace Bismuth Bronze", "Ceramic Mold Mace Black Bronze"}).setUnlocalizedName("Mace Mold");
+		clayMoldPick = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Pick", "Ceramic Mold Pick",
+				"Ceramic Mold Pick Copper", "Ceramic Mold Pick Bronze", "Ceramic Mold Pick Bismuth Bronze", "Ceramic Mold Pick Black Bronze"}).setUnlocalizedName("Pick Mold");
+		clayMoldProPick = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold ProPick", "Ceramic Mold ProPick",
+				"Ceramic Mold ProPick Copper", "Ceramic Mold ProPick Bronze", "Ceramic Mold ProPick Bismuth Bronze", "Ceramic Mold ProPick Black Bronze"}).setUnlocalizedName("ProPick Mold");
+		clayMoldSaw = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Saw", "Ceramic Mold Saw",
+				"Ceramic Mold Saw Copper", "Ceramic Mold Saw Bronze", "Ceramic Mold Saw Bismuth Bronze", "Ceramic Mold Saw Black Bronze"}).setUnlocalizedName("Saw Mold");
+		clayMoldScythe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Scythe", "Ceramic Mold Scythe",
+				"Ceramic Mold Scythe Copper", "Ceramic Mold Scythe Bronze", "Ceramic Mold Scythe Bismuth Bronze", "Ceramic Mold Scythe Black Bronze"}).setUnlocalizedName("Scythe Mold");
+		clayMoldShovel = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Shovel", "Ceramic Mold Shovel",
+				"Ceramic Mold Shovel Copper", "Ceramic Mold Shovel Bronze", "Ceramic Mold Shovel Bismuth Bronze", "Ceramic Mold Shovel Black Bronze"}).setUnlocalizedName("Shovel Mold");
+		clayMoldSword = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Sword", "Ceramic Mold Sword",
+				"Ceramic Mold Sword Copper", "Ceramic Mold Sword Bronze", "Ceramic Mold Sword Bismuth Bronze", "Ceramic Mold Sword Black Bronze"}).setUnlocalizedName("Sword Mold");
+		clayMoldJavelin = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Javelin", "Ceramic Mold Javelin",
+				"Ceramic Mold Javelin Copper", "Ceramic Mold Javelin Bronze", "Ceramic Mold Javelin Bismuth Bronze", "Ceramic Mold Javelin Black Bronze"}).setUnlocalizedName("Javelin Mold");
 
 		tuyereCopper = new ItemTuyere(40, 0).setUnlocalizedName("Copper Tuyere");
 		tuyereBronze = new ItemTuyere(80, 1).setUnlocalizedName("Bronze Tuyere");
@@ -676,87 +673,87 @@ public class ItemSetup extends TFCItems {
 		/*Armor Crafting related items*/
 		setupArmor();
 
-		Recipes.doors = new Item[]{doorOak, doorAspen, doorBirch, doorChestnut, doorDouglasFir, 
-				doorHickory, doorMaple, doorAsh, doorPine, doorSequoia, doorSpruce, doorSycamore, 
+		Recipes.doors = new Item[]{doorOak, doorAspen, doorBirch, doorChestnut, doorDouglasFir,
+				doorHickory, doorMaple, doorAsh, doorPine, doorSequoia, doorSpruce, doorSycamore,
 				doorWhiteCedar, doorWhiteElm, doorWillow, doorKapok, doorAcacia};
 
-		Recipes.axes = new Item[]{sedAxe,igInAxe,igExAxe,mMAxe,
-				bismuthBronzeAxe,blackBronzeAxe,
-				blackSteelAxe,blueSteelAxe,bronzeAxe,copperAxe,
-				wroughtIronAxe,redSteelAxe,steelAxe};
+		Recipes.axes = new Item[]{sedAxe, igInAxe, igExAxe, mMAxe,
+				bismuthBronzeAxe, blackBronzeAxe,
+				blackSteelAxe, blueSteelAxe, bronzeAxe, copperAxe,
+				wroughtIronAxe, redSteelAxe, steelAxe};
 
-		Recipes.chisels = new Item[]{bismuthBronzeChisel,blackBronzeChisel,
-				blackSteelChisel,blueSteelChisel,bronzeChisel,copperChisel,
-				wroughtIronChisel,redSteelChisel,steelChisel};
+		Recipes.chisels = new Item[]{bismuthBronzeChisel, blackBronzeChisel,
+				blackSteelChisel, blueSteelChisel, bronzeChisel, copperChisel,
+				wroughtIronChisel, redSteelChisel, steelChisel};
 
-		Recipes.saws = new Item[]{bismuthBronzeSaw,blackBronzeSaw,
-				blackSteelSaw,blueSteelSaw,bronzeSaw,copperSaw,
-				wroughtIronSaw,redSteelSaw,steelSaw};
+		Recipes.saws = new Item[]{bismuthBronzeSaw, blackBronzeSaw,
+				blackSteelSaw, blueSteelSaw, bronzeSaw, copperSaw,
+				wroughtIronSaw, redSteelSaw, steelSaw};
 
-		Recipes.knives = new Item[]{stoneKnife,bismuthBronzeKnife,blackBronzeKnife,
-				blackSteelKnife,blueSteelKnife,bronzeKnife,copperKnife,
-				wroughtIronKnife,redSteelKnife,steelKnife};
+		Recipes.knives = new Item[]{stoneKnife, bismuthBronzeKnife, blackBronzeKnife,
+				blackSteelKnife, blueSteelKnife, bronzeKnife, copperKnife,
+				wroughtIronKnife, redSteelKnife, steelKnife};
 
-		Recipes.meltedMetal = new Item[]{bismuthUnshaped, bismuthBronzeUnshaped,blackBronzeUnshaped,
-				blackSteelUnshaped,blueSteelUnshaped,brassUnshaped,bronzeUnshaped,
-				copperUnshaped,goldUnshaped,wroughtIronUnshaped,leadUnshaped,nickelUnshaped,pigIronUnshaped,
-				platinumUnshaped,redSteelUnshaped,roseGoldUnshaped,silverUnshaped,
-				steelUnshaped,sterlingSilverUnshaped,tinUnshaped,zincUnshaped,electrumUnshaped,cupronickelUnshaped, osmiumUnshaped, aluminumUnshaped, tungstenUnshaped,
+		Recipes.meltedMetal = new Item[]{bismuthUnshaped, bismuthBronzeUnshaped, blackBronzeUnshaped,
+				blackSteelUnshaped, blueSteelUnshaped, brassUnshaped, bronzeUnshaped,
+				copperUnshaped, goldUnshaped, wroughtIronUnshaped, leadUnshaped, nickelUnshaped, pigIronUnshaped,
+				platinumUnshaped, redSteelUnshaped, roseGoldUnshaped, silverUnshaped,
+				steelUnshaped, sterlingSilverUnshaped, tinUnshaped, zincUnshaped, electrumUnshaped, cupronickelUnshaped, osmiumUnshaped, aluminumUnshaped, tungstenUnshaped,
 				highCarbonSteelUnshaped, weakSteelUnshaped, highCarbonBlackSteelUnshaped, highCarbonBlueSteelUnshaped, highCarbonRedSteelUnshaped,
 				weakBlueSteelUnshaped, weakRedSteelUnshaped};
 
-		Recipes.hammers  = new Item[]{stoneHammer,bismuthBronzeHammer,blackBronzeHammer,
-				blackSteelHammer,blueSteelHammer,bronzeHammer,copperHammer,
-				wroughtIronHammer,redSteelHammer,steelHammer};
+		Recipes.hammers = new Item[]{stoneHammer, bismuthBronzeHammer, blackBronzeHammer,
+				blackSteelHammer, blueSteelHammer, bronzeHammer, copperHammer,
+				wroughtIronHammer, redSteelHammer, steelHammer};
 
-		Recipes.scythes = new Item[]{bismuthBronzeScythe,blackBronzeScythe,
-				blackSteelScythe,blueSteelScythe,bronzeScythe,copperScythe,
-				wroughtIronScythe,redSteelScythe,steelScythe};
+		Recipes.scythes = new Item[]{bismuthBronzeScythe, blackBronzeScythe,
+				blackSteelScythe, blueSteelScythe, bronzeScythe, copperScythe,
+				wroughtIronScythe, redSteelScythe, steelScythe};
 
-		Recipes.picks = new Item[]{bismuthBronzePick,blackBronzePick,
-				blackSteelPick,blueSteelPick,bronzePick,copperPick,
-				wroughtIronPick,redSteelPick,steelPick};
+		Recipes.picks = new Item[]{bismuthBronzePick, blackBronzePick,
+				blackSteelPick, blueSteelPick, bronzePick, copperPick,
+				wroughtIronPick, redSteelPick, steelPick};
 
-		Recipes.proPicks = new Item[]{proPickBismuthBronze,proPickBlackBronze,
-				proPickBlackSteel,proPickBlueSteel,proPickBronze,proPickCopper,
-				proPickIron,proPickRedSteel,proPickSteel};
+		Recipes.proPicks = new Item[]{proPickBismuthBronze, proPickBlackBronze,
+				proPickBlackSteel, proPickBlueSteel, proPickBronze, proPickCopper,
+				proPickIron, proPickRedSteel, proPickSteel};
 
-		Recipes.shovels = new Item[]{sedShovel,igInShovel,igExShovel,mMShovel,
-				bismuthBronzeShovel,blackBronzeShovel,
-				blackSteelShovel,blueSteelShovel,bronzeShovel,copperShovel,
-				wroughtIronShovel,redSteelShovel,steelShovel};
+		Recipes.shovels = new Item[]{sedShovel, igInShovel, igExShovel, mMShovel,
+				bismuthBronzeShovel, blackBronzeShovel,
+				blackSteelShovel, blueSteelShovel, bronzeShovel, copperShovel,
+				wroughtIronShovel, redSteelShovel, steelShovel};
 
-		Recipes.hoes = new Item[]{sedHoe,igInHoe,igExHoe,mMHoe,
-				bismuthBronzeHoe,blackBronzeHoe,
-				blackSteelHoe,blueSteelHoe,bronzeHoe,copperHoe,
-				wroughtIronHoe,redSteelHoe,steelHoe};
+		Recipes.hoes = new Item[]{sedHoe, igInHoe, igExHoe, mMHoe,
+				bismuthBronzeHoe, blackBronzeHoe,
+				blackSteelHoe, blueSteelHoe, bronzeHoe, copperHoe,
+				wroughtIronHoe, redSteelHoe, steelHoe};
 
-		Recipes.swords = new Item[]{bismuthBronzeSword,blackBronzeSword,
-				blackSteelSword,blueSteelSword,bronzeSword,copperSword,
-				wroughtIronSword,redSteelSword,steelSword};
+		Recipes.swords = new Item[]{bismuthBronzeSword, blackBronzeSword,
+				blackSteelSword, blueSteelSword, bronzeSword, copperSword,
+				wroughtIronSword, redSteelSword, steelSword};
 
-		Recipes.maces = new Item[]{bismuthBronzeMace,blackBronzeMace,
-				blackSteelMace,blueSteelMace,bronzeMace,copperMace,
-				wroughtIronMace,redSteelMace,steelMace};
+		Recipes.maces = new Item[]{bismuthBronzeMace, blackBronzeMace,
+				blackSteelMace, blueSteelMace, bronzeMace, copperMace,
+				wroughtIronMace, redSteelMace, steelMace};
 
-		Recipes.javelins = new Item[]{sedStoneJavelin,igInStoneJavelin,
-				igExStoneJavelin,mMStoneJavelin,bismuthBronzeJavelin,
-				blackBronzeJavelin,blackSteelJavelin,blueSteelJavelin,
-				bronzeJavelin,copperJavelin,wroughtIronJavelin,
-				redSteelJavelin,steelJavelin};
+		Recipes.javelins = new Item[]{sedStoneJavelin, igInStoneJavelin,
+				igExStoneJavelin, mMStoneJavelin, bismuthBronzeJavelin,
+				blackBronzeJavelin, blackSteelJavelin, blueSteelJavelin,
+				bronzeJavelin, copperJavelin, wroughtIronJavelin,
+				redSteelJavelin, steelJavelin};
 
-		Recipes.tuyeres = new Item[]{tuyereBismuthBronze,tuyereBlackBronze,
-				tuyereBlackSteel,tuyereBlueSteel,tuyereBronze,tuyereCopper,
-				tuyereWroughtIron,tuyereRedSteel,tuyereSteel};
+		Recipes.tuyeres = new Item[]{tuyereBismuthBronze, tuyereBlackBronze,
+				tuyereBlackSteel, tuyereBlueSteel, tuyereBronze, tuyereCopper,
+				tuyereWroughtIron, tuyereRedSteel, tuyereSteel};
 
 		Recipes.spindle = new Item[]{spindle};
 
-		Recipes.gems  = new Item[]{gemAgate, gemAmethyst, gemBeryl, gemDiamond, gemEmerald, gemGarnet, 
-				gemJade, gemJasper, gemOpal,gemRuby,gemSapphire,gemTopaz,gemTourmaline};
+		Recipes.gems = new Item[]{gemAgate, gemAmethyst, gemBeryl, gemDiamond, gemEmerald, gemGarnet,
+				gemJade, gemJasper, gemOpal, gemRuby, gemSapphire, gemTopaz, gemTourmaline};
 
-		Recipes.seeds  = new Item[]{seedsBarley,seedsCabbage,seedsCarrot,seedsGarlic,seedsGreenbean,seedsJute,seedsMaize,
-				seedsOat,seedsOnion,seedsPotato,seedsRedBellPepper,seedsRice,seedsRye,seedsSoybean,seedsSquash,
-				seedsSugarcane,seedsTomato,seedsWheat,seedsYellowBellPepper};
+		Recipes.seeds = new Item[]{seedsBarley, seedsCabbage, seedsCarrot, seedsGarlic, seedsGreenbean, seedsJute, seedsMaize,
+				seedsOat, seedsOnion, seedsPotato, seedsRedBellPepper, seedsRice, seedsRye, seedsSoybean, seedsSquash,
+				seedsSugarcane, seedsTomato, seedsWheat, seedsYellowBellPepper};
 
 		((TFCTabs) TFCTabs.TFC_BUILDING).setTabIconItemStack(new ItemStack(TFCBlocks.stoneSedBrick));
 		((TFCTabs) TFCTabs.TFC_DECORATION).setTabIconItemStack(new ItemStack(TFCBlocks.flora));
@@ -776,10 +773,9 @@ public class ItemSetup extends TFCItems {
 	}
 
 	/**
-	 * 
+	 *
 	 */
-	private static void setupFood()
-	{
+	private static void setupFood() {
 		foodList = new ArrayList<Item>();
 
 		egg = new ItemEgg().setSize(EnumSize.SMALL).setUnlocalizedName("egg").setTextureName("egg").setCreativeTab(TFCTabs.TFC_FOODS);
@@ -840,11 +836,9 @@ public class ItemSetup extends TFCItems {
 		//Vegetables
 		tomato = new ItemFoodTFC(EnumFoodGroup.Vegetable, 30, 5, 0, 0, 50, true).setUnlocalizedName("Tomato");
 		potato = new ItemFoodTFC(EnumFoodGroup.Vegetable, 0, 0, 10, 15, 20, true).setUnlocalizedName("Potato");
-		onion = new ItemFoodTFC(EnumFoodGroup.Vegetable, 10, 25, 0, 0, 20, true)
-		{
+		onion = new ItemFoodTFC(EnumFoodGroup.Vegetable, 10, 25, 0, 0, 20, true) {
 			@Override
-			public void registerIcons(IIconRegister registerer)
-			{
+			public void registerIcons(IIconRegister registerer) {
 				super.registerIcons(registerer);
 				this.hasSubtypes = true;
 				this.metaIcons = new IIcon[2];
@@ -853,9 +847,8 @@ public class ItemSetup extends TFCItems {
 			}
 
 			@Override
-			public IIcon getIconFromDamage(int i)
-			{
-				if(i == 1)
+			public IIcon getIconFromDamage(int i) {
+				if (i == 1)
 					return this.metaIcons[1];
 				return super.getIconFromDamage(i);
 			}
@@ -909,7 +902,7 @@ public class ItemSetup extends TFCItems {
 		seedsOat = new ItemCustomSeeds(5).setUnlocalizedName("Seeds Oat");
 		seedsRice = new ItemCustomSeeds(6).setUnlocalizedName("Seeds Rice");
 		seedsPotato = new ItemCustomSeeds(7).setUnlocalizedName("Seeds Potato");
-		seedsOnion = new ItemCustomSeeds(8).setUnlocalizedName(TFCOptions.onionsAreGross?"Seeds Rutabaga":"Seeds Onion");
+		seedsOnion = new ItemCustomSeeds(8).setUnlocalizedName(TFCOptions.onionsAreGross ? "Seeds Rutabaga" : "Seeds Onion");
 		seedsCabbage = new ItemCustomSeeds(9).setUnlocalizedName("Seeds Cabbage");
 		seedsGarlic = new ItemCustomSeeds(10).setUnlocalizedName("Seeds Garlic");
 		seedsCarrot = new ItemCustomSeeds(11).setUnlocalizedName("Seeds Carrot");
@@ -921,7 +914,6 @@ public class ItemSetup extends TFCItems {
 		seedsJute = new ItemCustomSeeds(17).setUnlocalizedName("Seeds Jute");
 		seedsSugarcane = new ItemCustomSeeds(18).setUnlocalizedName("Seeds Sugarcane");
 		//SeedsHemp = new ItemCustomSeeds(22).setUnlocalizedName("Seeds Hemp");
-
 
 
 		//fruitTreeSapling = new ItemFruitTreeSapling().setUnlocalizedName("FruitSapling");
@@ -942,8 +934,7 @@ public class ItemSetup extends TFCItems {
 		CloudberryLeaf = new ItemTerra().setFolder("plants/").setUnlocalizedName("Cloudberry Leaf").setCreativeTab(null);*/
 	}
 
-	private static void registerMetals()
-	{
+	private static void registerMetals() {
 		Global.BISMUTH = new Metal("Bismuth", TFCItems.bismuthUnshaped, TFCItems.bismuthIngot);
 		Global.BISMUTHBRONZE = new Metal("Bismuth Bronze", TFCItems.bismuthBronzeUnshaped, TFCItems.bismuthBronzeIngot);
 		Global.BLACKBRONZE = new Metal("Black Bronze", TFCItems.blackBronzeUnshaped, TFCItems.blackBronzeIngot);
@@ -1079,171 +1070,233 @@ public class ItemSetup extends TFCItems {
 
 	}
 
-	public static void setupArmor()
-	{
+	public static void setupArmor() {
 		String[] names = {"Bismuth Bronze", "Black Bronze", "Black Steel", "Blue Steel", "Bronze", "Copper", "Wrought Iron", "Red Steel", "Steel"};
 		String[] namesNSO = {"Brass", "Gold", "Lead", "Nickel", "Pig Iron", "Platinum", "Silver", "Sterling Silver"};
 		CommonProxy proxy = TerraFirmaCraft.proxy;
 		int i;
 
-		bismuthSheet = 			((ItemMetalSheet) new ItemMetalSheet(0).setUnlocalizedName("Bismuth Sheet")).setMetal("Bismuth", 200);
-		bismuthBronzeSheet = 	((ItemMetalSheet) new ItemMetalSheet(1).setUnlocalizedName("Bismuth Bronze Sheet")).setMetal("Bismuth Bronze", 200);
-		blackBronzeSheet = 		((ItemMetalSheet) new ItemMetalSheet(2).setUnlocalizedName("Black Bronze Sheet")).setMetal("Black Bronze", 200);
-		blackSteelSheet = 		((ItemMetalSheet) new ItemMetalSheet(3).setUnlocalizedName("Black Steel Sheet")).setMetal("Black Steel", 200);
-		blueSteelSheet = 		((ItemMetalSheet) new ItemMetalSheet(4).setUnlocalizedName("Blue Steel Sheet")).setMetal("Blue Steel", 200);
-		bronzeSheet = 			((ItemMetalSheet) new ItemMetalSheet(6).setUnlocalizedName("Bronze Sheet")).setMetal("Bronze", 200);
-		copperSheet = 			((ItemMetalSheet) new ItemMetalSheet(7).setUnlocalizedName("Copper Sheet")).setMetal("Copper", 200);
-		wroughtIronSheet = 		((ItemMetalSheet) new ItemMetalSheet(9).setUnlocalizedName("Wrought Iron Sheet")).setMetal("Wrought Iron", 200);
-		redSteelSheet = 		((ItemMetalSheet) new ItemMetalSheet(14).setUnlocalizedName("Red Steel Sheet")).setMetal("Red Steel", 200);
-		roseGoldSheet = 		((ItemMetalSheet) new ItemMetalSheet(15).setUnlocalizedName("Rose Gold Sheet")).setMetal("Rose Gold", 200);
-		steelSheet = 			((ItemMetalSheet) new ItemMetalSheet(17).setUnlocalizedName("Steel Sheet")).setMetal("Steel", 200);
-		tinSheet = 				((ItemMetalSheet) new ItemMetalSheet(19).setUnlocalizedName("Tin Sheet")).setMetal("Tin", 200);
-		zincSheet = 			((ItemMetalSheet) new ItemMetalSheet(20).setUnlocalizedName("Zinc Sheet")).setMetal("Zinc", 200);
-		electrumSheet = 		((ItemMetalSheet) new ItemMetalSheet(21).setUnlocalizedName("Electrum Sheet")).setMetal("Electrum", 200);
-		cupronickelSheet = 		((ItemMetalSheet) new ItemMetalSheet(22).setUnlocalizedName("Cupronickel Sheet")).setMetal("Cupronickel", 200);
-		osmiumSheet = 			((ItemMetalSheet) new ItemMetalSheet(23).setUnlocalizedName("Osmium Sheet")).setMetal("Osmium", 200);
-		aluminumSheet = 		((ItemMetalSheet) new ItemMetalSheet(24).setUnlocalizedName("Aluminum Sheet")).setMetal("Aluminum", 200);
-		tungstenSheet = 		((ItemMetalSheet) new ItemMetalSheet(25).setUnlocalizedName("Tungsten Sheet")).setMetal("Tungsten", 200);
+		bismuthSheet = ((ItemMetalSheet) new ItemMetalSheet(0).setUnlocalizedName("Bismuth Sheet")).setMetal("Bismuth", 200);
+		bismuthBronzeSheet = ((ItemMetalSheet) new ItemMetalSheet(1).setUnlocalizedName("Bismuth Bronze Sheet")).setMetal("Bismuth Bronze", 200);
+		blackBronzeSheet = ((ItemMetalSheet) new ItemMetalSheet(2).setUnlocalizedName("Black Bronze Sheet")).setMetal("Black Bronze", 200);
+		blackSteelSheet = ((ItemMetalSheet) new ItemMetalSheet(3).setUnlocalizedName("Black Steel Sheet")).setMetal("Black Steel", 200);
+		blueSteelSheet = ((ItemMetalSheet) new ItemMetalSheet(4).setUnlocalizedName("Blue Steel Sheet")).setMetal("Blue Steel", 200);
+		bronzeSheet = ((ItemMetalSheet) new ItemMetalSheet(6).setUnlocalizedName("Bronze Sheet")).setMetal("Bronze", 200);
+		copperSheet = ((ItemMetalSheet) new ItemMetalSheet(7).setUnlocalizedName("Copper Sheet")).setMetal("Copper", 200);
+		wroughtIronSheet = ((ItemMetalSheet) new ItemMetalSheet(9).setUnlocalizedName("Wrought Iron Sheet")).setMetal("Wrought Iron", 200);
+		redSteelSheet = ((ItemMetalSheet) new ItemMetalSheet(14).setUnlocalizedName("Red Steel Sheet")).setMetal("Red Steel", 200);
+		roseGoldSheet = ((ItemMetalSheet) new ItemMetalSheet(15).setUnlocalizedName("Rose Gold Sheet")).setMetal("Rose Gold", 200);
+		steelSheet = ((ItemMetalSheet) new ItemMetalSheet(17).setUnlocalizedName("Steel Sheet")).setMetal("Steel", 200);
+		tinSheet = ((ItemMetalSheet) new ItemMetalSheet(19).setUnlocalizedName("Tin Sheet")).setMetal("Tin", 200);
+		zincSheet = ((ItemMetalSheet) new ItemMetalSheet(20).setUnlocalizedName("Zinc Sheet")).setMetal("Zinc", 200);
+		electrumSheet = ((ItemMetalSheet) new ItemMetalSheet(21).setUnlocalizedName("Electrum Sheet")).setMetal("Electrum", 200);
+		cupronickelSheet = ((ItemMetalSheet) new ItemMetalSheet(22).setUnlocalizedName("Cupronickel Sheet")).setMetal("Cupronickel", 200);
+		osmiumSheet = ((ItemMetalSheet) new ItemMetalSheet(23).setUnlocalizedName("Osmium Sheet")).setMetal("Osmium", 200);
+		aluminumSheet = ((ItemMetalSheet) new ItemMetalSheet(24).setUnlocalizedName("Aluminum Sheet")).setMetal("Aluminum", 200);
+		tungstenSheet = ((ItemMetalSheet) new ItemMetalSheet(25).setUnlocalizedName("Tungsten Sheet")).setMetal("Tungsten", 200);
 
-		bismuthSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(0).setUnlocalizedName("Bismuth Double Sheet")).setMetal("Bismuth", 400);
-		bismuthBronzeSheet2x = 	((ItemMetalSheet2x) new ItemMetalSheet2x(1).setUnlocalizedName("Bismuth Bronze Double Sheet")).setMetal("Bismuth Bronze", 400);
-		blackBronzeSheet2x = 	((ItemMetalSheet2x) new ItemMetalSheet2x(2).setUnlocalizedName("Black Bronze Double Sheet")).setMetal("Black Bronze", 400);
-		blackSteelSheet2x = 	((ItemMetalSheet2x) new ItemMetalSheet2x(3).setUnlocalizedName("Black Steel Double Sheet")).setMetal("Black Steel", 400);
-		blueSteelSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(4).setUnlocalizedName("Blue Steel Double Sheet")).setMetal("Blue Steel", 400);
-		bronzeSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(6).setUnlocalizedName("Bronze Double Sheet")).setMetal("Bronze", 400);
-		copperSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(7).setUnlocalizedName("Copper Double Sheet")).setMetal("Copper", 400);
-		wroughtIronSheet2x = 	((ItemMetalSheet2x) new ItemMetalSheet2x(9).setUnlocalizedName("Wrought Iron Double Sheet")).setMetal("Wrought Iron", 400);
-		redSteelSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(14).setUnlocalizedName("Red Steel Double Sheet")).setMetal("Red Steel", 400);
-		roseGoldSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(15).setUnlocalizedName("Rose Gold Double Sheet")).setMetal("Rose Gold", 400);
-		steelSheet2x = 			((ItemMetalSheet2x) new ItemMetalSheet2x(17).setUnlocalizedName("Steel Double Sheet")).setMetal("Steel", 400);
-		tinSheet2x = 			((ItemMetalSheet2x) new ItemMetalSheet2x(19).setUnlocalizedName("Tin Double Sheet")).setMetal("Tin", 400);
-		zincSheet2x = 			((ItemMetalSheet2x) new ItemMetalSheet2x(20).setUnlocalizedName("Zinc Double Sheet")).setMetal("Zinc", 400);
-		electrumSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(21).setUnlocalizedName("Electrum Double Sheet")).setMetal("Electrum", 400);
-		cupronickelSheet2x = 	((ItemMetalSheet2x) new ItemMetalSheet2x(22).setUnlocalizedName("Cupronickel Double Sheet")).setMetal("Cupronickel", 400);
-		osmiumSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(23).setUnlocalizedName("Osmium Double Sheet")).setMetal("Osmium", 400);
-		aluminumSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(24).setUnlocalizedName("Aluminum Double Sheet")).setMetal("Aluminum", 400);
-		tungstenSheet2x = 		((ItemMetalSheet2x) new ItemMetalSheet2x(25).setUnlocalizedName("Tungsten Double Sheet")).setMetal("Tungsten", 400);
+		bismuthSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(0).setUnlocalizedName("Bismuth Double Sheet")).setMetal("Bismuth", 400);
+		bismuthBronzeSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(1).setUnlocalizedName("Bismuth Bronze Double Sheet")).setMetal("Bismuth Bronze", 400);
+		blackBronzeSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(2).setUnlocalizedName("Black Bronze Double Sheet")).setMetal("Black Bronze", 400);
+		blackSteelSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(3).setUnlocalizedName("Black Steel Double Sheet")).setMetal("Black Steel", 400);
+		blueSteelSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(4).setUnlocalizedName("Blue Steel Double Sheet")).setMetal("Blue Steel", 400);
+		bronzeSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(6).setUnlocalizedName("Bronze Double Sheet")).setMetal("Bronze", 400);
+		copperSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(7).setUnlocalizedName("Copper Double Sheet")).setMetal("Copper", 400);
+		wroughtIronSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(9).setUnlocalizedName("Wrought Iron Double Sheet")).setMetal("Wrought Iron", 400);
+		redSteelSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(14).setUnlocalizedName("Red Steel Double Sheet")).setMetal("Red Steel", 400);
+		roseGoldSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(15).setUnlocalizedName("Rose Gold Double Sheet")).setMetal("Rose Gold", 400);
+		steelSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(17).setUnlocalizedName("Steel Double Sheet")).setMetal("Steel", 400);
+		tinSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(19).setUnlocalizedName("Tin Double Sheet")).setMetal("Tin", 400);
+		zincSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(20).setUnlocalizedName("Zinc Double Sheet")).setMetal("Zinc", 400);
+		electrumSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(21).setUnlocalizedName("Electrum Double Sheet")).setMetal("Electrum", 400);
+		cupronickelSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(22).setUnlocalizedName("Cupronickel Double Sheet")).setMetal("Cupronickel", 400);
+		osmiumSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(23).setUnlocalizedName("Osmium Double Sheet")).setMetal("Osmium", 400);
+		aluminumSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(24).setUnlocalizedName("Aluminum Double Sheet")).setMetal("Aluminum", 400);
+		tungstenSheet2x = ((ItemMetalSheet2x) new ItemMetalSheet2x(25).setUnlocalizedName("Tungsten Double Sheet")).setMetal("Tungsten", 400);
 
 		i = 0;
-		brassSheet = 			new ItemMetalSheet(5).setMetal("Brass", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		goldSheet = 			new ItemMetalSheet(8).setMetal("Gold", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		leadSheet = 			new ItemMetalSheet(10).setMetal("Lead", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		nickelSheet = 			new ItemMetalSheet(11).setMetal("Nickel", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		pigIronSheet = 			new ItemMetalSheet(12).setMetal("Pig Iron", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		platinumSheet = 		new ItemMetalSheet(13).setMetal("Platinum", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
-		silverSheet = 			new ItemMetalSheet(16).setMetal("Silver", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
+		brassSheet = new ItemMetalSheet(5).setMetal("Brass", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		goldSheet = new ItemMetalSheet(8).setMetal("Gold", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		leadSheet = new ItemMetalSheet(10).setMetal("Lead", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		nickelSheet = new ItemMetalSheet(11).setMetal("Nickel", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		pigIronSheet = new ItemMetalSheet(12).setMetal("Pig Iron", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		platinumSheet = new ItemMetalSheet(13).setMetal("Platinum", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
+		silverSheet = new ItemMetalSheet(16).setMetal("Silver", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
 		//noinspection UnusedAssignment
-		sterlingSilverSheet = 	new ItemMetalSheet(18).setMetal("Sterling Silver", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
+		sterlingSilverSheet = new ItemMetalSheet(18).setMetal("Sterling Silver", 200).setUnlocalizedName(namesNSO[i++] + " Sheet");
 
 		i = 0;
-		brassSheet2x = 			new ItemMetalSheet2x(5).setMetal("Brass", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		goldSheet2x = 			new ItemMetalSheet2x(8).setMetal("Gold", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		leadSheet2x = 			new ItemMetalSheet2x(10).setMetal("Lead", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		nickelSheet2x = 		new ItemMetalSheet2x(1).setMetal("Nickel", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		pigIronSheet2x = 		new ItemMetalSheet2x(12).setMetal("Pig Iron", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		platinumSheet2x = 		new ItemMetalSheet2x(13).setMetal("Platinum", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
-		silverSheet2x = 		new ItemMetalSheet2x(16).setMetal("Silver", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
+		brassSheet2x = new ItemMetalSheet2x(5).setMetal("Brass", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		goldSheet2x = new ItemMetalSheet2x(8).setMetal("Gold", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		leadSheet2x = new ItemMetalSheet2x(10).setMetal("Lead", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		nickelSheet2x = new ItemMetalSheet2x(1).setMetal("Nickel", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		pigIronSheet2x = new ItemMetalSheet2x(12).setMetal("Pig Iron", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		platinumSheet2x = new ItemMetalSheet2x(13).setMetal("Platinum", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
+		silverSheet2x = new ItemMetalSheet2x(16).setMetal("Silver", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
 		//noinspection UnusedAssignment
-		sterlingSilverSheet2x = new ItemMetalSheet2x(18).setMetal("Sterling Silver", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
+		sterlingSilverSheet2x = new ItemMetalSheet2x(18).setMetal("Sterling Silver", 400).setUnlocalizedName(namesNSO[i++] + " Double Sheet");
 
 		i = 0;
-		bismuthBronzeUnfinishedBoots = 	new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		blackBronzeUnfinishedBoots = 	new ItemUnfinishedArmor().setMetal("Black Bronze", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		blackSteelUnfinishedBoots = 	new ItemUnfinishedArmor().setMetal("Black Steel", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		blueSteelUnfinishedBoots = 		new ItemUnfinishedArmor().setMetal("Blue Steel", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		bronzeUnfinishedBoots = 		new ItemUnfinishedArmor().setMetal("Bronze", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		copperUnfinishedBoots = 		new ItemUnfinishedArmor().setMetal("Copper", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		wroughtIronUnfinishedBoots = 	new ItemUnfinishedArmor().setMetal("Wrought Iron", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		redSteelUnfinishedBoots = 		new ItemUnfinishedArmor().setMetal("Red Steel", 3).setUnlocalizedName(names[i]+" Unfinished Boots"); i++;
-		steelUnfinishedBoots = 			new ItemUnfinishedArmor().setMetal("Steel", 3).setUnlocalizedName(names[i]+" Unfinished Boots");
+		bismuthBronzeUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		blackBronzeUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Black Bronze", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		blackSteelUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Black Steel", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		blueSteelUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Blue Steel", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		bronzeUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Bronze", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		copperUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Copper", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		wroughtIronUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Wrought Iron", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		redSteelUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Red Steel", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
+		i++;
+		steelUnfinishedBoots = new ItemUnfinishedArmor().setMetal("Steel", 3).setUnlocalizedName(names[i] + " Unfinished Boots");
 
 		i = 0;
-		bismuthBronzeBoots = 	new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		blackBronzeBoots = 		new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		blackSteelBoots = 		new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		blueSteelBoots = 		new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		bronzeBoots = 			new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		copperBoots = 			new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		wroughtIronBoots = 		new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		redSteelBoots = 		new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 3, 50,0).setUnlocalizedName(names[i]+" Boots"); i++;
-		steelBoots = 			new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 3, 50,0).setUnlocalizedName(names[i]+" Boots");
+		bismuthBronzeBoots = new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		blackBronzeBoots = new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		blackSteelBoots = new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		blueSteelBoots = new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		bronzeBoots = new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		copperBoots = new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		wroughtIronBoots = new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		redSteelBoots = new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
+		i++;
+		steelBoots = new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 3, 50, 0).setUnlocalizedName(names[i] + " Boots");
 
 		i = 0;
-		bismuthBronzeUnfinishedGreaves = 	new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		blackBronzeUnfinishedGreaves = 		new ItemUnfinishedArmor().setMetal("Black Bronze", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		blackSteelUnfinishedGreaves = 		new ItemUnfinishedArmor().setMetal("Black Steel", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		blueSteelUnfinishedGreaves = 		new ItemUnfinishedArmor().setMetal("Blue Steel", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		bronzeUnfinishedGreaves = 			new ItemUnfinishedArmor().setMetal("Bronze", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		copperUnfinishedGreaves = 			new ItemUnfinishedArmor().setMetal("Copper", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		wroughtIronUnfinishedGreaves = 		new ItemUnfinishedArmor().setMetal("Wrought Iron", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		redSteelUnfinishedGreaves = 		new ItemUnfinishedArmor().setMetal("Red Steel", 2).setUnlocalizedName(names[i]+" Unfinished Greaves"); i++;
-		steelUnfinishedGreaves = 			new ItemUnfinishedArmor().setMetal("Steel", 2).setUnlocalizedName(names[i]+" Unfinished Greaves");
+		bismuthBronzeUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		blackBronzeUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Black Bronze", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		blackSteelUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Black Steel", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		blueSteelUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Blue Steel", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		bronzeUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Bronze", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		copperUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Copper", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		wroughtIronUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Wrought Iron", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		redSteelUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Red Steel", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
+		i++;
+		steelUnfinishedGreaves = new ItemUnfinishedArmor().setMetal("Steel", 2).setUnlocalizedName(names[i] + " Unfinished Greaves");
 
 		i = 0;
-		bismuthBronzeGreaves = 	new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		blackBronzeGreaves = 	new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		blackSteelGreaves = 	new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		blueSteelGreaves = 		new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		bronzeGreaves = 		new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		copperGreaves = 		new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		wroughtIronGreaves =	new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		redSteelGreaves = 		new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves"); i++;
-		steelGreaves = 			new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 2, 50,1).setUnlocalizedName(names[i]+" Greaves");
+		bismuthBronzeGreaves = new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		blackBronzeGreaves = new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		blackSteelGreaves = new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		blueSteelGreaves = new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		bronzeGreaves = new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		copperGreaves = new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		wroughtIronGreaves = new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		redSteelGreaves = new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
+		i++;
+		steelGreaves = new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 2, 50, 1).setUnlocalizedName(names[i] + " Greaves");
 
 		i = 0;
-		bismuthBronzeUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		blackBronzeUnfinishedChestplate = 	new ItemUnfinishedArmor().setMetal("Black Bronze", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		blackSteelUnfinishedChestplate = 	new ItemUnfinishedArmor().setMetal("Black Steel", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		blueSteelUnfinishedChestplate = 	new ItemUnfinishedArmor().setMetal("Blue Steel", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		bronzeUnfinishedChestplate = 		new ItemUnfinishedArmor().setMetal("Bronze", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		copperUnfinishedChestplate = 		new ItemUnfinishedArmor().setMetal("Copper", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		wroughtIronUnfinishedChestplate = 	new ItemUnfinishedArmor().setMetal("Wrought Iron", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		redSteelUnfinishedChestplate = 		new ItemUnfinishedArmor().setMetal("Red Steel", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate"); i++;
-		steelUnfinishedChestplate = 		new ItemUnfinishedArmor().setMetal("Steel", 1).setUnlocalizedName(names[i]+" Unfinished Chestplate");
+		bismuthBronzeUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		blackBronzeUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Black Bronze", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		blackSteelUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Black Steel", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		blueSteelUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Blue Steel", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		bronzeUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Bronze", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		copperUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Copper", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		wroughtIronUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Wrought Iron", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		redSteelUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Red Steel", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
+		i++;
+		steelUnfinishedChestplate = new ItemUnfinishedArmor().setMetal("Steel", 1).setUnlocalizedName(names[i] + " Unfinished Chestplate");
 
 		i = 0;
-		bismuthBronzeChestplate =	new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		blackBronzeChestplate = 	new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		blackSteelChestplate = 		new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		blueSteelChestplate = 		new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		bronzeChestplate = 			new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		copperChestplate = 			new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		wroughtIronChestplate = 	new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		redSteelChestplate = 		new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate"); i++;
-		steelChestplate = 			new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 1, 50,2).setUnlocalizedName(names[i]+" Chestplate");
+		bismuthBronzeChestplate = new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		blackBronzeChestplate = new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		blackSteelChestplate = new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		blueSteelChestplate = new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		bronzeChestplate = new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		copperChestplate = new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		wroughtIronChestplate = new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		redSteelChestplate = new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
+		i++;
+		steelChestplate = new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 1, 50, 2).setUnlocalizedName(names[i] + " Chestplate");
 
 		i = 0;
-		bismuthBronzeUnfinishedHelmet = 	new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		blackBronzeUnfinishedHelmet = 		new ItemUnfinishedArmor().setMetal("Black Bronze", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		blackSteelUnfinishedHelmet = 		new ItemUnfinishedArmor().setMetal("Black Steel", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		blueSteelUnfinishedHelmet = 		new ItemUnfinishedArmor().setMetal("Blue Steel", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		bronzeUnfinishedHelmet = 			new ItemUnfinishedArmor().setMetal("Bronze", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		copperUnfinishedHelmet = 			new ItemUnfinishedArmor().setMetal("Copper", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		wroughtIronUnfinishedHelmet = 		new ItemUnfinishedArmor().setMetal("Wrought Iron", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		redSteelUnfinishedHelmet = 			new ItemUnfinishedArmor().setMetal("Red Steel", 0).setUnlocalizedName(names[i]+" Unfinished Helmet"); i++;
-		steelUnfinishedHelmet = 			new ItemUnfinishedArmor().setMetal("Steel", 0).setUnlocalizedName(names[i]+" Unfinished Helmet");
+		bismuthBronzeUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Bismuth Bronze", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		blackBronzeUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Black Bronze", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		blackSteelUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Black Steel", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		blueSteelUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Blue Steel", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		bronzeUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Bronze", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		copperUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Copper", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		wroughtIronUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Wrought Iron", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		redSteelUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Red Steel", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
+		i++;
+		steelUnfinishedHelmet = new ItemUnfinishedArmor().setMetal("Steel", 0).setUnlocalizedName(names[i] + " Unfinished Helmet");
 
 		i = 0;
-		bismuthBronzeHelmet = 	new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		blackBronzeHelmet = 	new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		blackSteelHelmet = 		new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		blueSteelHelmet = 		new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		bronzeHelmet = 			new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		copperHelmet = 			new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		wroughtIronHelmet = 	new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		redSteelHelmet = 		new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet"); i++;
-		steelHelmet = 			new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 0, 50,3).setUnlocalizedName(names[i]+" Helmet");
+		bismuthBronzeHelmet = new ItemTFCArmor(Armor.bismuthBronzePlate, proxy.getArmorRenderID("bismuthbronze"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		blackBronzeHelmet = new ItemTFCArmor(Armor.blackBronzePlate, proxy.getArmorRenderID("blackbronze"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		blackSteelHelmet = new ItemTFCArmor(Armor.blackSteelPlate, proxy.getArmorRenderID("blacksteel"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		blueSteelHelmet = new ItemTFCArmor(Armor.blueSteelPlate, proxy.getArmorRenderID("bluesteel"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		bronzeHelmet = new ItemTFCArmor(Armor.bronzePlate, proxy.getArmorRenderID("bronze"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		copperHelmet = new ItemTFCArmor(Armor.copperPlate, proxy.getArmorRenderID("copper"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		wroughtIronHelmet = new ItemTFCArmor(Armor.wroughtIronPlate, proxy.getArmorRenderID("wroughtiron"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		redSteelHelmet = new ItemTFCArmor(Armor.redSteelPlate, proxy.getArmorRenderID("redsteel"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
+		i++;
+		steelHelmet = new ItemTFCArmor(Armor.steelPlate, proxy.getArmorRenderID("steel"), 0, 50, 3).setUnlocalizedName(names[i] + " Helmet");
 
-		leatherHelmet = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 0, ArmorMaterial.CLOTH, 100,3).setUnlocalizedName("helmetCloth").setTextureName("leather_helmet");
-		leatherChestplate = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 1, ArmorMaterial.CLOTH, 100,2).setUnlocalizedName("chestplateCloth").setTextureName("leather_chestplate");
-		leatherLeggings = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 2, ArmorMaterial.CLOTH, 100,1).setUnlocalizedName("leggingsCloth").setTextureName("leather_leggings");
-		leatherBoots = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 3, ArmorMaterial.CLOTH, 100,0).setUnlocalizedName("bootsCloth").setTextureName("leather_boots");
+		leatherHelmet = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 0, ArmorMaterial.CLOTH, 100, 3).setUnlocalizedName("helmetCloth").setTextureName("leather_helmet");
+		leatherChestplate = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 1, ArmorMaterial.CLOTH, 100, 2).setUnlocalizedName("chestplateCloth").setTextureName("leather_chestplate");
+		leatherLeggings = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 2, ArmorMaterial.CLOTH, 100, 1).setUnlocalizedName("leggingsCloth").setTextureName("leather_leggings");
+		leatherBoots = new ItemTFCArmor(Armor.leather, proxy.getArmorRenderID("leather"), 3, ArmorMaterial.CLOTH, 100, 0).setUnlocalizedName("bootsCloth").setTextureName("leather_boots");
 
 		quiver = new ItemQuiver().setUnlocalizedName("Quiver");
 	}
 
-	public static void registerFurnaceFuel()
-	{
+	public static void registerFurnaceFuel() {
 		//1 sec = 20 burn time value
 		TFCFuelHandler.registerFuel(blueSteelBucketLava, 20000);
 		TFCFuelHandler.registerFuel(singlePlank, 400);
@@ -1262,7 +1315,7 @@ public class ItemSetup extends TFCItems {
 		TFCFuelHandler.registerFuel(burlapCloth, 20);
 		TFCFuelHandler.registerFuel(straw, 20);
 
-		for(int l = 0; l < Recipes.doors.length; l++)
+		for (int l = 0; l < Recipes.doors.length; l++)
 			TFCFuelHandler.registerFuel(Recipes.doors[l], 300);
 
 		TFCFuelHandler.registerFuel(Item.getItemFromBlock(TFCBlocks.woodSupportV), 300);

@@ -1,5 +1,11 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Containers.ContainerFoodPrep;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TileEntities.TEFoodPrep;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
@@ -8,25 +14,15 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Containers.ContainerFoodPrep;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TEFoodPrep;
-import com.bioxx.tfc.api.TFCItems;
-
 @SuppressWarnings("CanBeFinal")
-public class GuiFoodPrep extends GuiContainerTFC
-{
+public class GuiFoodPrep extends GuiContainerTFC {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_foodprep.png");
 	private TEFoodPrep foodPrepTE;
 	private int guiTab;
 
-	public GuiFoodPrep(InventoryPlayer inventoryplayer, TEFoodPrep te, World world, int i, int j, int k, int tab)
-	{
+	public GuiFoodPrep(InventoryPlayer inventoryplayer, TEFoodPrep te, World world, int i, int j, int k, int tab) {
 		super(new ContainerFoodPrep(inventoryplayer, te, world, i, j, k, tab), 176, 85);
 		foodPrepTE = te;
 		guiTab = tab;
@@ -36,17 +32,13 @@ public class GuiFoodPrep extends GuiContainerTFC
 	 * Edited Copy/Paste of drawGui() code since the background texture changes depending on the tab selected.
 	 */
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		bindTexture(TEXTURE);
 		guiLeft = (width - xSize) / 2;
 		guiTop = (height - ySize) / 2;
-		if (guiTab == 0)
-		{
+		if (guiTab == 0) {
 			drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, this.getShiftedYSize());
-		}
-		else if (guiTab == 1)
-		{
+		} else if (guiTab == 1) {
 			drawTexturedModalRect(guiLeft, guiTop, 0, 86, xSize, this.getShiftedYSize());
 		}
 
@@ -55,18 +47,14 @@ public class GuiFoodPrep extends GuiContainerTFC
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 		buttonList.clear();
-		if (guiTab == 0)
-		{
+		if (guiTab == 0) {
 			buttonList.add(new GuiButton(0, guiLeft + 74, guiTop + 44, 50, 20, TFC_Core.translate("gui.FoodPrep.CreateMeal")));
 			buttonList.add(new GuiFoodPrepTabButton(2, guiLeft + 36, guiTop - 21, 31, 21, this, new ItemStack(TFCItems.salad), TFC_Core.translate("gui.FoodPrep.Salad")).setButtonCoord(31, 172));
 			buttonList.add(new GuiFoodPrepTabButton(1, guiLeft + 5, guiTop - 21, 31, 21, this, new ItemStack(TFCItems.sandwich), TFC_Core.translate("gui.FoodPrep.Sandwich")));
-		}
-		else if (guiTab == 1)
-		{
+		} else if (guiTab == 1) {
 			buttonList.add(new GuiButton(0, guiLeft + 74, guiTop + 44, 50, 20, TFC_Core.translate("gui.FoodPrep.CreateMeal")));
 			buttonList.add(new GuiFoodPrepTabButton(2, guiLeft + 36, guiTop - 21, 31, 21, this, new ItemStack(TFCItems.salad), TFC_Core.translate("gui.FoodPrep.Salad")));
 			buttonList.add(new GuiFoodPrepTabButton(1, guiLeft + 5, guiTop - 21, 31, 21, this, new ItemStack(TFCItems.sandwich), TFC_Core.translate("gui.FoodPrep.Sandwich")).setButtonCoord(31, 172));
@@ -74,8 +62,7 @@ public class GuiFoodPrep extends GuiContainerTFC
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton)
-	{
+	protected void actionPerformed(GuiButton guibutton) {
 		if (guibutton.id == 0)
 			foodPrepTE.actionCreate(Minecraft.getMinecraft().thePlayer);
 		else if (guibutton.id == 1 && guiTab != 0)//Pressed Sandwich Tab
@@ -85,8 +72,7 @@ public class GuiFoodPrep extends GuiContainerTFC
 	}
 
 	@Override
-	public void updateScreen()
-	{
+	public void updateScreen() {
 		super.updateScreen();
 		if (guiTab == 0 && foodPrepTE.validateSandwich())
 			((GuiButton) buttonList.get(0)).enabled = true;
@@ -98,8 +84,7 @@ public class GuiFoodPrep extends GuiContainerTFC
 	}
 
 	@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-	public class GuiFoodPrepTabButton extends GuiButton
-	{
+	public class GuiFoodPrepTabButton extends GuiButton {
 		private GuiFoodPrep screen;
 		private ItemStack item;
 
@@ -108,15 +93,13 @@ public class GuiFoodPrep extends GuiContainerTFC
 		private int xSize = 31;
 		private int ySize = 24;
 
-		public GuiFoodPrepTabButton(int index, int xPos, int yPos, int width, int height, GuiFoodPrep gui, ItemStack is, String s)
-		{
+		public GuiFoodPrepTabButton(int index, int xPos, int yPos, int width, int height, GuiFoodPrep gui, ItemStack is, String s) {
 			super(index, xPos, yPos, width, height, s);
 			screen = gui;
 			item = is;
 		}
 
-		public GuiFoodPrepTabButton(int index, int xPos, int yPos, int width, int height, GuiFoodPrep gui, String s, int xp, int yp, int xs, int ys)
-		{
+		public GuiFoodPrepTabButton(int index, int xPos, int yPos, int width, int height, GuiFoodPrep gui, String s, int xp, int yp, int xs, int ys) {
 			super(index, xPos, yPos, width, height, s);
 			screen = gui;
 			this.xPos = xp;
@@ -125,18 +108,15 @@ public class GuiFoodPrep extends GuiContainerTFC
 			ySize = ys;
 		}
 
-		public GuiFoodPrepTabButton setButtonCoord(int x, int y)
-		{
+		public GuiFoodPrepTabButton setButtonCoord(int x, int y) {
 			xPos = x;
 			yPos = y;
 			return this;
 		}
 
 		@Override
-		public void drawButton(Minecraft mc, int x, int y)
-		{
-			if (this.visible)
-			{
+		public void drawButton(Minecraft mc, int x, int y) {
+			if (this.visible) {
 				//int k = this.getHoverState(this.field_146123_n) - 1;
 
 				TFC_Core.bindTexture(GuiFoodPrep.TEXTURE);
@@ -154,18 +134,15 @@ public class GuiFoodPrep extends GuiContainerTFC
 				GL11.glPopMatrix(); //end
 				this.mouseDragged(mc, x, y);
 
-				if (field_146123_n)
-				{
+				if (field_146123_n) {
 					screen.drawTooltip(x, y, this.displayString);
 					GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 				}
 			}
 		}
 
-		protected void renderInventorySlot(ItemStack par1, int par2, int par3)
-		{
-			if (par1 != null)
-			{
+		protected void renderInventorySlot(ItemStack par1, int par2, int par3) {
+			if (par1 != null) {
 				RenderItem.getInstance().renderItemAndEffectIntoGUI(Minecraft.getMinecraft().fontRenderer, Minecraft.getMinecraft().getTextureManager(), par1, par2, par3);
 			}
 		}

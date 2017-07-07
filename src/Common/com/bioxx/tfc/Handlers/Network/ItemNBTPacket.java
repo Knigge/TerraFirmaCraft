@@ -1,18 +1,16 @@
 package com.bioxx.tfc.Handlers.Network;
 
-import java.util.LinkedList;
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.TerraFirmaCraft;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Core.TFC_Core;
+import java.util.LinkedList;
+import java.util.List;
 
 @SuppressWarnings("Convert2Diamond")
 public class ItemNBTPacket extends AbstractPacket {
@@ -31,16 +29,14 @@ public class ItemNBTPacket extends AbstractPacket {
 		tags = nbt;
 	}
 
-	public ItemNBTPacket(NBTTagCompound nbt, List<String> acceptedTagNames)
-	{
+	public ItemNBTPacket(NBTTagCompound nbt, List<String> acceptedTagNames) {
 		this();
 		tagNames = acceptedTagNames;
 		for (String tagName : tagNames)
 			tags.setTag(tagName, nbt.getTag(tagName));
 	}
 
-	public ItemNBTPacket(NBTTagCompound nbt, List<String> acceptedTagNames, List<String> removeTagNames)
-	{
+	public ItemNBTPacket(NBTTagCompound nbt, List<String> acceptedTagNames, List<String> removeTagNames) {
 		this();
 		tagNames = acceptedTagNames;
 		for (String tagName : tagNames)
@@ -113,21 +109,16 @@ public class ItemNBTPacket extends AbstractPacket {
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player)
-	{
+	public void handleClientSide(EntityPlayer player) {
 		NBTTagCompound stackNBT;
-	    ItemStack stack = player.inventory.getCurrentItem();
-	    
-		if (stack != null)
-	    {
-			if (stack.hasTagCompound())
-			{
+		ItemStack stack = player.inventory.getCurrentItem();
+
+		if (stack != null) {
+			if (stack.hasTagCompound()) {
 				stackNBT = stack.stackTagCompound;
-			}
-			else
-			{
-				TerraFirmaCraft.LOG.error(TFC_Core.translate("error.error") +" " + stack.getUnlocalizedName() + " " +
-											TFC_Core.translate("error.NBT") + " " + TFC_Core.translate("error.Contact"));
+			} else {
+				TerraFirmaCraft.LOG.error(TFC_Core.translate("error.error") + " " + stack.getUnlocalizedName() + " " +
+						TFC_Core.translate("error.NBT") + " " + TFC_Core.translate("error.Contact"));
 				stackNBT = new NBTTagCompound();
 			}
 
@@ -136,25 +127,20 @@ public class ItemNBTPacket extends AbstractPacket {
 			for (String tagName : removeNames)
 				stackNBT.removeTag(tagName);
 			player.inventory.getCurrentItem().setTagCompound(stackNBT);
-	    }
+		}
 	}
 
 	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
+	public void handleServerSide(EntityPlayer player) {
 		NBTTagCompound stackNBT;
 		ItemStack stack = player.inventory.getCurrentItem();
 
-		if (stack != null)
-		{
-			if (stack.hasTagCompound())
-			{
+		if (stack != null) {
+			if (stack.hasTagCompound()) {
 				stackNBT = stack.stackTagCompound;
-			}
-			else
-			{
-				TerraFirmaCraft.LOG.error(TFC_Core.translate("error.error") +" " + stack.getUnlocalizedName() + " " +
-											TFC_Core.translate("error.NBT") + " " + TFC_Core.translate("error.Contact"));
+			} else {
+				TerraFirmaCraft.LOG.error(TFC_Core.translate("error.error") + " " + stack.getUnlocalizedName() + " " +
+						TFC_Core.translate("error.NBT") + " " + TFC_Core.translate("error.Contact"));
 				stackNBT = new NBTTagCompound();
 			}
 			for (String tagName : tagNames)

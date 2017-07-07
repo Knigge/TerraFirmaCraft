@@ -1,29 +1,24 @@
 package com.bioxx.tfc.Handlers;
 
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.World;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
-
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCOptions;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.WorldTickEvent;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
 
 @SuppressWarnings("WeakerAccess")
-public class ServerTickHandler
-{
-	private long wSeed = Long.MIN_VALUE;
+public class ServerTickHandler {
 	public int ticks;
+	private long wSeed = Long.MIN_VALUE;
+
 	@SubscribeEvent
-	public void onServerWorldTick(WorldTickEvent event)
-	{
+	public void onServerWorldTick(WorldTickEvent event) {
 		World world = event.world;
-		if(event.phase == Phase.START)
-		{
-			if(world.provider.dimensionId == 0 && world.getWorldInfo().getSeed() != wSeed)
-			{
+		if (event.phase == Phase.START) {
+			if (world.provider.dimensionId == 0 && world.getWorldInfo().getSeed() != wSeed) {
 				TFC_Core.setupWorld(world);
 				wSeed = world.getWorldInfo().getSeed();
 			}
@@ -31,18 +26,14 @@ public class ServerTickHandler
 
 			/*if(ServerOverrides.isServerEmpty())
 				return;*/
-			if(MinecraftServer.getServer().getCurrentPlayerCount() == 0 && TFCOptions.simSpeedNoPlayers > 0)
-			{
+			if (MinecraftServer.getServer().getCurrentPlayerCount() == 0 && TFCOptions.simSpeedNoPlayers > 0) {
 				ticks++;
 				long t = world.getWorldInfo().getWorldTotalTime();
 				long w = world.getWorldInfo().getWorldTime();
-				if(ticks < TFCOptions.simSpeedNoPlayers)
-				{
-					world.getWorldInfo().incrementTotalWorldTime(t-1L);
-					world.getWorldInfo().setWorldTime(w-1L);
-				}
-				else
-				{
+				if (ticks < TFCOptions.simSpeedNoPlayers) {
+					world.getWorldInfo().incrementTotalWorldTime(t - 1L);
+					world.getWorldInfo().setWorldTime(w - 1L);
+				} else {
 					ticks = 0;
 				}
 			}

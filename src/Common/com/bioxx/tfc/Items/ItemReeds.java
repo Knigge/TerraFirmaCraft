@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Items;
 
+import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -7,15 +8,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.TFCBlocks;
-
 @SuppressWarnings("CanBeFinal")
-public class ItemReeds extends Item
-{
+public class ItemReeds extends Item {
 	private Block reeds = TFCBlocks.reeds;
 
-	public ItemReeds()
-	{
+	public ItemReeds() {
 	}
 
 	/**
@@ -23,16 +20,12 @@ public class ItemReeds extends Item
 	 * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
 	 */
 	@Override
-	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10)
-	{
+	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10) {
 		Block block = world.getBlock(x, y, z);
 
-		if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1)
-		{
+		if (block == Blocks.snow_layer && (world.getBlockMetadata(x, y, z) & 7) < 1) {
 			side = 1;
-		}
-		else if (block != TFCBlocks.vine && block != TFCBlocks.tallGrass && block != Blocks.deadbush)
-		{
+		} else if (block != TFCBlocks.vine && block != TFCBlocks.tallGrass && block != Blocks.deadbush) {
 			if (side == 0) --y;
 			if (side == 1) ++y;
 			if (side == 2) --z;
@@ -41,23 +34,15 @@ public class ItemReeds extends Item
 			if (side == 5) ++x;
 		}
 
-		if (!player.canPlayerEdit(x, y, z, side, is))
-		{
+		if (!player.canPlayerEdit(x, y, z, side, is)) {
 			return false;
-		}
-		else if (is.stackSize == 0)
-		{
+		} else if (is.stackSize == 0) {
 			return false;
-		}
-		else
-		{
-			if (world.canPlaceEntityOnSide(this.reeds, x, y, z, false, side, null, is))
-			{
+		} else {
+			if (world.canPlaceEntityOnSide(this.reeds, x, y, z, false, side, null, is)) {
 				int i1 = this.reeds.onBlockPlaced(world, x, y, z, side, par8, par9, par10, 0);
-				if (world.setBlock(x, y, z, this.reeds, i1, 3))
-				{
-					if (world.getBlock(x, y, z) == this.reeds)
-					{
+				if (world.setBlock(x, y, z, this.reeds, i1, 3)) {
+					if (world.getBlock(x, y, z) == this.reeds) {
 						this.reeds.onBlockPlacedBy(world, x, y, z, player, is);
 						this.reeds.onPostBlockPlaced(world, x, y, z, i1);
 					}

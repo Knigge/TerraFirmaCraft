@@ -1,5 +1,8 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotSluice;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TESluice;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -7,19 +10,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotSluice;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TESluice;
-
 @SuppressWarnings("CanBeFinal")
-public class ContainerSluice extends ContainerTFC
-{
+public class ContainerSluice extends ContainerTFC {
 	private TESluice sluice;
 	private int soilamt;
 	private int progress;
 
-	public ContainerSluice(InventoryPlayer inventoryplayer, TESluice tileentitysluice, World world, int x, int y, int z)
-	{
+	public ContainerSluice(InventoryPlayer inventoryplayer, TESluice tileentitysluice, World world, int x, int y, int z) {
 		sluice = tileentitysluice;
 		EntityPlayer player = inventoryplayer.player;
 		addSlotToContainer(new SlotSluice(player, sluice, 0, 116, 16));
@@ -35,25 +32,21 @@ public class ContainerSluice extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer)
-	{
+	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
 		Slot slot = (Slot) inventorySlots.get(slotNum);
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// Slots are output only, so there's no need to do input logic.
-			if (slotNum < 9)
-			{
+			if (slotNum < 9) {
 				if (!this.mergeItemStack(slotStack, 9, this.inventorySlots.size(), true))
 					return null;
 			}
@@ -74,16 +67,13 @@ public class ContainerSluice extends ContainerTFC
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int var1 = 0; var1 < this.inventorySlots.size(); ++var1)
-		{
-			ItemStack var2 = ((Slot)this.inventorySlots.get(var1)).getStack();
-			ItemStack var3 = (ItemStack)this.inventoryItemStacks.get(var1);
+		for (int var1 = 0; var1 < this.inventorySlots.size(); ++var1) {
+			ItemStack var2 = ((Slot) this.inventorySlots.get(var1)).getStack();
+			ItemStack var3 = (ItemStack) this.inventoryItemStacks.get(var1);
 
-			if (!ItemStack.areItemStacksEqual(var3, var2))
-			{
+			if (!ItemStack.areItemStacksEqual(var3, var2)) {
 				var3 = var2 == null ? null : var2.copy();
 				this.inventoryItemStacks.set(var1, var3);
 
@@ -103,8 +93,7 @@ public class ContainerSluice extends ContainerTFC
 	}
 
 	@Override
-	public void updateProgressBar(int par1, int par2)
-	{
+	public void updateProgressBar(int par1, int par2) {
 		if (par1 == 0)
 			this.sluice.soilAmount = par2;
 		if (par1 == 1)

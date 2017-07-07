@@ -1,15 +1,13 @@
 package com.bioxx.tfc.api.Events;
 
+import cpw.mods.fml.common.eventhandler.Cancelable;
+import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import cpw.mods.fml.common.eventhandler.Cancelable;
-import cpw.mods.fml.common.eventhandler.Event;
-
 @SuppressWarnings("CanBeFinal")
 @Cancelable
-public class ItemCookEvent extends Event 
-{	
+public class ItemCookEvent extends Event {
 	/**
 	 * The item which is currently being cooked.
 	 */
@@ -23,11 +21,11 @@ public class ItemCookEvent extends Event
 
 	/**
 	 * Fires when an item is about to cook
+	 *
 	 * @param i1 is the item which is currently cooking
-	 * @param r is the result item from the melt if allowed to finish
+	 * @param r  is the result item from the melt if allowed to finish
 	 */
-	public ItemCookEvent(ItemStack i1, ItemStack r, TileEntity t)
-	{
+	public ItemCookEvent(ItemStack i1, ItemStack r, TileEntity t) {
 		super();
 		input1 = i1;
 		result = r;

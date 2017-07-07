@@ -1,20 +1,17 @@
 package com.bioxx.tfc.Core;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.Achievement;
-
 import net.minecraftforge.common.AchievementPage;
 
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
-public class TFC_Achievements
-{
+public class TFC_Achievements {
 	public static Achievement achLooseRock;
 	public static Achievement achSmallOre;
 	public static Achievement achWildVegetable;
@@ -40,18 +37,15 @@ public class TFC_Achievements
 	public static Achievement achRedSteel;
 	public static Achievement achBlueBucket;
 	public static Achievement achRedBucket;
-
-	private static List<Achievement> achlist;
 	public static AchievementPage pageBiome;
 	public static Achievement[] achievementsTFC;
-	
-	public TFC_Achievements()
-	{
+	private static List<Achievement> achlist;
+
+	public TFC_Achievements() {
 		init();
 	}
-	
-	public static void init()
-	{
+
+	public static void init() {
 		achlist = new ArrayList<Achievement>();
 
 		achLooseRock = createAchievement("achievement.achLooseRock", "achLooseRock", 0, 0, new ItemStack(TFCItems.looseRock), null);
@@ -79,15 +73,14 @@ public class TFC_Achievements
 		achRedSteel = createAchievement("achievement.achRedSteel", "achRedSteel", 8, -1, new ItemStack(TFCItems.redSteelIngot), achBlackSteel);
 		achBlueBucket = createAchievement("achievement.achBlueBucket", "achBlueBucket", 10, 1, new ItemStack(TFCItems.blueSteelBucketEmpty), achBlueSteel);
 		achRedBucket = createAchievement("achievement.achRedBucket", "achRedBucket", 10, -1, new ItemStack(TFCItems.redSteelBucketEmpty), achRedSteel);
-		
+
 		achievementsTFC = new Achievement[achlist.size()];
 		achievementsTFC = achlist.toArray(achievementsTFC);
 		pageBiome = new AchievementPage("TerraFirmaCraft", achievementsTFC);
 		AchievementPage.registerAchievementPage(pageBiome);
 	}
 
-	private static Achievement createAchievement(String id, String name, int posX, int posY, ItemStack is, Achievement preReq)
-	{
+	private static Achievement createAchievement(String id, String name, int posX, int posY, ItemStack is, Achievement preReq) {
 		Achievement a = new Achievement(id, name, posX, posY, is, preReq).registerStat();
 		achlist.add(a);
 		return a;

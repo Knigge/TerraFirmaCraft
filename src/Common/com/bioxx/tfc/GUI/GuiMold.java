@@ -1,43 +1,37 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Containers.ContainerMold;
+import com.bioxx.tfc.Core.Player.PlayerInfo;
+import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
+import com.bioxx.tfc.Reference;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Containers.ContainerMold;
-import com.bioxx.tfc.Core.Player.PlayerInfo;
-import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-public class GuiMold extends GuiContainerTFC
-{
+public class GuiMold extends GuiContainerTFC {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_mold.png");
 	private EntityPlayer player;
 
-	public GuiMold(InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-	{
+	public GuiMold(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
 		super(new ContainerMold(inventoryplayer, world, x, y, z), 176, 85);
 		player = inventoryplayer.player;
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		drawGui(texture);
 	}
 
 	@Override
-	protected void drawForeground(int guiLeft, int guiTop)
-	{
+	protected void drawForeground(int guiLeft, int guiTop) {
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, this.getShiftedYSize());
 
 		drawTexturedModalRect(guiLeft + 64, guiTop + 34, 176, 0, drawArrowScaled(22) + 1, 15);
 	}
 
-	private int drawArrowScaled(int scale)
-	{
+	private int drawArrowScaled(int scale) {
 		PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
 		return (pi.moldTransferTimer == 1000 ? 0 : pi.moldTransferTimer * scale) / 100;
 	}

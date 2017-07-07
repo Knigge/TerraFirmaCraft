@@ -1,27 +1,24 @@
 package com.bioxx.tfc.Items.Tools;
 
-import java.util.List;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-
-import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Items.ItemTerra;
-import com.bioxx.tfc.api.Metal;
-import com.bioxx.tfc.api.TFCItems;
+import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
+import com.bioxx.tfc.api.Metal;
+import com.bioxx.tfc.api.TFCItems;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
-public class ItemMiscToolHead extends ItemTerra implements ISmeltable
-{
+import java.util.List;
+
+public class ItemMiscToolHead extends ItemTerra implements ISmeltable {
 	private ToolMaterial material;
 
-	public ItemMiscToolHead()
-	{
+	public ItemMiscToolHead() {
 		super();
 		this.setMaxDamage(100);
 		this.setMaxStackSize(4);
@@ -31,20 +28,17 @@ public class ItemMiscToolHead extends ItemTerra implements ISmeltable
 		this.setSize(EnumSize.SMALL);
 	}
 
-	public ItemMiscToolHead(ToolMaterial m)
-	{
+	public ItemMiscToolHead(ToolMaterial m) {
 		this();
 		material = m;
 	}
 
-	public ToolMaterial getMaterial()
-	{
+	public ToolMaterial getMaterial() {
 		return material;
 	}
-	
+
 	@Override
-	public void registerIcons(IIconRegister registerer)
-	{
+	public void registerIcons(IIconRegister registerer) {
 		String name = this.getUnlocalizedName().replace("item.", "");
 		name = name.replace("IgIn ", "");
 		name = name.replace("IgEx ", "");
@@ -54,24 +48,21 @@ public class ItemMiscToolHead extends ItemTerra implements ISmeltable
 	}
 
 	@Override
-	public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist)
-	{
+	public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
 		ItemTerraTool.addSmithingBonusInformation(is, arraylist);
 	}
 
 	@Override
-	public Metal getMetalType(ItemStack is)
-	{
+	public Metal getMetalType(ItemStack is) {
 		if (this == TFCItems.wroughtIronKnifeHead)
 			return Global.WROUGHTIRON;
 		else if (this == TFCItems.blackSteelKnifeHead)
 			return Global.BLACKSTEEL;
-			return null;
+		return null;
 	}
 
 	@Override
-	public short getMetalReturnAmount(ItemStack is)
-	{
+	public short getMetalReturnAmount(ItemStack is) {
 		if (this == TFCItems.wroughtIronKnifeHead || this == TFCItems.blackSteelKnifeHead)
 			return 100;
 		else
@@ -79,14 +70,12 @@ public class ItemMiscToolHead extends ItemTerra implements ISmeltable
 	}
 
 	@Override
-	public boolean isSmeltable(ItemStack is)
-	{
+	public boolean isSmeltable(ItemStack is) {
 		return (this == TFCItems.wroughtIronKnifeHead || this == TFCItems.blackSteelKnifeHead);
 	}
 
 	@Override
-	public EnumTier getSmeltTier(ItemStack is)
-	{
+	public EnumTier getSmeltTier(ItemStack is) {
 		return EnumTier.TierIII;
 	}
 }

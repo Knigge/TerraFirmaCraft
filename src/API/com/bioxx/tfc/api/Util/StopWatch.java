@@ -25,8 +25,7 @@ public class StopWatch {
 		long elapsed;
 		if (running) {
 			elapsed = System.currentTimeMillis() - startTime;
-		}
-		else {
+		} else {
 			elapsed = stopTime - startTime;
 		}
 		return elapsed;
@@ -38,8 +37,7 @@ public class StopWatch {
 		long elapsed;
 		if (running) {
 			elapsed = (System.currentTimeMillis() - startTime) / 1000;
-		}
-		else {
+		} else {
 			elapsed = (stopTime - startTime) / 1000;
 		}
 		return elapsed;

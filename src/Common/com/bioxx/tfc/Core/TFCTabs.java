@@ -1,15 +1,13 @@
 package com.bioxx.tfc.Core;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 @SuppressWarnings("WeakerAccess")
-public class TFCTabs extends CreativeTabs
-{
+public class TFCTabs extends CreativeTabs {
 	public static final CreativeTabs TFC_BUILDING = new TFCTabs("TFCBuilding");
 	public static final CreativeTabs TFC_DECORATION = new TFCTabs("TFCDecoration");
 	public static final CreativeTabs TFC_DEVICES = new TFCTabs("TFCDevices");
@@ -24,44 +22,37 @@ public class TFCTabs extends CreativeTabs
 	//private int itemIndex;
 	private ItemStack is;
 
-	public TFCTabs(String par2Str)
-	{
+	public TFCTabs(String par2Str) {
 		super(par2Str);
 	}
 
-	public TFCTabs(String par2Str, int icon)
-	{
+	public TFCTabs(String par2Str, int icon) {
 		super(par2Str);
 		//itemIndex = icon;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Item getTabIconItem()
-	{
+	public Item getTabIconItem() {
 		return is.getItem();
 	}
 
-	public void setTabIconItem(Item i)
-	{
+	public void setTabIconItem(Item i) {
 		is = new ItemStack(i);
 	}
 
 	@Override
-	public ItemStack getIconItemStack()
-	{
+	public ItemStack getIconItemStack() {
 		return is;
 	}
 
-	public void setTabIconItemStack(ItemStack stack)
-	{
+	public void setTabIconItemStack(ItemStack stack) {
 		is = stack;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getTranslatedTabLabel()
-	{
+	public String getTranslatedTabLabel() {
 		return TFC_Core.translate("itemGroup." + this.getTabLabel());
 	}
 }

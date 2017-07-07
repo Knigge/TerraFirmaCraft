@@ -2,8 +2,7 @@ package com.bioxx.tfc.api.Enums;
 
 //Based on data from the internet, and poetic licence, we can attribute the rainfall level directly to rainfall in mm. While above the average
 //of the rainiest place on earth, it is well below the rainiest year on record.
-public enum EnumTree
-{
+public enum EnumTree {
 	OAK("OAK", /*minRain*/500f, /*maxRain*/1200f, /*minTemp*/5, /*maxTemp*/25, /*minEVT*/0.25f, /*maxEVT*/2, false),
 
 	ASPEN("ASPEN", /*minRain*/300f, /*maxRain*/1600f, /*minTemp*/-5, /*maxTemp*/18, /*minEVT*/0.25f, /*maxEVT*/1, false),
@@ -40,6 +39,9 @@ public enum EnumTree
 
 	UTACACIA("UTACACIA", /*minRain*/75f, /*maxRain*/1000f, /*minTemp*/20, /*maxTemp*/50, /*minEVT*/0, /*maxEVT*/1, false);
 
+	private static final EnumTree MATERIALS[] = new EnumTree[]{
+			OAK, ASPEN, BIRCH, CHESTNUT, DOUGLASFIR, HICKORY, KOA, ASH, MAPLE, PINE, REDWOOD, SPRUCE,
+			SYCAMORE, UTACACIA, WHITECEDAR, WHITEELM, WILLOW, KAPOK};
 	public final float minRain;
 	public final float maxRain;
 	public final float minTemp;
@@ -48,13 +50,7 @@ public enum EnumTree
 	public final float maxEVT;
 	public final boolean isEvergreen;
 
-
-	private static final EnumTree MATERIALS[] = new EnumTree[] {
-		OAK,ASPEN,BIRCH,CHESTNUT,DOUGLASFIR,HICKORY,KOA,ASH,MAPLE,PINE,REDWOOD,SPRUCE,
-		SYCAMORE,UTACACIA,WHITECEDAR,WHITEELM,WILLOW,KAPOK};
-
-	EnumTree(String s, float i, float j, float mintemp, float maxtemp, float minevt, float maxevt, boolean e)
-	{
+	EnumTree(String s, float i, float j, float mintemp, float maxtemp, float minevt, float maxevt, boolean e) {
 		minRain = i;
 		maxRain = j;
 		minTemp = mintemp;

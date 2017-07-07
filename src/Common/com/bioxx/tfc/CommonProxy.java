@@ -1,23 +1,5 @@
 package com.bioxx.tfc;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-
-import net.minecraftforge.fluids.FluidContainerRegistry;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-
 import com.bioxx.tfc.Entities.*;
 import com.bioxx.tfc.Entities.Mobs.*;
 import com.bioxx.tfc.Handlers.GuiHandler;
@@ -27,45 +9,51 @@ import com.bioxx.tfc.Tools.ChiselMode_Detailed;
 import com.bioxx.tfc.Tools.ChiselMode_Slab;
 import com.bioxx.tfc.Tools.ChiselMode_Smooth;
 import com.bioxx.tfc.Tools.ChiselMode_Stair;
-import com.bioxx.tfc.WorldGen.TFCProvider;
 import com.bioxx.tfc.api.TFCFluids;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Tools.ChiselManager;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 
-public class CommonProxy
-{
-	public void registerFluidIcons()
-	{
+public class CommonProxy {
+	public void registerFluidIcons() {
 
 	}
 
-	public void registerRenderInformation()
-	{
+	public void registerRenderInformation() {
 		// NOOP on server
 	}
 
-	public void registerBiomeEventHandler()
-	{
+	public void registerBiomeEventHandler() {
 		// NOOP on server
 	}
 
-	public void registerPlayerRenderEventHandler()
-	{
+	public void registerPlayerRenderEventHandler() {
 		// NOOP on server
 	}
 
-	public void setupGuiIngameForge()
-	{
+	public void setupGuiIngameForge() {
 		// NOOP on server
 	}
 
-	public String getCurrentLanguage()
-	{
+	public String getCurrentLanguage() {
 		return null;
 	}
 
-	public void registerTileEntities(boolean b)
-	{
+	public void registerTileEntities(boolean b) {
 		GameRegistry.registerTileEntity(TELogPile.class, "TerraLogPile");
 		GameRegistry.registerTileEntity(TECoalPile.class, "TerraCokePit");
 		GameRegistry.registerTileEntity(TEWorkbench.class, "TerraWorkbench");
@@ -101,8 +89,7 @@ public class CommonProxy
 		GameRegistry.registerTileEntity(TEOilLamp.class, "Oil Lamp");
 
 
-		if(b)
-		{
+		if (b) {
 			GameRegistry.registerTileEntity(TEFirepit.class, "TerraFirepit");
 			GameRegistry.registerTileEntity(TEIngotPile.class, "ingotPile");
 			GameRegistry.registerTileEntity(TEPottery.class, "Pottery");
@@ -195,8 +182,7 @@ public class CommonProxy
 		//EntityRegistry.registerModEntity(EntityArrowTFC.class, "arrowTFC", 27, TerraFirmaCraft.instance, 160, 5, true);
 	}
 
-	public void registerFluids()
-	{
+	public void registerFluids() {
 		FluidRegistry.registerFluid(TFCFluids.LAVA);
 		FluidRegistry.registerFluid(TFCFluids.SALTWATER);
 		FluidRegistry.registerFluid(TFCFluids.FRESHWATER);
@@ -219,14 +205,13 @@ public class CommonProxy
 		FluidRegistry.registerFluid(TFCFluids.OLIVEOIL);
 	}
 
-	public void setupFluids()
-	{
+	public void setupFluids() {
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid(TFCFluids.LAVA.getName()), new ItemStack(TFCItems.blueSteelBucketLava), new ItemStack(TFCItems.blueSteelBucketEmpty));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid(TFCFluids.FRESHWATER.getName()), new ItemStack(TFCItems.redSteelBucketWater), new ItemStack(TFCItems.redSteelBucketEmpty));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid(TFCFluids.SALTWATER.getName()), new ItemStack(TFCItems.redSteelBucketSaltWater), new ItemStack(TFCItems.redSteelBucketEmpty));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid(TFCFluids.FRESHWATER.getName()), new ItemStack(TFCItems.woodenBucketWater), new ItemStack(TFCItems.woodenBucketEmpty));
 		FluidContainerRegistry.registerFluidContainer(FluidRegistry.getFluid(TFCFluids.SALTWATER.getName()), new ItemStack(TFCItems.woodenBucketSaltWater), new ItemStack(TFCItems.woodenBucketEmpty));
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000), new ItemStack(TFCItems.potteryJug, 1, 2), new ItemStack(TFCItems.potteryJug,1, 1));
+		FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.FRESHWATER, 1000), new ItemStack(TFCItems.potteryJug, 1, 2), new ItemStack(TFCItems.potteryJug, 1, 1));
 		FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.RUM, 250), new ItemStack(TFCItems.rum), new ItemStack(Items.glass_bottle));
 		FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.BEER, 250), new ItemStack(TFCItems.beer), new ItemStack(Items.glass_bottle));
 		FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.RYEWHISKEY, 250), new ItemStack(TFCItems.ryeWhiskey), new ItemStack(Items.glass_bottle));
@@ -251,8 +236,7 @@ public class CommonProxy
 		//FluidContainerRegistry.registerFluidContainer(new FluidStack(TFCFluids.LAVA, 250), ItemOilLamp.GetFullLamp(5), new ItemStack(TFCBlocks.OilLamp, 1, 5));//BlueSteel
 	}
 
-	public void registerToolClasses()
-	{
+	public void registerToolClasses() {
 		//pickaxes
 		TFCItems.bismuthBronzePick.setHarvestLevel("pickaxe", 2);
 		TFCItems.bismuthBronzePick.setHarvestLevel("pickaxe", 2);
@@ -315,90 +299,74 @@ public class CommonProxy
 		TFCItems.steelHammer.setHarvestLevel("hammer", 4);
 	}
 
-	public boolean isRemote()
-	{
+	public boolean isRemote() {
 		return false;
 	}
 
-	public World getCurrentWorld()
-	{
+	public World getCurrentWorld() {
 		return MinecraftServer.getServer().getEntityWorld();
 	}
 
-	public int waterColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int waterColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return 0;
 	}
 
-	public int grassColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int grassColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return 0;
 	}
 
-	public int foliageColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int foliageColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return 0;
 	}
 
-	public void takenFromCrafting(EntityPlayer entityplayer, ItemStack itemstack, IInventory iinventory)
-	{
+	public void takenFromCrafting(EntityPlayer entityplayer, ItemStack itemstack, IInventory iinventory) {
 		FMLCommonHandler.instance().firePlayerCraftingEvent(entityplayer, itemstack, iinventory);
 	}
 
-	public int getArmorRenderID(String name)
-	{
+	public int getArmorRenderID(String name) {
 		return 0;
 	}
 
-	public boolean getGraphicsLevel()
-	{
+	public boolean getGraphicsLevel() {
 		return false;
 	}
 
-	public void registerKeys()
-	{
+	public void registerKeys() {
 	}
 
-	public void registerKeyBindingHandler()
-	{
+	public void registerKeyBindingHandler() {
 	}
 
-	public void uploadKeyBindingsToGame()
-	{
+	public void uploadKeyBindingsToGame() {
 	}
 
-	public void registerHandlers()
-	{
+	public void registerHandlers() {
 	}
 
-	public void registerSoundHandler()
-	{
+	public void registerSoundHandler() {
 	}
 
-	public void registerTickHandler()
-	{
+	public void registerTickHandler() {
 		FMLCommonHandler.instance().bus().register(new ServerTickHandler());
 	}
 
-	public void registerGuiHandler()
-	{
+	public void registerGuiHandler() {
 		NetworkRegistry.INSTANCE.registerGuiHandler(TerraFirmaCraft.instance, new GuiHandler());
 	}
 
-	public void registerWailaClasses()
-	{
+	public void registerWailaClasses() {
 		FMLInterModComms.sendMessage("Waila", "register", "com.bioxx.tfc.WAILA.WAILAData.callbackRegister"); // Blocks
 		FMLInterModComms.sendMessage("Waila", "register", "com.bioxx.tfc.WAILA.WMobs.callbackRegister"); // Entities
 		FMLInterModComms.sendMessage("Waila", "register", "com.bioxx.tfc.WAILA.WCrucible.callbackRegister"); // Crucible has its own file due to extra calculations.
 	}
 
-	public void registerChiselModes()
-	{
+	public void registerChiselModes() {
 		ChiselManager.getInstance().addChiselMode(new ChiselMode_Smooth("Smooth"));
 		ChiselManager.getInstance().addChiselMode(new ChiselMode_Stair("Stairs"));
 		ChiselManager.getInstance().addChiselMode(new ChiselMode_Slab("Slabs"));
 		ChiselManager.getInstance().addChiselMode(new ChiselMode_Detailed("Detailed"));
 	}
 
-	public void hideNEIItems() {}
+	public void hideNEIItems() {
+	}
 }

@@ -1,17 +1,15 @@
 package com.bioxx.tfc;
 
-import java.io.File;
-import java.util.Map;
-
+import com.bioxx.tfc.ASM.Transform.*;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
-import com.bioxx.tfc.ASM.Transform.*;
+import java.io.File;
+import java.util.Map;
 
 @SuppressWarnings("WeakerAccess")
-@TransformerExclusions({ "com.bioxx.tfc.ASM" })
-public class TFCASMLoadingPlugin implements IFMLLoadingPlugin
-{
+@TransformerExclusions({"com.bioxx.tfc.ASM"})
+public class TFCASMLoadingPlugin implements IFMLLoadingPlugin {
 	public static boolean runtimeDeobf;
 	public static File location;
 

@@ -2,12 +2,17 @@ package com.bioxx.tfc.WorldGen.GenLayers;
 
 
 @SuppressWarnings("SameParameterValue")
-public class GenLayerZoomTFC extends GenLayerTFC
-{
-	public GenLayerZoomTFC(long seed, GenLayerTFC par3GenLayer)
-	{
+public class GenLayerZoomTFC extends GenLayerTFC {
+	public GenLayerZoomTFC(long seed, GenLayerTFC par3GenLayer) {
 		super(seed);
 		super.parent = par3GenLayer;
+	}
+
+	public static GenLayerTFC magnify(long par0, GenLayerTFC par2GenLayer, int par3) {
+		Object var4 = par2GenLayer;
+		for (int var5 = 0; var5 < par3; ++var5)
+			var4 = new GenLayerZoomTFC(par0 + var5, (GenLayerTFC) var4);
+		return (GenLayerTFC) var4;
 	}
 
 	/**
@@ -15,8 +20,7 @@ public class GenLayerZoomTFC extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int xPos, int zPos, int xSize, int zSize)
-	{
+	public int[] getInts(int xPos, int zPos, int xSize, int zSize) {
 		int xCoord = xPos >> 1;
 		int zCoord = zPos >> 1;
 		int newXSize = (xSize >> 1) + 2;
@@ -27,14 +31,12 @@ public class GenLayerZoomTFC extends GenLayerTFC
 		int[] out = new int[i2 * j2];
 		int l2;
 
-		for (int z = 0; z < newZSize - 1; ++z)
-		{
+		for (int z = 0; z < newZSize - 1; ++z) {
 			l2 = (z << 1) * i2;
 			int i3 = 0;
 			int thisID = parentCache[i3 + (z) * newXSize];
 
-			for (int x = parentCache[i3 + (z + 1) * newXSize]; i3 < newXSize - 1; ++i3)
-			{
+			for (int x = parentCache[i3 + (z + 1) * newXSize]; i3 < newXSize - 1; ++i3) {
 				this.initChunkSeed(i3 + xCoord << 1, z + zCoord << 1);
 				int rightID = parentCache[i3 + 1 + (z) * newXSize];
 				int upRightID = parentCache[i3 + 1 + (z + 1) * newXSize];
@@ -49,8 +51,7 @@ public class GenLayerZoomTFC extends GenLayerTFC
 
 		int[] outCache = new int[xSize * zSize];
 
-		for (int zoom = 0; zoom < zSize; ++zoom)
-		{
+		for (int zoom = 0; zoom < zSize; ++zoom) {
 			int srcPos = (zoom + (zPos & 1)) * i2 + (xPos & 1); //NOPMD
 			System.arraycopy(out, srcPos, outCache, zoom * xSize, xSize);
 		}
@@ -61,14 +62,12 @@ public class GenLayerZoomTFC extends GenLayerTFC
 	/**
 	 * Chooses one of the two inputs randomly.
 	 */
-	protected int choose(int par1, int par2)
-	{
+	protected int choose(int par1, int par2) {
 		return this.nextInt(2) == 0 ? par1 : par2;
 	}
 
 	@SuppressWarnings("ConstantConditions")
-	protected int choose4(int id0, int id1, int id2, int id3)
-	{
+	protected int choose4(int id0, int id1, int id2, int id3) {
 		/*
 			What the hell is this?! // bSun0000
 			ConstantConditions, 11 warnings..
@@ -105,18 +104,9 @@ public class GenLayerZoomTFC extends GenLayerTFC
 			return id2;
 		else if (id3 == id2 && id0 != id1)
 			return id2;
-		else
-		{
+		else {
 			int rand = this.nextInt(4);
 			return rand == 0 ? id0 : rand == 1 ? id1 : rand == 2 ? id2 : id3;
 		}
-	}
-
-	public static GenLayerTFC magnify(long par0, GenLayerTFC par2GenLayer, int par3)
-	{
-		Object var4 = par2GenLayer;
-		for (int var5 = 0; var5 < par3; ++var5)
-			var4 = new GenLayerZoomTFC(par0 + var5, (GenLayerTFC) var4);
-		return (GenLayerTFC) var4;
 	}
 }

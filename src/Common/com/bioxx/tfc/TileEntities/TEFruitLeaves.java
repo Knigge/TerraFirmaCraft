@@ -2,26 +2,22 @@ package com.bioxx.tfc.TileEntities;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public class TEFruitLeaves extends NetworkTileEntity
-{
+public class TEFruitLeaves extends NetworkTileEntity {
 	public int dayHarvested = -1000;
 	public int dayFruited = -1000;
 	public boolean hasFruit;
 
-	public TEFruitLeaves()
-	{
+	public TEFruitLeaves() {
 		this.shouldSendInitData = true;
 	}
 
 	@Override
-	public boolean canUpdate()
-	{
+	public boolean canUpdate() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) 
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		dayHarvested = nbt.getInteger("dayHarvested");
 		dayFruited = nbt.getInteger("dayFruited");
@@ -29,8 +25,7 @@ public class TEFruitLeaves extends NetworkTileEntity
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) 
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setInteger("dayHarvested", dayHarvested);
 		nbt.setInteger("dayFruited", dayFruited);

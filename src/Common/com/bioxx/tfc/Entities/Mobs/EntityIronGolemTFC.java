@@ -1,7 +1,10 @@
 package com.bioxx.tfc.Entities.Mobs;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_MobData;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -11,25 +14,17 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 
-import com.bioxx.tfc.Core.TFC_MobData;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
-
-public class EntityIronGolemTFC extends EntityIronGolem
-{
+public class EntityIronGolemTFC extends EntityIronGolem {
 	private int attackTimer;
 
-	public EntityIronGolemTFC(World par1World)
-	{
+	public EntityIronGolemTFC(World par1World) {
 		super(par1World);
 	}
 
 	@Override
-	protected void applyEntityAttributes()
-	{
+	protected void applyEntityAttributes() {
 		super.applyEntityAttributes();
 		this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(TFC_MobData.IRON_GOLEM_HEALTH);//MaxHealth
 	}
@@ -39,26 +34,23 @@ public class EntityIronGolemTFC extends EntityIronGolem
 	 * use this to react to sunlight and start to burn.
 	 */
 	@Override
-	public void onLivingUpdate()
-	{
+	public void onLivingUpdate() {
 		super.onLivingUpdate();
 
 		if (this.attackTimer > 0)
 			--this.attackTimer;
 
-		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0)
-		{
+		if (this.motionX * this.motionX + this.motionZ * this.motionZ > 2.500000277905201E-7D && this.rand.nextInt(5) == 0) {
 			int x = MathHelper.floor_double(this.posX);
 			int y = MathHelper.floor_double(this.posY - 0.20000000298023224D - this.yOffset);
 			int z = MathHelper.floor_double(this.posZ);
 			Block block = this.worldObj.getBlock(x, y, z);
 			int meta = this.worldObj.getBlockMetadata(x, y, z);
 			// Fix for invisible grass texture
-			if(block == TFCBlocks.grass || block == TFCBlocks.grass2 ||
+			if (block == TFCBlocks.grass || block == TFCBlocks.grass2 ||
 					block == TFCBlocks.clayGrass || block == TFCBlocks.clayGrass2 ||
 					block == TFCBlocks.peatGrass ||
-					block == TFCBlocks.dryGrass || block == TFCBlocks.dryGrass2)
-			{
+					block == TFCBlocks.dryGrass || block == TFCBlocks.dryGrass2) {
 				block = TFCBlocks.dirt;
 				meta = 1;
 			}
@@ -69,10 +61,9 @@ public class EntityIronGolemTFC extends EntityIronGolem
 	}
 
 	@Override
-	public boolean attackEntityAsMob(Entity entity)
-	{
+	public boolean attackEntityAsMob(Entity entity) {
 		this.attackTimer = 10;
-		this.worldObj.setEntityState(this, (byte)4);
+		this.worldObj.setEntityState(this, (byte) 4);
 		boolean var2 = entity.attackEntityFrom(DamageSource.causeMobDamage(this), TFC_MobData.IRON_GOLEM_DAMAGE + this.rand.nextInt(150));
 
 		if (var2)
@@ -84,8 +75,7 @@ public class EntityIronGolemTFC extends EntityIronGolem
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void handleHealthUpdate(byte par1)
-	{
+	public void handleHealthUpdate(byte par1) {
 		super.handleHealthUpdate(par1);
 		if (par1 == 4)
 			this.attackTimer = 10;
@@ -93,14 +83,12 @@ public class EntityIronGolemTFC extends EntityIronGolem
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public int getAttackTimer()
-	{
+	public int getAttackTimer() {
 		return this.attackTimer;
 	}
 
 	@Override
-	protected void dropFewItems(boolean par1, int par2)
-	{
+	protected void dropFewItems(boolean par1, int par2) {
 		Random ran = new Random();
 		int k = 3 + ran.nextInt(3);
 		for (int l = 0; l < k; ++l)

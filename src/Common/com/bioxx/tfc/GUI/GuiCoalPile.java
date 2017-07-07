@@ -9,14 +9,14 @@ import net.minecraft.world.World;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiCoalPile extends GuiContainerTFC {
-    public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_coalpile.png");
+	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_coalpile.png");
 
-    public GuiCoalPile(InventoryPlayer inventoryplayer, TECoalPile te, World world, int x, int y, int z) {
-        super(new ContainerCoalPile(inventoryplayer, te, world, x, y, z), 176, 85);
-    }
+	public GuiCoalPile(InventoryPlayer inventoryplayer, TECoalPile te, World world, int x, int y, int z) {
+		super(new ContainerCoalPile(inventoryplayer, te, world, x, y, z), 176, 85);
+	}
 
-    @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
-        this.drawGui(texture);
-    }
+	@Override
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
+		this.drawGui(texture);
+	}
 }

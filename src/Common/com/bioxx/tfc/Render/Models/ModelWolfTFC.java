@@ -1,46 +1,58 @@
 package com.bioxx.tfc.Render.Models;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Entities.Mobs.EntityWolfTFC;
+import com.bioxx.tfc.api.Entities.IAnimal;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.MathHelper;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Entities.Mobs.EntityWolfTFC;
-import com.bioxx.tfc.api.Entities.IAnimal;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class ModelWolfTFC extends ModelBase
-{
-	/** main box for the wolf head */
+public class ModelWolfTFC extends ModelBase {
+	/**
+	 * main box for the wolf head
+	 */
 	public ModelRenderer wolfHeadMain;
 
-	/** The wolf's body */
+	/**
+	 * The wolf's body
+	 */
 	public ModelRenderer wolfBody;
 
-	/** Wolf'se first leg */
+	/**
+	 * Wolf'se first leg
+	 */
 	public ModelRenderer wolfLeg1;
 
-	/** Wolf's second leg */
+	/**
+	 * Wolf's second leg
+	 */
 	public ModelRenderer wolfLeg2;
 
-	/** Wolf's third leg */
+	/**
+	 * Wolf's third leg
+	 */
 	public ModelRenderer wolfLeg3;
 
-	/** Wolf's fourth leg */
+	/**
+	 * Wolf's fourth leg
+	 */
 	public ModelRenderer wolfLeg4;
 
-	/** The wolf's tail */
+	/**
+	 * The wolf's tail
+	 */
 	private ModelRenderer wolfTail;
 
-	/** The wolf's mane */
+	/**
+	 * The wolf's mane
+	 */
 	private ModelRenderer wolfMane;
 
-	public ModelWolfTFC()
-	{
+	public ModelWolfTFC() {
 		float f = 0.0F;
 		float f1 = 13.5F;
 		this.wolfHeadMain = new ModelRenderer(this, 0, 0);
@@ -76,21 +88,19 @@ public class ModelWolfTFC extends ModelBase
 	 * Sets the models various rotation angles then renders the model.
 	 */
 	@Override
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7)
-	{
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
 		super.render(entity, par2, par3, par4, par5, par6, par7);
 		this.setRotationAngles(par2, par3, par4, par5, par6, par7, entity);
 
-		float percent = TFC_Core.getPercentGrown((IAnimal)entity);
-		float ageScale = 2.0F-percent;
+		float percent = TFC_Core.getPercentGrown((IAnimal) entity);
+		float ageScale = 2.0F - percent;
 		//float offset = 1.4f - percent;
 
 		//noinspection ConstantConditions
-		if(entity instanceof IAnimal)
-		{
+		if (entity instanceof IAnimal) {
 			GL11.glPushMatrix();
 			GL11.glTranslatef(0.0F, 0.75f - (0.75f * percent), 0f);
-			GL11.glScalef(1/ageScale, 1/ageScale, 1/ageScale);    
+			GL11.glScalef(1 / ageScale, 1 / ageScale, 1 / ageScale);
 			this.wolfHeadMain.renderWithRotation(par7);
 			this.wolfBody.render(par7);
 			this.wolfLeg1.render(par7);
@@ -99,25 +109,20 @@ public class ModelWolfTFC extends ModelBase
 			this.wolfLeg4.render(par7);
 			this.wolfTail.renderWithRotation(par7);
 			this.wolfMane.render(par7);
-			GL11.glPopMatrix ();
+			GL11.glPopMatrix();
 		}
 	}
 
 	@Override
-	public void setLivingAnimations(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
-	{
+	public void setLivingAnimations(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4) {
 		EntityWolfTFC entitywolf = (EntityWolfTFC) par1EntityLivingBase;
 
-		if (entitywolf.isAngry())
-		{
+		if (entitywolf.isAngry()) {
 			this.wolfTail.rotateAngleY = 0.0F;
-		}
-		else
-		{
+		} else {
 			this.wolfTail.rotateAngleY = MathHelper.cos(par2 * 0.6662F) * 1.4F * par3;
 		}
-		if (entitywolf.isSitting())
-		{
+		if (entitywolf.isSitting()) {
 			this.wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
 			this.wolfMane.rotateAngleX = (float) Math.PI * 2F / 5F;
 			this.wolfMane.rotateAngleY = 0.0F;
@@ -132,9 +137,7 @@ public class ModelWolfTFC extends ModelBase
 			this.wolfLeg3.setRotationPoint(-2.49F, 17.0F, -4.0F);
 			this.wolfLeg4.rotateAngleX = 5.811947F;
 			this.wolfLeg4.setRotationPoint(0.51F, 17.0F, -4.0F);
-		}
-		else
-		{
+		} else {
 			this.wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
 			this.wolfBody.rotateAngleX = (float) Math.PI / 2F;
 			this.wolfMane.setRotationPoint(-1.0F, 14.0F, -3.0F);
@@ -145,8 +148,8 @@ public class ModelWolfTFC extends ModelBase
 			this.wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
 			this.wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
 			this.wolfLeg1.rotateAngleX = MathHelper.cos(par2 * 0.6662F) * 1.4F * par3;
-			this.wolfLeg2.rotateAngleX = MathHelper.cos(par2 * 0.6662F + (float)Math.PI) * 1.4F * par3;
-			this.wolfLeg3.rotateAngleX = MathHelper.cos(par2 * 0.6662F + (float)Math.PI) * 1.4F * par3;
+			this.wolfLeg2.rotateAngleX = MathHelper.cos(par2 * 0.6662F + (float) Math.PI) * 1.4F * par3;
+			this.wolfLeg3.rotateAngleX = MathHelper.cos(par2 * 0.6662F + (float) Math.PI) * 1.4F * par3;
 			this.wolfLeg4.rotateAngleX = MathHelper.cos(par2 * 0.6662F) * 1.4F * par3;
 		}
 
@@ -156,16 +159,15 @@ public class ModelWolfTFC extends ModelBase
 		this.wolfTail.rotateAngleZ = entitywolf.getShakeAngle(par4, -0.2F);
 		wolfTail.rotateAngleY = 0.5f * (1 - (1 / (entitywolf.getHappyTicks() + 1f))) * MathHelper.sin((float) (Math.PI * entitywolf.getHappyTicks() / 5F));
 	}
-	
+
 	@Override
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
-    {
-        super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
-        this.wolfHeadMain.rotateAngleX = par5 / (180F / (float)Math.PI);
-        this.wolfHeadMain.rotateAngleY = par4 / (180F / (float)Math.PI);
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity) {
+		super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
+		this.wolfHeadMain.rotateAngleX = par5 / (180F / (float) Math.PI);
+		this.wolfHeadMain.rotateAngleY = par4 / (180F / (float) Math.PI);
 		if (par7Entity instanceof EntityWolfTFC && ((EntityWolfTFC) par7Entity).getHappyTicks() > 0)
 			this.wolfTail.rotateAngleX = (float) (Math.PI / 4f) * 2.5F;
 		else
 			this.wolfTail.rotateAngleX = par3;
-    }
+	}
 }

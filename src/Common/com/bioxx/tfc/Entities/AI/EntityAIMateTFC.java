@@ -1,30 +1,27 @@
 package com.bioxx.tfc.Entities.AI;
 
-import java.util.List;
-
+import com.bioxx.tfc.api.Entities.IAnimal;
+import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.Entities.IAnimal;
-import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+import java.util.List;
 
 @SuppressWarnings("CanBeFinal")
-public class EntityAIMateTFC extends EntityAIBase
-{
+public class EntityAIMateTFC extends EntityAIBase {
 	private IAnimal theAnimal;
 	private World theWorld;
 	private IAnimal targetMate;
 	private int matingCounter;
 	private float speed;
 
-	public EntityAIMateTFC (IAnimal par1EntityAnimal, World world, float par2)
-	{
+	public EntityAIMateTFC(IAnimal par1EntityAnimal, World world, float par2) {
 		matingCounter = 0;
 		theAnimal = par1EntityAnimal;
 		theWorld = world;
 		speed = par2;
-		setMutexBits (3);
+		setMutexBits(3);
 	}
 
 
@@ -32,20 +29,14 @@ public class EntityAIMateTFC extends EntityAIBase
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute()
-	{
-		if (!theAnimal.getInLove() || !theAnimal.isAdult())
-		{
+	public boolean shouldExecute() {
+		if (!theAnimal.getInLove() || !theAnimal.isAdult()) {
 			return false;
-		}
-		else
-		{
+		} else {
 			targetMate = getLocalMate();
-			if (targetMate != null)
-			{
-				if (targetMate.getGender() == theAnimal.getGender() || 
-						theAnimal.isPregnant() || targetMate.isPregnant())
-				{
+			if (targetMate != null) {
+				if (targetMate.getGender() == theAnimal.getGender() ||
+						theAnimal.isPregnant() || targetMate.isPregnant()) {
 					return false;
 				}
 			}
@@ -58,10 +49,9 @@ public class EntityAIMateTFC extends EntityAIBase
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
-	public boolean continueExecuting ()
-	{
-		return targetMate.getEntity().isEntityAlive() && targetMate.getInLove() && matingCounter < 60 && theAnimal.getInLove() && 
-				(targetMate.getGender() == GenderEnum.FEMALE && theAnimal.getGender() == GenderEnum.MALE || 
+	public boolean continueExecuting() {
+		return targetMate.getEntity().isEntityAlive() && targetMate.getInLove() && matingCounter < 60 && theAnimal.getInLove() &&
+				(targetMate.getGender() == GenderEnum.FEMALE && theAnimal.getGender() == GenderEnum.MALE ||
 						targetMate.getGender() == GenderEnum.MALE && theAnimal.getGender() == GenderEnum.FEMALE);
 	}
 
@@ -70,8 +60,7 @@ public class EntityAIMateTFC extends EntityAIBase
 	 * Resets the task
 	 */
 	@Override
-	public void resetTask ()
-	{
+	public void resetTask() {
 		targetMate = null;
 		matingCounter = 0;
 	}
@@ -81,8 +70,7 @@ public class EntityAIMateTFC extends EntityAIBase
 	 * Updates the task
 	 */
 	@Override
-	public void updateTask ()
-	{
+	public void updateTask() {
 		theAnimal.getEntity().getLookHelper().setLookPositionWithEntity(targetMate.getEntity(), 10F, theAnimal.getEntity().getVerticalFaceSpeed());
 		theAnimal.getEntity().getNavigator().tryMoveToEntityLiving(targetMate.getEntity(), speed);
 		matingCounter++;
@@ -92,10 +80,9 @@ public class EntityAIMateTFC extends EntityAIBase
 	}
 
 
-	private IAnimal getLocalMate()
-	{
+	private IAnimal getLocalMate() {
 		float f = 8F;
-		List list = theWorld.getEntitiesWithinAABB (theAnimal.getClass (), theAnimal.getEntity().boundingBox.expand (f, f, f));
+		List list = theWorld.getEntitiesWithinAABB(theAnimal.getClass(), theAnimal.getEntity().boundingBox.expand(f, f, f));
 
 		for (Object aList : list) {
 			Entity entity = (Entity) aList;

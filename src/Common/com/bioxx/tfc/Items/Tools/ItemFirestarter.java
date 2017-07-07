@@ -1,7 +1,14 @@
 package com.bioxx.tfc.Items.Tools;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Sounds;
+import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.TileEntities.TEPottery;
+import com.bioxx.tfc.api.Enums.EnumItemReach;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -14,25 +21,15 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Sounds;
-import com.bioxx.tfc.Items.ItemTerra;
-import com.bioxx.tfc.TileEntities.TEPottery;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.Enums.EnumItemReach;
-import com.bioxx.tfc.api.Enums.EnumSize;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class ItemFirestarter extends ItemTerra
-{
+public class ItemFirestarter extends ItemTerra {
 	private boolean canBeUsed;
 	private boolean isCoal;
 	private boolean isPottery;
 
-	public ItemFirestarter()
-	{
+	public ItemFirestarter() {
 		super();
 		this.setMaxDamage(8);
 		this.hasSubtypes = false;
@@ -40,41 +37,34 @@ public class ItemFirestarter extends ItemTerra
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.SMALL;
 	}
 
-	public int getPlacedBlockMetadata(int i)
-	{
+	public int getPlacedBlockMetadata(int i) {
 		return i;
 	}
 
 	@Override
-	public boolean canStack()
-	{
+	public boolean canStack() {
 		return false;
 	}
 
 	@Override
-	public EnumAction getItemUseAction(ItemStack is)
-	{
+	public EnumAction getItemUseAction(ItemStack is) {
 		return EnumAction.bow;
 	}
 
 	@Override
-	public int getMaxItemUseDuration(ItemStack is)
-	{
+	public int getMaxItemUseDuration(ItemStack is) {
 		return 20;
 	}
 
 	@Override
-	public void onUsingTick(ItemStack stack, EntityPlayer player, int count)
-	{
+	public void onUsingTick(ItemStack stack, EntityPlayer player, int count) {
 		this.setFlags(player);
 		MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
-		if(mop != null && mop.typeOfHit == MovingObjectType.BLOCK)
-		{
+		if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK) {
 			World world = player.worldObj;
 			int x = mop.blockX;
 			int y = mop.blockY;
@@ -84,32 +74,27 @@ public class ItemFirestarter extends ItemTerra
 			double hitZ = mop.hitVec.zCoord;
 			int chance = world.rand.nextInt(100);
 
-			if(world.getBlock(x, y + 1, z) == TFCBlocks.firepit)
+			if (world.getBlock(x, y + 1, z) == TFCBlocks.firepit)
 				player.stopUsingItem();
 
-			if(count > 0 && world.isRemote)
-			{
+			if (count > 0 && world.isRemote) {
 				Boolean genSmoke = canBeUsed || isCoal || isPottery;
 
-				if(genSmoke && chance > 70)
+				if (genSmoke && chance > 70)
 					world.spawnParticle("smoke", hitX, hitY, hitZ, 0.0F, 0.1F, 0.0F);
 
-				if(count < 4 && chance > 70)
+				if (count < 4 && chance > 70)
 					world.spawnParticle("flame", hitX, hitY, hitZ, 0.0F, 0.0F, 0.0F);
 
 				if (count < this.getMaxItemUseDuration(null) - 4 && count % 3 == 1)
 					player.playSound(TFC_Sounds.FIRESTARTER, /*volume*/0.5f, /*pitch*/0.05F);
-			}
-			else if(!world.isRemote && count == 1)
-			{
-				if(canBeUsed)
-				{
+			} else if (!world.isRemote && count == 1) {
+				if (canBeUsed) {
 					List list = world.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y + 1, z, x + 1, y + 2, z + 1));
 					int numsticks = 0;
 					int hasStraw = 0;
 
-					if (list != null && !list.isEmpty())
-					{
+					if (list != null && !list.isEmpty()) {
 						for (Object aList1 : list) {
 							EntityItem entity = (EntityItem) aList1;
 							if (entity.getEntityItem().getItem() == TFCItems.straw)
@@ -118,8 +103,7 @@ public class ItemFirestarter extends ItemTerra
 								numsticks += entity.getEntityItem().stackSize;
 						}
 
-						if (chance > 70 - hasStraw && numsticks >= 3)
-						{
+						if (chance > 70 - hasStraw && numsticks >= 3) {
 							for (Object aList : list) {
 								EntityItem entity = (EntityItem) aList;
 								if (entity.getEntityItem().getItem() == TFCItems.stick || entity.getEntityItem().getItem() == TFCItems.straw)
@@ -130,19 +114,14 @@ public class ItemFirestarter extends ItemTerra
 					}
 
 					stack.damageItem(1, player);
-					if(stack.getItemDamage() >= stack.getMaxDamage())
+					if (stack.getItemDamage() >= stack.getMaxDamage())
 						stack.stackSize = 0;
-				}
-				else if(isCoal)
-				{
-					if(chance > 70)
+				} else if (isCoal) {
+					if (chance > 70)
 						world.setBlock(x, y, z, TFCBlocks.forge, 1, 2);
 					stack.damageItem(1, player);
-				}
-				else if(isPottery)
-				{
-					if(chance > 70)
-					{
+				} else if (isPottery) {
+					if (chance > 70) {
 						TEPottery te = (TEPottery) world.getTileEntity(x, y, z);
 						te.startPitFire();
 					}
@@ -153,31 +132,26 @@ public class ItemFirestarter extends ItemTerra
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player)
-	{
+	public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
 		if (canBeUsed || isCoal || isPottery)
 			player.setItemInUse(is, this.getMaxItemUseDuration(is));
 		return is;
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-	{
+	public boolean onItemUseFirst(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		this.setFlags(player);
 		return false;
 	}
 
 	@Override
-	public EnumItemReach getReach(ItemStack is)
-	{
+	public EnumItemReach getReach(ItemStack is) {
 		return EnumItemReach.SHORT;
 	}
-	
-	public void setFlags(EntityPlayer player)
-	{
+
+	public void setFlags(EntityPlayer player) {
 		MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(player.worldObj, player, true);
-		if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK)
-		{
+		if (mop != null && mop.typeOfHit == MovingObjectType.BLOCK) {
 			World world = player.worldObj;
 			int x = mop.blockX;
 			int y = mop.blockY;
@@ -197,8 +171,7 @@ public class ItemFirestarter extends ItemTerra
 					&& block != TFCBlocks.pottery;
 			isCoal = (block == TFCBlocks.charcoal && world.getBlockMetadata(x, y, z) > 6 || block == Blocks.coal_block) && surroundRock && surroundSolids;
 			isPottery = block == TFCBlocks.pottery && surroundSolids;
-			if (isPottery)
-			{
+			if (isPottery) {
 				TEPottery te = (TEPottery) world.getTileEntity(x, y, z);
 				isPottery = !te.isLit() && te.wood == 8;
 			}

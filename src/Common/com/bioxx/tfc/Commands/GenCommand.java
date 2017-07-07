@@ -1,53 +1,43 @@
 package com.bioxx.tfc.Commands;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.WorldGen.Generators.Trees.WorldGenCustomFruitTree;
+import com.bioxx.tfc.WorldGen.Generators.WorldGenFissure;
+import com.bioxx.tfc.WorldGen.TFCBiome;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.WorldGen.TFCBiome;
-import com.bioxx.tfc.WorldGen.Generators.WorldGenFissure;
-import com.bioxx.tfc.WorldGen.Generators.Trees.WorldGenCustomFruitTree;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCOptions;
-
 @SuppressWarnings("WeakerAccess")
-public class GenCommand extends CommandBase
-{
+public class GenCommand extends CommandBase {
 	@Override
-	public String getCommandName()
-	{
+	public String getCommandName() {
 		return "gen";
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] params)
-	{
+	public void processCommand(ICommandSender sender, String[] params) {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 
-		if(!TFCOptions.enableDebugMode)
-		{
+		if (!TFCOptions.enableDebugMode) {
 			TFC_Core.sendInfoMessage(player, new ChatComponentText("Debug Mode Required"));
 			return;
 		}
 
-		if (params.length == 1)
-		{
-			if (params[0].equalsIgnoreCase("fruittree"))
-			{
+		if (params.length == 1) {
+			if (params[0].equalsIgnoreCase("fruittree")) {
 				TFC_Core.sendInfoMessage(player, new ChatComponentText("Generating Fruit Tree"));
 				WorldGenerator fruitGen = new WorldGenCustomFruitTree(false, TFCBlocks.fruitTreeLeaves, 0);
 
 				if (!fruitGen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int) player.posX, (int) player.posY, (int) player.posZ))
 					TFC_Core.sendInfoMessage(player, new ChatComponentText("Generation Failed"));
 			}
-		}
-		else if (params.length == 2)
-		{
-			if(params[0].equals("fissure"))
-			{
+		} else if (params.length == 2) {
+			if (params[0].equals("fissure")) {
 				WorldGenFissure gen;
 				switch (params[1]) {
 					case "water":
@@ -66,49 +56,39 @@ public class GenCommand extends CommandBase
 						TFC_Core.sendInfoMessage(player, new ChatComponentText("Generating Fissure"));
 						break;
 				}
-				gen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int)player.posX, (int)player.posY - 1, (int)player.posZ);
-			}
-			else if (params[0].equalsIgnoreCase("tree"))
-			{
+				gen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int) player.posX, (int) player.posY - 1, (int) player.posZ);
+			} else if (params[0].equalsIgnoreCase("tree")) {
 				int i = getTree(params[1]);
 
-				if (i != -1)
-				{
+				if (i != -1) {
 					TFC_Core.sendInfoMessage(player, new ChatComponentText("Generating Small " + params[1] + " Tree"));
 					WorldGenerator treeGen = TFCBiome.getTreeGen(i, false);
 					if (treeGen != null)
 						if (!treeGen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int) player.posX, (int) player.posY, (int) player.posZ))
 							TFC_Core.sendInfoMessage(player, new ChatComponentText("Generation Failed"));
-				}
-				else
+				} else
 					TFC_Core.sendInfoMessage(player, new ChatComponentText("Invalid Tree"));
 			}
-		}
-		else if (params.length == 3 && params[0].equalsIgnoreCase("tree") && params[2].equalsIgnoreCase("big"))
-		{
+		} else if (params.length == 3 && params[0].equalsIgnoreCase("tree") && params[2].equalsIgnoreCase("big")) {
 			int i = getTree(params[1]);
 
-			if (i != -1)
-			{
+			if (i != -1) {
 				TFC_Core.sendInfoMessage(player, new ChatComponentText("Generating Big " + params[1] + " Tree"));
 				WorldGenerator treeGen = TFCBiome.getTreeGen(i, true);
 				if (treeGen != null)
 					if (!treeGen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int) player.posX, (int) player.posY, (int) player.posZ))
 						TFC_Core.sendInfoMessage(player, new ChatComponentText("Generation Failed"));
-			}
-			else
+			} else
 				TFC_Core.sendInfoMessage(player, new ChatComponentText("Invalid Tree"));
 		}
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender icommandsender)
-	{
+	public String getCommandUsage(ICommandSender icommandsender) {
 		return "";
 	}
 
-	public int getTree(String tree)
-	{
+	public int getTree(String tree) {
 		if ("oak".equalsIgnoreCase(tree))
 			return 0;
 		else if ("aspen".equalsIgnoreCase(tree))

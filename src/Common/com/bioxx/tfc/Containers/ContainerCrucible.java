@@ -1,5 +1,10 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotLiquidVessel;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.Items.ItemMeltedMetal;
+import com.bioxx.tfc.TileEntities.TECrucible;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -7,28 +12,18 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotLiquidVessel;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.Items.ItemMeltedMetal;
-import com.bioxx.tfc.TileEntities.TECrucible;
-import com.bioxx.tfc.api.TFCItems;
-
 @SuppressWarnings("CanBeFinal")
-public class ContainerCrucible extends ContainerTFC
-{
+public class ContainerCrucible extends ContainerTFC {
 	private TECrucible te;
 	private float firetemp;
 
-	public ContainerCrucible(InventoryPlayer inventoryplayer, TECrucible tileentityforge, World world, int x, int y, int z)
-	{
+	public ContainerCrucible(InventoryPlayer inventoryplayer, TECrucible tileentityforge, World world, int x, int y, int z) {
 		te = tileentityforge;
 		firetemp = 0;
 		//Input slot
-		addSlotToContainer(new Slot(tileentityforge, 0, 152, 7)
-		{
+		addSlotToContainer(new Slot(tileentityforge, 0, 152, 7) {
 			@Override
-			public boolean isItemValid(ItemStack itemstack)
-			{
+			public boolean isItemValid(ItemStack itemstack) {
 				return !(itemstack.getItem() == TFCItems.rawBloom || itemstack.getItem() == TFCItems.bloom && itemstack.getItemDamage() > 100);
 			}
 		});
@@ -41,37 +36,31 @@ public class ContainerCrucible extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer)
-	{
+	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)this.inventorySlots.get(slotNum);
+		Slot slot = (Slot) this.inventorySlots.get(slotNum);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From crucible to inventory
-			if (slotNum < 2)
-			{
+			if (slotNum < 2) {
 				if (!this.mergeItemStack(slotStack, 2, inventorySlots.size(), true))
 					return null;
 			}
 			// Ceramic molds into output slot
-			else if (slotStack.getItem() == TFCItems.ceramicMold && slotStack.getItemDamage() == 1 || slotStack.getItem() instanceof ItemMeltedMetal)
-			{
+			else if (slotStack.getItem() == TFCItems.ceramicMold && slotStack.getItemDamage() == 1 || slotStack.getItem() instanceof ItemMeltedMetal) {
 				if (!this.mergeItemStack(slotStack, 1, 2, true))
 					return null;
 			}
 			// To input slot
-			else
-			{
+			else {
 				if (!this.mergeItemStack(slotStack, 0, 1, true))
 					return null;
 			}
@@ -91,8 +80,7 @@ public class ContainerCrucible extends ContainerTFC
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (Object crafter : this.crafters) {
@@ -103,8 +91,7 @@ public class ContainerCrucible extends ContainerTFC
 	}
 
 	@Override
-	public void updateProgressBar(int id, int value)
-	{
+	public void updateProgressBar(int id, int value) {
 		if (id == 0)
 			this.te.temperature = value;
 	}

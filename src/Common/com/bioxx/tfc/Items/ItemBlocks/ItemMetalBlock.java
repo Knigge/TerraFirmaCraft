@@ -13,76 +13,65 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 @SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
-public abstract class ItemMetalBlock extends ItemTerraBlock implements ISmeltable
-{
+public abstract class ItemMetalBlock extends ItemTerraBlock implements ISmeltable {
 	protected short metalAmount;
 
-    public ItemMetalBlock(Block b)
-    {
-        super(b);
-        metalAmount = 800;
-    }
+	public ItemMetalBlock(Block b) {
+		super(b);
+		metalAmount = 800;
+	}
 
-    @Override
-    public EnumSize getSize(ItemStack is) {
-        return EnumSize.LARGE;
-    }
+	@Override
+	public EnumSize getSize(ItemStack is) {
+		return EnumSize.LARGE;
+	}
 
-    @Override
-    public short getMetalReturnAmount(ItemStack is) {
+	@Override
+	public short getMetalReturnAmount(ItemStack is) {
 
-        return metalAmount;
-    }
+		return metalAmount;
+	}
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
-    {
-        ItemTerra.addSizeInformation(is, arraylist);
-        addExtraInformation(is, player, arraylist);
+	@SuppressWarnings("unchecked")
+	@Override
+	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
+		ItemTerra.addSizeInformation(is, arraylist);
+		addExtraInformation(is, player, arraylist);
 
-        if (is.hasTagCompound())
-        {
-            if(TFC_ItemHeat.hasTemp(is))
-            {
-                float temp = TFC_ItemHeat.getTemp(is);
-                float meltTemp = TFC_ItemHeat.isCookable(is);
+		if (is.hasTagCompound()) {
+			if (TFC_ItemHeat.hasTemp(is)) {
+				float temp = TFC_ItemHeat.getTemp(is);
+				float meltTemp = TFC_ItemHeat.isCookable(is);
 
-                if(meltTemp != -1)
-                {
-                    if(is.getItem() == TFCItems.stick)
-                        arraylist.add(TFC_ItemHeat.getHeatColorTorch(temp, meltTemp));
-                    else
-                        arraylist.add(TFC_ItemHeat.getHeatColor(temp, meltTemp));
-                }
-            }
-        }
-    }
+				if (meltTemp != -1) {
+					if (is.getItem() == TFCItems.stick)
+						arraylist.add(TFC_ItemHeat.getHeatColorTorch(temp, meltTemp));
+					else
+						arraylist.add(TFC_ItemHeat.getHeatColor(temp, meltTemp));
+				}
+			}
+		}
+	}
 
-    public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist)
-    {
-        if(getMetalType(is) != null)
-        {
-            if (TFC_Core.showShiftInformation())
-            {
-                arraylist.add(TFC_Core.translate("gui.units") + ": " + getMetalReturnAmount(is));
-            }
-            else
-            {
-                arraylist.add(TFC_Core.translate("gui.ShowHelp"));
-            }
-        }
-    }
+	public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
+		if (getMetalType(is) != null) {
+			if (TFC_Core.showShiftInformation()) {
+				arraylist.add(TFC_Core.translate("gui.units") + ": " + getMetalReturnAmount(is));
+			} else {
+				arraylist.add(TFC_Core.translate("gui.ShowHelp"));
+			}
+		}
+	}
 
-    @Override
-    public boolean isSmeltable(ItemStack is) {
-        // TODO Auto-generated method stub
-        return true;
-    }
+	@Override
+	public boolean isSmeltable(ItemStack is) {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-    @Override
-    public EnumTier getSmeltTier(ItemStack is) {
-        // TODO Auto-generated method stub
-        return EnumTier.TierI;
-    }
+	@Override
+	public EnumTier getSmeltTier(ItemStack is) {
+		// TODO Auto-generated method stub
+		return EnumTier.TierI;
+	}
 }

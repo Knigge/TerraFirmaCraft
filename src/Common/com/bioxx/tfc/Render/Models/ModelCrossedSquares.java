@@ -1,20 +1,17 @@
 package com.bioxx.tfc.Render.Models;
 
-import net.minecraft.client.model.ModelBase;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.model.ModelBase;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
-public class ModelCrossedSquares extends ModelBase
-{
+public class ModelCrossedSquares extends ModelBase {
 	public ModelRendererTFC renderer;
 
 	@SuppressWarnings("unchecked")
-	public ModelCrossedSquares(int texOffx, int texOffy, int texWidth, int texHeight, int sqWidth, int sqHeight, int sqDepth)
-	{
-		this.renderer = new ModelRendererTFC(this,0,0);
+	public ModelCrossedSquares(int texOffx, int texOffy, int texWidth, int texHeight, int sqWidth, int sqHeight, int sqDepth) {
+		this.renderer = new ModelRendererTFC(this, 0, 0);
 		this.renderer.textureHeight = texHeight;
 		this.renderer.textureWidth = texWidth;
 		float x = 0;
@@ -22,18 +19,17 @@ public class ModelCrossedSquares extends ModelBase
 		float z = 0;
 
 		renderer.cubeList.add(new ModelCrossedSquare(
-			renderer,
-			renderer.textureOffsetX,
-			renderer.textureOffsetY,
-			x-(sqWidth-16)/2, y, z-(sqDepth-16)/2,
-			sqWidth, sqHeight,/*sqWidth*/ sqDepth, // sqWidth,sqWidth? Probably a bug..
-			0f
+				renderer,
+				renderer.textureOffsetX,
+				renderer.textureOffsetY,
+				x - (sqWidth - 16) / 2, y, z - (sqDepth - 16) / 2,
+				sqWidth, sqHeight,/*sqWidth*/ sqDepth, // sqWidth,sqWidth? Probably a bug..
+				0f
 		));
 
 	}
 
-	public void renderSquares()
-	{
+	public void renderSquares() {
 		renderer.render(0.0625F / 1F);
 	}
 }

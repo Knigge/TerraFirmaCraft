@@ -1,25 +1,21 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Containers.ContainerVessel;
+import com.bioxx.tfc.Reference;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Containers.ContainerVessel;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class GuiVessel extends GuiContainerTFC
-{
+public class GuiVessel extends GuiContainerTFC {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_vessel.png");
 
-	public GuiVessel(InventoryPlayer inventoryplayer, World world, int i, int j, int k)
-	{
+	public GuiVessel(InventoryPlayer inventoryplayer, World world, int i, int j, int k) {
 		super(new ContainerVessel(inventoryplayer, world, i, j, k), 176, 85);
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		this.drawGui(texture);
 	}
 
@@ -28,14 +24,11 @@ public class GuiVessel extends GuiContainerTFC
 	 * number key when hovering a stack.
 	 */
 	@Override
-	protected boolean checkHotbarKeys(int par1)
-	{
-		if (this.mc.thePlayer.inventory.currentItem != par1 - 2)
-		{
+	protected boolean checkHotbarKeys(int par1) {
+		if (this.mc.thePlayer.inventory.currentItem != par1 - 2) {
 			super.checkHotbarKeys(par1);
 			return true;
-		}
-		else
+		} else
 			return false;
 	}
 }

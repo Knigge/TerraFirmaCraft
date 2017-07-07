@@ -22,47 +22,40 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
-public class TELogPile extends TileEntity implements IInventory
-{
+public class TELogPile extends TileEntity implements IInventory {
 	public ItemStack[] storage;
-	private int logPileOpeners;
 	public boolean isOnFire;
 	public int fireTimer;
+	private int logPileOpeners;
 
-	public TELogPile()
-	{
+	public TELogPile() {
 		storage = new ItemStack[4];
 		logPileOpeners = 0;
 		fireTimer = 100;
 	}
 
-	public void addContents(int index, ItemStack is)
-	{
-		if(storage[index] == null)
-		{
+	public void addContents(int index, ItemStack is) {
+		if (storage[index] == null) {
 			storage[index] = is;
 		}
 	}
 
-	public ItemStack takeLog(int slot)
-	{
-		if(storage[slot] == null)
+	public ItemStack takeLog(int slot) {
+		if (storage[slot] == null)
 			return null;
-		else
-		{
+		else {
 			ItemStack is = storage[slot].copy();
 			is.stackSize = 1;
 			storage[slot].stackSize--;
-			if(storage[slot].stackSize == 0)
+			if (storage[slot].stackSize == 0)
 				storage[slot] = null;
-			if(this.getNumberOfLogs() == 0)
+			if (this.getNumberOfLogs() == 0)
 				worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 			return is;
 		}
 	}
 
-	public void clearContents()
-	{
+	public void clearContents() {
 		storage[0] = null;
 		storage[1] = null;
 		storage[2] = null;
@@ -70,18 +63,15 @@ public class TELogPile extends TileEntity implements IInventory
 	}
 
 	@Override
-	public void closeInventory()
-	{
+	public void closeInventory() {
 		--logPileOpeners;
-		if(logPileOpeners == 0 && storage[0] == null && storage[1] == null && storage[2] == null && storage[3] == null)
-		{
+		if (logPileOpeners == 0 && storage[0] == null && storage[1] == null && storage[2] == null && storage[3] == null) {
 			extinguishFire();
 			worldObj.setBlockToAir(xCoord, yCoord, zCoord);
 		}
 	}
 
-	public boolean contentsMatch(int index, ItemStack is)
-	{
+	public boolean contentsMatch(int index, ItemStack is) {
 		return storage[index] != null &&
 				storage[index].getItem() == is.getItem() &&
 				storage[index].getItemDamage() == is.getItemDamage() &&
@@ -89,8 +79,7 @@ public class TELogPile extends TileEntity implements IInventory
 				storage[index].stackSize + 1 <= this.getInventoryStackLimit();
 	}
 
-	public int getNumberOfLogs()
-	{
+	public int getNumberOfLogs() {
 		int[] count = new int[4];
 		count[0] = storage[0] != null ? storage[0].stackSize : 0;
 		count[1] = storage[1] != null ? storage[1].stackSize : 0;
@@ -100,34 +89,27 @@ public class TELogPile extends TileEntity implements IInventory
 	}
 
 	@Override
-	public ItemStack decrStackSize(int slot, int amount)
-	{
-		if(storage[slot] != null)
-		{
+	public ItemStack decrStackSize(int slot, int amount) {
+		if (storage[slot] != null) {
 			ItemStack is;
-			if(storage[slot].stackSize <= amount)
-			{
+			if (storage[slot].stackSize <= amount) {
 				is = storage[slot];
 				storage[slot] = null;
 				return is;
 			}
 
-			if(storage[slot].stackSize == 0)
+			if (storage[slot].stackSize == 0)
 				storage[slot] = null;
 
 			is = storage[slot].splitStack(amount);
 			return is;
-		}
-		else
+		} else
 			return null;
 	}
 
-	public void ejectContents()
-	{
-		for (int i = 0; i < getSizeInventory(); i++)
-		{
-			if(storage[i]!= null)
-			{
+	public void ejectContents() {
+		for (int i = 0; i < getSizeInventory(); i++) {
+			if (storage[i] != null) {
 				worldObj.spawnEntityInWorld(new EntityItem(worldObj, xCoord + 0.5, yCoord + 0.5, zCoord + 0.5, storage[i]));
 			}
 		}
@@ -135,99 +117,83 @@ public class TELogPile extends TileEntity implements IInventory
 	}
 
 	@Override
-	public int getInventoryStackLimit()
-	{
+	public int getInventoryStackLimit() {
 		return 4;
 	}
 
 	@Override
-	public String getInventoryName()
-	{
+	public String getInventoryName() {
 		return "Log Pile";
 	}
 
 	@Override
-	public int getSizeInventory()
-	{
+	public int getSizeInventory() {
 		return storage.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int slot)
-	{
+	public ItemStack getStackInSlot(int slot) {
 		return storage[slot];
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int slot)
-	{
+	public ItemStack getStackInSlotOnClosing(int slot) {
 		return null;
 	}
 
-	public void injectContents(int index, int count)
-	{
-		if(storage[index] != null)
-		{
+	public void injectContents(int index, int count) {
+		if (storage[index] != null) {
 			storage[index] = new ItemStack(storage[index].getItem(), storage[index].stackSize + count, storage[index].getItemDamage());
 		}
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
 		return false;
 	}
 
 	@Override
-	public void openInventory()
-	{
+	public void openInventory() {
 		++logPileOpeners;
 	}
 
 	@Override
-	public void setInventorySlotContents(int slot, ItemStack is)
-	{
+	public void setInventorySlotContents(int slot, ItemStack is) {
 		storage[slot] = is;
-		if(is != null && is.stackSize > getInventoryStackLimit())
+		if (is != null && is.stackSize > getInventoryStackLimit())
 			is.stackSize = getInventoryStackLimit();
 	}
 
 	@Override
-	public boolean canUpdate()
-	{
+	public boolean canUpdate() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		storage = new ItemStack[getSizeInventory()];
 		isOnFire = nbt.getBoolean("isOnFire");
 		fireTimer = nbt.getInteger("fireTimer");
-		for(int i = 0; i < nbttaglist.tagCount(); i++)
-		{
+		for (int i = 0; i < nbttaglist.tagCount(); i++) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			byte byte0 = nbttagcompound1.getByte("Slot");
-			if(byte0 >= 0 && byte0 < storage.length)
+			if (byte0 >= 0 && byte0 < storage.length)
 				storage[byte0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 		}
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setBoolean("isOnFire", isOnFire);
 		nbt.setInteger("fireTimer", fireTimer);
 		NBTTagList nbttaglist = new NBTTagList();
-		for(int i = 0; i < storage.length; i++)
-		{
-			if(storage[i] != null)
-			{
+		for (int i = 0; i < storage.length; i++) {
+			if (storage[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
+				nbttagcompound1.setByte("Slot", (byte) i);
 				storage[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
@@ -236,110 +202,94 @@ public class TELogPile extends TileEntity implements IInventory
 	}
 
 	@Override
-	public Packet getDescriptionPacket()
-	{
+	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbt);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-	{
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.func_148857_g());
 		//TileEntityLogPile pile = this;
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
-	{
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int slot, ItemStack is)
-	{
+	public boolean isItemValidForSlot(int slot, ItemStack is) {
 		return false;
 	}
 
-	public void lightNeighbors()
-	{
-		if(!isOnFire)
+	public void lightNeighbors() {
+		if (!isOnFire)
 			return;
 		Block block;
 		Queue<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
 
 		block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord + 1, yCoord, zCoord));
 
 		block = worldObj.getBlock(xCoord - 1, yCoord, zCoord);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord - 1, yCoord, zCoord));
 
 		block = worldObj.getBlock(xCoord, yCoord, zCoord + 1);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord, yCoord, zCoord + 1));
 
 		block = worldObj.getBlock(xCoord, yCoord, zCoord - 1);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord, yCoord, zCoord - 1));
 
 		block = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord, yCoord + 1, zCoord));
 
 		block = worldObj.getBlock(xCoord, yCoord - 1, zCoord);
-		if(!TFC_Core.isValidCharcoalPitCover(block))
+		if (!TFC_Core.isValidCharcoalPitCover(block))
 			blocksToBeSetOnFire.add(new Vector3f(xCoord, yCoord - 1, zCoord));
 
 		setOnFire(blocksToBeSetOnFire);
 	}
 
-	private void setOnFire(Queue<Vector3f> blocksOnFire)
-	{
-		while(blocksOnFire.size() > 0)
-		{
+	private void setOnFire(Queue<Vector3f> blocksOnFire) {
+		while (blocksOnFire.size() > 0) {
 			Vector3f blockOnFire = blocksOnFire.poll();
-			if (worldObj.getBlock((int) blockOnFire.x, (int) blockOnFire.y, (int) blockOnFire.z) != Blocks.fire)
-			{
+			if (worldObj.getBlock((int) blockOnFire.x, (int) blockOnFire.y, (int) blockOnFire.z) != Blocks.fire) {
 				worldObj.setBlock((int) blockOnFire.x, (int) blockOnFire.y, (int) blockOnFire.z, Blocks.fire);
 				worldObj.markBlockForUpdate((int) blockOnFire.x, (int) blockOnFire.y, (int) blockOnFire.z);
 			}
 		}
 	}
 
-	public void extinguishFire()
-	{
-		if(isOnFire)
-		{
-			if(worldObj.getBlock(xCoord + 1, yCoord, zCoord) == Blocks.fire)
-			{
+	public void extinguishFire() {
+		if (isOnFire) {
+			if (worldObj.getBlock(xCoord + 1, yCoord, zCoord) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord + 1, yCoord, zCoord);
 				worldObj.markBlockForUpdate(xCoord + 1, yCoord, zCoord);
 			}
-			if(worldObj.getBlock(xCoord - 1, yCoord, zCoord) == Blocks.fire)
-			{
+			if (worldObj.getBlock(xCoord - 1, yCoord, zCoord) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord - 1, yCoord, zCoord);
 				worldObj.markBlockForUpdate(xCoord + 1, yCoord, zCoord);
 			}
-			if(worldObj.getBlock(xCoord, yCoord, zCoord + 1) == Blocks.fire)
-			{
+			if (worldObj.getBlock(xCoord, yCoord, zCoord + 1) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord, yCoord, zCoord + 1);
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord + 1);
 			}
-			if(worldObj.getBlock(xCoord, yCoord, zCoord - 1) == Blocks.fire)
-			{
+			if (worldObj.getBlock(xCoord, yCoord, zCoord - 1) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord + 1, yCoord, zCoord - 1);
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord - 1);
 			}
-			if(worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.fire)
-			{
+			if (worldObj.getBlock(xCoord, yCoord + 1, zCoord) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
 				worldObj.markBlockForUpdate(xCoord, yCoord + 1, zCoord);
 			}
-			if(worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.fire)
-			{
+			if (worldObj.getBlock(xCoord, yCoord - 1, zCoord) == Blocks.fire) {
 				worldObj.setBlockToAir(xCoord, yCoord - 1, zCoord);
 				worldObj.markBlockForUpdate(xCoord, yCoord - 1, zCoord);
 			}
@@ -347,8 +297,7 @@ public class TELogPile extends TileEntity implements IInventory
 		}
 	}
 
-	public void activateCharcoal()
-	{
+	public void activateCharcoal() {
 
 		this.fireTimer = (int) TFC_Time.getTotalHours();
 		this.isOnFire = true;
@@ -362,28 +311,22 @@ public class TELogPile extends TileEntity implements IInventory
 		spreadFire(xCoord, yCoord, zCoord - 1); // North
 
 		lightNeighbors();
-	}	
+	}
 
-	private void spreadFire(int x, int y, int z)
-	{
+	private void spreadFire(int x, int y, int z) {
 
-		if (worldObj.getBlock(x, y, z) == TFCBlocks.logPile && worldObj.getTileEntity(x, y, z) instanceof TELogPile)
-		{
+		if (worldObj.getBlock(x, y, z) == TFCBlocks.logPile && worldObj.getTileEntity(x, y, z) instanceof TELogPile) {
 			TELogPile te = (TELogPile) worldObj.getTileEntity(x, y, z);
-			if(!te.isOnFire)
-			{
+			if (!te.isOnFire) {
 				te.activateCharcoal();
 			}
 		}
 	}
 
-	public void createCharcoal(int x, int y, int z, boolean forceComplete)
-	{
-		if(worldObj.getBlock(x, y, z) == TFCBlocks.logPile)
-		{
+	public void createCharcoal(int x, int y, int z, boolean forceComplete) {
+		if (worldObj.getBlock(x, y, z) == TFCBlocks.logPile) {
 			TELogPile te = (TELogPile) worldObj.getTileEntity(x, y, z);
-			if(te.isOnFire && (te.fireTimer+TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours() || forceComplete))
-			{
+			if (te.isOnFire && (te.fireTimer + TFCOptions.charcoalPitBurnTime < TFC_Time.getTotalHours() || forceComplete)) {
 				int count = te.getNumberOfLogs();
 				te.clearContents();
 				float percent = 25 + worldObj.rand.nextInt(26);
@@ -391,9 +334,12 @@ public class TELogPile extends TileEntity implements IInventory
 				worldObj.setBlock(x, y, z, TFCBlocks.charcoal, count, 0x2);
 
 				//Activate the surrounding log piles
-				createCharcoal(x+1, y, z, forceComplete); createCharcoal(x-1, y, z, forceComplete);
-				createCharcoal(x, y+1, z, forceComplete); createCharcoal(x, y-1, z, forceComplete);
-				createCharcoal(x, y, z+1, forceComplete); createCharcoal(x, y, z-1, forceComplete);
+				createCharcoal(x + 1, y, z, forceComplete);
+				createCharcoal(x - 1, y, z, forceComplete);
+				createCharcoal(x, y + 1, z, forceComplete);
+				createCharcoal(x, y - 1, z, forceComplete);
+				createCharcoal(x, y, z + 1, forceComplete);
+				createCharcoal(x, y, z - 1, forceComplete);
 
 				worldObj.notifyBlockOfNeighborChange(x, y, z, TFCBlocks.charcoal);
 			}

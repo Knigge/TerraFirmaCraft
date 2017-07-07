@@ -1,28 +1,25 @@
 package com.bioxx.tfc.Render;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Entities.Mobs.EntityBear;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Entities.IAnimal;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Entities.Mobs.EntityBear;
-import com.bioxx.tfc.api.Entities.IAnimal;
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class RenderBear extends RenderLiving
-{
+public class RenderBear extends RenderLiving {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/Bear.png");
 
 	//private float scale = 1.1f;
 	//private ModelBear modelbear;
 
-	public RenderBear (ModelBase par1ModelBase, float par2)
-	{
-		super (par1ModelBase, par2);
+	public RenderBear(ModelBase par1ModelBase, float par2) {
+		super(par1ModelBase, par2);
 		//modelbear = (ModelBear) par1ModelBase;
 	}
 
@@ -32,13 +29,11 @@ public class RenderBear extends RenderLiving
 	 * entityLiving, partialTickTime
 	 */
 	@Override
-	protected void preRenderCallback (EntityLivingBase par1EntityLiving, float par2)
-	{
-		preRenderScale ((EntityBear) par1EntityLiving, par2);
+	protected void preRenderCallback(EntityLivingBase par1EntityLiving, float par2) {
+		preRenderScale((EntityBear) par1EntityLiving, par2);
 	}
 
-	protected void preRenderScale (EntityBear par1EntityBear, float par2)
-	{
+	protected void preRenderScale(EntityBear par1EntityBear, float par2) {
 		GL11.glScalef(0.3f + par1EntityBear.getSizeMod(), 0.3f + par1EntityBear.getSizeMod(), 0.3f + par1EntityBear.getSizeMod());
 	}
 
@@ -47,8 +42,7 @@ public class RenderBear extends RenderLiving
 	 * Defines what float the third param in setRotationAngles of ModelBase is
 	 */
 	@Override
-	protected float handleRotationFloat (EntityLivingBase par1EntityLiving, float par2)
-	{
+	protected float handleRotationFloat(EntityLivingBase par1EntityLiving, float par2) {
 		return 1.0f;
 	}
 
@@ -59,9 +53,8 @@ public class RenderBear extends RenderLiving
 	 * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
 	 */
 	@Override
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-	{
-		this.shadowSize = 0.35f + (TFC_Core.getPercentGrown((IAnimal)par1Entity)*0.35f);
+	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+		this.shadowSize = 0.35f + (TFC_Core.getPercentGrown((IAnimal) par1Entity) * 0.35f);
 		super.doRender(par1Entity, par2, par4, par6, par8, par9);
 	}
 

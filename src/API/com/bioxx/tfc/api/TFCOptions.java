@@ -2,13 +2,13 @@ package com.bioxx.tfc.api;
 
 /**
  * Values in here are default, for bounds look in:
- * @see com.bioxx.tfc.Core.Config.TFC_ConfigFiles
  *
+ * @see com.bioxx.tfc.Core.Config.TFC_ConfigFiles
+ * <p>
  * The order of fields is the same as there appearance in the config file.
  */
 @SuppressWarnings("CanBeFinal")
-public class TFCOptions
-{
+public class TFCOptions {
 	// General
 	public static boolean enableNEIHiding = true;
 	public static boolean enablePowderKegs = true;
@@ -49,7 +49,7 @@ public class TFCOptions
 	 * This is the nth root of 1.5 where the root is 24. This means that, excluding
 	 * environmental factors, food will decay at 50% per 24 hours.
 	 * Easy calculator here: http://www.basic-mathematics.com/nth-root-calculator.html
-	 *
+	 * <p>
 	 * Made into a float because the config readout will round it to a float anyways.
 	 */
 	public static float foodDecayRate = 1.0170378966055869517978300569768f;

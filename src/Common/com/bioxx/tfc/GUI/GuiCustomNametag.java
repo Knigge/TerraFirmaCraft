@@ -1,5 +1,10 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Handlers.Network.AbstractPacket;
+import com.bioxx.tfc.Handlers.Network.ItemRenamePacket;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TerraFirmaCraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
@@ -10,42 +15,35 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Handlers.Network.AbstractPacket;
-import com.bioxx.tfc.Handlers.Network.ItemRenamePacket;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class GuiCustomNametag extends GuiScreen
-{
+public class GuiCustomNametag extends GuiScreen {
+	public static RenderItem itemRenderer = new RenderItem();
+	/**
+	 * The X size of the inventory window in pixels.
+	 */
+	protected int xSize = 220;
+	/**
+	 * The Y size of the inventory window in pixels.
+	 */
+	protected int ySize = 104;
+	/**
+	 * Starting X position for the Gui. Inconsistent use for Gui backgrounds.
+	 */
+	protected int guiLeft;
+	/**
+	 * Starting Y position for the Gui. Inconsistent use for Gui backgrounds.
+	 */
+	protected int guiTop;
 	private GuiTextField theGuiTextField;
 	private World world;
 	/*private int x;
 	private int z;*/
 	private EntityPlayer player;
 
-	/** The X size of the inventory window in pixels. */
-	protected int xSize = 220;
-
-	/** The Y size of the inventory window in pixels. */
-	protected int ySize = 104;
-	/**
-	 * Starting X position for the Gui. Inconsistent use for Gui backgrounds.
-	 */
-	protected int guiLeft;
-
-	/**
-	 * Starting Y position for the Gui. Inconsistent use for Gui backgrounds.
-	 */
-	protected int guiTop;
-
-	public GuiCustomNametag(EntityPlayer p, World world, int i, int j, int k)
-	{
+	public GuiCustomNametag(EntityPlayer p, World world, int i, int j, int k) {
 		this.world = world;
 		this.guiLeft = (this.width - this.xSize) / 2;
 		this.guiTop = (this.height - this.ySize) / 2;
@@ -55,21 +53,18 @@ public class GuiCustomNametag extends GuiScreen
 	}
 
 	@Override
-	public void updateScreen()
-	{
+	public void updateScreen() {
 		this.theGuiTextField.updateCursorCounter();
 	}
 
 	@Override
-	public void onGuiClosed()
-	{
+	public void onGuiClosed() {
 		Keyboard.enableRepeatEvents(false);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 
 		this.guiTop = (this.height - this.ySize) / 2;
@@ -84,59 +79,48 @@ public class GuiCustomNametag extends GuiScreen
 		this.theGuiTextField.setText("");
 	}
 
-	public static RenderItem itemRenderer = new RenderItem();
-
 	@Override
-	protected void mouseClicked(int par1, int par2, int par3)
-	{
+	protected void mouseClicked(int par1, int par2, int par3) {
 		super.mouseClicked(par1, par2, par3);
 		this.theGuiTextField.mouseClicked(par1, par2, par3);
 	}
 
 	@Override
-	protected void keyTyped(char par1, int par2)
-	{
+	protected void keyTyped(char par1, int par2) {
 		this.theGuiTextField.textboxKeyTyped(par1, par2);
-		((GuiButton)this.buttonList.get(0)).enabled = this.theGuiTextField.getText().trim().length() > 0;
+		((GuiButton) this.buttonList.get(0)).enabled = this.theGuiTextField.getText().trim().length() > 0;
 		if (par1 == 13)
-			this.actionPerformed((GuiButton)this.buttonList.get(0));
+			this.actionPerformed((GuiButton) this.buttonList.get(0));
 	}
 
 	@Override
-	public boolean doesGuiPauseGame()
-	{
+	public boolean doesGuiPauseGame() {
 		return false;
 	}
 
 	@Override
-	public void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k)
-	{
+	public void drawCenteredString(FontRenderer fontrenderer, String s, int i, int j, int k) {
 		fontrenderer.drawString(s, i - fontrenderer.getStringWidth(s) / 2, j, k);
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton)
-	{
-		if (guibutton.id == 0 && world.isRemote)
-		{
+	protected void actionPerformed(GuiButton guibutton) {
+		if (guibutton.id == 0 && world.isRemote) {
 			ItemStack stack = player.inventory.getCurrentItem();
 			stack.stackTagCompound.setString("Name", theGuiTextField.getText());
 
 			AbstractPacket pkt = new ItemRenamePacket(theGuiTextField.getText());
 			//TerraFirmaCraft.packetPipeline.sendToAll(pkt);
 			TerraFirmaCraft.PACKET_PIPELINE.sendToServer(pkt);
-			
+
 			Minecraft.getMinecraft().displayGuiScreen(null);//player.closeScreen();
-		}
-		else if (guibutton.id == 1 && world.isRemote)
-		{
+		} else if (guibutton.id == 1 && world.isRemote) {
 			Minecraft.getMinecraft().displayGuiScreen(null);//player.closeScreen();
 		}
 	}
 
 	@Override
-	public void drawScreen(int par1, int par2, float par3)
-	{
+	public void drawScreen(int par1, int par2, float par3) {
 		TFC_Core.bindTexture(new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_nametag.png"));
 
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -144,7 +128,7 @@ public class GuiCustomNametag extends GuiScreen
 		int i1 = (height - ySize) / 2;
 		drawTexturedModalRect(l, i1, 0, 0, xSize, ySize);
 
-		drawCenteredString(fontRendererObj,TFC_Core.translate("gui.Nametag"), this.width / 2, i1+8, 0x000000);
+		drawCenteredString(fontRendererObj, TFC_Core.translate("gui.Nametag"), this.width / 2, i1 + 8, 0x000000);
 		this.theGuiTextField.drawTextBox();
 
 		super.drawScreen(par1, par2, par3);

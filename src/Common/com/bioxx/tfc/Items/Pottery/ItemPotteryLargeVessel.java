@@ -4,11 +4,9 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
 @SuppressWarnings("WeakerAccess")
-public class ItemPotteryLargeVessel extends ItemPotteryBase
-{
+public class ItemPotteryLargeVessel extends ItemPotteryBase {
 
-	public ItemPotteryLargeVessel() 
-	{
+	public ItemPotteryLargeVessel() {
 		super();
 		this.metaNames = new String[]{"Clay Vessel [Large]", "Ceramic Vessel [Large]"};
 		this.setWeight(EnumWeight.HEAVY);

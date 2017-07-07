@@ -1,5 +1,9 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotTuyere;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.Items.ItemTuyere;
+import com.bioxx.tfc.TileEntities.TEBlastFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -7,21 +11,15 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotTuyere;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.Items.ItemTuyere;
-import com.bioxx.tfc.TileEntities.TEBlastFurnace;
-
 @SuppressWarnings("CanBeFinal")
-public class ContainerBlastFurnace extends ContainerTFC
-{
+public class ContainerBlastFurnace extends ContainerTFC {
 	private TEBlastFurnace tileentity;
 	private float firetemp;
 	private int orecount;
 	private int coalcount;
+	private int updatecounter;
 
-	public ContainerBlastFurnace(InventoryPlayer inventoryplayer, TEBlastFurnace te, World world, int x, int y, int z)
-	{
+	public ContainerBlastFurnace(InventoryPlayer inventoryplayer, TEBlastFurnace te, World world, int x, int y, int z) {
 		tileentity = te;
 		firetemp = 0;
 		//Input slot
@@ -35,34 +33,27 @@ public class ContainerBlastFurnace extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer)
-	{
+	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
 		Slot slot = (Slot) inventorySlots.get(slotNum);
-		Slot slotTuyere = (Slot)inventorySlots.get(0);
+		Slot slotTuyere = (Slot) inventorySlots.get(0);
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From tuyere slot to inventory
-			if (slotNum < 1)
-			{
+			if (slotNum < 1) {
 				if (!this.mergeItemStack(slotStack, 1, this.inventorySlots.size(), true))
 					return null;
-			}
-			else
-			{
-				if (slotStack.getItem() instanceof ItemTuyere)
-				{
-					if(slotTuyere.getHasStack())
+			} else {
+				if (slotStack.getItem() instanceof ItemTuyere) {
+					if (slotTuyere.getHasStack())
 						return null;
 					ItemStack stack = slotStack.copy();
 					stack.stackSize = 1;
@@ -85,10 +76,8 @@ public class ContainerBlastFurnace extends ContainerTFC
 		return origStack;
 	}
 
-	private int updatecounter;
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (Object crafter : this.crafters) {
@@ -98,8 +87,7 @@ public class ContainerBlastFurnace extends ContainerTFC
 			}
 		}
 
-		if(orecount != this.tileentity.oreCount || coalcount != this.tileentity.charcoalCount || updatecounter == 1000)
-		{
+		if (orecount != this.tileentity.oreCount || coalcount != this.tileentity.charcoalCount || updatecounter == 1000) {
 			//tileentity.broadcastPacketInRange(tileentity.createUpdatePacket());
 			tileentity.getWorldObj().markBlockForUpdate(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord);
 			updatecounter = 0;
@@ -111,10 +99,8 @@ public class ContainerBlastFurnace extends ContainerTFC
 	}
 
 	@Override
-	public void updateProgressBar(int par1, int par2)
-	{
-		if (par1 == 0)
-		{
+	public void updateProgressBar(int par1, int par2) {
+		if (par1 == 0) {
 			this.tileentity.fireTemp = par2;
 		}
 

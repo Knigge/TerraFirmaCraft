@@ -3,8 +3,7 @@ package com.bioxx.tfc.api;
 /**
  * These fields are updated using reflection when the server - cient sync happends.
  */
-public class TFCCrafting
-{
+public class TFCCrafting {
 	public static boolean appleConversion;
 	public static boolean arrowConversion;
 	public static boolean bowConversion;

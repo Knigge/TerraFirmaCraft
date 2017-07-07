@@ -1,6 +1,14 @@
 package com.bioxx.tfc.Blocks.Devices;
 
+import com.bioxx.tfc.Blocks.BlockTerraContainer;
 import com.bioxx.tfc.Core.Metal.MetalPair;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.TECrucible;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,33 +23,19 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Blocks.BlockTerraContainer;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.TileEntities.TECrucible;
-import com.bioxx.tfc.api.TFCBlocks;
-
 @SuppressWarnings("WeakerAccess")
-public class BlockCrucible extends BlockTerraContainer
-{
+public class BlockCrucible extends BlockTerraContainer {
 	private IIcon[] icons;
 
-	public BlockCrucible()
-	{
+	public BlockCrucible() {
 		super();
 		this.setCreativeTab(TFCTabs.TFC_DEVICES);
 		this.setBlockBounds(0.0625f, 0.25f, 0.0625f, 0.9375f, 0.9375f, 0.9375f);
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
-	{
-		if(!world.isRemote && world.getTileEntity(i, j, k) != null)
-		{
+	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+		if (!world.isRemote && world.getTileEntity(i, j, k) != null) {
 			//TECrucible te = (TECrucible)world.getTileEntity(i, j, k);
 			//ItemStack is = entityplayer.getCurrentEquippedItem();
 
@@ -51,10 +45,8 @@ public class BlockCrucible extends BlockTerraContainer
 	}
 
 	@Override
-	public void breakBlock(World world, int i, int j, int k, Block block, int par6)
-	{
-		if (world.getTileEntity(i, j, k) instanceof TECrucible)
-		{
+	public void breakBlock(World world, int i, int j, int k, Block block, int par6) {
+		if (world.getTileEntity(i, j, k) instanceof TECrucible) {
 			TECrucible te = (TECrucible) world.getTileEntity(i, j, k);
 
 			ItemStack is = new ItemStack(Item.getItemFromBlock(block), 1);
@@ -63,8 +55,7 @@ public class BlockCrucible extends BlockTerraContainer
 			EntityItem ei = new EntityItem(world, i, j, k, is);
 			world.spawnEntityInWorld(ei);
 
-			for(int s = 0; s < te.getSizeInventory(); ++s)
-			{
+			for (int s = 0; s < te.getSizeInventory(); ++s) {
 				te.setInventorySlotContents(s, null);
 			}
 		}
@@ -72,10 +63,9 @@ public class BlockCrucible extends BlockTerraContainer
 	}
 
 	@Override
-	protected void dropBlockAsItem(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack)
-	{
+	protected void dropBlockAsItem(World par1World, int par2, int par3, int par4, ItemStack par5ItemStack) {
 		/*if (!par1World.isRemote && par1World.getGameRules().getGameRuleBooleanValue("doTileDrops"))
-        {
+	    {
         	TECrucible te = (TECrucible)par1World.getTileEntity(par2, par3, par4);
 
     		if (te != null)
@@ -93,8 +83,7 @@ public class BlockCrucible extends BlockTerraContainer
         }*/
 	}
 
-	public NBTTagCompound writeCrucibleToNBT(TECrucible te)
-	{
+	public NBTTagCompound writeCrucibleToNBT(TECrucible te) {
 		NBTTagCompound nbt = new NBTTagCompound();
 
 		nbt.setInteger("temp", te.temperature);
@@ -111,12 +100,10 @@ public class BlockCrucible extends BlockTerraContainer
 		nbt.setTag("Metals", nbttaglist);
 
 		nbttaglist = new NBTTagList();
-		for(int i = 0; i < te.storage.length; i++)
-		{
-			if(te.storage[i] != null)
-			{
+		for (int i = 0; i < te.storage.length; i++) {
+			if (te.storage[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
+				nbttagcompound1.setByte("Slot", (byte) i);
 				te.storage[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
@@ -128,37 +115,31 @@ public class BlockCrucible extends BlockTerraContainer
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase player, ItemStack is)
-	{
+	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase player, ItemStack is) {
 		super.onBlockPlacedBy(world, i, j, k, player, is);
-		TECrucible te = (TECrucible)world.getTileEntity(i, j, k);
+		TECrucible te = (TECrucible) world.getTileEntity(i, j, k);
 
-		if (te != null && is.hasTagCompound())
-		{
+		if (te != null && is.hasTagCompound()) {
 			te.readFromItemNBT(is.getTagCompound());
 		}
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5)
-	{
+	public boolean shouldSideBeRendered(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5) {
 		return true;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegisterer)
-	{
+	public void registerBlockIcons(IIconRegister iconRegisterer) {
 		icons = new IIcon[2];
 		icons[0] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "devices/Crucible Top");
 		icons[1] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "devices/Crucible Side");
 	}
 
 	@Override
-	public IIcon getIcon(int i, int j) 
-	{
-		if(i < 2)
-		{
+	public IIcon getIcon(int i, int j) {
+		if (i < 2) {
 			return icons[0];
 		}
 
@@ -166,26 +147,22 @@ public class BlockCrucible extends BlockTerraContainer
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.crucibleRenderId;
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
+	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TECrucible();
 	}
 

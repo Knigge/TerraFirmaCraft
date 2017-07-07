@@ -1,27 +1,28 @@
 package com.bioxx.tfc.api.Crafting;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.bioxx.tfc.api.HeatRegistry;
+import com.bioxx.tfc.api.TFC_ItemHeat;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.HeatRegistry;
-import com.bioxx.tfc.api.TFC_ItemHeat;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ShapelessRecipesTFC implements IRecipe
-{
-	/** Is the ItemStack that you get when craft the recipe. */
+public class ShapelessRecipesTFC implements IRecipe {
+	/**
+	 * Is the ItemStack that you get when craft the recipe.
+	 */
 	private final ItemStack recipeOutput;
 
-	/** Is a List of ItemStack that composes the recipe. */
+	/**
+	 * Is a List of ItemStack that composes the recipe.
+	 */
 	private final List recipeItems;
 
-	public ShapelessRecipesTFC(ItemStack par1ItemStack, List par2List)
-	{
+	public ShapelessRecipesTFC(ItemStack par1ItemStack, List par2List) {
 		this.recipeOutput = par1ItemStack;
 		this.recipeItems = par2List;
 	}
@@ -30,14 +31,12 @@ public class ShapelessRecipesTFC implements IRecipe
 	 * Returns an Item that is the result of this recipe
 	 */
 	@Override
-	public ItemStack getCraftingResult(InventoryCrafting par1InventoryCrafting)
-	{
+	public ItemStack getCraftingResult(InventoryCrafting par1InventoryCrafting) {
 		return this.recipeOutput.copy();
 	}
 
 	@Override
-	public ItemStack getRecipeOutput()
-	{
+	public ItemStack getRecipeOutput() {
 		return this.recipeOutput;
 	}
 
@@ -45,8 +44,7 @@ public class ShapelessRecipesTFC implements IRecipe
 	 * Returns the size of the recipe area
 	 */
 	@Override
-	public int getRecipeSize()
-	{
+	public int getRecipeSize() {
 		return this.recipeItems.size();
 	}
 
@@ -55,18 +53,14 @@ public class ShapelessRecipesTFC implements IRecipe
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public boolean matches(InventoryCrafting par1InventoryCrafting, World world)
-	{
+	public boolean matches(InventoryCrafting par1InventoryCrafting, World world) {
 		ArrayList var2 = new ArrayList(this.recipeItems);
 
-		for (int var3 = 0; var3 < 5; ++var3)
-		{
-			for (int var4 = 0; var4 < 5; ++var4)
-			{
+		for (int var3 = 0; var3 < 5; ++var3) {
+			for (int var4 = 0; var4 < 5; ++var4) {
 				ItemStack inputIS = par1InventoryCrafting.getStackInRowAndColumn(var4, var3);
 
-				if (inputIS != null)
-				{
+				if (inputIS != null) {
 					boolean var6 = false;
 
 					for (Object aVar2 : var2) {
@@ -82,8 +76,7 @@ public class ShapelessRecipesTFC implements IRecipe
 						}
 					}
 
-					if (!var6)
-					{
+					if (!var6) {
 						return false;
 					}
 				}
@@ -93,25 +86,19 @@ public class ShapelessRecipesTFC implements IRecipe
 		return var2.isEmpty();
 	}
 
-	private boolean tempMatch(ItemStack recipeIS, ItemStack inputIS)
-	{
+	private boolean tempMatch(ItemStack recipeIS, ItemStack inputIS) {
 		NBTTagCompound rnbt = recipeIS.getTagCompound();
 		NBTTagCompound inbt = inputIS.getTagCompound();
 
-		if(rnbt != null && rnbt.hasKey("noTemp"))
-		{
+		if (rnbt != null && rnbt.hasKey("noTemp")) {
 			//Recipe expects a cold item and either the input has not tag at all or at the least is missing a temperature tag
 			return inbt == null || !TFC_ItemHeat.hasTemp(inputIS);
 		}
 
-		if(rnbt != null && TFC_ItemHeat.hasTemp(recipeIS))
-		{
-			if(inbt != null && TFC_ItemHeat.hasTemp(inputIS))
-			{
+		if (rnbt != null && TFC_ItemHeat.hasTemp(recipeIS)) {
+			if (inbt != null && TFC_ItemHeat.hasTemp(inputIS)) {
 				return HeatRegistry.getInstance().getIsLiquid(inputIS);//Recipe expects a hot item and the input is liquid
-			}
-			else
-			{
+			} else {
 				return false;//Recipe expects a cold item and the input is not cold
 			}
 		}

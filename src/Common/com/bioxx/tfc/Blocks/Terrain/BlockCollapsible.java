@@ -1,9 +1,17 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import com.bioxx.tfc.Blocks.BlockTerraContainer;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Sounds;
+import com.bioxx.tfc.Entities.EntityFallingBlockTFC;
+import com.bioxx.tfc.TileEntities.TEPartial;
+import com.bioxx.tfc.api.Enums.TFCDirection;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
+import com.bioxx.tfc.api.Util.ByteCoord;
+import com.bioxx.tfc.api.Util.CollapseData;
+import com.bioxx.tfc.api.Util.CollapseList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,53 +21,30 @@ import net.minecraft.stats.StatList;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.bioxx.tfc.Blocks.BlockTerraContainer;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Sounds;
-import com.bioxx.tfc.Entities.EntityFallingBlockTFC;
-import com.bioxx.tfc.TileEntities.TEPartial;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Enums.TFCDirection;
-import com.bioxx.tfc.api.Util.ByteCoord;
-import com.bioxx.tfc.api.Util.CollapseData;
-import com.bioxx.tfc.api.Util.CollapseList;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
-public class BlockCollapsible extends BlockTerraContainer
-{
-	public Block dropBlock;
+public class BlockCollapsible extends BlockTerraContainer {
 	public static boolean fallInstantly;
+	public Block dropBlock;
 
-	protected BlockCollapsible(Material material, Block block)
-	{
+	protected BlockCollapsible(Material material, Block block) {
 		super(material);
 		this.dropBlock = block;
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
-	protected BlockCollapsible(Material material)
-	{
+	protected BlockCollapsible(Material material) {
 		super(material);
 		this.dropBlock = Blocks.air;
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
-	public int[] getDropBlock(World world, int x, int y, int z)
-	{
-		int[] data = new int[2];
-		data[0] = Block.getIdFromBlock(dropBlock);
-		data[1] = world.getBlockMetadata(x, y, z);
-		return data;
-	}
-
-
-	public static boolean canFallBelow(World world, int x, int y, int z)
-	{
+	public static boolean canFallBelow(World world, int x, int y, int z) {
 		if (world.isAirBlock(x, y, z))
 			return true;
 		Block block = world.getBlock(x, y, z);
@@ -88,23 +73,54 @@ public class BlockCollapsible extends BlockTerraContainer
 		return material == Material.water || material == Material.lava;
 	}
 
-	public void dropCarvedStone(World world, int x, int y, int z)
-	{
-		if(world.getBlock(x + 1, y, z).isOpaqueCube())
-			return;
-		else if(world.getBlock(x - 1, y, z).isOpaqueCube())
-			return;
-		else if(world.getBlock(x, y, z + 1).isOpaqueCube())
-			return;
-		else if(world.getBlock(x, y, z - 1).isOpaqueCube())
-			return;
-		else if(world.getBlock(x, y + 1, z).isOpaqueCube())
-			return;
-		else if(world.getBlock(x, y - 1, z).isOpaqueCube())
-			return;
+	public static Boolean isNearSupport(World world, int i, int j, int k, int range, float collapseChance) {
+		for (int y = -1; y <= 1; y++) {
+			for (int x = -range; x <= range; x++) {
+				for (int z = -range; z <= range; z++) {
+					// Adding world null check due to OpenEye NPE report.
+					if (x == 0 && z == 0 && world != null && TFC_Core.isVertSupport(world.getBlock(i + x, j + y, k + z))) {
+						return true;
+					}
+					if (world != null && TFC_Core.isHorizSupport(world.getBlock(i + x, j + y, k + z))) {
+						if (world.rand.nextFloat() < collapseChance / 100f)
+							world.setBlockToAir(i + x, j + y, k + z);
+						else return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
-		dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, world.getBlockMetadata(x, y, z)));
-		world.setBlockToAir(x, y, z);
+	public static void tryToFall(World world, int x, int y, int z, Block block) {
+		if (!world.isRemote) {
+
+			int meta = world.getBlockMetadata(x, y, z);
+			if (canFallBelow(world, x, y - 1, z) && y >= 0 && (!isNearSupport(world, x, y, z, 4, 0) || block instanceof BlockSand)) {
+				byte byte0 = 32;
+
+				if (!fallInstantly && world.checkChunksExist(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {
+					if (!world.isRemote) {
+						EntityFallingBlockTFC entityfallingblock = new EntityFallingBlockTFC(world, x + 0.5F, y + 0.5F, z + 0.5F, block, meta);
+						world.spawnEntityInWorld(entityfallingblock);
+						if (block instanceof BlockCobble)
+							world.playSoundAtEntity(entityfallingblock, TFC_Sounds.FALLININGROCKSHORT, 1.0F, 0.8F + (world.rand.nextFloat() / 2));
+						else
+							world.playSoundAtEntity(entityfallingblock, TFC_Sounds.FALLININGDIRTSHORT, 1.0F, 0.8F + (world.rand.nextFloat() / 2));
+					}
+				} else {
+					world.setBlockToAir(x, y, z);
+
+					while (canFallBelow(world, x, y - 1, z) && y > 0) {
+						--y;
+					}
+
+					if (y > 0) {
+						world.setBlock(x, y, z, block, meta, 0x2);
+					}
+				}
+			}
+		}
 	}
 
 	/*public Boolean hasNaturalSupport(World world, int x, int y, int z)
@@ -165,43 +181,40 @@ public class BlockCollapsible extends BlockTerraContainer
 		return false;
 	}*/
 
-	public static Boolean isNearSupport(World world, int i, int j, int k, int range, float collapseChance)
-	{
-		for(int y = -1; y <= 1; y++)
-		{
-			for(int x = -range; x <= range; x++)
-			{
-				for(int z = -range; z <= range; z++)
-				{
-					// Adding world null check due to OpenEye NPE report.
-					if (x == 0 && z == 0 && world != null && TFC_Core.isVertSupport(world.getBlock(i + x, j + y, k + z)))
-					{
-						return true;
-					}
-					if (world != null && TFC_Core.isHorizSupport(world.getBlock(i + x, j + y, k + z)))
-					{
-						if(world.rand.nextFloat() < collapseChance / 100f)
-							world.setBlockToAir(i + x, j + y, k + z);
-						else return true;
-					}
-				}
-			}
-		}
-		return false;
+	public int[] getDropBlock(World world, int x, int y, int z) {
+		int[] data = new int[2];
+		data[0] = Block.getIdFromBlock(dropBlock);
+		data[1] = world.getBlockMetadata(x, y, z);
+		return data;
 	}
 
-	public Boolean isUnderLoad(World world, int i, int j, int k)
-	{
-		for(int x = 1; x <= TFCOptions.minimumRockLoad; x++)
-		{
-			if(!world.getBlock(i, j + x, k).isOpaqueCube())
+	public void dropCarvedStone(World world, int x, int y, int z) {
+		if (world.getBlock(x + 1, y, z).isOpaqueCube())
+			return;
+		else if (world.getBlock(x - 1, y, z).isOpaqueCube())
+			return;
+		else if (world.getBlock(x, y, z + 1).isOpaqueCube())
+			return;
+		else if (world.getBlock(x, y, z - 1).isOpaqueCube())
+			return;
+		else if (world.getBlock(x, y + 1, z).isOpaqueCube())
+			return;
+		else if (world.getBlock(x, y - 1, z).isOpaqueCube())
+			return;
+
+		dropBlockAsItem(world, x, y, z, new ItemStack(this, 1, world.getBlockMetadata(x, y, z)));
+		world.setBlockToAir(x, y, z);
+	}
+
+	public Boolean isUnderLoad(World world, int i, int j, int k) {
+		for (int x = 1; x <= TFCOptions.minimumRockLoad; x++) {
+			if (!world.getBlock(i, j + x, k).isOpaqueCube())
 				return false;
 		}
 		return true;
 	}
 
-	public Boolean tryToCollapse(World world, int x, int y, int z, float collapseChance)
-	{
+	public Boolean tryToCollapse(World world, int x, int y, int z, float collapseChance) {
 		int[] drop = getDropBlock(world, x, y, z);
 		Block fallingBlock = Block.getBlockById(drop[0]);
 
@@ -209,12 +222,9 @@ public class BlockCollapsible extends BlockTerraContainer
 			return false;
 
 		int fallingBlockMeta = drop[1];
-		if (canFallBelow(world, x, y - 1, z) && !isNearSupport(world, x, y, z, 4, collapseChance) && isUnderLoad(world, x, y, z))
-		{
-			if (!world.isRemote && fallingBlock != Blocks.air)
-			{
-				if(fallingBlock != null)
-				{
+		if (canFallBelow(world, x, y - 1, z) && !isNearSupport(world, x, y, z, 4, collapseChance) && isUnderLoad(world, x, y, z)) {
+			if (!world.isRemote && fallingBlock != Blocks.air) {
+				if (fallingBlock != null) {
 					EntityFallingBlockTFC ent = new EntityFallingBlockTFC(world, x + 0.5F, y + 0.5F, z + 0.5F, fallingBlock, fallingBlockMeta);
 
 					// Cobble generated from caving in raw stone has different metadata for different drops/hardness.
@@ -223,31 +233,27 @@ public class BlockCollapsible extends BlockTerraContainer
 
 					ent.aliveTimer/*fallTime*/ = -5000;
 					world.spawnEntityInWorld(ent);
-					Random r = new Random(x*y+z);
-					if(r.nextInt(100) > 90)
-						world.playSoundAtEntity(ent, TFC_Sounds.FALLININGROCKLONG, 1.0F, 0.8F + (r.nextFloat()/2));
+					Random r = new Random(x * y + z);
+					if (r.nextInt(100) > 90)
+						world.playSoundAtEntity(ent, TFC_Sounds.FALLININGROCKLONG, 1.0F, 0.8F + (r.nextFloat() / 2));
 				}
 
-				if (world.getBlock(x, y, z) instanceof BlockOre && !TFCOptions.enableCaveInsDestroyOre)
-				{
+				if (world.getBlock(x, y, z) instanceof BlockOre && !TFCOptions.enableCaveInsDestroyOre) {
 					TFC_Core.setBlockToAirWithDrops(world, x, y, z);
-				}
-				else
+				} else
 					world.setBlockToAir(x, y, z);
 
-				if(world.getBlock(x, y-1, z) == TFCBlocks.stoneSlabs && ((TEPartial)world.getTileEntity(x, y-1, z)).blockType == this && 
-						((TEPartial)world.getTileEntity(x, y-1, z)).metaID == fallingBlockMeta)
-				{
-					world.setBlockToAir(x, y-1, z);
+				if (world.getBlock(x, y - 1, z) == TFCBlocks.stoneSlabs && ((TEPartial) world.getTileEntity(x, y - 1, z)).blockType == this &&
+						((TEPartial) world.getTileEntity(x, y - 1, z)).metaID == fallingBlockMeta) {
+					world.setBlockToAir(x, y - 1, z);
 
-					if(world.getBlock(x, y-2, z) == TFCBlocks.stoneSlabs && ((TEPartial)world.getTileEntity(x, y-2, z)).blockType == this && 
-							((TEPartial)world.getTileEntity(x, y-2, z)).metaID == fallingBlockMeta)
-					{
-						world.setBlockToAir(x, y-2, z);
+					if (world.getBlock(x, y - 2, z) == TFCBlocks.stoneSlabs && ((TEPartial) world.getTileEntity(x, y - 2, z)).blockType == this &&
+							((TEPartial) world.getTileEntity(x, y - 2, z)).metaID == fallingBlockMeta) {
+						world.setBlockToAir(x, y - 2, z);
 
-						if(world.getBlock(x, y-3, z) == TFCBlocks.stoneSlabs && ((TEPartial)world.getTileEntity(x, y-3, z)).blockType == this && 
-								((TEPartial)world.getTileEntity(x, y-3, z)).metaID == fallingBlockMeta)
-							world.setBlockToAir(x, y-3, z);
+						if (world.getBlock(x, y - 3, z) == TFCBlocks.stoneSlabs && ((TEPartial) world.getTileEntity(x, y - 3, z)).blockType == this &&
+								((TEPartial) world.getTileEntity(x, y - 3, z)).metaID == fallingBlockMeta)
+							world.setBlockToAir(x, y - 3, z);
 					}
 				}
 
@@ -257,79 +263,34 @@ public class BlockCollapsible extends BlockTerraContainer
 		return false;
 	}
 
-	public static void tryToFall(World world, int x, int y, int z, Block block)
-	{
-		if (!world.isRemote)
-		{
-
-			int meta = world.getBlockMetadata(x, y, z);
-			if (canFallBelow(world, x, y - 1, z) && y >= 0 && (!isNearSupport(world, x, y, z, 4, 0) || block instanceof BlockSand))
-			{
-				byte byte0 = 32;
-
-				if (!fallInstantly && world.checkChunksExist(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0))
-				{
-					if (!world.isRemote)
-					{
-						EntityFallingBlockTFC entityfallingblock = new EntityFallingBlockTFC(world, x + 0.5F, y + 0.5F, z + 0.5F, block, meta);
-						world.spawnEntityInWorld(entityfallingblock);
-						if (block instanceof BlockCobble)
-							world.playSoundAtEntity(entityfallingblock, TFC_Sounds.FALLININGROCKSHORT, 1.0F, 0.8F + (world.rand.nextFloat() / 2));
-						else
-							world.playSoundAtEntity(entityfallingblock, TFC_Sounds.FALLININGDIRTSHORT, 1.0F, 0.8F + (world.rand.nextFloat() / 2));
-					}
-				}
-				else
-				{
-					world.setBlockToAir(x, y, z);
-
-					while (canFallBelow(world, x, y - 1, z) && y > 0)
-					{
-						--y;
-					}
-
-					if (y > 0)
-					{
-						world.setBlock(x, y, z, block, meta, 0x2);
-					}
-				}
-			}
-		}
-	}
-
 	@Override
-	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int meta)
-	{
+	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int meta) {
 		//float seismicModifier = 0.2f;
 		float softModifier = 0.1f;
 		//TFCBiome biome = (TFCBiome) world.getBiomeGenForCoords(x, z);
 		int finalCollapseRatio = TFCOptions.initialCollapseRatio > 0 ? TFCOptions.initialCollapseRatio : 10; //Set to default if invalid value is entered in config.
 
 		//Make sure that the player gets exhausted from harvesting this block since we override the vanilla method
-		if(entityplayer != null)
-		{
+		if (entityplayer != null) {
 			entityplayer.addStat(StatList.mineBlockStatArray[getIdFromBlock(this)], 1);
 			entityplayer.addExhaustion(0.075F);
 		}
 
 		//If we are in a soft sedimentary rock layer then we increase the chance of a collapse by 10%
-		if(this == TFCBlocks.stoneSed)
+		if (this == TFCBlocks.stoneSed)
 			finalCollapseRatio -= finalCollapseRatio * softModifier;
 
 		//First we check the rng to see if a collapse is going to occur
-		if (TFCOptions.enableCaveIns && world.rand.nextInt(finalCollapseRatio) == 0)
-		{
+		if (TFCOptions.enableCaveIns && world.rand.nextInt(finalCollapseRatio) == 0) {
 			//Now we look for a suitable block nearby to act as the epicenter
 			int counter = 0;
-			while(counter < 100)
-			{
+			while (counter < 100) {
 				int scanX = -4 + world.rand.nextInt(9);
 				int scanY = -2 + world.rand.nextInt(5);
 				int scanZ = -4 + world.rand.nextInt(9);
-				if(world.getBlock(x+scanX, y+scanY, z+scanZ) instanceof BlockCollapsible && 
-						((BlockCollapsible)world.getBlock(x+scanX, y+scanY, z+scanZ)).tryToCollapse(world, x+scanX, y+scanY, z+scanZ, 0))
-				{
-					triggerCollapse(world, entityplayer, x+scanX, y+scanY, z+scanZ, meta);
+				if (world.getBlock(x + scanX, y + scanY, z + scanZ) instanceof BlockCollapsible &&
+						((BlockCollapsible) world.getBlock(x + scanX, y + scanY, z + scanZ)).tryToCollapse(world, x + scanX, y + scanY, z + scanZ, 0)) {
+					triggerCollapse(world, entityplayer, x + scanX, y + scanY, z + scanZ, meta);
 					return;
 				}
 				counter++;
@@ -338,32 +299,25 @@ public class BlockCollapsible extends BlockTerraContainer
 	}
 
 	/**
-	  This is called when a collapse is definitely happening on a block.
+	 * This is called when a collapse is definitely happening on a block.
 	 */
-	public void triggerCollapse(World world, EntityPlayer entityplayer, int i, int j, int k, int meta)
-	{
+	public void triggerCollapse(World world, EntityPlayer entityplayer, int i, int j, int k, int meta) {
 		//ArrayList<ByteCoord> collapseMap = getCollapseMap(world, i, j, k);
 		int height = 4;
 		int range = 5 + world.rand.nextInt(31);
-		for(int y = -4; y <= 1; y++)
-		{
-			for(int x = -range; x <= range; x++)
-			{
-				for(int z = -range; z <= range; z++)
-				{
-					double distSqrd = Math.pow(i-(i+x),2) + Math.pow(j-(j+y),2) + Math.pow(k-(k+z),2);
+		for (int y = -4; y <= 1; y++) {
+			for (int x = -range; x <= range; x++) {
+				for (int z = -range; z <= range; z++) {
+					double distSqrd = Math.pow(i - (i + x), 2) + Math.pow(j - (j + y), 2) + Math.pow(k - (k + z), 2);
 
-					if(world.rand.nextInt(100) < TFCOptions.propogateCollapseChance && distSqrd < 1225)
-					{
-						if(world.getBlock(i+x, j+y, k+z) instanceof BlockCollapsible && 
-								((BlockCollapsible)world.getBlock(i+x, j+y, k+z)).tryToCollapse(world, i+x, j+y, k+z, 1))
-						{
+					if (world.rand.nextInt(100) < TFCOptions.propogateCollapseChance && distSqrd < 1225) {
+						if (world.getBlock(i + x, j + y, k + z) instanceof BlockCollapsible &&
+								((BlockCollapsible) world.getBlock(i + x, j + y, k + z)).tryToCollapse(world, i + x, j + y, k + z, 1)) {
 							int done = 0;
-							while(done < height)
-							{
+							while (done < height) {
 								done++;
-								if(world.getBlock(i+x, j+y, k+z) instanceof BlockCollapsible && world.rand.nextInt(100) < TFCOptions.propogateCollapseChance) {
-									((BlockCollapsible)world.getBlock(i+x, j+y, k+z)).tryToCollapse(world, i+x, j+y+done, k+z, 1);
+								if (world.getBlock(i + x, j + y, k + z) instanceof BlockCollapsible && world.rand.nextInt(100) < TFCOptions.propogateCollapseChance) {
+									((BlockCollapsible) world.getBlock(i + x, j + y, k + z)).tryToCollapse(world, i + x, j + y + done, k + z, 1);
 								} else {
 									done = height;
 								}
@@ -377,11 +331,11 @@ public class BlockCollapsible extends BlockTerraContainer
 
 	/**
 	 * The coordinates given are the coordinates of the epicenter of the collapse
+	 *
 	 * @return This is a list of all coordinates which should collapse vertically, radiating outward from the epicenter
 	 */
 	@SuppressWarnings("SuspiciousMethodCalls")
-	public List<ByteCoord> getCollapseMap(World world, int i, int j, int k)
-	{
+	public List<ByteCoord> getCollapseMap(World world, int i, int j, int k) {
 		//int checks = 0;
 		ArrayList<ByteCoord> map = new ArrayList<ByteCoord>();
 		ArrayList<ByteCoord> checkedmap = new ArrayList<ByteCoord>();
@@ -396,22 +350,20 @@ public class BlockCollapsible extends BlockTerraContainer
 		int localY;
 		int localZ;
 		//We already know that the epicenter is going to collapse so we add it to our final map
-		map.add(new ByteCoord(0,0,0));
+		map.add(new ByteCoord(0, 0, 0));
 		//Now we add each of the blocks around it so that the initial collapse tries to propogate in each direction
-		checkQueue.add(new CollapseData(new ByteCoord(1,0,0), TFCOptions.propogateCollapseChance, TFCDirection.EAST));
-		checkQueue.add(new CollapseData(new ByteCoord(-1,0,0), TFCOptions.propogateCollapseChance, TFCDirection.WEST));
-		checkQueue.add(new CollapseData(new ByteCoord(1,0,1), TFCOptions.propogateCollapseChance, TFCDirection.NORTHEAST));
-		checkQueue.add(new CollapseData(new ByteCoord(1,0,-1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTHEAST));
-		checkQueue.add(new CollapseData(new ByteCoord(-1,0,1), TFCOptions.propogateCollapseChance, TFCDirection.NORTHWEST));
-		checkQueue.add(new CollapseData(new ByteCoord(-1,0,-1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTHWEST));
-		checkQueue.add(new CollapseData(new ByteCoord(0,0,1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTH));
-		checkQueue.add(new CollapseData(new ByteCoord(0,0,-1), TFCOptions.propogateCollapseChance, TFCDirection.NORTH));
+		checkQueue.add(new CollapseData(new ByteCoord(1, 0, 0), TFCOptions.propogateCollapseChance, TFCDirection.EAST));
+		checkQueue.add(new CollapseData(new ByteCoord(-1, 0, 0), TFCOptions.propogateCollapseChance, TFCDirection.WEST));
+		checkQueue.add(new CollapseData(new ByteCoord(1, 0, 1), TFCOptions.propogateCollapseChance, TFCDirection.NORTHEAST));
+		checkQueue.add(new CollapseData(new ByteCoord(1, 0, -1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTHEAST));
+		checkQueue.add(new CollapseData(new ByteCoord(-1, 0, 1), TFCOptions.propogateCollapseChance, TFCDirection.NORTHWEST));
+		checkQueue.add(new CollapseData(new ByteCoord(-1, 0, -1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTHWEST));
+		checkQueue.add(new CollapseData(new ByteCoord(0, 0, 1), TFCOptions.propogateCollapseChance, TFCDirection.SOUTH));
+		checkQueue.add(new CollapseData(new ByteCoord(0, 0, -1), TFCOptions.propogateCollapseChance, TFCDirection.NORTH));
 
-		while(checkQueue.peek() != null)
-		{
-			CollapseData block = checkQueue.peek();	
-			if(!checkedmap.contains(block) && world.rand.nextFloat() < block.collapseChance/100f)
-			{
+		while (checkQueue.peek() != null) {
+			CollapseData block = checkQueue.peek();
+			if (!checkedmap.contains(block) && world.rand.nextFloat() < block.collapseChance / 100f) {
 				//checks++;
 				//TerraFirmaCraft.log.info("Number of block checks: " + checks + " | Queue Length: " + checkQueue.size());
 				worldX = block.coords.x + i;
@@ -421,82 +373,71 @@ public class BlockCollapsible extends BlockTerraContainer
 				localY = block.coords.y;
 				localZ = block.coords.z;
 				if (world.isAirBlock(worldX, worldY, worldZ) /*&& localY < 4*/)
-					checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY + 1, localZ), block.collapseChance - incrementChance*4, TFCDirection.UP));
-				else if(world.getBlock(worldX, worldY, worldZ) instanceof BlockCollapsible && 
-						((BlockCollapsible)world.getBlock(worldX, worldY, worldZ)).tryToCollapse(world, worldX, worldY, worldZ, block.collapseChance))
-				{
+					checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY + 1, localZ), block.collapseChance - incrementChance * 4, TFCDirection.UP));
+				else if (world.getBlock(worldX, worldY, worldZ) instanceof BlockCollapsible &&
+						((BlockCollapsible) world.getBlock(worldX, worldY, worldZ)).tryToCollapse(world, worldX, worldY, worldZ, block.collapseChance)) {
 					map.add(block.coords);
 
-					switch(block.direction)
-					{
-					case NORTH:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						break;
-					}
-					case SOUTH:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						break;
-					}
-					case EAST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						break;
-					}
-					case WEST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						break;
-					}
-					case SOUTHEAST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						break;
-					}
-					case SOUTHWEST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						break;
-					}
-					case NORTHEAST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						break;
-					}
-					case NORTHWEST:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						break;
-					}
-					default:
-					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						break;
-					}
+					switch (block.direction) {
+						case NORTH: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							break;
+						}
+						case SOUTH: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							break;
+						}
+						case EAST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							break;
+						}
+						case WEST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							break;
+						}
+						case SOUTHEAST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							break;
+						}
+						case SOUTHWEST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							break;
+						}
+						case NORTHEAST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							break;
+						}
+						case NORTHWEST: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							break;
+						}
+						default: {
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+							checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+							break;
+						}
 					}
 				}
 			}
@@ -507,14 +448,12 @@ public class BlockCollapsible extends BlockTerraContainer
 	}
 
 	@Override
-	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion ex)
-	{
+	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion ex) {
 		harvestBlock(world, null, x, y, z, world.getBlockMetadata(x, y, z));
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(IBlockAccess w, int x, int y, int z)
-	{
+	public boolean canBeReplacedByLeaves(IBlockAccess w, int x, int y, int z) {
 		return false;
 	}
 }

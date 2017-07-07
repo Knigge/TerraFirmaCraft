@@ -1,5 +1,8 @@
 package com.bioxx.tfc.Containers.Slots;
 
+import com.bioxx.tfc.Containers.ContainerSpecialCrafting;
+import com.bioxx.tfc.GUI.GuiKnapping;
+import com.bioxx.tfc.TerraFirmaCraft;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -7,19 +10,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Containers.ContainerSpecialCrafting;
-import com.bioxx.tfc.GUI.GuiKnapping;
-
 @SuppressWarnings({"SameParameterValue", "CanBeFinal"})
-public class SlotSpecialCraftingOutput extends Slot
-{
+public class SlotSpecialCraftingOutput extends Slot {
 	private final IInventory craftMatrix;
 	private EntityPlayer thePlayer;
 	private Container container;
 
-	public SlotSpecialCraftingOutput(Container container, EntityPlayer entityplayer, IInventory iinventory, IInventory iinventory1, int i, int j, int k)
-	{
+	public SlotSpecialCraftingOutput(Container container, EntityPlayer entityplayer, IInventory iinventory, IInventory iinventory1, int i, int j, int k) {
 		super(iinventory1, i, j, k);
 		this.container = container;
 		thePlayer = entityplayer;
@@ -27,24 +24,20 @@ public class SlotSpecialCraftingOutput extends Slot
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack)
-	{
+	public boolean isItemValid(ItemStack itemstack) {
 		return false;
 	}
 
 
 	@Override
-	public void onPickupFromSlot(EntityPlayer player, ItemStack itemstack)
-	{
+	public void onPickupFromSlot(EntityPlayer player, ItemStack itemstack) {
 		itemstack.onCrafting(thePlayer.worldObj, thePlayer, slotNumber);
 		TerraFirmaCraft.proxy.takenFromCrafting(thePlayer, itemstack, craftMatrix);
 
-		for (int i = 0; i < craftMatrix.getSizeInventory(); i++)
-		{
+		for (int i = 0; i < craftMatrix.getSizeInventory(); i++) {
 			// Clear out everything in the crafting matrix.
 			craftMatrix.setInventorySlotContents(i, null);
-			if (player.worldObj.isRemote)
-			{
+			if (player.worldObj.isRemote) {
 				((GuiKnapping) Minecraft.getMinecraft().currentScreen).resetButton(i);
 			}
 		}

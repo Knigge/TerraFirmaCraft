@@ -1,7 +1,13 @@
 package com.bioxx.tfc.Items.ItemBlocks;
 
-import java.util.List;
-
+import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.api.Enums.EnumItemReach;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.Enums.EnumWeight;
+import com.bioxx.tfc.api.Interfaces.ISize;
+import com.bioxx.tfc.api.TFCItems;
+import com.bioxx.tfc.api.TFC_ItemHeat;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,46 +16,32 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Items.ItemTerra;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.TFC_ItemHeat;
-import com.bioxx.tfc.api.Enums.EnumItemReach;
-import com.bioxx.tfc.api.Enums.EnumSize;
-import com.bioxx.tfc.api.Enums.EnumWeight;
-import com.bioxx.tfc.api.Interfaces.ISize;
+import java.util.List;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class ItemTerraBlock extends ItemBlock implements ISize
-{
+public class ItemTerraBlock extends ItemBlock implements ISize {
 	public String[] metaNames;
 	public IIcon[] icons;
 	public String folder;
 
-	public ItemTerraBlock(Block b)
-	{
+	public ItemTerraBlock(Block b) {
 		super(b);
 		this.setHasSubtypes(true);
 		this.folder = "";
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
-	public ItemTerraBlock setFolder(String f)
-	{
+	public ItemTerraBlock setFolder(String f) {
 		folder = f;
 		return this;
 	}
 
 	@Override
-	public String getUnlocalizedName(ItemStack is)
-	{
-		try
-		{
-			if(metaNames != null && is.getItemDamage() < metaNames.length)
+	public String getUnlocalizedName(ItemStack is) {
+		try {
+			if (metaNames != null && is.getItemDamage() < metaNames.length)
 				return getUnlocalizedName().concat("." + metaNames[is.getItemDamage()]);
-		}
-		catch(Exception ex)
-		{
+		} catch (Exception ex) {
 			TerraFirmaCraft.LOG.error(ex.getLocalizedMessage());
 		}
 
@@ -57,37 +49,31 @@ public class ItemTerraBlock extends ItemBlock implements ISize
 	}
 
 	/**
-	 * This is called by inventories in the world to tick things such as temperature and food decay. Override this and 
+	 * This is called by inventories in the world to tick things such as temperature and food decay. Override this and
 	 * return true if you want the item to be handled differently than the standard code. True will stop he standard TFC code from running.
 	 */
 	@SuppressWarnings("SameReturnValue")
-	public boolean onUpdate(ItemStack is, World world, int x, int y, int z)
-	{
+	public boolean onUpdate(ItemStack is, World world, int x, int y, int z) {
 		return false;
 	}
 
 	@Override
-	public int getMetadata(int i)
-	{
+	public int getMetadata(int i) {
 		return i;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
-	{
+	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
 		ItemTerra.addSizeInformation(is, arraylist);
 
-		if (is.hasTagCompound())
-		{
-			if(TFC_ItemHeat.hasTemp(is))
-			{
+		if (is.hasTagCompound()) {
+			if (TFC_ItemHeat.hasTemp(is)) {
 				float temp = TFC_ItemHeat.getTemp(is);
 				float meltTemp = TFC_ItemHeat.isCookable(is);
 
-				if(meltTemp != -1)
-				{
-					if(is.getItem() == TFCItems.stick)
+				if (meltTemp != -1) {
+					if (is.getItem() == TFCItems.stick)
 						arraylist.add(TFC_ItemHeat.getHeatColorTorch(temp, meltTemp));
 					else
 						arraylist.add(TFC_ItemHeat.getHeatColor(temp, meltTemp));
@@ -97,46 +83,39 @@ public class ItemTerraBlock extends ItemBlock implements ISize
 	}
 
 	@Override
-	public boolean getShareTag()
-	{
+	public boolean getShareTag() {
 		return true;
 	}
 
 	@Override
-	public int getItemStackLimit(ItemStack is)
-	{
-		if(canStack())
+	public int getItemStackLimit(ItemStack is) {
+		if (canStack())
 			return this.getSize(null).stackSize * getWeight(null).multiplier;
 		else
 			return 1;
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.VERYSMALL;
 	}
 
 	@Override
-	public boolean canStack()
-	{
+	public boolean canStack() {
 		return true;
 	}
 
 	@Override
-	public EnumWeight getWeight(ItemStack is)
-	{
+	public EnumWeight getWeight(ItemStack is) {
 		return EnumWeight.HEAVY;
 	}
 
 	@Override
-	public void registerIcons(IIconRegister registerer)
-	{
+	public void registerIcons(IIconRegister registerer) {
 	}
 
 	@Override
-	public EnumItemReach getReach(ItemStack is)
-	{
+	public EnumItemReach getReach(ItemStack is) {
 		return EnumItemReach.SHORT;
 	}
 }

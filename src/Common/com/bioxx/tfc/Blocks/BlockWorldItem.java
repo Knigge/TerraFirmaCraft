@@ -1,7 +1,9 @@
 package com.bioxx.tfc.Blocks;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_Textures;
+import com.bioxx.tfc.TileEntities.TEWorldItem;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,26 +17,18 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.Random;
 
-import com.bioxx.tfc.Core.TFC_Textures;
-import com.bioxx.tfc.TileEntities.TEWorldItem;
-
-public class BlockWorldItem extends BlockTerraContainer
-{
-	public BlockWorldItem()
-	{
+public class BlockWorldItem extends BlockTerraContainer {
+	public BlockWorldItem() {
 		super(Material.circuits);
 		this.setBlockBounds(0F, 0.00F, 0F, 1F, 0.05F, 1F);
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess bAccess, int x, int y, int z)
-	{
+	public boolean getBlocksMovement(IBlockAccess bAccess, int x, int y, int z) {
 		return true;
 	}
 
@@ -44,16 +38,14 @@ public class BlockWorldItem extends BlockTerraContainer
 	}*/
 
 	@Override
-	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) 
-	{
-		if(!world.isRemote)
-		{
+	public void onBlockPreDestroy(World world, int x, int y, int z, int meta) {
+		if (!world.isRemote) {
 			TileEntity te = world.getTileEntity(x, y, z);
 			if (te instanceof IInventory) {
 				IInventory inv = (IInventory) te;
-				for (int i = 0; i< inv.getSizeInventory(); i++) {
+				for (int i = 0; i < inv.getSizeInventory(); i++) {
 					if (inv.getStackInSlot(i) != null) {
-						EntityItem ei = new EntityItem(world, x+0.5, y+0.5, z+0.5, inv.getStackInSlot(i));
+						EntityItem ei = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, inv.getStackInSlot(i));
 						inv.setInventorySlotContents(i, null);  // so it is not created again in super.breakBlock()
 						ei.motionX = 0;
 						ei.motionY = 0;
@@ -67,15 +59,13 @@ public class BlockWorldItem extends BlockTerraContainer
 	}
 
 	@Override
-	public Item getItemDropped(int metadata, Random rand, int fortune)
-	{
+	public Item getItemDropped(int metadata, Random rand, int fortune) {
 		return null;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
-	{
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return null;
 	}
 
@@ -85,60 +75,50 @@ public class BlockWorldItem extends BlockTerraContainer
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
-		if (world.isAirBlock(x, y - 1, z) || !world.getBlock(x, y - 1, z).isSideSolid(world, x, y - 1, z, ForgeDirection.UP))
-		{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		if (world.isAirBlock(x, y - 1, z) || !world.getBlock(x, y - 1, z).isSideSolid(world, x, y - 1, z, ForgeDirection.UP)) {
 			world.setBlockToAir(x, y, z);
 		}
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public boolean isReplaceable(IBlockAccess world, int x, int y, int z)
-	{
+	public boolean isReplaceable(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z)
-	{
+	public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
-	{
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k) {
 		return null;
 	}
 
 	@Override
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
-	{
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z) {
 		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 0.25, z + 1);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister reg)
-	{
+	public void registerBlockIcons(IIconRegister reg) {
 		this.blockIcon = TFC_Textures.invisibleTexture; // This gets registered in BlockGrass
 	}
 
 	@Override
-	public TileEntity createTileEntity(World world, int meta)
-	{
+	public TileEntity createTileEntity(World world, int meta) {
 		return new TEWorldItem();
 	}
 }

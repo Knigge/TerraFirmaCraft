@@ -1,24 +1,22 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockCustomStairs extends BlockStairs
-{
-	/** The block that is used as model for the stair. */
+public class BlockCustomStairs extends BlockStairs {
+	/**
+	 * The block that is used as model for the stair.
+	 */
 	//private Block modelBlock;
-
-	public BlockCustomStairs(Block par2Block, int meta)
-	{
+	public BlockCustomStairs(Block par2Block, int meta) {
 		super(par2Block, meta);
 	}
 
@@ -28,11 +26,9 @@ public class BlockCustomStairs extends BlockStairs
 	/*
 	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
-	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
-	{
-		for(int i = 0; i < 16; i++) 
-		{
-			list.add(new ItemStack(this,1,i));
+	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list) {
+		for (int i = 0; i < 16; i++) {
+			list.add(new ItemStack(this, 1, i));
 		}
 	}
 }

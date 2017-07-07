@@ -36,12 +36,10 @@ import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.common.MinecraftForge;
 
 
-public class ClientProxy extends CommonProxy
-{
+public class ClientProxy extends CommonProxy {
 
 	@Override
-	public void registerFluidIcons()
-	{
+	public void registerFluidIcons() {
 		//Only bother adding fluids here if you don't want to use the default HotWater icons
 		TFCFluids.LAVA.setIcons(TFCBlocks.lava.getIcon(0, 0), TFCBlocks.lava.getIcon(2, 0));
 		TFCFluids.SALTWATER.setIcons(TFCBlocks.saltWater.getIcon(0, 0), TFCBlocks.saltWater.getIcon(2, 0));
@@ -50,12 +48,11 @@ public class ClientProxy extends CommonProxy
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerRenderInformation()
-	{
-		Minecraft.getMinecraft().entityRenderer = new EntityRendererTFC(Minecraft.getMinecraft(),Minecraft.getMinecraft().getResourceManager());
+	public void registerRenderInformation() {
+		Minecraft.getMinecraft().entityRenderer = new EntityRendererTFC(Minecraft.getMinecraft(), Minecraft.getMinecraft().getResourceManager());
 		IReloadableResourceManager iRRM = (IReloadableResourceManager) Minecraft.getMinecraft().getResourceManager();
 		iRRM.registerReloadListener(new GrassColorReloadListener());
-		iRRM.registerReloadListener(new FoliageColorReloadListener());		
+		iRRM.registerReloadListener(new FoliageColorReloadListener());
 		iRRM.registerReloadListener(Minecraft.getMinecraft().entityRenderer);
 
 		RenderingRegistry.registerEntityRenderingHandler(EntityJavelin.class, new RenderTerraJavelin());
@@ -148,16 +145,14 @@ public class ClientProxy extends CommonProxy
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBiomeEventHandler()
-	{
+	public void registerBiomeEventHandler() {
 		// Register the Biome Event Handler
 		MinecraftForge.EVENT_BUS.register(new BiomeEventHandler());
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void setupGuiIngameForge()
-	{
+	public void setupGuiIngameForge() {
 		GuiIngameForge.renderHealth = false;
 		GuiIngameForge.renderArmor = false;
 		GuiIngameForge.renderExperiance = false;
@@ -165,8 +160,7 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerTileEntities(boolean b)
-	{
+	public void registerTileEntities(boolean b) {
 		super.registerTileEntities(false);
 		ClientRegistry.registerTileEntity(TEChest.class, "chest", new TESRChest());
 		ClientRegistry.registerTileEntity(TEIngotPile.class, "ingotPile", new TESRIngotPile());
@@ -186,201 +180,151 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public World getCurrentWorld()
-	{
+	public World getCurrentWorld() {
 		return Minecraft.getMinecraft().theWorld;
 	}
 
 	@Override
-	public boolean isRemote()
-	{
+	public boolean isRemote() {
 		return true;
 	}
 
 	@Override
-	public int waterColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int waterColorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return 0x354d35;
 	}
 
 	@Override
-	public int grassColorMultiplier(IBlockAccess par1IBlockAccess, int i, int j, int k)
-	{
+	public int grassColorMultiplier(IBlockAccess par1IBlockAccess, int i, int j, int k) {
 		int var5 = 0;
 		int var6 = 0;
 		int var7 = 0;
 
-		for (int z = -1; z <= 1; ++z)
-		{
-			for (int x = -1; x <= 1; ++x)
-			{
+		for (int z = -1; z <= 1; ++z) {
+			for (int x = -1; x <= 1; ++x) {
 				int var10 = TFC_Climate.getGrassColor(getCurrentWorld(), i + x, j, k + z);
 				var5 += (var10 & 16711680) >> 16;
-			var6 += (var10 & 65280) >> 8;
-			var7 += var10 & 255;
+				var6 += (var10 & 65280) >> 8;
+				var7 += var10 & 255;
 			}
 		}
 		return (var5 / 9 & 255) << 16 | (var6 / 9 & 255) << 8 | var7 / 9 & 255;
 	}
 
 	@Override
-	public int foliageColorMultiplier(IBlockAccess par1IBlockAccess, int i, int j, int k)
-	{
+	public int foliageColorMultiplier(IBlockAccess par1IBlockAccess, int i, int j, int k) {
 		//int var5 = 0;
 		//int var6 = 0;
 		//int var7 = 0;
-		int[] rgb = { 0, 0, 0 };
-		float temperature = TFC_Climate.getHeightAdjustedTempSpecificDay(getCurrentWorld(),TFC_Time.getDayOfYear(),i,j,k);
+		int[] rgb = {0, 0, 0};
+		float temperature = TFC_Climate.getHeightAdjustedTempSpecificDay(getCurrentWorld(), TFC_Time.getDayOfYear(), i, j, k);
 		//float rainfall = TFC_Climate.getRainfall(getCurrentWorld(),i,j,k);
 
 		int meta = par1IBlockAccess.getBlockMetadata(i, j, k);
-		if(par1IBlockAccess.getBlock(i, j, k) == TFCBlocks.fruitTreeLeaves)
-			//			if(TFC_Time.currentMonth >= TFC_Time.September && TFC_Time.currentMonth < TFC_Time.December)
-			//			{
-			//				int var10 = ColorizerFoliageTFC.getFoliageYellow();
-			//				rgb = applyColor(var10, rgb);
-			//
-			//				int x = (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-			//				return x;
-			//			}
-			//			else
+		if (par1IBlockAccess.getBlock(i, j, k) == TFCBlocks.fruitTreeLeaves)
+		//			if(TFC_Time.currentMonth >= TFC_Time.September && TFC_Time.currentMonth < TFC_Time.December)
+		//			{
+		//				int var10 = ColorizerFoliageTFC.getFoliageYellow();
+		//				rgb = applyColor(var10, rgb);
+		//
+		//				int x = (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
+		//				return x;
+		//			}
+		//			else
 		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = TFC_Climate.getFoliageColor(getCurrentWorld(), i + var8, j, k + var9);
 					rgb = applyColor(var10, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else if(par1IBlockAccess.getBlock(i, j, k) == TFCBlocks.vine)
-		{
-			if (TFC_Time.getSeasonAdjustedMonth(k) >= 6 &&TFC_Time.getSeasonAdjustedMonth(k) < 9 &&
-				TFC_Climate.getCacheManager(getCurrentWorld()).getEVTLayerAt(i, k).floatdata1 >= 0.8
-					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30)
-			{
+		} else if (par1IBlockAccess.getBlock(i, j, k) == TFCBlocks.vine) {
+			if (TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 &&
+					TFC_Climate.getCacheManager(getCurrentWorld()).getEVTLayerAt(i, k).floatdata1 >= 0.8
+					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30) {
 				int color;
-				for (int var8 = -1; var8 <= 1; ++var8)
-				{
-					for (int var9 = -1; var9 <= 1; ++var9)
-					{
+				for (int var8 = -1; var8 <= 1; ++var8) {
+					for (int var9 = -1; var9 <= 1; ++var9) {
 						color = TFC_Climate.getFoliageColor(getCurrentWorld(), i + var8, j, k + var9);
 						rgb = applyColor(color, rgb);
 					}
 				}
 				return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-			}
-			else if (TFC_Time.getSeasonAdjustedMonth(k) >= 11 || TFC_Time.getSeasonAdjustedMonth(k) <= 0 &&
+			} else if (TFC_Time.getSeasonAdjustedMonth(k) >= 11 || TFC_Time.getSeasonAdjustedMonth(k) <= 0 &&
 					TFC_Climate.getCacheManager(getCurrentWorld()).getEVTLayerAt(i, k).floatdata1 >= 0.8
-					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30)
-			{
-				for (int var8 = -1; var8 <= 1; ++var8)
-				{
-					for (int var9 = -1; var9 <= 1; ++var9)
-					{
+					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30) {
+				for (int var8 = -1; var8 <= 1; ++var8) {
+					for (int var9 = -1; var9 <= 1; ++var9) {
 						int color = TFC_Climate.getFoliageColor(getCurrentWorld(), i + var8, j, k + var9);
 						rgb = applyColor(color, rgb);
 					}
 				}
 				return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-			}
-			else if (TFC_Time.getSeasonAdjustedMonth(k) >= 9 &&
+			} else if (TFC_Time.getSeasonAdjustedMonth(k) >= 9 &&
 					TFC_Climate.getCacheManager(getCurrentWorld()).getEVTLayerAt(i, k).floatdata1 >= 0.8
-					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30)
-			{
-				for (int var8 = -1; var8 <= 1; ++var8)
-				{
-					for (int var9 = -1; var9 <= 1; ++var9)
-					{
+					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30) {
+				for (int var8 = -1; var8 <= 1; ++var8) {
+					for (int var9 = -1; var9 <= 1; ++var9) {
 						int color = ColorizerFoliageTFC.getFoliageDead();
 						rgb = applyColor(color, rgb);
 					}
 				}
 				return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-			}
-			else
-			{
-				for (int var8 = -1; var8 <= 1; ++var8)
-				{
-					for (int var9 = -1; var9 <= 1; ++var9)
-					{
+			} else {
+				for (int var8 = -1; var8 <= 1; ++var8) {
+					for (int var9 = -1; var9 <= 1; ++var9) {
 						int color = TFC_Climate.getFoliageColor(getCurrentWorld(), i + var8, j, k + var9);
 						rgb = applyColor(color, rgb);
 					}
 				}
 				return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
 			}
-		}
-		else if (TFC_Time.getSeasonAdjustedMonth(k) >= 6 && EnumTree.values()[meta].isEvergreen)
-		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+		} else if (TFC_Time.getSeasonAdjustedMonth(k) >= 6 && EnumTree.values()[meta].isEvergreen) {
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = TFC_Climate.getFoliageColorEvergreen(getCurrentWorld(), i + var8, j, k + var9);
 					rgb = applyColor(var10, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && (meta == 4 || meta == 7 || meta == 5 || meta == 14))
-		{
+		} else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && (meta == 4 || meta == 7 || meta == 5 || meta == 14)) {
 			int color;
 			//Get the fade multiplie
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					color = ColorizerFoliageTFC.getFoliageYellow();
 					rgb = applyColor(color, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && meta == 6)
-		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+		} else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && meta == 6) {
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = ColorizerFoliageTFC.getFoliageRed();
 					rgb = applyColor(var10, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && meta != 15)
-		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+		} else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && meta != 15) {
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = ColorizerFoliageTFC.getFoliageOrange();
 					rgb = applyColor(var10, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else if (temperature <= 8 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && meta != 15)
-		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+		} else if (temperature <= 8 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && meta != 15) {
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = ColorizerFoliageTFC.getFoliageDead();
 					rgb = applyColor(var10, rgb);
 				}
 			}
 			return (rgb[0] / 9 & 255) << 16 | (rgb[1] / 9 & 255) << 8 | rgb[2] / 9 & 255;
-		}
-		else
-		{
-			for (int var8 = -1; var8 <= 1; ++var8)
-			{
-				for (int var9 = -1; var9 <= 1; ++var9)
-				{
+		} else {
+			for (int var8 = -1; var8 <= 1; ++var8) {
+				for (int var9 = -1; var9 <= 1; ++var9) {
 					int var10 = TFC_Climate.getFoliageColor(getCurrentWorld(), i + var8, j, k + var9);
 					rgb = applyColor(var10, rgb);
 				}
@@ -395,8 +339,7 @@ public class ClientProxy extends CommonProxy
 		return total - (day - start) / total;
 	}*/
 
-	private int[] applyColor(int c, int[] rgb)
-	{
+	private int[] applyColor(int c, int[] rgb) {
 		rgb[0] += (c & 16711680) >> 16;
 		rgb[1] += (c & 65280) >> 8;
 		rgb[2] += c & 255;
@@ -404,14 +347,12 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public int getArmorRenderID(String name)
-	{
+	public int getArmorRenderID(String name) {
 		return RenderingRegistry.addNewArmourRendererPrefix(name);
 	}
 
 	@Override
-	public void registerKeys()
-	{
+	public void registerKeys() {
 		KeyBindings.addKeyBinding(KeyBindingHandler.keyToolMode);
 		KeyBindings.addIsRepeating(false);
 		KeyBindings.addKeyBinding(KeyBindingHandler.keyLockTool);
@@ -422,14 +363,12 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerKeyBindingHandler()
-	{
+	public void registerKeyBindingHandler() {
 		FMLCommonHandler.instance().bus().register(new KeyBindingHandler());
 	}
 
 	@Override
-	public void uploadKeyBindingsToGame()
-	{
+	public void uploadKeyBindingsToGame() {
 		GameSettings settings = Minecraft.getMinecraft().gameSettings;
 		KeyBinding[] tfcKeyBindings = KeyBindings.gatherKeyBindings();
 		KeyBinding[] allKeys = new KeyBinding[settings.keyBindings.length + tfcKeyBindings.length];
@@ -440,8 +379,7 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerHandlers()
-	{
+	public void registerHandlers() {
 		MinecraftForge.EVENT_BUS.register(new ChiselHighlightHandler());
 		MinecraftForge.EVENT_BUS.register(new FarmlandHighlightHandler());
 		MinecraftForge.EVENT_BUS.register(new PlankHighlightHandler());
@@ -452,51 +390,44 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void registerPlayerRenderEventHandler()
-	{
+	public void registerPlayerRenderEventHandler() {
 		PlayerRenderHandler pRHandler = new PlayerRenderHandler();
 		MinecraftForge.EVENT_BUS.register(pRHandler);
 		FMLCommonHandler.instance().bus().register(pRHandler);
 	}
 
 	@Override
-	public void registerSoundHandler()
-	{
+	public void registerSoundHandler() {
 		MinecraftForge.EVENT_BUS.register(new SoundHandler());
 	}
 
 	@Override
-	public void registerTickHandler()
-	{
+	public void registerTickHandler() {
 		super.registerTickHandler();
 		FMLCommonHandler.instance().bus().register(new ClientTickHandler());
 		FMLCommonHandler.instance().bus().register(new FMLClientEventHandler());
 	}
 
 	@Override
-	public void registerGuiHandler()
-	{
+	public void registerGuiHandler() {
 		NetworkRegistry.INSTANCE.registerGuiHandler(TerraFirmaCraft.instance, new GuiHandler());
 		// Register Gui Event Handler
 		MinecraftForge.EVENT_BUS.register(new GuiHandler());
 	}
 
 	@Override
-	public String getCurrentLanguage()
-	{
+	public String getCurrentLanguage() {
 		return Minecraft.getMinecraft().getLanguageManager().getCurrentLanguage().getLanguageCode();
 	}
 
 	@Override
-	public boolean getGraphicsLevel()
-	{
+	public boolean getGraphicsLevel() {
 		Minecraft.getMinecraft();
 		return Minecraft.isFancyGraphicsEnabled();
 	}
 
 	@Override
-	public void hideNEIItems()
-	{
+	public void hideNEIItems() {
 		if (Loader.isModLoaded("NotEnoughItems")) NEIIntegration.hideNEIItems();
 	}
 }

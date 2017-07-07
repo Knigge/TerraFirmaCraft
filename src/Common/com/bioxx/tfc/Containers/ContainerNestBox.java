@@ -1,24 +1,21 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotOutputOnly;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TENestBox;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotOutputOnly;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TENestBox;
-
-public class ContainerNestBox extends ContainerTFC
-{
+public class ContainerNestBox extends ContainerTFC {
 	/*private World world;
 	private int posX;
 	private int posY;
 	private int posZ;*/
 
-	public ContainerNestBox(InventoryPlayer playerinv, TENestBox te, World world, int x, int y, int z)
-	{
+	public ContainerNestBox(InventoryPlayer playerinv, TENestBox te, World world, int x, int y, int z) {
 		this.player = playerinv.player;
 		/*this.world = world;
 		this.posX = x;
@@ -34,24 +31,20 @@ public class ContainerNestBox extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer var1)
-	{
+	public boolean canInteractWith(EntityPlayer var1) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)this.inventorySlots.get(slotNum);
+		Slot slot = (Slot) this.inventorySlots.get(slotNum);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
-			if (slotNum < 4)
-			{
+			if (slotNum < 4) {
 				if (!this.mergeItemStack(slotStack, 4, inventorySlots.size(), true))
 					return null;
 			}

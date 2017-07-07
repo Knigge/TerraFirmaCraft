@@ -1,55 +1,15 @@
 package com.bioxx.tfc.Food;
 
+import com.bioxx.tfc.api.TFCItems;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.bioxx.tfc.api.TFCItems;
-
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
-public class CropManager
-{
-	public List<CropIndex> crops;
-
+public class CropManager {
 	protected static final CropManager INSTANCE = new CropManager();
 
-	public static CropManager getInstance()
-	{
-		return INSTANCE;
-	}
-
-	public CropManager()
-	{
-		crops = new ArrayList<CropIndex>();
-	}
-
-	public void addIndex(CropIndex index)
-	{
-		crops.add(index);
-	}
-
-	public int getTotalCrops()
-	{
-		return crops.size();
-	}
-
-	public CropIndex getCropFromName(String n)
-	{
-		for(CropIndex pi : crops)
-			if (pi.cropName.equalsIgnoreCase(n))
-				return pi;
-		return null;
-	} 
-
-	public CropIndex getCropFromId(int n)
-	{
-		for(CropIndex pi : crops)
-			if(pi.cropId == n)
-				return pi;
-		return null;
-	} 
-
-	static
-	{
+	static {
 		INSTANCE.addIndex(new CropIndex(/*ID*/0, /*Name*/"wheat", /*type*/0, /*time*/32, /*stages*/7, /*minGTemp*/4, /*minATemp*/0, /*nutrientUsage*/0.9f, TFCItems.seedsWheat).setOutput1(TFCItems.wheatWhole, 14.0f));
 
 		INSTANCE.addIndex(new CropIndex(/*ID*/1, /*Name*/"maize", /*type*/0, /*time*/36, /*stages*/5, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/0.8f, TFCItems.seedsMaize).setOutput1(TFCItems.maizeEar, 32.0f));//Converts to 4-6oz of corn when kernals removed
@@ -77,9 +37,9 @@ public class CropManager
 		INSTANCE.addIndex(new CropIndexPepper(/*ID*/12, /*Name*/"yellowbellpepper", /*type*/2, /*time*/18, /*stages*/6, /*minGTemp*/12, /*minATemp*/4, /*nutrientUsage*/1.2f, TFCItems.seedsYellowBellPepper).setOutput1(TFCItems.greenBellPepper, 6).setOutput2(TFCItems.yellowBellPepper, 6));
 		INSTANCE.addIndex(new CropIndexPepper(/*ID*/13, /*Name*/"redbellpepper", /*type*/2, /*time*/18, /*stages*/6, /*minGTemp*/12, /*minATemp*/4, /*nutrientUsage*/1.2f, TFCItems.seedsRedBellPepper).setOutput1(TFCItems.greenBellPepper, 6).setOutput2(TFCItems.redBellPepper, 6));
 
-		INSTANCE.addIndex(new CropIndex(/*ID*/14, /*Name*/"soybean", /*type*/1, /*time*/25, /*stages*/6, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/1.0f, TFCItems.seedsSoybean, new int[]{10,0,10}).setOutput1(TFCItems.soybean, 16));
+		INSTANCE.addIndex(new CropIndex(/*ID*/14, /*Name*/"soybean", /*type*/1, /*time*/25, /*stages*/6, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/1.0f, TFCItems.seedsSoybean, new int[]{10, 0, 10}).setOutput1(TFCItems.soybean, 16));
 
-		INSTANCE.addIndex(new CropIndex(/*ID*/15, /*Name*/"greenbean", /*type*/1, /*time*/24, /*stages*/6, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/1.0f, TFCItems.seedsGreenbean, new int[]{10,0,10}).setOutput1(TFCItems.greenbeans, 16));
+		INSTANCE.addIndex(new CropIndex(/*ID*/15, /*Name*/"greenbean", /*type*/1, /*time*/24, /*stages*/6, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/1.0f, TFCItems.seedsGreenbean, new int[]{10, 0, 10}).setOutput1(TFCItems.greenbeans, 16));
 
 		INSTANCE.addIndex(new CropIndex(/*ID*/16, /*Name*/"squash", /*type*/2, /*time*/33, /*stages*/6, /*minGTemp*/8, /*minATemp*/0, /*nutrientUsage*/0.9f, TFCItems.seedsSquash).setOutput1(TFCItems.squash, 16));
 
@@ -89,5 +49,37 @@ public class CropManager
 
 		// If adding another crop, use the following spreadsheet to make sure nutrients on average don't hit 0 before crop reaches maturity:
 		// https://www.dropbox.com/s/sznzc08nly1i6tt/Crop%20GrowthNutriDrain%20Calculator.xlsx?dl=0
+	}
+
+	public List<CropIndex> crops;
+
+	public CropManager() {
+		crops = new ArrayList<CropIndex>();
+	}
+
+	public static CropManager getInstance() {
+		return INSTANCE;
+	}
+
+	public void addIndex(CropIndex index) {
+		crops.add(index);
+	}
+
+	public int getTotalCrops() {
+		return crops.size();
+	}
+
+	public CropIndex getCropFromName(String n) {
+		for (CropIndex pi : crops)
+			if (pi.cropName.equalsIgnoreCase(n))
+				return pi;
+		return null;
+	}
+
+	public CropIndex getCropFromId(int n) {
+		for (CropIndex pi : crops)
+			if (pi.cropId == n)
+				return pi;
+		return null;
 	}
 }

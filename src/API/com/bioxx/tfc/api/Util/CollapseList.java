@@ -4,15 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class CollapseList<E> extends LinkedList<CollapseData>
-{
+public class CollapseList<E> extends LinkedList<CollapseData> {
 	@SuppressWarnings({"SuspiciousMethodCalls"})
-	public void add(List<ByteCoord> checkedmap, CollapseData e)
-	{
-		if(this.peekFirst() != null)
-		{
+	public void add(List<ByteCoord> checkedmap, CollapseData e) {
+		if (this.peekFirst() != null) {
 			CollapseData first = peekFirst();
-			if(!first.coords.equals(e.coords) && !checkedmap.contains(e))
+			if (!first.coords.equals(e.coords) && !checkedmap.contains(e))
 				this.addLast(e);
 		}
 	}

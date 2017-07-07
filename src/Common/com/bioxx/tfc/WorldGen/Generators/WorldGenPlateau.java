@@ -1,19 +1,16 @@
 package com.bioxx.tfc.WorldGen.Generators;
 
-import java.util.Random;
-
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 @SuppressWarnings("WeakerAccess")
-public class WorldGenPlateau
-{
-	public WorldGenPlateau()
-	{
+public class WorldGenPlateau {
+	public WorldGenPlateau() {
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public boolean generate(World par1World, Random rand, int x, int y, int z, int radiusStart, int radiusTop, int height, int centers, int radiusJitter, int taperChance)
-	{
+	public boolean generate(World par1World, Random rand, int x, int y, int z, int radiusStart, int radiusTop, int height, int centers, int radiusJitter, int taperChance) {
 		// template call// (new WorldGenPlateau()).generate(/*currentWorld*/   , /*randomGenerator*/   ,/*x*/   ,/*y*/   ,/*z*/   ,/*radiusStart*/   ,/*radiusTop*/   ,
 		// /*height*/   ,/*centers*/   ,/*radiusJitter*/   ,/*taperChance*/   );
 
@@ -31,7 +28,7 @@ public class WorldGenPlateau
 		int radius;
 
 		//y = par1World.getTopSolidOrLiquidBlock(x, z);
-		for(int centerRun=0; centerRun <= centers; centerRun++) // make the seperate towers
+		for (int centerRun = 0; centerRun <= centers; centerRun++) // make the seperate towers
 		{
 			radius = radiusStart;
 			//tempX = x+rand.nextInt(radius)-rand.nextInt(radius);
@@ -40,10 +37,10 @@ public class WorldGenPlateau
 			{
 				drawCircle(par1World,radius+rand.nextInt(radiusJitter)-rand.nextInt(radiusJitter),tempX,y-baseDepth,tempZ);
 			}*/
-			for(int run=0; run<=height; run++) // make the stack
+			for (int run = 0; run <= height; run++) // make the stack
 			{
 				//drawCircle(par1World,radius+rand.nextInt(radiusJitter)-rand.nextInt(radiusJitter),tempX,y+run,tempZ);
-				if(radiusTop <= radius && rand.nextInt(taperChance)==1)
+				if (radiusTop <= radius && rand.nextInt(taperChance) == 1)
 					radius--;
 			}
 		}

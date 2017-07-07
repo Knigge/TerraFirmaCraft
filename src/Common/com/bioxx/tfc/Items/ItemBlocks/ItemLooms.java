@@ -1,7 +1,11 @@
 package com.bioxx.tfc.Items.ItemBlocks;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.TileEntities.TELoom;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.Enums.EnumWeight;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,17 +14,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Items.ItemTerra;
-import com.bioxx.tfc.TileEntities.TELoom;
-import com.bioxx.tfc.api.Constant.Global;
-import com.bioxx.tfc.api.Enums.EnumSize;
-import com.bioxx.tfc.api.Enums.EnumWeight;
+import java.util.List;
 
-public class ItemLooms extends ItemTerraBlock
-{
-	public ItemLooms(Block par1)
-	{
+public class ItemLooms extends ItemTerraBlock {
+	public ItemLooms(Block par1) {
 		super(par1);
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -29,43 +26,35 @@ public class ItemLooms extends ItemTerraBlock
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.LARGE;
 	}
 
 	@Override
-	public EnumWeight getWeight(ItemStack is)
-	{
+	public EnumWeight getWeight(ItemStack is) {
 		return EnumWeight.HEAVY;
 	}
 
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
-	{
+	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
 		ItemTerra.addSizeInformation(is, arraylist);
 	}
 
 	@Override
-	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
-	{
+	public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata) {
 
-		if (!world.setBlock(x, y, z, field_150939_a, metadata&15, 3))
-		{
+		if (!world.setBlock(x, y, z, field_150939_a, metadata & 15, 3)) {
 			return false;
 		}
 
-		if (world.getBlock(x, y, z) == field_150939_a)
-		{
+		if (world.getBlock(x, y, z) == field_150939_a) {
 			field_150939_a.onBlockPlacedBy(world, x, y, z, player, stack);
 			field_150939_a.onPostBlockPlaced(world, x, y, z, 0);
 
-			if (world.getTileEntity(x, y, z) instanceof TELoom)
-			{
+			if (world.getTileEntity(x, y, z) instanceof TELoom) {
 				TELoom te = (TELoom) world.getTileEntity(x, y, z);
-				if (te != null)
-				{
+				if (te != null) {
 					te.loomType = metadata;
 					world.markBlockForUpdate(x, y, z);
 
@@ -86,12 +75,11 @@ public class ItemLooms extends ItemTerraBlock
 		return true;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
-	{
-		for(int i = 0; i < metaNames.length; i++) {
-			list.add(new ItemStack(this,1,i));
+	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list) {
+		for (int i = 0; i < metaNames.length; i++) {
+			list.add(new ItemStack(this, 1, i));
 		}
 	}
 }

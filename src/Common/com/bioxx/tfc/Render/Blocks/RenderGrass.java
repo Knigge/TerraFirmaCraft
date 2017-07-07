@@ -1,22 +1,19 @@
 package com.bioxx.tfc.Render.Blocks;
 
+import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 
-import com.bioxx.tfc.api.TFCBlocks;
-
 @SuppressWarnings("SameReturnValue")
-public class RenderGrass
-{
-	public static boolean render(Block block, int x, int y, int z, RenderBlocks renderer)
-	{
+public class RenderGrass {
+	public static boolean render(Block block, int x, int y, int z, RenderBlocks renderer) {
 		float red = 1F;
 		float green = 1F;
 		float blue = 1F;
 
-		if(block == TFCBlocks.grass || block == TFCBlocks.dryGrass)
+		if (block == TFCBlocks.grass || block == TFCBlocks.dryGrass)
 			renderer.renderStandardBlockWithAmbientOcclusion(TFCBlocks.dirt, x, y, z, red, blue, green);
-		else if(block == TFCBlocks.grass2 || block == TFCBlocks.dryGrass2)
+		else if (block == TFCBlocks.grass2 || block == TFCBlocks.dryGrass2)
 			renderer.renderStandardBlockWithAmbientOcclusion(TFCBlocks.dirt2, x, y, z, red, blue, green);
 
 		renderer.renderStandardBlock(block, x, y, z);
@@ -24,15 +21,14 @@ public class RenderGrass
 		return true;
 	}
 
-	public static boolean renderClay(Block block, int x, int y, int z, RenderBlocks renderer)
-	{
+	public static boolean renderClay(Block block, int x, int y, int z, RenderBlocks renderer) {
 		float red = 1F;
 		float green = 1F;
 		float blue = 1F;
 
-		if(block == TFCBlocks.clayGrass)
+		if (block == TFCBlocks.clayGrass)
 			renderer.renderStandardBlockWithAmbientOcclusion(TFCBlocks.clay, x, y, z, red, blue, green);
-		else if(block == TFCBlocks.clayGrass2)
+		else if (block == TFCBlocks.clayGrass2)
 			renderer.renderStandardBlockWithAmbientOcclusion(TFCBlocks.clay2, x, y, z, red, blue, green);
 
 		renderer.renderStandardBlock(block, x, y, z);
@@ -40,8 +36,7 @@ public class RenderGrass
 		return true;
 	}
 
-	public static boolean renderPeat(Block block, int x, int y, int z, RenderBlocks renderer)
-	{
+	public static boolean renderPeat(Block block, int x, int y, int z, RenderBlocks renderer) {
 		float red = 1F;
 		float green = 1F;
 		float blue = 1F;

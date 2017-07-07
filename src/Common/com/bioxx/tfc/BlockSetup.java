@@ -1,11 +1,5 @@
 package com.bioxx.tfc;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.init.Blocks;
-
-import cpw.mods.fml.common.registry.GameRegistry;
-
 import com.bioxx.tfc.Blocks.*;
 import com.bioxx.tfc.Blocks.Devices.*;
 import com.bioxx.tfc.Blocks.Flora.*;
@@ -14,15 +8,17 @@ import com.bioxx.tfc.Blocks.Terrain.*;
 import com.bioxx.tfc.Blocks.Vanilla.*;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Items.ItemBlocks.*;
+import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCFluids;
-import com.bioxx.tfc.api.Constant.Global;
+import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockSetup extends TFCBlocks
-{
-	public static void registerBlocks()
-	{
+public class BlockSetup extends TFCBlocks {
+	public static void registerBlocks() {
 		GameRegistry.registerBlock(ore, "Ore1");
 		GameRegistry.registerBlock(ore2, "Ore2");
 		GameRegistry.registerBlock(ore3, "Ore3");
@@ -49,8 +45,8 @@ public class BlockSetup extends TFCBlocks
 		GameRegistry.registerBlock(dirt2, ItemSoil.class, "Dirt2");
 		GameRegistry.registerBlock(sand, ItemSoil.class, "Sand");
 		GameRegistry.registerBlock(sand2, ItemSoil.class, "Sand2");
-		GameRegistry.registerBlock(clay, ItemSoil.class,"Clay");
-		GameRegistry.registerBlock(clay2, ItemSoil.class,"Clay2");
+		GameRegistry.registerBlock(clay, ItemSoil.class, "Clay");
+		GameRegistry.registerBlock(clay2, ItemSoil.class, "Clay2");
 		GameRegistry.registerBlock(grass, ItemSoil.class, "Grass");
 		GameRegistry.registerBlock(grass2, ItemSoil.class, "Grass2");
 		GameRegistry.registerBlock(clayGrass, ItemSoil.class, "ClayGrass");
@@ -154,7 +150,7 @@ public class BlockSetup extends TFCBlocks
 
 
 		// Wooden Doors
-		for (int i=0; i < Global.WOOD_ALL.length; i++)
+		for (int i = 0; i < Global.WOOD_ALL.length; i++)
 			GameRegistry.registerBlock(doors[i], "Door" + Global.WOOD_ALL[i].replaceAll(" ", ""));
 
 		GameRegistry.registerBlock(ingotPile, "IngotPile");
@@ -192,8 +188,8 @@ public class BlockSetup extends TFCBlocks
 		GameRegistry.registerBlock(buttonWood, "ButtonWood");
 		GameRegistry.registerBlock(vine, ItemVine.class, "Vine");
 		GameRegistry.registerBlock(leatherRack, "LeatherRack");
-		GameRegistry.registerBlock(gravel, ItemSoil.class,"Gravel");
-		GameRegistry.registerBlock(gravel2, ItemSoil.class,"Gravel2");
+		GameRegistry.registerBlock(gravel, ItemSoil.class, "Gravel");
+		GameRegistry.registerBlock(gravel2, ItemSoil.class, "Gravel2");
 
 		GameRegistry.registerBlock(grill, ItemGrill.class, "Grill");
 		GameRegistry.registerBlock(metalTrapDoor, ItemMetalTrapDoor.class, "MetalTrapDoor");
@@ -206,8 +202,7 @@ public class BlockSetup extends TFCBlocks
 		GameRegistry.registerBlock(flowerPot, "FlowerPot");
 	}
 
-	public static void loadBlocks()
-	{
+	public static void loadBlocks() {
 		TerraFirmaCraft.LOG.info("Loading Blocks");
 
 		// Remove Items from Creative Tabs
@@ -290,7 +285,7 @@ public class BlockSetup extends TFCBlocks
 		peat = new BlockPeat().setHardness(3F).setStepSound(Block.soundTypeGravel).setBlockName("Peat");
 		peatGrass = new BlockPeatGrass().setHardness(3F).setStepSound(Block.soundTypeGrass).setBlockName("PeatGrass");
 		dryGrass = new BlockDryGrass(0).setHardness(3F).setStepSound(Block.soundTypeGrass).setBlockName("DryGrass");
-		dryGrass2 =new BlockDryGrass(16).setHardness(3F).setStepSound(Block.soundTypeGrass).setBlockName("DryGrass");
+		dryGrass2 = new BlockDryGrass(16).setHardness(3F).setStepSound(Block.soundTypeGrass).setBlockName("DryGrass");
 		tallGrass = new BlockCustomTallGrass().setHardness(0.0F).setStepSound(Block.soundTypeGrass).setBlockName("TallGrass");
 		sand = new BlockSand(0).setHardness(0.5F).setStepSound(Block.soundTypeSand).setBlockName("sand");
 		sand2 = new BlockSand(16).setHardness(0.5F).setStepSound(Block.soundTypeSand).setBlockName("sand");
@@ -320,7 +315,7 @@ public class BlockSetup extends TFCBlocks
 
 		firepit = new BlockFirepit().setBlockName("Firepit").setHardness(1).setLightLevel(0F);
 		bellows = new BlockBellows(Material.wood).setBlockName("Bellows").setHardness(2);
-		forge= new BlockForge().setBlockName("Forge").setHardness(20).setLightLevel(0F);
+		forge = new BlockForge().setBlockName("Forge").setHardness(20).setLightLevel(0F);
 		anvil = new BlockAnvil().setBlockName("Anvil").setHardness(3).setResistance(100F);
 		anvil2 = new BlockAnvil(8).setBlockName("Anvil2").setHardness(3).setResistance(100F);
 
@@ -379,8 +374,8 @@ public class BlockSetup extends TFCBlocks
 		wallSmoothMM = new BlockCustomWall(stoneMMSmooth, 6).setBlockName("WallSmooth");
 
 		// Wooden Doors
-		for (int i=0; i < Global.WOOD_ALL.length; i++)
-			doors[i] = new BlockCustomDoor(i*2).setBlockName("Door "+Global.WOOD_ALL[i]);
+		for (int i = 0; i < Global.WOOD_ALL.length; i++)
+			doors[i] = new BlockCustomDoor(i * 2).setBlockName("Door " + Global.WOOD_ALL[i]);
 
 		ingotPile = new BlockIngotPile().setBlockName("ingotpile").setHardness(3);
 
@@ -429,8 +424,10 @@ public class BlockSetup extends TFCBlocks
 		fireBrick = new BlockFireBrick().setBlockName("FireBrick").setHardness(8);
 		metalSheet = new BlockMetalSheet().setBlockName("MetalSheet").setHardness(80);
 		leatherRack = new BlockLeatherRack().setBlockName("LeatherRack").setHardness(1);
-		metalBlock = new BlockMetal(Material.iron) {}.setHardness(16F).setResistance(10F).setStepSound(Block.soundTypeMetal).setBlockName("MetalBlock");
-		metalAlloyBlock = new BlockAlloyMetal(Material.iron) {}.setHardness(16F).setResistance(10F).setStepSound(Block.soundTypeMetal).setBlockName("MetalBlock");
+		metalBlock = new BlockMetal(Material.iron) {
+		}.setHardness(16F).setResistance(10F).setStepSound(Block.soundTypeMetal).setBlockName("MetalBlock");
+		metalAlloyBlock = new BlockAlloyMetal(Material.iron) {
+		}.setHardness(16F).setResistance(10F).setStepSound(Block.soundTypeMetal).setBlockName("MetalBlock");
 
 		gravel = new BlockGravel(0).setHardness(2F).setStepSound(Block.soundTypeGravel).setBlockName("gravels");
 		gravel2 = new BlockGravel(16).setHardness(2F).setStepSound(Block.soundTypeGravel).setBlockName("gravels");
@@ -502,8 +499,7 @@ public class BlockSetup extends TFCBlocks
 
 	}
 
-	public static void setupFire()
-	{
+	public static void setupFire() {
 		Blocks.fire.setFireInfo(logNatural, 5, 5);
 		Blocks.fire.setFireInfo(logNatural2, 5, 5);
 		Blocks.fire.setFireInfo(woodSupportV, 5, 20);
@@ -538,7 +534,7 @@ public class BlockSetup extends TFCBlocks
 		Blocks.fire.setFireInfo(coalPile, 10, 10);
 		Blocks.fire.setFireInfo(cokeblock, 10, 10);
 		//Blocks.fire.setFireInfo(Charcoal, 100, 20);
-		for (int i=0; i < Global.WOOD_ALL.length; i++)
+		for (int i = 0; i < Global.WOOD_ALL.length; i++)
 			Blocks.fire.setFireInfo(doors[i], 5, 20);
 	}
 }

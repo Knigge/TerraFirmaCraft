@@ -1,28 +1,24 @@
 package com.bioxx.tfc.Handlers.Client;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
-
+import com.bioxx.tfc.Core.TFC_Time;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import com.bioxx.tfc.Core.TFC_Time;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 
 public class ClientTickHandler// implements ITickHandler
 {
 	@SubscribeEvent
-	public void onClientPlayerTick(PlayerTickEvent event)
-	{
+	public void onClientPlayerTick(PlayerTickEvent event) {
 		/*if(event.phase == Phase.START)
 		{
 //			TerraFirmaCraft.log.info("-------------PLAYER CLIENT TICK START--------------");
 //			EntityPlayer player = event.player;
 //			World world = player.worldObj;
 		}*/
-		
-		if(event.phase == Phase.END)
-		{
+
+		if (event.phase == Phase.END) {
 //			TerraFirmaCraft.log.info("-------------PLAYER CLIENT TICK END--------------");
 			EntityPlayer player = event.player;
 			World world = player.worldObj;
@@ -31,8 +27,6 @@ public class ClientTickHandler// implements ITickHandler
 			TFC_Time.updateTime(world);
 		}
 	}
-
-
 
 
 //	@Override

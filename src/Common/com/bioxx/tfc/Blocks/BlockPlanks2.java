@@ -1,20 +1,17 @@
 package com.bioxx.tfc.Blocks;
 
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.api.Constant.Global;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.api.Constant.Global;
-
 @SuppressWarnings("SameParameterValue")
-public class BlockPlanks2 extends BlockPlanks
-{
-	public BlockPlanks2(Material material)
-	{
+public class BlockPlanks2 extends BlockPlanks {
+	public BlockPlanks2(Material material) {
 		super(Material.wood);
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
-		woodNames = new String[Global.WOOD_ALL.length-16];
-		System.arraycopy(Global.WOOD_ALL, 16, woodNames, 0, Global.WOOD_ALL.length-16);
+		woodNames = new String[Global.WOOD_ALL.length - 16];
+		System.arraycopy(Global.WOOD_ALL, 16, woodNames, 0, Global.WOOD_ALL.length - 16);
 		icons = new IIcon[woodNames.length];
 	}
 }

@@ -1,25 +1,21 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Core.Player.PlayerInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-
-public class ContainerHopper extends ContainerTFC
-{
+public class ContainerHopper extends ContainerTFC {
 	private final IInventory hopperInv;
 
-	public ContainerHopper(InventoryPlayer playerInv, IInventory inv)
-	{
+	public ContainerHopper(InventoryPlayer playerInv, IInventory inv) {
 		this.hopperInv = inv;
 		inv.openInventory();
 		int i;
 
-		for (i = 0; i < inv.getSizeInventory(); ++i)
-		{
+		for (i = 0; i < inv.getSizeInventory(); ++i) {
 			this.addSlotToContainer(new Slot(inv, i, 44 + i * 18, 17));
 		}
 
@@ -27,23 +23,18 @@ public class ContainerHopper extends ContainerTFC
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)inventorySlots.get(slotNum);
+		Slot slot = (Slot) inventorySlots.get(slotNum);
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
-			if(slotNum < 5)
-			{
-				if(!this.mergeItemStack(slotStack, 5, this.inventorySlots.size(), true))
+			if (slotNum < 5) {
+				if (!this.mergeItemStack(slotStack, 5, this.inventorySlots.size(), true))
 					return null;
-			}
-			else
-			{
+			} else {
 				if (!this.mergeItemStack(slotStack, 0, 5, false))
 					return null;
 			}
@@ -63,8 +54,7 @@ public class ContainerHopper extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer player)
-	{
+	public boolean canInteractWith(EntityPlayer player) {
 		return this.hopperInv.isUseableByPlayer(player);
 	}
 
@@ -72,8 +62,7 @@ public class ContainerHopper extends ContainerTFC
 	 * Called when the container is closed.
 	 */
 	@Override
-	public void onContainerClosed(EntityPlayer player)
-	{
+	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
 		this.hopperInv.closeInventory();
 	}

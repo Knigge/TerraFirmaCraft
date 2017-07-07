@@ -5,7 +5,6 @@
       "ceramicbreak1"
     ]
   },
-
   "item.firestarter": {
     "category": "ambient",
     "sounds": [
@@ -21,21 +20,18 @@
       "firestarter10"
     ]
   },
-  
   "item.jug.blow": {
     "category": "ambient",
     "sounds": [
       "jugblow1"
     ]
   },
-
   "mob.rooster.cry": {
     "category": "neutral",
     "sounds": [
       "rooster1"
     ]
   },
-
   "quern.stonedrag": {
     "category": "block",
     "sounds": [
@@ -43,14 +39,12 @@
       "stonedrag2"
     ]
   },
-
   "bellows.blow.air": {
     "category": "block",
     "sounds": [
       "bellows1"
     ]
   },
-
   "dirt.slide.short": {
     "category": "block",
     "sounds": [
@@ -58,7 +52,6 @@
       "fDirtS2"
     ]
   },
-
   "rock.slide.long": {
     "category": "block",
     "sounds": [
@@ -66,7 +59,6 @@
       "fRockL2"
     ]
   },
-
   "rock.slide.short": {
     "category": "block",
     "sounds": [
@@ -74,7 +66,6 @@
       "fRockS2"
     ]
   },
-
   "anvil.metalimpact": {
     "category": "block",
     "sounds": [
@@ -84,7 +75,6 @@
       "metalimpact4"
     ]
   },
-
   "mob.deer.say": {
     "category": "neutral",
     "sounds": [
@@ -94,10 +84,9 @@
       "deer4",
       "deer5",
       "deer6",
-	  "deer7"
+      "deer7"
     ]
   },
-
   "mob.deer.cry": {
     "category": "neutral",
     "sounds": [
@@ -107,21 +96,18 @@
       "deercry4"
     ]
   },
-
   "mob.deer.hurt": {
     "category": "neutral",
     "sounds": [
       "deerhurt1"
     ]
   },
-
   "mob.deer.death": {
     "category": "neutral",
     "sounds": [
       "deerdeath1"
     ]
   },
-
   "mob.bear.say": {
     "category": "hostile",
     "sounds": [
@@ -133,7 +119,6 @@
       "bear6"
     ]
   },
-
   "mob.bear.cry": {
     "category": "hostile",
     "sounds": [
@@ -143,28 +128,24 @@
       "bearcry4"
     ]
   },
-
   "mob.bear.cub.cry": {
     "category": "hostile",
     "sounds": [
       "bearcubcry1"
     ]
   },
-
   "mob.bear.hurt": {
     "category": "hostile",
     "sounds": [
       "bearhurt1"
     ]
   },
-
-    "mob.bear.death": {
+  "mob.bear.death": {
     "category": "hostile",
     "sounds": [
       "beardeath1"
     ]
   },
-
   "mob.pheasant.say": {
     "category": "neutral",
     "sounds": [
@@ -172,28 +153,24 @@
       "pheasant2"
     ]
   },
-
   "mob.pheasant.chick.say": {
     "category": "neutral",
     "sounds": [
       "pheasantchick1"
     ]
   },
-
   "mob.pheasant.hurt": {
     "category": "neutral",
     "sounds": [
       "pheasanthurt1"
     ]
   },
-
   "mob.pheasant.death": {
     "category": "neutral",
     "sounds": [
       "pheasantdeath1"
     ]
   },
-
   "mob.cricket": {
     "category": "ambient",
     "sounds": [
@@ -203,7 +180,6 @@
       "cricket4"
     ]
   },
-
   "mob.frog": {
     "category": "ambient",
     "sounds": [
@@ -218,7 +194,7 @@
       "pbear_death3"
     ]
   },
-    "mob.polarbear.hurt": {
+  "mob.polarbear.hurt": {
     "category": "hostile",
     "sounds": [
       "pbear_hurt1",
@@ -227,7 +203,7 @@
       "pbear_hurt4"
     ]
   },
-    "mob.polarbear.say": {
+  "mob.polarbear.say": {
     "category": "hostile",
     "sounds": [
       "pbear_idle1",
@@ -238,7 +214,7 @@
       "pbear_idle6"
     ]
   },
-    "mob.polarbear.cry": {
+  "mob.polarbear.cry": {
     "category": "hostile",
     "sounds": [
       "pbear_warning1",
@@ -246,7 +222,7 @@
       "pbear_warning3"
     ]
   },
-    "mob.cat.hitt": {
+  "mob.cat.hitt": {
     "category": "neutral",
     "sounds": [
       "cat_hitt1",
@@ -254,7 +230,7 @@
       "cat_hitt3"
     ]
   },
-      "mob.cat.hiss": {
+  "mob.cat.hiss": {
     "category": "neutral",
     "sounds": [
       "cat_hiss1",
@@ -262,22 +238,22 @@
       "cat_hiss3"
     ]
   },
-    "mob.cat.purr": {
+  "mob.cat.purr": {
     "category": "neutral",
     "sounds": [
       "cat_purr1",
       "cat_purr2",
       "cat_purr3"
     ]
-  },  
-    "mob.cat.purreow": {
+  },
+  "mob.cat.purreow": {
     "category": "neutral",
     "sounds": [
       "cat_purreow1",
       "cat_purreow2"
     ]
   },
-    "mob.cat.meow": {
+  "mob.cat.meow": {
     "category": "neutral",
     "sounds": [
       "cat_meow1",
@@ -286,13 +262,13 @@
       "cat_meow4"
     ]
   },
-    "mob.cat.cough": {
+  "mob.cat.cough": {
     "category": "neutral",
     "sounds": [
       "cat_cough"
     ]
   },
-    "mob.kitten.meow": {
+  "mob.kitten.meow": {
     "category": "neutral",
     "sounds": [
       "kitten_meow1",
@@ -300,15 +276,29 @@
       "kitten_meow3"
     ]
   },
-    
   "music.tfc": {
     "category": "music",
     "sounds": [
-      {"name": "music/m0", "stream": true},
-      {"name": "music/m1", "stream": true},
-      {"name": "music/m2", "stream": true},
-      {"name": "music/m3", "stream": true},
-      {"name": "music/m4", "stream": true}
+      {
+        "name": "music/m0",
+        "stream": true
+      },
+      {
+        "name": "music/m1",
+        "stream": true
+      },
+      {
+        "name": "music/m2",
+        "stream": true
+      },
+      {
+        "name": "music/m3",
+        "stream": true
+      },
+      {
+        "name": "music/m4",
+        "stream": true
+      }
     ]
   }
 }

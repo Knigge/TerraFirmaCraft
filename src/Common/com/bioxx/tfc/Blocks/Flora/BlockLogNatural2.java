@@ -1,16 +1,12 @@
 package com.bioxx.tfc.Blocks.Flora;
 
-import net.minecraft.util.IIcon;
-
+import com.bioxx.tfc.api.Constant.Global;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.util.IIcon;
 
-import com.bioxx.tfc.api.Constant.Global;
-
-public class BlockLogNatural2 extends BlockLogNatural
-{
-	public BlockLogNatural2()
-	{
+public class BlockLogNatural2 extends BlockLogNatural {
+	public BlockLogNatural2() {
 		super();
 		this.woodNames = new String[Global.WOOD_ALL.length - 16];
 		System.arraycopy(Global.WOOD_ALL, 16, woodNames, 0, Global.WOOD_ALL.length - 16);
@@ -20,8 +16,7 @@ public class BlockLogNatural2 extends BlockLogNatural
 	}
 
 	@Override
-	public int damageDropped(int dmg)
-	{
+	public int damageDropped(int dmg) {
 		//return dmg += 16;
 		//!TODO: check
 		return dmg + 16;
@@ -29,8 +24,7 @@ public class BlockLogNatural2 extends BlockLogNatural
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		if (meta >= woodNames.length)
 			meta = 0;
 		if (side == 0 || side == 1)

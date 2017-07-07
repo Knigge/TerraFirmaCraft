@@ -1,7 +1,12 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.WorldGen.TFCProvider;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockIce;
 import net.minecraft.block.material.Material;
@@ -11,27 +16,17 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.WorldGen.TFCProvider;
-import com.bioxx.tfc.api.TFCBlocks;
+import java.util.Random;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class BlockCustomIce extends BlockIce
-{
+public class BlockCustomIce extends BlockIce {
 	private IIcon seaIce;
 
-	public BlockCustomIce()
-	{
+	public BlockCustomIce() {
 		super();
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
@@ -41,8 +36,7 @@ public class BlockCustomIce extends BlockIce
 	 * block and l is the block's subtype/damage.
 	 */
 	@Override
-	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
-	{
+	public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6) {
 		/*super.harvestBlock(par1World, par2EntityPlayer, par3, par4, par5, par6);
 		Material var7 = par1World.getBlock(par3, par4 - 1, par5).getMaterial();
 
@@ -52,8 +46,7 @@ public class BlockCustomIce extends BlockIce
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
-	{
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
 		return world.setBlock(x, y, z, getBlockMelt(world, x, y, z, true), 0, 2);
 	}
 
@@ -77,8 +70,7 @@ public class BlockCustomIce extends BlockIce
 	 * @param plant The plant that wants to check
 	 * @return True to allow the plant to be planted/stay.
 	 */
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable)
-	{
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
 		Block plant = plantable.getPlant(world, x, y + 1, z);
 
 		if (plant == TFCBlocks.cactus && this == TFCBlocks.cactus)
@@ -88,67 +80,71 @@ public class BlockCustomIce extends BlockIce
 			return true;
 
 		int meta = world.getBlockMetadata(x, y, z);
-		if (plantable instanceof BlockCustomLilyPad && ((BlockCustomLilyPad)plant).canThisPlantGrowOnThisBlock(this, meta))
+		if (plantable instanceof BlockCustomLilyPad && ((BlockCustomLilyPad) plant).canThisPlantGrowOnThisBlock(this, meta))
 			return true;
 
 		EnumPlantType plantType = plantable.getPlantType(world, x, y + 1, z);
-		switch (plantType)
-		{
-		case Desert: return TFC_Core.isSand(this);
-		case Nether: return this == Blocks.soul_sand;
-		case Crop:   return TFC_Core.isFarmland(this);
-		case Cave:   return isSideSolid(world, x, y, z, ForgeDirection.UP);
-		case Plains: return this == TFCBlocks.grass || this == TFCBlocks.grass2 || this == TFCBlocks.dirt || this == TFCBlocks.dirt2;
-		case Water:  return world.getBlock(x, y, z).getMaterial() == Material.water && world.getBlockMetadata(x, y, z) == 0;
-		case Beach:
-			boolean isBeach = TFC_Core.isDirt(this) || TFC_Core.isSand(this);
-			boolean hasWater = 
-					world.getBlock(x - 1, y, z    ).getMaterial() == Material.water ||
-					world.getBlock(x + 1, y, z    ).getMaterial() == Material.water ||
-					world.getBlock(x,     y, z - 1).getMaterial() == Material.water ||
-					world.getBlock(x,     y, z + 1).getMaterial() == Material.water;
-			return isBeach && hasWater;
+		switch (plantType) {
+			case Desert:
+				return TFC_Core.isSand(this);
+			case Nether:
+				return this == Blocks.soul_sand;
+			case Crop:
+				return TFC_Core.isFarmland(this);
+			case Cave:
+				return isSideSolid(world, x, y, z, ForgeDirection.UP);
+			case Plains:
+				return this == TFCBlocks.grass || this == TFCBlocks.grass2 || this == TFCBlocks.dirt || this == TFCBlocks.dirt2;
+			case Water:
+				return world.getBlock(x, y, z).getMaterial() == Material.water && world.getBlockMetadata(x, y, z) == 0;
+			case Beach:
+				boolean isBeach = TFC_Core.isDirt(this) || TFC_Core.isSand(this);
+				boolean hasWater =
+						world.getBlock(x - 1, y, z).getMaterial() == Material.water ||
+								world.getBlock(x + 1, y, z).getMaterial() == Material.water ||
+								world.getBlock(x, y, z - 1).getMaterial() == Material.water ||
+								world.getBlock(x, y, z + 1).getMaterial() == Material.water;
+				return isBeach && hasWater;
 		}
 		return false;
 	}
 
 	@Override
-	public int getLightOpacity(IBlockAccess world, int x, int y, int z)
-	{
-		int meta = world.getBlockMetadata(x,y,z);
+	public int getLightOpacity(IBlockAccess world, int x, int y, int z) {
+		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 0)
 			return 9;//sea ice is cloudy
 		return this.getLightOpacity();
 	}
 
-	protected Block getBlockMelt(World world, int i, int j, int k, boolean moving)
-	{
-		Block block = world.getBlock(i,j,k);
+	protected Block getBlockMelt(World world, int i, int j, int k, boolean moving) {
+		Block block = world.getBlock(i, j, k);
 
-		if(block != this)
+		if (block != this)
 			return block;
 
 		int meta = world.getBlockMetadata(i, j, k);
-		switch(meta){
-		case 0: return TFCBlocks.saltWater;
-		case 1: return TFCBlocks.freshWater;
-		default: return TFCBlocks.saltWater;
+		switch (meta) {
+			case 0:
+				return TFCBlocks.saltWater;
+			case 1:
+				return TFCBlocks.freshWater;
+			default:
+				return TFCBlocks.saltWater;
 		}
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerBlockIcons(IIconRegister registerer)
-	{
+	public void registerBlockIcons(IIconRegister registerer) {
 		seaIce = registerer.registerIcon(Reference.MOD_ID + ":seaIce");
 		super.registerBlockIcons(registerer);
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(int par1, int par2)
-	{
-		if(par2 == 0)
+	public IIcon getIcon(int par1, int par2) {
+		if (par2 == 0)
 			return this.seaIce;
 		else
 			return super.getIcon(par1, par2);
@@ -158,10 +154,8 @@ public class BlockCustomIce extends BlockIce
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World world, int i, int j, int k, Random rand)
-	{
-		if((world.provider) instanceof TFCProvider && !world.isRemote && world.getBlock(i, j, k) == this)
-		{
+	public void updateTick(World world, int i, int j, int k, Random rand) {
+		if ((world.provider) instanceof TFCProvider && !world.isRemote && world.getBlock(i, j, k) == this) {
 			/*if(world.getBlockMetadata(i, j, k) == 1)
 			{
 				if(j== 143 && scanForOcean(world, i, j, k))

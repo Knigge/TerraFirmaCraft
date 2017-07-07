@@ -1,7 +1,13 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.List;
-
+import com.bioxx.tfc.Blocks.Devices.BlockChestTFC;
+import com.bioxx.tfc.Blocks.Terrain.*;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.api.Food;
+import com.bioxx.tfc.api.TFCFluids;
+import com.bioxx.tfc.api.TFCItems;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
 import net.minecraft.entity.item.EntityItem;
@@ -15,54 +21,79 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
 import net.minecraftforge.fluids.FluidStack;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Blocks.Devices.BlockChestTFC;
-import com.bioxx.tfc.Blocks.Terrain.*;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.Food;
-import com.bioxx.tfc.api.TFCFluids;
-import com.bioxx.tfc.api.TFCItems;
+import java.util.List;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class TEHopper extends NetworkTileEntity implements IHopper
-{
+public class TEHopper extends NetworkTileEntity implements IHopper {
+	public int pressCooldown;
+	public ItemStack pressBlock;
 	private ItemStack[] storage = new ItemStack[5];
 	private String customName;
 	private int cooldown = -1;
-	public int pressCooldown;
-	public ItemStack pressBlock;
 
-	public TEHopper()
-	{
+	public TEHopper() {
 
 	}
 
+	public static IInventory getInputInventory(IHopper hopper) {
+		return searchForOutputInventory(hopper.getWorldObj(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
+	}
+
+	public static EntityItem searchForLooseInput(World world, double x, double y, double z) {
+		List list = world.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectAnything);
+		return !list.isEmpty() ? (EntityItem) list.get(0) : null;
+	}
+
+	public static IInventory searchForOutputInventory(World world, double x, double y, double z) {
+		IInventory iinventory = null;
+		int i = MathHelper.floor_double(x);
+		int j = MathHelper.floor_double(y);
+		int k = MathHelper.floor_double(z);
+		TileEntity tileentity = world.getTileEntity(i, j, k);
+
+		//First we look for a block inventory
+		if (tileentity instanceof IInventory) {
+			iinventory = (IInventory) tileentity;
+
+			if (iinventory instanceof TEChest) {
+				Block block = world.getBlock(i, j, k);
+
+				if (block instanceof BlockChestTFC) {
+					iinventory = ((BlockChestTFC) block).getInventory(world, i, j, k);
+				}
+			}
+		}
+		//If no block inventory is found then we look for entities that have an inventory
+		if (iinventory == null) {
+			List list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectInventories);
+
+			if (list != null && !list.isEmpty()) {
+				iinventory = (IInventory) list.get(world.rand.nextInt(list.size()));
+			}
+		}
+
+		return iinventory;
+	}
+
 	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		NBTTagList nbttaglist = nbt.getTagList("Items", 10);
 		this.storage = new ItemStack[this.getSizeInventory()];
 
-		if (nbt.hasKey("CustomName", 8))
-		{
+		if (nbt.hasKey("CustomName", 8)) {
 			this.customName = nbt.getString("CustomName");
 		}
 
 		this.cooldown = nbt.getInteger("TransferCooldown");
 
-		for (int i = 0; i < nbttaglist.tagCount(); ++i)
-		{
+		for (int i = 0; i < nbttaglist.tagCount(); ++i) {
 			NBTTagCompound nbttagcompound1 = nbttaglist.getCompoundTagAt(i);
 			byte b0 = nbttagcompound1.getByte("Slot");
 
-			if (b0 >= 0 && b0 < this.storage.length)
-			{
+			if (b0 >= 0 && b0 < this.storage.length) {
 				this.storage[b0] = ItemStack.loadItemStackFromNBT(nbttagcompound1);
 			}
 		}
@@ -72,17 +103,14 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		NBTTagList nbttaglist = new NBTTagList();
 
-		for (int i = 0; i < this.storage.length; ++i)
-		{
-			if (this.storage[i] != null)
-			{
+		for (int i = 0; i < this.storage.length; ++i) {
+			if (this.storage[i] != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-				nbttagcompound1.setByte("Slot", (byte)i);
+				nbttagcompound1.setByte("Slot", (byte) i);
 				this.storage[i].writeToNBT(nbttagcompound1);
 				nbttaglist.appendTag(nbttagcompound1);
 			}
@@ -91,15 +119,13 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		nbt.setTag("Items", nbttaglist);
 		nbt.setInteger("TransferCooldown", this.cooldown);
 
-		if (this.hasCustomInventoryName())
-		{
+		if (this.hasCustomInventoryName()) {
 			nbt.setString("CustomName", this.customName);
 		}
 
 		nbt.setInteger("pressCooldown", this.pressCooldown);
 
-		if(pressBlock != null)
-		{
+		if (pressBlock != null) {
 			NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 			pressBlock.writeToNBT(nbttagcompound1);
 			nbt.setTag("pressBlock", nbttagcompound1);
@@ -108,8 +134,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public AxisAlignedBB getRenderBoundingBox()
-	{
+	public AxisAlignedBB getRenderBoundingBox() {
 		return AxisAlignedBB.getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 2, zCoord + 1);
 	}
 
@@ -117,8 +142,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Returns the number of slots in the inventory.
 	 */
 	@Override
-	public int getSizeInventory()
-	{
+	public int getSizeInventory() {
 		return this.storage.length;
 	}
 
@@ -126,8 +150,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Returns the stack in slot i
 	 */
 	@Override
-	public ItemStack getStackInSlot(int i)
-	{
+	public ItemStack getStackInSlot(int i) {
 		return this.storage[i];
 	}
 
@@ -136,32 +159,24 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * new stack.
 	 */
 	@Override
-	public ItemStack decrStackSize(int i, int amount)
-	{
-		if (this.storage[i] != null)
-		{
+	public ItemStack decrStackSize(int i, int amount) {
+		if (this.storage[i] != null) {
 			ItemStack itemstack;
 
-			if (this.storage[i].stackSize <= amount)
-			{
+			if (this.storage[i].stackSize <= amount) {
 				itemstack = this.storage[i];
 				this.storage[i] = null;
 				return itemstack;
-			}
-			else
-			{
+			} else {
 				itemstack = this.storage[i].splitStack(amount);
 
-				if (this.storage[i].stackSize == 0)
-				{
+				if (this.storage[i].stackSize == 0) {
 					this.storage[i] = null;
 				}
 
 				return itemstack;
 			}
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
@@ -171,16 +186,12 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * like when you close a workbench GUI.
 	 */
 	@Override
-	public ItemStack getStackInSlotOnClosing(int i)
-	{
-		if (this.storage[i] != null)
-		{
+	public ItemStack getStackInSlotOnClosing(int i) {
+		if (this.storage[i] != null) {
 			ItemStack itemstack = this.storage[i];
 			this.storage[i] = null;
 			return itemstack;
-		}
-		else
-		{
+		} else {
 			return null;
 		}
 	}
@@ -189,12 +200,10 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
 	 */
 	@Override
-	public void setInventorySlotContents(int i, ItemStack is)
-	{
+	public void setInventorySlotContents(int i, ItemStack is) {
 		this.storage[i] = is;
 
-		if (is != null && is.stackSize > this.getInventoryStackLimit())
-		{
+		if (is != null && is.stackSize > this.getInventoryStackLimit()) {
 			is.stackSize = this.getInventoryStackLimit();
 		}
 	}
@@ -203,8 +212,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Returns the name of the inventory
 	 */
 	@Override
-	public String getInventoryName()
-	{
+	public String getInventoryName() {
 		return this.hasCustomInventoryName() ? this.customName : "container.hopper";
 	}
 
@@ -212,13 +220,11 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Returns if the inventory is named
 	 */
 	@Override
-	public boolean hasCustomInventoryName()
-	{
+	public boolean hasCustomInventoryName() {
 		return this.customName != null && this.customName.length() > 0;
 	}
 
-	public void setCustomName(String s)
-	{
+	public void setCustomName(String s) {
 		this.customName = s;
 	}
 
@@ -226,8 +232,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Returns the maximum stack size for a inventory slot.
 	 */
 	@Override
-	public int getInventoryStackLimit()
-	{
+	public int getInventoryStackLimit() {
 		return 64;
 	}
 
@@ -235,55 +240,46 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	 * Do not make give this method the name canInteractWith because it clashes with Container
 	 */
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer p)
-	{
+	public boolean isUseableByPlayer(EntityPlayer p) {
 		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
-	public void openInventory() {}
+	public void openInventory() {
+	}
 
 	@Override
-	public void closeInventory() {}
+	public void closeInventory() {
+	}
 
 	/**
 	 * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
 	 */
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack is)
-	{
+	public boolean isItemValidForSlot(int i, ItemStack is) {
 		return true;
 	}
 
 	@Override
-	public void updateEntity()
-	{
-		if (this.worldObj != null && this.worldObj.isRemote)
-		{
-			if(pressCooldown > 0)
+	public void updateEntity() {
+		if (this.worldObj != null && this.worldObj.isRemote) {
+			if (pressCooldown > 0)
 				--this.pressCooldown;
 			else
 				this.pressBlock = null;
-		}
-		else if (this.worldObj != null)
-		{
+		} else if (this.worldObj != null) {
 			--this.cooldown;
 
 			TFC_Core.handleItemTicking(this, this.worldObj, xCoord, yCoord, zCoord);
 
-			if(pressCooldown > 0)
-			{
+			if (pressCooldown > 0) {
 				--this.pressCooldown;
-				if(pressCooldown % 20 == 0)
+				if (pressCooldown % 20 == 0)
 					press();
-			}
-			else if(pressCooldown == 0 && pressBlock != null)
-			{
-				for(int i = 0; i < storage.length; i++)
-				{
-					if (storage[i] == null || ItemStack.areItemStacksEqual(storage[i], pressBlock) && storage[i].stackSize < storage[i].getMaxStackSize())
-					{
-						if(storage[i] == null)
+			} else if (pressCooldown == 0 && pressBlock != null) {
+				for (int i = 0; i < storage.length; i++) {
+					if (storage[i] == null || ItemStack.areItemStacksEqual(storage[i], pressBlock) && storage[i].stackSize < storage[i].getMaxStackSize()) {
+						if (storage[i] == null)
 							storage[i] = pressBlock;
 						else
 							storage[i].stackSize++;
@@ -293,22 +289,17 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 				}
 			}
 
-			if (!this.isCoolingDown())
-			{
+			if (!this.isCoolingDown()) {
 				this.setCooldown(0);
 				//this.feed();
 			}
-			Block blockAbove = worldObj.getBlock(xCoord, yCoord+1, zCoord);
-			if(blockAbove != null && this.hasPressableItem() > 0)
-			{
-				if (pressBlock != null && !(blockAbove instanceof BlockCobble || blockAbove instanceof BlockGravel || blockAbove instanceof BlockSand || blockAbove instanceof BlockDirt))
-				{
-					TFC_Core.setBlockToAirWithDrops(worldObj, xCoord, yCoord+1, zCoord);
-				}
-				else if (blockAbove instanceof BlockSmooth)
-				{
-					pressBlock = new ItemStack(blockAbove, 1, worldObj.getBlockMetadata(xCoord, yCoord+1, zCoord));
-					worldObj.setBlockToAir(xCoord, yCoord+1, zCoord);
+			Block blockAbove = worldObj.getBlock(xCoord, yCoord + 1, zCoord);
+			if (blockAbove != null && this.hasPressableItem() > 0) {
+				if (pressBlock != null && !(blockAbove instanceof BlockCobble || blockAbove instanceof BlockGravel || blockAbove instanceof BlockSand || blockAbove instanceof BlockDirt)) {
+					TFC_Core.setBlockToAirWithDrops(worldObj, xCoord, yCoord + 1, zCoord);
+				} else if (blockAbove instanceof BlockSmooth) {
+					pressBlock = new ItemStack(blockAbove, 1, worldObj.getBlockMetadata(xCoord, yCoord + 1, zCoord));
+					worldObj.setBlockToAir(xCoord, yCoord + 1, zCoord);
 					sendPressPacket();
 					beginPressing();
 				}
@@ -316,54 +307,20 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		}
 	}
 
-	private void press()
-	{
+	private void press() {
 		TEBarrel barrel = null;
-		if(worldObj.getTileEntity(xCoord, yCoord-1, zCoord) instanceof TEBarrel)
-			barrel = (TEBarrel) worldObj.getTileEntity(xCoord, yCoord-1, zCoord);
+		if (worldObj.getTileEntity(xCoord, yCoord - 1, zCoord) instanceof TEBarrel)
+			barrel = (TEBarrel) worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 
 		ItemStack item = getPressableItem();
-		if(item != null)
-		{
-			if(item.stackSize > 0)
+		if (item != null) {
+			if (item.stackSize > 0)
 				Food.setWeight(item, Food.getWeight(item) - 0.64f);//0.64 per cycle leads to 250mB per stack of olives
 
-			if(barrel != null && barrel.canAcceptLiquids() && !barrel.getSealed())
-			{
+			if (barrel != null && barrel.canAcceptLiquids() && !barrel.getSealed()) {
 				barrel.addLiquid(new FluidStack(TFCFluids.OLIVEOIL, 1));
 			}
 		}
-	}
-
-	private void beginPressing()
-	{
-		int pressWeight = hasPressableItem();
-		if(pressWeight > 0)
-		{
-			this.pressCooldown += pressWeight/0.64f * 20;
-			sendCooldownPacket();	
-		}
-	}
-
-	public int hasPressableItem()
-	{
-		int amount = 0;
-		for (ItemStack aStorage : storage) {
-			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
-				amount += Math.floor(Food.getWeight(aStorage));
-			}
-		}
-		return amount;
-	}
-
-	public ItemStack getPressableItem()
-	{
-		for (ItemStack aStorage : storage) {
-			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
-				return aStorage;
-			}
-		}
-		return null;
 	}
 
 	/*public boolean feed()
@@ -400,14 +357,22 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		}
 	}*/
 
-	public void setCooldown(int time)
-	{
-		this.cooldown = time;
+	private void beginPressing() {
+		int pressWeight = hasPressableItem();
+		if (pressWeight > 0) {
+			this.pressCooldown += pressWeight / 0.64f * 20;
+			sendCooldownPacket();
+		}
 	}
 
-	public boolean isCoolingDown()
-	{
-		return this.cooldown > 0;
+	public int hasPressableItem() {
+		int amount = 0;
+		for (ItemStack aStorage : storage) {
+			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
+				amount += Math.floor(Food.getWeight(aStorage));
+			}
+		}
+		return amount;
 	}
 
 	/*private boolean isHopperEmpty()
@@ -749,52 +714,21 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		return searchForOutputInventory(this.getWorldObj(), this.xCoord + Facing.offsetsXForSide[i], this.yCoord + Facing.offsetsYForSide[i], this.zCoord + Facing.offsetsZForSide[i]);
 	}*/
 
-	public static IInventory getInputInventory(IHopper hopper)
-	{
-		return searchForOutputInventory(hopper.getWorldObj(), hopper.getXPos(), hopper.getYPos() + 1.0D, hopper.getZPos());
-	}
-
-	public static EntityItem searchForLooseInput(World world, double x, double y, double z)
-	{
-		List list = world.selectEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectAnything);
-		return !list.isEmpty() ? (EntityItem) list.get(0) : null;
-	}
-
-	public static IInventory searchForOutputInventory(World world, double x, double y, double z)
-	{
-		IInventory iinventory = null;
-		int i = MathHelper.floor_double(x);
-		int j = MathHelper.floor_double(y);
-		int k = MathHelper.floor_double(z);
-		TileEntity tileentity = world.getTileEntity(i, j, k);
-
-		//First we look for a block inventory
-		if (tileentity instanceof IInventory)
-		{
-			iinventory = (IInventory)tileentity;
-
-			if (iinventory instanceof TEChest)
-			{
-				Block block = world.getBlock(i, j, k);
-
-				if (block instanceof BlockChestTFC)
-				{
-					iinventory = ((BlockChestTFC)block).getInventory(world, i, j, k);
-				}
+	public ItemStack getPressableItem() {
+		for (ItemStack aStorage : storage) {
+			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
+				return aStorage;
 			}
 		}
-		//If no block inventory is found then we look for entities that have an inventory
-		if (iinventory == null)
-		{
-			List list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectInventories);
+		return null;
+	}
 
-			if (list != null && !list.isEmpty())
-			{
-				iinventory = (IInventory)list.get(world.rand.nextInt(list.size()));
-			}
-		}
+	public void setCooldown(int time) {
+		this.cooldown = time;
+	}
 
-		return iinventory;
+	public boolean isCoolingDown() {
+		return this.cooldown > 0;
 	}
 
 	/*private static boolean canMergeStacks(ItemStack stack1, ItemStack stack2)
@@ -805,18 +739,15 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 
 	@Override
 	public void handleInitPacket(NBTTagCompound nbt) {
-		if(nbt.hasKey("pressBlock"))
-		{
+		if (nbt.hasKey("pressBlock")) {
 			this.pressBlock = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("pressBlock"));
 		}
 		this.pressCooldown = nbt.getInteger("pressCooldown");
 	}
 
 	@Override
-	public void createInitNBT(NBTTagCompound nbt) 
-	{
-		if(pressBlock != null)
-		{
+	public void createInitNBT(NBTTagCompound nbt) {
+		if (pressBlock != null) {
 			NBTTagCompound pb = new NBTTagCompound();
 			pressBlock.writeToNBT(pb);
 			nbt.setTag("pressBlock", pb);
@@ -825,23 +756,18 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
-		if(nbt.hasKey("pressBlock"))
-		{
+	public void handleDataPacket(NBTTagCompound nbt) {
+		if (nbt.hasKey("pressBlock")) {
 			this.pressBlock = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("pressBlock"));
 		}
-		if(nbt.hasKey("pressCooldown"))
-		{
+		if (nbt.hasKey("pressCooldown")) {
 			this.pressCooldown = nbt.getInteger("pressCooldown");
 		}
 	}
 
-	private void sendPressPacket() 
-	{
+	private void sendPressPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
-		if(pressBlock != null)
-		{
+		if (pressBlock != null) {
 			NBTTagCompound pb = new NBTTagCompound();
 			pressBlock.writeToNBT(pb);
 			nbt.setTag("pressBlock", pb);
@@ -849,8 +775,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		this.broadcastPacketInRange(this.createDataPacket(nbt));
 	}
 
-	private void sendCooldownPacket()
-	{
+	private void sendCooldownPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setInteger("pressCooldown", pressCooldown);
 		this.broadcastPacketInRange(this.createDataPacket(nbt));

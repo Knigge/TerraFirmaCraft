@@ -1,5 +1,10 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotForge;
+import com.bioxx.tfc.Containers.Slots.SlotForgeFuel;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TEForge;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -7,34 +12,26 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotForge;
-import com.bioxx.tfc.Containers.Slots.SlotForgeFuel;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TEForge;
-import com.bioxx.tfc.api.TFCItems;
-
 @SuppressWarnings("CanBeFinal")
-public class ContainerForge extends ContainerTFC
-{
+public class ContainerForge extends ContainerTFC {
 	private TEForge forge;
 	//private int coolTime;
 	//private int freezeTime;
 	//private int itemFreezeTime;
 	private float firetemp;
 
-	public ContainerForge(InventoryPlayer inventoryplayer, TEForge tileentityforge, World world, int x, int y, int z)
-	{
+	public ContainerForge(InventoryPlayer inventoryplayer, TEForge tileentityforge, World world, int x, int y, int z) {
 		forge = tileentityforge;
 		//coolTime = 0;
 		//freezeTime = 0;
 		//itemFreezeTime = 0;
 
 		//Input slot
-		addSlotToContainer(new SlotForge(inventoryplayer.player,tileentityforge, 0, 44, 8));
-		addSlotToContainer(new SlotForge(inventoryplayer.player,tileentityforge, 1, 62, 26));
-		addSlotToContainer(new SlotForge(inventoryplayer.player,tileentityforge, 2, 80, 44));
-		addSlotToContainer(new SlotForge(inventoryplayer.player,tileentityforge, 3, 98, 26));
-		addSlotToContainer(new SlotForge(inventoryplayer.player,tileentityforge, 4, 116, 8));
+		addSlotToContainer(new SlotForge(inventoryplayer.player, tileentityforge, 0, 44, 8));
+		addSlotToContainer(new SlotForge(inventoryplayer.player, tileentityforge, 1, 62, 26));
+		addSlotToContainer(new SlotForge(inventoryplayer.player, tileentityforge, 2, 80, 44));
+		addSlotToContainer(new SlotForge(inventoryplayer.player, tileentityforge, 3, 98, 26));
+		addSlotToContainer(new SlotForge(inventoryplayer.player, tileentityforge, 4, 116, 8));
 		//fuel stack
 		addSlotToContainer(new SlotForgeFuel(inventoryplayer.player, tileentityforge, 5, 44, 26));
 		addSlotToContainer(new SlotForgeFuel(inventoryplayer.player, tileentityforge, 6, 62, 44));
@@ -51,45 +48,35 @@ public class ContainerForge extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer)
-	{
+	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)inventorySlots.get(slotNum);
+		Slot slot = (Slot) inventorySlots.get(slotNum);
 		Slot[] slotfuel =
-		{ (Slot) inventorySlots.get(7), (Slot) inventorySlots.get(6), (Slot) inventorySlots.get(8), (Slot) inventorySlots.get(5), (Slot) inventorySlots.get(9) };
+				{(Slot) inventorySlots.get(7), (Slot) inventorySlots.get(6), (Slot) inventorySlots.get(8), (Slot) inventorySlots.get(5), (Slot) inventorySlots.get(9)};
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From forge to inventory
-			if (slotNum < 14)
-			{
+			if (slotNum < 14) {
 				if (!this.mergeItemStack(slotStack, 14, this.inventorySlots.size(), true))
 					return null;
 			}
 			// From Inventory to forge
-			else
-			{
+			else {
 				// Fill the fuel slots, and put the remaining stack in storage
-				if(slotStack.getItem() == TFCItems.coal)
-				{
+				if (slotStack.getItem() == TFCItems.coal) {
 					int j = 0;
-					while (j < 5)
-					{
-						if (slotfuel[j].getHasStack())
-						{
+					while (j < 5) {
+						if (slotfuel[j].getHasStack()) {
 							j++;
-						}
-						else
-						{
+						} else {
 							ItemStack stack = slotStack.copy();
 							stack.stackSize = 1;
 							slotfuel[j].putStack(stack);
@@ -121,8 +108,7 @@ public class ContainerForge extends ContainerTFC
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (Object crafter : this.crafters) {
@@ -135,8 +121,7 @@ public class ContainerForge extends ContainerTFC
 	}
 
 	@Override
-	public void updateProgressBar(int par1, int par2)
-	{
+	public void updateProgressBar(int par1, int par2) {
 		if (par1 == 0)
 			this.forge.fireTemp = par2;
 	}

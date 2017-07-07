@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Render.TESR;
 
+import com.google.common.primitives.SignedBytes;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -7,38 +8,30 @@ import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
-import com.google.common.primitives.SignedBytes;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class TESRBase extends TileEntitySpecialRenderer
-{
+public class TESRBase extends TileEntitySpecialRenderer {
 	protected static RenderBlocks renderBlocks = new RenderBlocks();
 	protected static RenderItem itemRenderer;
 
 	static {
-		itemRenderer = new RenderItem()
-		{
+		itemRenderer = new RenderItem() {
 			@Override
-			public byte getMiniBlockCount(ItemStack stack, byte original)
-			{
+			public byte getMiniBlockCount(ItemStack stack, byte original) {
 				return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 15) + 1);
 			}
 
 			@Override
-			public byte getMiniItemCount(ItemStack stack, byte original)
-			{
+			public byte getMiniItemCount(ItemStack stack, byte original) {
 				return SignedBytes.saturatedCast(Math.min(stack.stackSize / 32, 7) + 1);
 			}
 
 			@Override
-			public boolean shouldBob()
-			{
+			public boolean shouldBob() {
 				return true;
 			}
 
 			@Override
-			public boolean shouldSpreadItems()
-			{
+			public boolean shouldSpreadItems() {
 				return false;
 			}
 		};
@@ -46,7 +39,6 @@ public class TESRBase extends TileEntitySpecialRenderer
 	}
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f)
-	{
+	public void renderTileEntityAt(TileEntity tileentity, double d0, double d1, double d2, float f) {
 	}
 }

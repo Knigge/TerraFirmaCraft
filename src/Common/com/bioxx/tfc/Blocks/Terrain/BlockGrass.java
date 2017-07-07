@@ -1,8 +1,17 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
-import java.util.List;
-import java.util.Random;
-
+import com.bioxx.tfc.Blocks.BlockTerra;
+import com.bioxx.tfc.Chunkdata.ChunkData;
+import com.bioxx.tfc.Core.*;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.WorldGen.Generators.WorldGenLooseRocks;
+import com.bioxx.tfc.WorldGen.Generators.WorldGenSaplings;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,75 +24,57 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Blocks.BlockTerra;
-import com.bioxx.tfc.Chunkdata.ChunkData;
-import com.bioxx.tfc.Core.*;
-import com.bioxx.tfc.WorldGen.Generators.WorldGenLooseRocks;
-import com.bioxx.tfc.WorldGen.Generators.WorldGenSaplings;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockGrass extends BlockTerra
-{
-	protected int textureOffset;
-
+public class BlockGrass extends BlockTerra {
 	@SideOnly(Side.CLIENT)
 	public IIcon grassTopTexture;
 	@SideOnly(Side.CLIENT)
 	public IIcon iconSnowSide;
 	@SideOnly(Side.CLIENT)
 	public IIcon iconGrassSideOverlay;
+	protected int textureOffset;
 
-	public BlockGrass()
-	{
+	public BlockGrass() {
 		super(Material.grass);
 		this.setTickRandomly(true);
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
-	public BlockGrass(int texOff)
-	{
+	public BlockGrass(int texOff) {
 		this();
 		textureOffset = texOff;
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
+	public static IIcon getIconSideOverlay() {
+		return ((BlockGrass) TFCBlocks.grass).iconGrassSideOverlay;
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
-	{
+	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
 		// Change to false if this block should not be added to the creative tab
 		//Boolean addToCreative = true;
 
 		int count;
-		if(textureOffset == 0) count = 16;
+		if (textureOffset == 0) count = 16;
 		else count = Global.STONE_ALL.length - 16;
 
-		for(int i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)
 			list.add(new ItemStack(item, 1, i));
 	}
 
-	public static IIcon getIconSideOverlay()
-	{
-		return ((BlockGrass)TFCBlocks.grass).iconGrassSideOverlay;
-	}
-
 	@Override
-	public int damageDropped(int dmg)
-	{
+	public int damageDropped(int dmg) {
 		return dmg;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister registerer)
-	{
+	public void registerBlockIcons(IIconRegister registerer) {
 		grassTopTexture = registerer.registerIcon(Reference.MOD_ID + ":" + "GrassTop");
 
 		iconSnowSide = registerer.registerIcon(Reference.MOD_ID + ":" + "snow");
@@ -96,8 +87,7 @@ public class BlockGrass extends BlockTerra
 	 * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
 	 */
 	@Override
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		if (side == 1)
 			return grassTopTexture;
 		else if (side == 0)
@@ -110,8 +100,7 @@ public class BlockGrass extends BlockTerra
 	 * Retrieves the block texture to use based on the display side. Args: iBlockAccess, x, y, z, side
 	 */
 	@Override
-	public IIcon getIcon(IBlockAccess access, int x, int y, int z, int side)
-	{
+	public IIcon getIcon(IBlockAccess access, int x, int y, int z, int side) {
 		if (side == 1)
 			return grassTopTexture;
 		else if (side == 0)
@@ -120,18 +109,15 @@ public class BlockGrass extends BlockTerra
 		{
 			if (TFCOptions.enableBetterGrass && TFC_Core.isGrass(access.getBlock(x, y - 1, z - 1)))
 				return isSnow(access, x, y - 1, z - 1) ? Blocks.snow.getBlockTextureFromSide(0) : grassTopTexture;
-		}
-		else if (side == 3) //+Z
+		} else if (side == 3) //+Z
 		{
 			if (TFCOptions.enableBetterGrass && TFC_Core.isGrass(access.getBlock(x, y - 1, z + 1)))
 				return isSnow(access, x, y - 1, z + 1) ? Blocks.snow.getBlockTextureFromSide(0) : grassTopTexture;
-		}
-		else if (side == 4) //-X
+		} else if (side == 4) //-X
 		{
 			if (TFCOptions.enableBetterGrass && TFC_Core.isGrass(access.getBlock(x - 1, y - 1, z)))
 				return isSnow(access, x - 1, y - 1, z) ? Blocks.snow.getBlockTextureFromSide(0) : grassTopTexture;
-		}
-		else if (side == 5) //+X
+		} else if (side == 5) //+X
 		{
 			if (TFCOptions.enableBetterGrass && TFC_Core.isGrass(access.getBlock(x + 1, y - 1, z)))
 				return isSnow(access, x + 1, y - 1, z) ? Blocks.snow.getBlockTextureFromSide(0) : grassTopTexture;
@@ -146,8 +132,7 @@ public class BlockGrass extends BlockTerra
 		return side != 0 && super.shouldSideBeRendered(access, x, y, z, side);
 	}
 
-	private boolean isSnow(IBlockAccess access, int x, int y, int z)
-	{
+	private boolean isSnow(IBlockAccess access, int x, int y, int z) {
 		Material material = access.getBlock(x, y, z).getMaterial();
 		return material == Material.snow || material == Material.craftedSnow;
 	}
@@ -158,20 +143,17 @@ public class BlockGrass extends BlockTerra
 	 * when first determining what to render.
 	 */
 	@Override
-	public int colorMultiplier(IBlockAccess bAccess, int x, int y, int z)
-	{
+	public int colorMultiplier(IBlockAccess bAccess, int x, int y, int z) {
 		return TerraFirmaCraft.proxy.grassColorMultiplier(bAccess, x, y, z);
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.grassRenderId;
 	}
 
 	@Override
-	public int getBlockColor()
-	{
+	public int getBlockColor() {
 		double d0 = 0.5D;
 		double d1 = 1.0D;
 		return ColorizerGrassTFC.getGrassColor(d0, d1);
@@ -181,8 +163,7 @@ public class BlockGrass extends BlockTerra
 	 * Returns the color this block should be rendered. Used by leaves.
 	 */
 	@Override
-	public int getRenderColor(int par1)
-	{
+	public int getRenderColor(int par1) {
 		return this.getBlockColor();
 	}
 
@@ -190,44 +171,32 @@ public class BlockGrass extends BlockTerra
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World world, int i, int j, int k, Random rand)
-	{
-		if (!world.isRemote)
-		{
+	public void updateTick(World world, int i, int j, int k, Random rand) {
+		if (!world.isRemote) {
 			int meta = world.getBlockMetadata(i, j, k);
-			if(world.getBlock(i, j + 1, k) == Blocks.snow && !TFC_Core.isDryGrass(this))
-			{
+			if (world.getBlock(i, j + 1, k) == Blocks.snow && !TFC_Core.isDryGrass(this)) {
 				world.setBlock(i, j, k, TFC_Core.getTypeForDryGrassFromSoil(this), meta, 0x2);
-			}
-			else if (world.getBlock(i, j+1, k).isSideSolid(world, i, j+1, k, ForgeDirection.DOWN))
-			{
+			} else if (world.getBlock(i, j + 1, k).isSideSolid(world, i, j + 1, k, ForgeDirection.DOWN)) {
 				world.setBlock(i, j, k, TFC_Core.getTypeForDirtFromGrass(this), meta, 0x2);
-			}
-			else if (world.canBlockSeeTheSky(i, j + 1, k))
-			{
+			} else if (world.canBlockSeeTheSky(i, j + 1, k)) {
 				spreadGrass(world, i, j, k, rand);
 
 				float rain = TFC_Climate.getRainfall(world, i, j + 1, k);
-				float temp = TFC_Climate.getHeightAdjustedTemp(world, i, j+1, k);
+				float temp = TFC_Climate.getHeightAdjustedTemp(world, i, j + 1, k);
 
-				if (TFC_Core.isGrass(this)  && world.getBlock(i, j + 1, k).getMaterial() != Material.water)
-				{
-					int chunkX = (int)Math.floor(i) >> 4;
-					int chunkZ = (int)Math.floor(k) >> 4;
+				if (TFC_Core.isGrass(this) && world.getBlock(i, j + 1, k).getMaterial() != Material.water) {
+					int chunkX = (int) Math.floor(i) >> 4;
+					int chunkZ = (int) Math.floor(k) >> 4;
 
-					if (TFC_Core.getCDM(world) != null)
-					{
+					if (TFC_Core.getCDM(world) != null) {
 						ChunkData data = TFC_Core.getCDM(world).getData(chunkX, chunkZ);
-						if (data == null || data.getSpawnProtectionWithUpdate() <= 234)
-						{
-							if(temp > 20 && !TFC_Core.isDryGrass(this) && world.isAirBlock(i, j + 1, k) )
-							{
-								if (rand.nextInt((int) ((16800-rain)/4)) == 0)
+						if (data == null || data.getSpawnProtectionWithUpdate() <= 234) {
+							if (temp > 20 && !TFC_Core.isDryGrass(this) && world.isAirBlock(i, j + 1, k)) {
+								if (rand.nextInt((int) ((16800 - rain) / 4)) == 0)
 									world.setBlock(i, j + 1, k, TFCBlocks.tallGrass, (world.rand.nextInt(30) == 0 ? 1 : 0), 0x2); // 1/30 chance to spawn fern	
 								else if (rand.nextInt(15000) == 0)
-									new WorldGenSaplings().generate(world, rand, i, j, k);	
-							}
-							else if (TFCOptions.enableDebrisRegen) {
+									new WorldGenSaplings().generate(world, rand, i, j, k);
+							} else if (TFCOptions.enableDebrisRegen) {
 								if (rand.nextInt(20000) == 0 && !WorldGenLooseRocks.rocksNearby(world, i, j, k) && temp < 15)
 									new WorldGenLooseRocks().generateRocks(world, rand, i, j, k);
 								if (rand.nextInt(20000) == 0 && temp < 15)
@@ -235,31 +204,25 @@ public class BlockGrass extends BlockTerra
 							}
 
 						}
-						
+
 					}
-					
+
 				}
 
 				boolean nearWater = false;
 
-				for(int y = 0; y < 2 && !nearWater; y++)
-				{
-					for(int x = -4; x < 5 && !nearWater; x++)
-					{
-						for(int z = -4; z < 5 && !nearWater; z++)
-						{
+				for (int y = 0; y < 2 && !nearWater; y++) {
+					for (int x = -4; x < 5 && !nearWater; x++) {
+						for (int z = -4; z < 5 && !nearWater; z++) {
 							if (j < 250 && j > Global.SEALEVEL && world.blockExists(i + x, j - y, k + z) && world.getBlock(i + x, j - y, k + z).getMaterial() == Material.water)
 								nearWater = true;
 						}
 					}
 				}
 
-				if(TFC_Core.isGrass(this) && !TFC_Core.isDryGrass(this) && !nearWater && rain < 500)
-				{
+				if (TFC_Core.isGrass(this) && !TFC_Core.isDryGrass(this) && !nearWater && rain < 500) {
 					world.setBlock(i, j, k, TFC_Core.getTypeForDryGrassFromSoil(this), meta, 2);
-				}
-				else if(TFC_Core.isGrass(this) && TFC_Core.isDryGrass(this) && (nearWater || rain>=500) && world.getBlock(i, j+1, k) != Blocks.snow)
-				{
+				} else if (TFC_Core.isGrass(this) && TFC_Core.isDryGrass(this) && (nearWater || rain >= 500) && world.getBlock(i, j + 1, k) != Blocks.snow) {
 					world.setBlock(i, j, k, TFC_Core.getTypeForGrassFromSoil(this), meta, 2);
 				}
 			}
@@ -268,16 +231,13 @@ public class BlockGrass extends BlockTerra
 		}
 	}
 
-	public void spreadGrass(World world, int i, int j, int k, Random rand)
-	{
-		for (int var6 = 0; var6 < 4; ++var6)
-		{
+	public void spreadGrass(World world, int i, int j, int k, Random rand) {
+		for (int var6 = 0; var6 < 4; ++var6) {
 			int x = i + rand.nextInt(3) - 1;
 			int z = k + rand.nextInt(3) - 1;
 			int y = world.getTopSolidOrLiquidBlock(x, z) - 1;
 
-			if (world.blockExists(x, y, z) && world.getBlock(x, y + 1, z).getMaterial() != Material.water)
-			{
+			if (world.blockExists(x, y, z) && world.getBlock(x, y + 1, z).getMaterial() != Material.water) {
 				float rain = TFC_Climate.getRainfall(world, x, y, z);
 
 				Block id = world.getBlock(x, y, z);
@@ -295,13 +255,10 @@ public class BlockGrass extends BlockTerra
 	}
 
 	@Override
-	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
-	{
-		if (!world.isRemote && this != TFCBlocks.clayGrass2 && this != TFCBlocks.clayGrass && this != TFCBlocks.peatGrass)
-		{
+	public void onEntityWalking(World world, int x, int y, int z, Entity entity) {
+		if (!world.isRemote && this != TFCBlocks.clayGrass2 && this != TFCBlocks.clayGrass && this != TFCBlocks.peatGrass) {
 			Random r = new Random();
-			if (BlockCollapsible.canFallBelow(world, x, y - 1, z) && r.nextInt(10) == 0 && !BlockCollapsible.isNearSupport(world, x, y, z, 4, 0))
-			{
+			if (BlockCollapsible.canFallBelow(world, x, y - 1, z) && r.nextInt(10) == 0 && !BlockCollapsible.isNearSupport(world, x, y, z, 4, 0)) {
 				int meta = world.getBlockMetadata(x, y, z);
 				world.setBlock(x, y, z, TFC_Core.getTypeForDirtFromGrass(this), meta, 0x2);
 			}
@@ -312,16 +269,13 @@ public class BlockGrass extends BlockTerra
 	 * Returns the ID of the items to drop on destruction.
 	 */
 	@Override
-	public Item getItemDropped(int metadata, Random rand, int fortune)
-	{
+	public Item getItemDropped(int metadata, Random rand, int fortune) {
 		return TFC_Core.getTypeForDirtFromGrass(this).getItemDropped(metadata, rand, fortune);
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
-	{
-		if(world.isAirBlock(x, y - 1, z))
-		{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
+		if (world.isAirBlock(x, y - 1, z)) {
 			int meta = world.getBlockMetadata(x, y, z);
 			world.setBlock(x, y, z, TFC_Core.getTypeForDirtFromGrass(this), meta, 0x2);
 			world.scheduleBlockUpdate(x, y, z, TFC_Core.getTypeForDirtFromGrass(this), 5);

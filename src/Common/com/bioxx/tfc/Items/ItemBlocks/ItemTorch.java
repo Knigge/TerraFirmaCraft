@@ -1,74 +1,58 @@
 package com.bioxx.tfc.Items.ItemBlocks;
 
 import com.bioxx.tfc.TileEntities.TECoalPile;
+import com.bioxx.tfc.TileEntities.TELogPile;
+import com.bioxx.tfc.TileEntities.TEPottery;
+import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.TileEntities.TELogPile;
-import com.bioxx.tfc.TileEntities.TEPottery;
-import com.bioxx.tfc.api.TFCBlocks;
-
-public class ItemTorch extends ItemTerraBlock
-{
-	public ItemTorch(Block b)
-	{
+public class ItemTorch extends ItemTerraBlock {
+	public ItemTorch(Block b) {
 		super(b);
 	}
 
 	@Override
-	public boolean onEntityItemUpdate(EntityItem entityItem)
-	{
-		if(entityItem.worldObj.getBlock((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ)) == TFCBlocks.logPile)
-		{
+	public boolean onEntityItemUpdate(EntityItem entityItem) {
+		if (entityItem.worldObj.getBlock((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ)) == TFCBlocks.logPile) {
 			int count = entityItem.getEntityData().getInteger("torchCount");
-			if(count > 160)
-			{
-				TELogPile te = (TELogPile) entityItem.worldObj.getTileEntity((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ));
+			if (count > 160) {
+				TELogPile te = (TELogPile) entityItem.worldObj.getTileEntity((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ));
 				te.activateCharcoal();
 				te.lightNeighbors();
 				entityItem.setDead();
-			}
-			else
-			{
-				if(entityItem.worldObj.rand.nextInt(10) < 2)
+			} else {
+				if (entityItem.worldObj.rand.nextInt(10) < 2)
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
-				entityItem.getEntityData().setInteger("torchCount", count+1);
+				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}
-		if(entityItem.worldObj.getBlock((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ)) == TFCBlocks.coalPile)
-		{
+		if (entityItem.worldObj.getBlock((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ)) == TFCBlocks.coalPile) {
 			int count = entityItem.getEntityData().getInteger("torchCount");
-			if(count > 160)
-			{
-				TECoalPile te = (TECoalPile) entityItem.worldObj.getTileEntity((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ));
+			if (count > 160) {
+				TECoalPile te = (TECoalPile) entityItem.worldObj.getTileEntity((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ));
 				te.activateCoke();
 				te.lightNeighbors();
 				entityItem.setDead();
-			}
-			else
-			{
-				if(entityItem.worldObj.rand.nextInt(10) < 2)
+			} else {
+				if (entityItem.worldObj.rand.nextInt(10) < 2)
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
-				entityItem.getEntityData().setInteger("torchCount", count+1);
+				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}
-		if(entityItem.worldObj.getBlock((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ)) == TFCBlocks.pottery)
-		{
+		if (entityItem.worldObj.getBlock((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ)) == TFCBlocks.pottery) {
 			int count = entityItem.getEntityData().getInteger("torchCount");
-			if(count > 80)
-			{
-				TEPottery tepot = (TEPottery) entityItem.worldObj.getTileEntity((int)Math.floor(entityItem.posX), (int)Math.floor(entityItem.posY)-1, (int)Math.floor(entityItem.posZ));
-				if(!entityItem.worldObj.isRemote && tepot.wood == 8 && tepot.burnStart == 0)
+			if (count > 80) {
+				TEPottery tepot = (TEPottery) entityItem.worldObj.getTileEntity((int) Math.floor(entityItem.posX), (int) Math.floor(entityItem.posY) - 1, (int) Math.floor(entityItem.posZ));
+				if (!entityItem.worldObj.isRemote && tepot.wood == 8 && tepot.burnStart == 0)
 					tepot.startPitFire();
-			}
-			else
-			{
-				if(entityItem.worldObj.rand.nextInt(10) < 2)
+			} else {
+				if (entityItem.worldObj.rand.nextInt(10) < 2)
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
-				entityItem.getEntityData().setInteger("torchCount", count+1);
+				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}
 		return false;

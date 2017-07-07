@@ -1,29 +1,25 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFC_Core;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-public class GuiInventoryButton extends GuiButton
-{
-	private static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID+":textures/gui/inventory.png");
+public class GuiInventoryButton extends GuiButton {
+	private static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID + ":textures/gui/inventory.png");
 	public IIcon icon;
 	public int bX;
 	public int bY;
 	public int bW;
 	public int bH;
 
-	public GuiInventoryButton(int index, int xPos, int yPos, int width, int height, 
-			int buttonX, int buttonY, int buttonW, int buttonH, String s, IIcon ico)
-	{
+	public GuiInventoryButton(int index, int xPos, int yPos, int width, int height,
+	                          int buttonX, int buttonY, int buttonW, int buttonH, String s, IIcon ico) {
 		super(index, xPos, yPos, width, height, s);
 		bX = buttonX;
 		bY = buttonY;
@@ -34,20 +30,17 @@ public class GuiInventoryButton extends GuiButton
 
 
 	@Override
-	public void drawButton(Minecraft mc, int x, int y)
-	{
-		if (this.visible)
-		{
+	public void drawButton(Minecraft mc, int x, int y) {
+		if (this.visible) {
 			TFC_Core.bindTexture(texture);
 			this.drawTexturedModalRect(this.xPosition, this.yPosition, this.bX, this.bY, this.bW, this.bH);
 
 			this.field_146123_n = x >= this.xPosition && y >= this.yPosition && x < this.xPosition + this.width && y < this.yPosition + this.height;
 
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			if(icon != null) 
-			{
+			if (icon != null) {
 				TFC_Core.bindTexture(TextureMap.locationBlocksTexture);
-				this.drawTexturedModelRectFromIcon(this.xPosition+4, this.yPosition+2, icon, 16, 16);
+				this.drawTexturedModelRectFromIcon(this.xPosition + 4, this.yPosition + 2, icon, 16, 16);
 			}
 
 			this.mouseDragged(mc, x, y);

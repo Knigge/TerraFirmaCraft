@@ -1,53 +1,42 @@
 package com.bioxx.tfc.Handlers.Client;
 
+import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
+import com.bioxx.tfc.Items.Tools.ItemChisel;
+import com.bioxx.tfc.Items.Tools.ItemHammer;
+import com.bioxx.tfc.api.Tools.ChiselManager;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
-import com.bioxx.tfc.Items.Tools.ItemChisel;
-import com.bioxx.tfc.Items.Tools.ItemHammer;
-import com.bioxx.tfc.api.Tools.ChiselManager;
-
 @SuppressWarnings("WeakerAccess")
-public class ChiselHighlightHandler
-{
+public class ChiselHighlightHandler {
 	@SubscribeEvent
-	public void drawBlockHighlightEvent(DrawBlockHighlightEvent evt)
-	{
+	public void drawBlockHighlightEvent(DrawBlockHighlightEvent evt) {
 		EntityPlayer player = evt.player;
 		World world = player.worldObj;
 
-		if (evt.currentItem != null && evt.currentItem.getItem() instanceof ItemChisel)
-		{
+		if (evt.currentItem != null && evt.currentItem.getItem() instanceof ItemChisel) {
 			boolean hasHammer = false;
-			for (int i = 0; i < 9; i++)
-			{
-				if (player.inventory.mainInventory[i] != null && player.inventory.mainInventory[i].getItem() instanceof ItemHammer)
-				{
+			for (int i = 0; i < 9; i++) {
+				if (player.inventory.mainInventory[i] != null && player.inventory.mainInventory[i].getItem() instanceof ItemHammer) {
 					hasHammer = true;
 					break;
 				}
 			}
-			
-			if (hasHammer)
-			{
+
+			if (hasHammer) {
 				MovingObjectPosition target = evt.target;
 				Block id = world.getBlock(target.blockX, target.blockY, target.blockZ);
 				int mode = PlayerManagerTFC.getInstance().getClientPlayer().chiselMode;
 				//double depth = (double)pi.ChiselDetailZoom/8D;
 
-				if (mode > -1)
-				{
+				if (mode > -1) {
 					//Get the hit location in local box coords
 					double hitX = Math.round((target.hitVec.xCoord - target.blockX) * 100) / 100.0d;
 					double hitY = Math.round((target.hitVec.yCoord - target.blockY) * 100) / 100.0d;
@@ -58,37 +47,35 @@ public class ChiselHighlightHandler
 					int divY = ChiselManager.getInstance().getDivY(mode, id);
 					int divZ = ChiselManager.getInstance().getDivZ(mode, id);
 
-					if (divX > 0)
-					{
+					if (divX > 0) {
 
 						//get the targeted sub block coords
 						double subX = (double) ((int) ((hitX) * divX)) / divX;
 						double subY = (double) ((int) ((hitY) * divY)) / divY;
 						double subZ = (double) ((int) ((hitZ) * divZ)) / divZ;
 
-						switch (target.sideHit)
-						{
-						case 1:
-							subY -= 1d / divY;
-							if (hitX == 1)
-								subX -= 1d / divX;
-							if (hitZ == 1)
-								subZ -= 1d / divZ;
-							break;
-						case 3:
-							subZ -= 1d / divZ;
-							if (hitX == 1)
-								subX -= 1d / divX;
-							if (hitY == 1)
+						switch (target.sideHit) {
+							case 1:
 								subY -= 1d / divY;
-							break;
-						case 5:
-							subX -= 1d / divX;
-							if (hitY == 1)
-								subY -= 1d / divY;
-							if (hitZ == 1)
+								if (hitX == 1)
+									subX -= 1d / divX;
+								if (hitZ == 1)
+									subZ -= 1d / divZ;
+								break;
+							case 3:
 								subZ -= 1d / divZ;
-							break;
+								if (hitX == 1)
+									subX -= 1d / divX;
+								if (hitY == 1)
+									subY -= 1d / divY;
+								break;
+							case 5:
+								subX -= 1d / divX;
+								if (hitY == 1)
+									subY -= 1d / divY;
+								if (hitZ == 1)
+									subZ -= 1d / divZ;
+								break;
 						}
 
 						//create the box size
@@ -190,8 +177,7 @@ public class ChiselHighlightHandler
 		}
 	}
 
-	public void drawOutlinedBoundingBox(AxisAlignedBB par1AxisAlignedBB)
-	{
+	public void drawOutlinedBoundingBox(AxisAlignedBB par1AxisAlignedBB) {
 		Tessellator var2 = Tessellator.instance;
 		var2.startDrawing(3);
 		var2.addVertex(par1AxisAlignedBB.minX, par1AxisAlignedBB.minY, par1AxisAlignedBB.minZ);

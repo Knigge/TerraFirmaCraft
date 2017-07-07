@@ -1,17 +1,14 @@
 package com.bioxx.tfc.Items.Tools;
 
-import net.minecraft.item.ItemStack;
-
 import com.bioxx.tfc.Items.ItemTerra;
 import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.item.ItemStack;
 
-public class ItemSpindle extends ItemTerra
-{
-	public ItemSpindle()
-	{
+public class ItemSpindle extends ItemTerra {
+	public ItemSpindle() {
 		super();
 		this.setMaxDamage(40);
 		this.setFolder("tools/");
@@ -21,26 +18,22 @@ public class ItemSpindle extends ItemTerra
 	}
 
 	@Override
-	public Multimap getItemAttributeModifiers()
-	{
+	public Multimap getItemAttributeModifiers() {
 		return HashMultimap.create();
 	}
 
 	@Override
-	public boolean doesContainerItemLeaveCraftingGrid(ItemStack ItemStack)
-	{
+	public boolean doesContainerItemLeaveCraftingGrid(ItemStack ItemStack) {
 		return false;
 	}
 
 	@Override
-	public boolean getShareTag()
-	{
+	public boolean getShareTag() {
 		return true;
 	}
 
 	@Override
-	public ItemStack getContainerItem(ItemStack itemStack)
-	{
+	public ItemStack getContainerItem(ItemStack itemStack) {
 		ItemStack container = itemStack.copy();
 		container.setItemDamage(container.getItemDamage() + 1);
 		container.stackSize = 1;
@@ -48,33 +41,28 @@ public class ItemSpindle extends ItemTerra
 	}
 
 	@Override
-	public boolean hasContainerItem(ItemStack stack)
-	{
+	public boolean hasContainerItem(ItemStack stack) {
 		return true;
 	}
 
 	@Override
-	public boolean isRepairable()
-	{
+	public boolean isRepairable() {
 		return false;
 	}
 
 	@Override
-	public EnumItemReach getReach(ItemStack is)
-	{
+	public EnumItemReach getReach(ItemStack is) {
 		return EnumItemReach.SHORT;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public int getItemStackLimit()
-	{
+	public int getItemStackLimit() {
 		return 1;
 	}
 
 	@Override
-	public boolean canStack()
-	{
+	public boolean canStack() {
 		return false;
 	}
 }

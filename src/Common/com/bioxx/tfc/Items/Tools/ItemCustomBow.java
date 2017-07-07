@@ -1,7 +1,19 @@
 package com.bioxx.tfc.Items.Tools;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.Player.InventoryPlayerTFC;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Entities.EntityProjectileTFC;
+import com.bioxx.tfc.Items.ItemQuiver;
+import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Enums.EnumAmmo;
+import com.bioxx.tfc.api.Enums.EnumItemReach;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.Enums.EnumWeight;
+import com.bioxx.tfc.api.Interfaces.ISize;
+import com.bioxx.tfc.api.TFCItems;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -10,35 +22,18 @@ import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.Player.InventoryPlayerTFC;
-import com.bioxx.tfc.Entities.EntityProjectileTFC;
-import com.bioxx.tfc.Items.ItemQuiver;
-import com.bioxx.tfc.Items.ItemTerra;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.Enums.EnumAmmo;
-import com.bioxx.tfc.api.Enums.EnumItemReach;
-import com.bioxx.tfc.api.Enums.EnumSize;
-import com.bioxx.tfc.api.Enums.EnumWeight;
-import com.bioxx.tfc.api.Interfaces.ISize;
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class ItemCustomBow extends ItemBow implements ISize
-{
-	private String[] bowPullIconNameArray = new String[] {"pulling_0", "pulling_1", "pulling_2", "pulling_3"};
+public class ItemCustomBow extends ItemBow implements ISize {
+	private String[] bowPullIconNameArray = new String[]{"pulling_0", "pulling_1", "pulling_2", "pulling_3"};
 	private IIcon[] iconArray;
 
-	public ItemCustomBow()
-	{
+	public ItemCustomBow() {
 		super();
 		this.maxStackSize = 1;
 		this.setMaxDamage(384);
@@ -46,9 +41,23 @@ public class ItemCustomBow extends ItemBow implements ISize
 		setNoRepair();
 	}
 
-	public boolean consumeArrowInQuiver(EntityPlayer player, boolean shouldConsume)
-	{
-		ItemStack quiver = 	((InventoryPlayerTFC) player.inventory).extraEquipInventory[0];
+	public static float getUseSpeed(EntityPlayer player) {
+		float speed = 60.0f;
+		ItemStack[] armor = player.inventory.armorInventory;
+		if (armor[0] != null && armor[0].getItem() instanceof ISize)
+			speed += 20.0f / ((ISize) armor[0].getItem()).getWeight(armor[0]).multiplier;
+		if (armor[1] != null && armor[1].getItem() instanceof ISize)
+			speed += 20.0f / ((ISize) armor[1].getItem()).getWeight(armor[1]).multiplier;
+		if (armor[2] != null && armor[2].getItem() instanceof ISize)
+			speed += 20.0f / ((ISize) armor[2].getItem()).getWeight(armor[2]).multiplier;
+		if (armor[3] != null && armor[3].getItem() instanceof ISize)
+			speed += 20.0f / ((ISize) armor[3].getItem()).getWeight(armor[3]).multiplier;
+
+		return speed;
+	}
+
+	public boolean consumeArrowInQuiver(EntityPlayer player, boolean shouldConsume) {
+		ItemStack quiver = ((InventoryPlayerTFC) player.inventory).extraEquipInventory[0];
 
 /*		for(int i = 0; i < 9; i++)
 		{
@@ -59,16 +68,15 @@ public class ItemCustomBow extends ItemBow implements ISize
 			}
 		}
 */
-		if(quiver != null && quiver.getItem() instanceof ItemQuiver)
-			if(((ItemQuiver)quiver.getItem()).consumeAmmo(quiver, EnumAmmo.ARROW, shouldConsume) != null) 
+		if (quiver != null && quiver.getItem() instanceof ItemQuiver)
+			if (((ItemQuiver) quiver.getItem()).consumeAmmo(quiver, EnumAmmo.ARROW, shouldConsume) != null)
 				return true;
 
 		return false;
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player)
-	{
+	public ItemStack onItemRightClick(ItemStack is, World world, EntityPlayer player) {
 		ArrowNockEvent event = new ArrowNockEvent(player, is);
 		MinecraftForge.EVENT_BUS.post(event);
 		if (event.isCanceled())
@@ -81,8 +89,7 @@ public class ItemCustomBow extends ItemBow implements ISize
 	}
 
 	@Override
-	public void onPlayerStoppedUsing(ItemStack is, World world, EntityPlayer player, int inUseCount)
-	{
+	public void onPlayerStoppedUsing(ItemStack is, World world, EntityPlayer player, int inUseCount) {
 		int j = this.getMaxItemUseDuration(is) - inUseCount;
 
 		ArrowLooseEvent event = new ArrowLooseEvent(player, is, j);
@@ -97,11 +104,10 @@ public class ItemCustomBow extends ItemBow implements ISize
 		boolean hasAmmo = flag || player.inventory.hasItem(TFCItems.arrow);
 		boolean hasAmmoInQuiver = false;
 		//If there was no ammo in the inventory then we need to check if there is a quiver and if there is ammo inside of it.
-		if(!hasAmmo)
+		if (!hasAmmo)
 			hasAmmoInQuiver = consumeArrowInQuiver(player, false);
 
-		if (hasAmmo || hasAmmoInQuiver)
-		{
+		if (hasAmmo || hasAmmoInQuiver) {
 			float forceMult = j / getUseSpeed(player);
 			//f = (f * f + f * 2.0F) / 3.0F;
 
@@ -134,62 +140,41 @@ public class ItemCustomBow extends ItemBow implements ISize
 
 			if (flag)
 				entityarrow.canBePickedUp = 2;
-			else if(hasAmmo)
+			else if (hasAmmo)
 				player.inventory.consumeInventoryItem(TFCItems.arrow);
 			else //noinspection ConstantConditions
-				if(hasAmmoInQuiver)
-				consumeArrowInQuiver(player, true);
+				if (hasAmmoInQuiver)
+					consumeArrowInQuiver(player, true);
 
 			if (!world.isRemote)
 				world.spawnEntityInWorld(entityarrow);
 		}
 	}
 
-	public static float getUseSpeed(EntityPlayer player)
-	{
-		float speed = 60.0f;
-		ItemStack[] armor = player.inventory.armorInventory;
-		if(armor[0] != null && armor[0].getItem() instanceof ISize)
-			speed += 20.0f / ((ISize)armor[0].getItem()).getWeight(armor[0]).multiplier;
-		if(armor[1] != null && armor[1].getItem() instanceof ISize)
-			speed += 20.0f / ((ISize)armor[1].getItem()).getWeight(armor[1]).multiplier;
-		if(armor[2] != null && armor[2].getItem() instanceof ISize)
-			speed += 20.0f / ((ISize)armor[2].getItem()).getWeight(armor[2]).multiplier;
-		if(armor[3] != null && armor[3].getItem() instanceof ISize)
-			speed += 20.0f / ((ISize)armor[3].getItem()).getWeight(armor[3]).multiplier;
-
-		return speed;
-	}
-
 	@SuppressWarnings("unchecked")
 	@Override
-	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) 
-	{
+	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
 		ItemTerra.addSizeInformation(is, arraylist);
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.LARGE;
 	}
 
 	@Override
-	public EnumWeight getWeight(ItemStack is)
-	{
+	public EnumWeight getWeight(ItemStack is) {
 		return EnumWeight.LIGHT;
 	}
 
 	@Override
-	public boolean canStack()
-	{
+	public boolean canStack() {
 		return false;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerIcons(IIconRegister par1IconRegister)
-	{
+	public void registerIcons(IIconRegister par1IconRegister) {
 		this.itemIcon = par1IconRegister.registerIcon(Reference.MOD_ID + ":" + this.getIconString() + "_standby");
 		iconArray = new IIcon[bowPullIconNameArray.length];
 
@@ -200,37 +185,29 @@ public class ItemCustomBow extends ItemBow implements ISize
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getItemIconForUseDuration(int par1)
-	{
+	public IIcon getItemIconForUseDuration(int par1) {
 		return iconArray[par1];
 	}
 
 	@Override
-	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
-	{
-        if (usingItem != null && usingItem.getItem() == this)
-        {
-            int j = usingItem.getMaxItemUseDuration() - useRemaining;
-            float force = j / getUseSpeed(player);
+	public IIcon getIcon(ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining) {
+		if (usingItem != null && usingItem.getItem() == this) {
+			int j = usingItem.getMaxItemUseDuration() - useRemaining;
+			float force = j / getUseSpeed(player);
 
 			if (force >= 1.25) // Fully drawn
-            {
+			{
 				return getItemIconForUseDuration(3);
-			}
-			else if (force > 0.75)
-            {
+			} else if (force > 0.75) {
 				return getItemIconForUseDuration(2);
-            }
-			else if (force > 0.25) // Minimum required force to fire
-            {
-                return getItemIconForUseDuration(1);
-            }
-			else if (force > 0)
-            {
-                return getItemIconForUseDuration(0);
-            }
-        }
-        return getIcon(stack, renderPass);
+			} else if (force > 0.25) // Minimum required force to fire
+			{
+				return getItemIconForUseDuration(1);
+			} else if (force > 0) {
+				return getItemIconForUseDuration(0);
+			}
+		}
+		return getIcon(stack, renderPass);
 	}
 
 	@Override

@@ -1,14 +1,11 @@
 package com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Rain;
 
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 import net.minecraft.world.gen.layer.GenLayer;
 
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
 @SuppressWarnings("SameParameterValue")
-public class GenLayerAddRain extends GenLayerTFC
-{
-	public GenLayerAddRain(long par1, GenLayer par3GenLayer)
-	{
+public class GenLayerAddRain extends GenLayerTFC {
+	public GenLayerAddRain(long par1, GenLayer par3GenLayer) {
 		super(par1);
 		this.parent = (GenLayerTFC) par3GenLayer;
 	}
@@ -19,8 +16,7 @@ public class GenLayerAddRain extends GenLayerTFC
 	 */
 	@SuppressWarnings("UnusedAssignment")
 	@Override
-	public int[] getInts(int xCoord, int zCoord, int xSize, int zSize)
-	{
+	public int[] getInts(int xCoord, int zCoord, int xSize, int zSize) {
 		int var5 = xCoord - 1;
 		int var6 = zCoord - 1;
 		int var7 = xSize + 2;
@@ -28,10 +24,8 @@ public class GenLayerAddRain extends GenLayerTFC
 		int[] inCache = this.parent.getInts(var5, var6, var7, var8);
 		int[] outCache = new int[xSize * zSize];
 
-		for (int var11 = 0; var11 < zSize; ++var11)
-		{
-			for (int var12 = 0; var12 < xSize; ++var12)
-			{
+		for (int var11 = 0; var11 < zSize; ++var11) {
+			for (int var12 = 0; var12 < xSize; ++var12) {
 				int id0 = inCache[var12 + (var11) * var7];
 				int id1 = inCache[var12 + 2 + (var11) * var7];
 				int id2 = inCache[var12 + (var11 + 2) * var7];
@@ -39,52 +33,47 @@ public class GenLayerAddRain extends GenLayerTFC
 				int thisID = inCache[var12 + 1 + (var11 + 1) * var7];
 				this.initChunkSeed(var12 + xCoord, var11 + zCoord);
 
-				if (id0 > thisID || id1 > thisID || id2 > thisID || id3 > thisID)
-				{
+				if (id0 > thisID || id1 > thisID || id2 > thisID || id3 > thisID) {
 					int count = 1;
 					int outID = thisID;
 
 					if (id0 != 0 && this.nextInt(count++) == 0)
-						outID = id0+1;
+						outID = id0 + 1;
 
 					if (id1 != 0 && this.nextInt(count++) == 0)
-						outID = id1+1;
+						outID = id1 + 1;
 
 					if (id2 != 0 && this.nextInt(count++) == 0)
-						outID = id2+1;
+						outID = id2 + 1;
 
 					if (id3 != 0 && this.nextInt(count++) == 0)
-						outID = id3+1;
+						outID = id3 + 1;
 
 					if (this.nextInt(3) == 0 && outID <= GenRainLayerTFC.WET)
 						outCache[var12 + var11 * xSize] = outID;
 					else
 						outCache[var12 + var11 * xSize] = thisID;
-				}
-				else if (id0 < thisID || id1 < thisID || id2 < thisID || id3 < thisID)
-				{
+				} else if (id0 < thisID || id1 < thisID || id2 < thisID || id3 < thisID) {
 					int count = 1;
 					int outID = thisID;
 
 					if (id0 != 0 && this.nextInt(count++) == 0)
-						outID = id0-1;
+						outID = id0 - 1;
 
 					if (id1 != 0 && this.nextInt(count++) == 0)
-						outID = id1-1;
+						outID = id1 - 1;
 
 					if (id2 != 0 && this.nextInt(count++) == 0)
-						outID = id2-1;
+						outID = id2 - 1;
 
 					if (id3 != 0 && this.nextInt(count++) == 0)
-						outID = id3-1;
+						outID = id3 - 1;
 
 					if (this.nextInt(3) == 0 && outID >= GenRainLayerTFC.DRY)
 						outCache[var12 + var11 * xSize] = outID;
 					else
 						outCache[var12 + var11 * xSize] = thisID;
-				}
-				else
-				{
+				} else {
 					outCache[var12 + var11 * xSize] = thisID;
 				}
 			}

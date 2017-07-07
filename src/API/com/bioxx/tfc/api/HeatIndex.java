@@ -1,151 +1,125 @@
 package com.bioxx.tfc.api;
 
-import java.util.Random;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Random;
+
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-public class HeatIndex
-{
+public class HeatIndex {
 	public float specificHeat;
 	public float meltTemp;
 	public boolean keepNBT;
-
+	public ItemStack input;
 	private ItemStack output;
 	private int outputMin;
 	private int outputMax;
-
 	private ItemStack morph;
-	public ItemStack input;
 
-	public HeatIndex(ItemStack in, double sh, double melt, ItemStack out)
-	{
+	public HeatIndex(ItemStack in, double sh, double melt, ItemStack out) {
 		input = in;
-		specificHeat = (float)sh;
-		meltTemp = (float)melt;
+		specificHeat = (float) sh;
+		meltTemp = (float) melt;
 		output = out;
 	}
 
-	public HeatIndex(ItemStack in, HeatRaw raw)
-	{
+	public HeatIndex(ItemStack in, HeatRaw raw) {
 		input = in;
 		specificHeat = raw.specificHeat;
 		meltTemp = raw.meltTemp;
 	}
 
-	public HeatIndex(ItemStack in, HeatRaw raw, ItemStack out)
-	{
+	public HeatIndex(ItemStack in, HeatRaw raw, ItemStack out) {
 		this(in, raw);
 		output = out;
 	}
 
-	public HeatIndex setKeepNBT(boolean k)
-	{
+	public HeatIndex setKeepNBT(boolean k) {
 		keepNBT = k;
 		return this;
 	}
 
-	public boolean hasOutput(){
+	public boolean hasOutput() {
 		return output != null;
 	}
 
-	public Item getOutputItem()
-	{
-		if(output!= null)
+	public Item getOutputItem() {
+		if (output != null)
 			return output.getItem();
 		else return null;
 	}
 
-	public int getOutputDamage()
-	{
-		if(output!= null)
+	public int getOutputDamage() {
+		if (output != null)
 			return output.getItemDamage();
 		else return 0;
 	}
 
-	public HeatIndex setMinMax(int min, int max)
-	{
+	public HeatIndex setMinMax(int min, int max) {
 		outputMin = min;
 		outputMax = max;
 		return this;
 	}
 
-	public HeatIndex setMinMax(int amt)
-	{
+	public HeatIndex setMinMax(int amt) {
 		outputMin = amt;
 		outputMax = amt;
 		return this;
 	}
 
-	public HeatIndex setMorph(ItemStack is)
-	{
+	public ItemStack getMorph() {
+		return morph;
+	}
+
+	public HeatIndex setMorph(ItemStack is) {
 		morph = is;
 		return this;
 	}
 
-	public ItemStack getMorph()
-	{
-		return morph;
-	}
-
-	public ItemStack getOutput(Random r)
-	{
-		if(getOutputItem() == null)
+	public ItemStack getOutput(Random r) {
+		if (getOutputItem() == null)
 			return null;
 		int rand;
-		if(outputMax - outputMin > 0) 
-		{
+		if (outputMax - outputMin > 0) {
 			rand = outputMin + r.nextInt(outputMax - outputMin);
-			return new ItemStack(getOutputItem(),output.stackSize, 100-rand);
-		}
-		else 
-		{
-			return new ItemStack(getOutputItem(),output.stackSize, outputMin);
+			return new ItemStack(getOutputItem(), output.stackSize, 100 - rand);
+		} else {
+			return new ItemStack(getOutputItem(), output.stackSize, outputMin);
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public ItemStack getOutput(ItemStack in, Random r)
-	{
+	public ItemStack getOutput(ItemStack in, Random r) {
 		ItemStack is = getOutput(r);
-		if(is != null && this.keepNBT)
-		{
-			if(is.hasTagCompound())
-			{
+		if (is != null && this.keepNBT) {
+			if (is.hasTagCompound()) {
 				NBTTagCompound nbt = is.getTagCompound();
-				for(Object o : in.getTagCompound().func_150296_c())
-				{
-					NBTBase n = (NBTBase)o;
-					if(nbt.hasKey(n.toString()))
+				for (Object o : in.getTagCompound().func_150296_c()) {
+					NBTBase n = (NBTBase) o;
+					if (nbt.hasKey(n.toString()))
 						nbt.removeTag(n.toString());
 					nbt.func_150296_c().add(o);
 				}
-			}
-			else
-			{
+			} else {
 				is.setTagCompound(in.stackTagCompound);
-				if(TFC_ItemHeat.hasTemp(is))
-					TFC_ItemHeat.setTemp(is, TFC_ItemHeat.getTemp(is)*0.9f);
+				if (TFC_ItemHeat.hasTemp(is))
+					TFC_ItemHeat.setTemp(is, TFC_ItemHeat.getTemp(is) * 0.9f);
 			}
 		}
 		return is;
 	}
 
-	public boolean matches(ItemStack is)
-	{
-		if(is != null)
-		{
+	public boolean matches(ItemStack is) {
+		if (is != null) {
 			boolean b = is.getItem().getHasSubtypes();
-			if(is.getItem() != input.getItem())
+			if (is.getItem() != input.getItem())
 				return false;
-			else if (b &&input.getItemDamage() != 32767 &&
-						is.getItemDamage() != input.getItemDamage())
+			else if (b && input.getItemDamage() != 32767 &&
+					is.getItemDamage() != input.getItemDamage())
 				return false;
-		}
-		else return false;
+		} else return false;
 		return true;
 	}
 }

@@ -1,14 +1,11 @@
 package com.bioxx.tfc.WorldGen.GenLayers.Biome;
 
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 import net.minecraft.world.gen.layer.GenLayer;
 import net.minecraft.world.gen.layer.IntCache;
 
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
-public class GenLayerAddIslandTFC extends GenLayerTFC
-{
-	public GenLayerAddIslandTFC(long par1, GenLayer par3GenLayer)
-	{
+public class GenLayerAddIslandTFC extends GenLayerTFC {
+	public GenLayerAddIslandTFC(long par1, GenLayer par3GenLayer) {
 		super(par1);
 		this.parent = (GenLayerTFC) par3GenLayer;
 	}
@@ -19,8 +16,7 @@ public class GenLayerAddIslandTFC extends GenLayerTFC
 	 */
 	@SuppressWarnings("UnusedAssignment")
 	@Override
-	public int[] getInts(int par1, int par2, int par3, int par4)
-	{
+	public int[] getInts(int par1, int par2, int par3, int par4) {
 		int var5 = par1 - 1;
 		int var6 = par2 - 1;
 		int var7 = par3 + 2;
@@ -28,10 +24,8 @@ public class GenLayerAddIslandTFC extends GenLayerTFC
 		int[] var9 = this.parent.getInts(var5, var6, var7, var8);
 		int[] var10 = IntCache.getIntCache(par3 * par4);
 
-		for (int var11 = 0; var11 < par4; ++var11)
-		{
-			for (int var12 = 0; var12 < par3; ++var12)
-			{
+		for (int var11 = 0; var11 < par4; ++var11) {
+			for (int var12 = 0; var12 < par3; ++var12) {
 				int var13 = var9[var12 + (var11) * var7];
 				int var14 = var9[var12 + 2 + (var11) * var7];
 				int var15 = var9[var12 + (var11 + 2) * var7];
@@ -39,8 +33,7 @@ public class GenLayerAddIslandTFC extends GenLayerTFC
 				int var17 = var9[var12 + 1 + (var11 + 1) * var7];
 				this.initChunkSeed(var12 + par1, var11 + par2);
 
-				if (var17 == 0 && (var13 != 0 || var14 != 0 || var15 != 0 || var16 != 0))
-				{
+				if (var17 == 0 && (var13 != 0 || var14 != 0 || var15 != 0 || var16 != 0)) {
 					int var18 = 1;
 					int var19 = 1;
 
@@ -60,16 +53,12 @@ public class GenLayerAddIslandTFC extends GenLayerTFC
 						var10[var12 + var11 * par3] = var19;
 					else
 						var10[var12 + var11 * par3] = 0;
-				}
-				else if (var17 > 0 && (var13 == 0 || var14 == 0 || var15 == 0 || var16 == 0))
-				{
+				} else if (var17 > 0 && (var13 == 0 || var14 == 0 || var15 == 0 || var16 == 0)) {
 					if (this.nextInt(5) == 0)
 						var10[var12 + var11 * par3] = 0;
 					else
 						var10[var12 + var11 * par3] = var17;
-				}
-				else
-				{
+				} else {
 					var10[var12 + var11 * par3] = var17;
 				}
 			}

@@ -1,20 +1,16 @@
 package com.bioxx.tfc.Items.ItemBlocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.ItemStack;
-
-import org.lwjgl.opengl.GL11;
-
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import org.lwjgl.opengl.GL11;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class ItemAnvil extends ItemTerraBlock implements ISmeltable, IEquipable
-{
-	public ItemAnvil(Block par1)
-	{
+public abstract class ItemAnvil extends ItemTerraBlock implements ISmeltable, IEquipable {
+	public ItemAnvil(Block par1) {
 		super(par1);
 	}
 
@@ -53,8 +49,7 @@ public abstract class ItemAnvil extends ItemTerraBlock implements ISmeltable, IE
 	}
 
 	@Override
-	public void onEquippedRender() 
-	{
+	public void onEquippedRender() {
 		GL11.glRotatef(90F, 1F, 0F, 0F);
 		GL11.glTranslatef(-0.5F, -0.5F, -0.3F);
 	}

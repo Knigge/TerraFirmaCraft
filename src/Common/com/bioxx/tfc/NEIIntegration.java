@@ -20,29 +20,22 @@ import java.util.List;
  * @author Dries007
  */
 @SuppressWarnings("WeakerAccess")
-public class NEIIntegration
-{
-	public static void hideNEIItems()
-	{
-		GuiContainerManager.addTooltipHandler(new IContainerTooltipHandler()
-		{
+public class NEIIntegration {
+	public static void hideNEIItems() {
+		GuiContainerManager.addTooltipHandler(new IContainerTooltipHandler() {
 			@Override
-			public List<String> handleTooltip(GuiContainer gui, int mousex, int mousey, List<String> currenttip)
-			{
+			public List<String> handleTooltip(GuiContainer gui, int mousex, int mousey, List<String> currenttip) {
 				return currenttip;
 			}
 
 			@Override
-			public List<String> handleItemDisplayName(GuiContainer gui, ItemStack itemstack, List<String> currenttip)
-			{
+			public List<String> handleItemDisplayName(GuiContainer gui, ItemStack itemstack, List<String> currenttip) {
 				return currenttip;
 			}
 
 			@Override
-			public List<String> handleItemTooltip(GuiContainer gui, ItemStack itemstack, int mousex, int mousey, List<String> currenttip)
-			{
-				if (gui instanceof GuiLargeVessel || gui instanceof GuiBarrel)
-				{
+			public List<String> handleItemTooltip(GuiContainer gui, ItemStack itemstack, int mousex, int mousey, List<String> currenttip) {
+				if (gui instanceof GuiLargeVessel || gui instanceof GuiBarrel) {
 					Slot slot = gui.getSlotAtPosition(mousex, mousey);
 					if (slot != null && !slot.func_111238_b()) currenttip.clear();
 				}
@@ -50,8 +43,7 @@ public class NEIIntegration
 			}
 		});
 
-		if (TFCOptions.enableNEIHiding)
-		{
+		if (TFCOptions.enableNEIHiding) {
 			API.hideItem(new ItemStack(TFCBlocks.bloom));
 			//codechicken.nei.api.API.hideItem(new ItemStack(TFCItems.writabeBookTFC)); // Book
 			API.hideItem(new ItemStack(TFCBlocks.charcoal));
@@ -59,8 +51,7 @@ public class NEIIntegration
 			API.hideItem(new ItemStack(TFCBlocks.crops));
 			API.hideItem(new ItemStack(TFCBlocks.detailed));
 			API.hideItem(new ItemStack(TFCBlocks.worldItem)); // Debris
-			for (Block door : TFCBlocks.doors)
-			{
+			for (Block door : TFCBlocks.doors) {
 				API.hideItem(new ItemStack(door));
 			}
 			API.hideItem(new ItemStack(TFCBlocks.firepit));

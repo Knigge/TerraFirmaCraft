@@ -1,7 +1,11 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
@@ -17,23 +21,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockTFCFence extends BlockFence
-{
+public class BlockTFCFence extends BlockFence {
 	protected String[] woodNames;
 	protected IIcon[] iconsPost;
 	protected IIcon[] iconsPostTop;
 
-	public BlockTFCFence(String str, Material mat)
-	{
+	public BlockTFCFence(String str, Material mat) {
 		super(str, mat);
 		woodNames = new String[16];
 		System.arraycopy(Global.WOOD_ALL, 0, woodNames, 0, 16);
@@ -42,13 +38,16 @@ public class BlockTFCFence extends BlockFence
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 	}
 
+	public static boolean isBlockAFence(Block block) {
+		return TFCBlocks.isBlockAFence(block);
+	}
+
 	/**
 	 * Adds all intersecting collision boxes to a list. (Be sure to only add boxes to the list if they intersect the
 	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
 	 */
 	@Override
-	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aaBB, List list, Entity entity)
-	{
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aaBB, List list, Entity entity) {
 		boolean flag = this.canConnectFenceTo(world, x, y, z - 1);
 		boolean flag1 = this.canConnectFenceTo(world, x, y, z + 1);
 		boolean flag2 = this.canConnectFenceTo(world, x - 1, y, z);
@@ -61,8 +60,7 @@ public class BlockTFCFence extends BlockFence
 		if (flag) f2 = 0.0F;
 		if (flag1) f3 = 1.0F;
 
-		if (flag || flag1)
-		{
+		if (flag || flag1) {
 			this.setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
 			super.addCollisionBoxesToList(world, x, y, z, aaBB, list, entity);
 		}
@@ -73,8 +71,7 @@ public class BlockTFCFence extends BlockFence
 		if (flag2) f = 0.0F;
 		if (flag3) f1 = 1.0F;
 
-		if (flag2 || flag3 || !flag && !flag1)
-		{
+		if (flag2 || flag3 || !flag && !flag1) {
 			this.setBlockBounds(f, 0.0F, f2, f1, 1.5F, f3);
 			super.addCollisionBoxesToList(world, x, y, z, aaBB, list, entity);
 		}
@@ -83,15 +80,6 @@ public class BlockTFCFence extends BlockFence
 		if (flag1) f3 = 1.0F;
 
 		this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
-	}
-
-	@SuppressWarnings("unchecked")
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
-	{
-		for(int i = 0; i < woodNames.length; i++)
-			list.add(new ItemStack(this, 1, i));
 	}
 
 	/*@Override
@@ -103,11 +91,17 @@ public class BlockTFCFence extends BlockFence
 		return iconsPost[par1IBlockAccess.getBlockMetadata(par2, par3, par4)];
 	}*/
 
+	@SuppressWarnings("unchecked")
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegisterer)
-	{
-		for(int i = 0; i < woodNames.length; i++)
-		{
+	public void getSubBlocks(Item item, CreativeTabs tabs, List list) {
+		for (int i = 0; i < woodNames.length; i++)
+			list.add(new ItemStack(this, 1, i));
+	}
+
+	@Override
+	public void registerBlockIcons(IIconRegister iconRegisterer) {
+		for (int i = 0; i < woodNames.length; i++) {
 			iconsPost[i] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "wood/" + woodNames[i] + " Fence");
 			iconsPostTop[i] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "wood/" + woodNames[i] + " Fence Top");
 		}
@@ -117,8 +111,7 @@ public class BlockTFCFence extends BlockFence
 	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
 	 */
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess bAccess, int x, int y, int z)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess bAccess, int x, int y, int z) {
 		boolean flag = this.canConnectFenceTo(bAccess, x, y, z - 1);
 		boolean flag1 = this.canConnectFenceTo(bAccess, x, y, z + 1);
 		boolean flag2 = this.canConnectFenceTo(bAccess, x - 1, y, z);
@@ -141,23 +134,20 @@ public class BlockTFCFence extends BlockFence
 	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
 	 */
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public IIcon getIcon(int par1, int par2)
-	{
-		if(par1 == 1)
+	public IIcon getIcon(int par1, int par2) {
+		if (par1 == 1)
 			return iconsPostTop[par2];
 
 		return iconsPost[par2];
 	}
 
 	@Override
-	public int damageDropped(int par1)
-	{
+	public int damageDropped(int par1) {
 		return par1;
 	}
 
@@ -165,14 +155,12 @@ public class BlockTFCFence extends BlockFence
 	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess bAccess, int x, int y, int z)
-	{
+	public boolean getBlocksMovement(IBlockAccess bAccess, int x, int y, int z) {
 		return true;
 	}
 
@@ -180,8 +168,7 @@ public class BlockTFCFence extends BlockFence
 	 * The type of render function that is called for this block
 	 */
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.fenceRenderId;
 	}
 
@@ -190,8 +177,7 @@ public class BlockTFCFence extends BlockFence
 	 */
 	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
-	public boolean canConnectFenceTo(IBlockAccess bAccess, int x, int y, int z)
-	{
+	public boolean canConnectFenceTo(IBlockAccess bAccess, int x, int y, int z) {
 		Block block = bAccess.getBlock(x, y, z);
 
 		if (TFCBlocks.canFenceConnectTo(block))
@@ -200,19 +186,13 @@ public class BlockTFCFence extends BlockFence
 			return (block != this && block.getMaterial().isOpaque() && block.renderAsNormalBlock()) && block.getMaterial() != Material.gourd;
 	}
 
-	public static boolean isBlockAFence(Block block)
-	{
-		return TFCBlocks.isBlockAFence(block);
-	}
-
 	/**
 	 * Returns true if the given side of this block type should be rendered, if the adjacent block is at the given
 	 * coordinates.  Args: blockAccess, x, y, z, side
 	 */
 	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess bAccess, int x, int y, int z, int side)
-	{
+	public boolean shouldSideBeRendered(IBlockAccess bAccess, int x, int y, int z, int side) {
 		return true;
 	}
 
@@ -223,14 +203,12 @@ public class BlockTFCFence extends BlockFence
 	}
 
 	@Override
-	public boolean canPlaceTorchOnTop(World world, int x, int y, int z)
-	{
+	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
 		return true;
 	}
 
 	@Override
-	public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z)
-	{
+	public boolean canBeReplacedByLeaves(IBlockAccess world, int x, int y, int z) {
 		return false;
 	}
 }

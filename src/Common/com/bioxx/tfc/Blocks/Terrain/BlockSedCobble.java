@@ -1,14 +1,12 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
+import com.bioxx.tfc.api.Constant.Global;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.Constant.Global;
-
 @SuppressWarnings("SameParameterValue")
-public class BlockSedCobble extends BlockCobble
-{
+public class BlockSedCobble extends BlockCobble {
 	public BlockSedCobble(Material material) {
 		super(material);
 		names = Global.STONE_SED;
@@ -17,8 +15,7 @@ public class BlockSedCobble extends BlockCobble
 	}
 
 	@Override
-	public int tickRate(World world)
-	{
+	public int tickRate(World world) {
 		return 3;
 	}
 }

@@ -1,23 +1,22 @@
 package com.bioxx.tfc.Core;
 
-public class ColorizerFoliageTFC
-{
-	/** Color buffer for foliage */
+public class ColorizerFoliageTFC {
+	/**
+	 * Color buffer for foliage
+	 */
 	private static int[] foliageBuffer = new int[65536];
 
-	public static void setFoliageBiomeColorizer(int[] par0ArrayOfInteger)
-	{
+	public static void setFoliageBiomeColorizer(int[] par0ArrayOfInteger) {
 		foliageBuffer = par0ArrayOfInteger.clone();
 	}
 
 	/**
 	 * Gets foliage color from temperature and humidity. Args: temperature, humidity
 	 */
-	public static int getFoliageColor(double par0, double par2)
-	{
+	public static int getFoliageColor(double par0, double par2) {
 		par2 *= par0;
-		int var4 = (int)((1.0D - par0) * 255.0D);
-		int var5 = (int)((1.0D - par2) * 255.0D);
+		int var4 = (int) ((1.0D - par0) * 255.0D);
+		int var5 = (int) ((1.0D - par2) * 255.0D);
 		return foliageBuffer[var5 << 8 | var4];
 	}
 
@@ -25,8 +24,7 @@ public class ColorizerFoliageTFC
 	 * Gets the foliage color for pine type (metadata 1) trees
 	 */
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageColorPine()
-	{
+	public static int getFoliageColorPine() {
 		return 6396257;
 	}
 
@@ -34,38 +32,32 @@ public class ColorizerFoliageTFC
 	 * Gets the foliage color for birch type (metadata 2) trees
 	 */
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageColorBirch()
-	{
+	public static int getFoliageColorBirch() {
 		return 8431445;
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageColorBasic()
-	{
+	public static int getFoliageColorBasic() {
 		return 4764952;
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageDead()
-	{
+	public static int getFoliageDead() {
 		return 9004839;
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageOrange()
-	{
+	public static int getFoliageOrange() {
 		return 15765504;
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageYellow()
-	{
+	public static int getFoliageYellow() {
 		return 16763904;
 	}
 
 	@SuppressWarnings("SameReturnValue")
-	public static int getFoliageRed()
-	{
+	public static int getFoliageRed() {
 		return 9312280;
 	}
 }

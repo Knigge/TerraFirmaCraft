@@ -1,18 +1,16 @@
 package com.bioxx.tfc.ASM.Transform;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LineNumberNode;
 
-@SuppressWarnings("Convert2Diamond")
-public class TF_EntityPlayerMP extends ClassTransformer
-{
+import java.util.ArrayList;
+import java.util.List;
 
-	public TF_EntityPlayerMP()
-	{
+@SuppressWarnings("Convert2Diamond")
+public class TF_EntityPlayerMP extends ClassTransformer {
+
+	public TF_EntityPlayerMP() {
 		mcpClassName = "net.minecraft.entity.player.EntityPlayerMP";
 		obfClassName = "mw";
 

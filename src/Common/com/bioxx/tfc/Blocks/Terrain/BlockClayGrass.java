@@ -1,49 +1,41 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
+import java.util.ArrayList;
+import java.util.Random;
 
 @SuppressWarnings("Convert2Diamond")
-public class BlockClayGrass extends BlockGrass
-{
-	public BlockClayGrass(int texOff)
-	{
+public class BlockClayGrass extends BlockGrass {
+	public BlockClayGrass(int texOff) {
 		super(texOff);
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.clayGrassRenderId;
 	}
 
 	@Override
-	public int damageDropped(int dmg)
-	{
+	public int damageDropped(int dmg) {
 		return dmg;
 	}
 
 	@Override
-	public Item getItemDropped(int metadata, Random rand, int fortune)
-	{
+	public Item getItemDropped(int metadata, Random rand, int fortune) {
 		return TFCItems.clayBall;
 	}
 
 	@Override
-	public int quantityDropped(Random rand)
-	{
-		return 1+rand.nextInt(3);
+	public int quantityDropped(Random rand) {
+		return 1 + rand.nextInt(3);
 	}
 
 	/**
@@ -51,29 +43,25 @@ public class BlockClayGrass extends BlockGrass
 	 * but also need damageDropped to return the correct meta for localization purposes.
 	 */
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
-	{
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		int count = this.quantityDropped(world.rand);
 		Item item = getItemDropped(metadata, world.rand, fortune);
-		for(int i = 0; i < count; i++)
+		for (int i = 0; i < count; i++)
 			ret.add(new ItemStack(item, 1, 0));
 		return ret;
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
-	{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
 
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand)
-	{
+	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (world.getBlock(x, y + 1, z).isSideSolid(world, x, y + 1, z, ForgeDirection.DOWN))
 			world.setBlock(x, y, z, TFC_Core.getTypeForClay(world.getBlockMetadata(x, y, z) + textureOffset), world.getBlockMetadata(x, y, z), 0x2);
-		else if (world.canBlockSeeTheSky(x, y + 1, z))
-		{
+		else if (world.canBlockSeeTheSky(x, y + 1, z)) {
 			spreadGrass(world, x, y, z, rand);
 		}
 

@@ -1,13 +1,11 @@
 package com.bioxx.tfc.api;
 
+import com.bioxx.tfc.api.Constant.Global;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 
-import com.bioxx.tfc.api.Constant.Global;
-
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class TFCBlocks
-{
+public class TFCBlocks {
 	public static int clayGrassRenderId;
 	public static int peatGrassRenderId;
 	public static int sulfurRenderId;
@@ -241,28 +239,23 @@ public class TFCBlocks
 	public static Block flowerPot;
 
 
-	public static boolean isBlockVSupport(Block block)
-	{
+	public static boolean isBlockVSupport(Block block) {
 		return block == woodSupportV || block == woodSupportV2;
 	}
 
-	public static boolean isBlockHSupport(Block block)
-	{
+	public static boolean isBlockHSupport(Block block) {
 		return block == woodSupportH || block == woodSupportH2;
 	}
 
-	public static boolean isBlockAFence(Block block)
-	{
+	public static boolean isBlockAFence(Block block) {
 		return block == fence || block == fence2 || BlockFence.func_149825_a(block) || block instanceof BlockFence;
 	}
 
-	public static boolean canFenceConnectTo(Block block)
-	{
+	public static boolean canFenceConnectTo(Block block) {
 		return isBlockAFence(block) || block == fenceGate || block == fenceGate2;
 	}
 
-	public static boolean isArmourStand(Block block)
-	{
+	public static boolean isArmourStand(Block block) {
 		return block == armorStand || block == armorStand2;
 	}
 }

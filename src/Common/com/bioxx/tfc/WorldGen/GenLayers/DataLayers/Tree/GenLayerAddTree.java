@@ -1,13 +1,10 @@
 package com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Tree;
 
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 import net.minecraft.world.gen.layer.GenLayer;
 
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
-public class GenLayerAddTree extends GenLayerTFC
-{
-	public GenLayerAddTree(long par1, GenLayer par3GenLayer)
-	{
+public class GenLayerAddTree extends GenLayerTFC {
+	public GenLayerAddTree(long par1, GenLayer par3GenLayer) {
 		super(par1);
 		this.parent = (GenLayerTFC) par3GenLayer;
 	}
@@ -18,8 +15,7 @@ public class GenLayerAddTree extends GenLayerTFC
 	 */
 	@SuppressWarnings("UnusedAssignment")
 	@Override
-	public int[] getInts(int par1, int par2, int xMax, int zMax)
-	{
+	public int[] getInts(int par1, int par2, int xMax, int zMax) {
 		int var5 = par1 - 1;
 		int var6 = par2 - 1;
 		int var7 = xMax + 2;
@@ -27,10 +23,8 @@ public class GenLayerAddTree extends GenLayerTFC
 		int[] var9 = this.parent.getInts(var5, var6, var7, var8);
 		int[] outCache = new int[xMax * zMax];
 
-		for (int z = 0; z < zMax; ++z)
-		{
-			for (int x = 0; x < xMax; ++x)
-			{
+		for (int z = 0; z < zMax; ++z) {
+			for (int x = 0; x < xMax; ++x) {
 				int var13 = var9[x + (z) * var7];
 				int var14 = var9[x + 2 + (z) * var7];
 				int var15 = var9[x + (z + 2) * var7];

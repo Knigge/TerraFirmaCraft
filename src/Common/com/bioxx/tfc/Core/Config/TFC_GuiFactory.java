@@ -1,36 +1,30 @@
 package com.bioxx.tfc.Core.Config;
 
-import java.util.Set;
-
+import cpw.mods.fml.client.IModGuiFactory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 
-import cpw.mods.fml.client.IModGuiFactory;
+import java.util.Set;
 
 @SuppressWarnings("WeakerAccess")
-public class TFC_GuiFactory implements IModGuiFactory
-{
+public class TFC_GuiFactory implements IModGuiFactory {
 	@Override
-	public void initialize(Minecraft minecraftInstance)
-	{
+	public void initialize(Minecraft minecraftInstance) {
 		// Intentionally Empty
 	}
 
 	@Override
-	public Class<? extends GuiScreen> mainConfigGuiClass()
-	{
+	public Class<? extends GuiScreen> mainConfigGuiClass() {
 		return TFC_ConfigGUI.class;
 	}
 
 	@Override
-	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories()
-	{
+	public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
 		return null;
 	}
 
 	@Override
-	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element)
-	{
+	public RuntimeOptionGuiHandler getHandlerFor(RuntimeOptionCategoryElement element) {
 		return null;
 	}
 }

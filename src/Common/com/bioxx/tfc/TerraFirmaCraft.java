@@ -3,12 +3,21 @@
 //=======================================================
 package com.bioxx.tfc;
 
-import net.minecraft.world.WorldType;
-
-import net.minecraftforge.common.DimensionManager;
-import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.common.MinecraftForge;
-
+import com.bioxx.tfc.Commands.*;
+import com.bioxx.tfc.Core.Config.TFC_ConfigFiles;
+import com.bioxx.tfc.Core.*;
+import com.bioxx.tfc.Core.Player.PlayerTracker;
+import com.bioxx.tfc.Food.TFCPotion;
+import com.bioxx.tfc.Handlers.*;
+import com.bioxx.tfc.Handlers.Network.PacketPipeline;
+import com.bioxx.tfc.WorldGen.Generators.*;
+import com.bioxx.tfc.WorldGen.TFCProvider;
+import com.bioxx.tfc.WorldGen.TFCProviderHell;
+import com.bioxx.tfc.WorldGen.TFCWorldType;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.SkillsManager;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
 import cpw.mods.fml.client.event.ConfigChangedEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -21,46 +30,28 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
-
-import com.bioxx.tfc.Commands.*;
-import com.bioxx.tfc.Core.*;
-import com.bioxx.tfc.Core.Config.TFC_ConfigFiles;
-import com.bioxx.tfc.Core.Player.PlayerTracker;
-import com.bioxx.tfc.Food.TFCPotion;
-import com.bioxx.tfc.Handlers.*;
-import com.bioxx.tfc.Handlers.Network.PacketPipeline;
-import com.bioxx.tfc.WorldGen.TFCProvider;
-import com.bioxx.tfc.WorldGen.TFCProviderHell;
-import com.bioxx.tfc.WorldGen.TFCWorldType;
-import com.bioxx.tfc.WorldGen.Generators.*;
-import com.bioxx.tfc.api.SkillsManager;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Constant.Global;
+import net.minecraft.world.WorldType;
+import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.MinecraftForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.MOD_VERSION, dependencies = Reference.MOD_DEPENDENCIES, guiFactory = Reference.GUI_FACTORY)
-public class TerraFirmaCraft
-{
+public class TerraFirmaCraft {
 	public static final Logger LOG = LogManager.getLogger(Reference.MOD_NAME);
-
+	// The packet pipeline
+	public static final PacketPipeline PACKET_PIPELINE = new PacketPipeline();
 	@Instance(Reference.MOD_ID)
 	public static TerraFirmaCraft instance;
-
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.SERVER_PROXY_CLASS)
 	public static CommonProxy proxy;
 
-	// The packet pipeline
-	public static final PacketPipeline PACKET_PIPELINE = new PacketPipeline();
-
-	public TerraFirmaCraft()
-	{
+	public TerraFirmaCraft() {
 	}
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event)
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		TFC_ConfigFiles.preInit(event.getModConfigurationDirectory());
 		TFC_ConfigFiles.reloadGeneral(); // No special needs
 		// No world gen here, other mods may need to load first!
@@ -138,8 +129,7 @@ public class TerraFirmaCraft
 	}
 
 	@EventHandler
-	public void initialize(FMLInitializationEvent event)
-	{
+	public void initialize(FMLInitializationEvent event) {
 		// Register Packet Handler
 		PACKET_PIPELINE.initalise();
 
@@ -216,8 +206,7 @@ public class TerraFirmaCraft
 	}
 
 	@EventHandler
-	public void postInit (FMLPostInitializationEvent evt)
-	{
+	public void postInit(FMLPostInitializationEvent evt) {
 		PACKET_PIPELINE.postInitialise();
 
 		// Now that blocks are resisted, go ahead and do worldgen configs
@@ -227,8 +216,7 @@ public class TerraFirmaCraft
 	}
 
 	@EventHandler
-	public void serverStarting(FMLServerStartingEvent evt)
-	{
+	public void serverStarting(FMLServerStartingEvent evt) {
 		evt.registerServerCommand(new GetBioTempCommand());
 		evt.registerServerCommand(new GetTreesCommand());
 		evt.registerServerCommand(new GetRocksCommand());
@@ -249,8 +237,7 @@ public class TerraFirmaCraft
 	}
 
 	@SubscribeEvent
-	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs)
-	{
+	public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
 		if (eventArgs.modID.equals(Reference.MOD_ID)) TFC_ConfigFiles.reloadAll();
 	}
 }

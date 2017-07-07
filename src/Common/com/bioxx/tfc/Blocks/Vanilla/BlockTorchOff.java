@@ -1,9 +1,11 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.Core.WeatherManager;
+import com.bioxx.tfc.TileEntities.TELightEmitter;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,19 +13,13 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Core.TFC_Time;
-import com.bioxx.tfc.TileEntities.TELightEmitter;
-import com.bioxx.tfc.api.TFCBlocks;
+import java.util.ArrayList;
+import java.util.Random;
 
 @SuppressWarnings("Convert2Diamond")
-public class BlockTorchOff extends BlockTorch
-{
+public class BlockTorchOff extends BlockTorch {
 
-	public BlockTorchOff()
-	{
+	public BlockTorchOff() {
 		super();
 		this.setCreativeTab(null);
 		this.setTickRandomly(false);
@@ -31,31 +27,25 @@ public class BlockTorchOff extends BlockTorch
 	}
 
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z)
-	{
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
 		return 0;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		return offIcon;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!world.isRemote)
-		{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
 			if (player.inventory.getCurrentItem() != null &&
-				player.inventory.getCurrentItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch) &&
-					!WeatherManager.isRainingOnCoord(world, x, y, z))
-			{
+					player.inventory.getCurrentItem().getItem() == Item.getItemFromBlock(TFCBlocks.torch) &&
+					!WeatherManager.isRainingOnCoord(world, x, y, z)) {
 				int meta = world.getBlockMetadata(x, y, z);
 				world.setBlock(x, y, z, TFCBlocks.torch, meta, 3);
-				if (world.getTileEntity(x, y, z) instanceof TELightEmitter)
-				{
+				if (world.getTileEntity(x, y, z) instanceof TELightEmitter) {
 					TELightEmitter te = (TELightEmitter) world.getTileEntity(x, y, z);
 					te.hourPlaced = (int) TFC_Time.getTotalHours();
 				}
@@ -65,8 +55,7 @@ public class BlockTorchOff extends BlockTorch
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
-	{
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		// Burned out torches drop nothing.
 		return new ArrayList<ItemStack>();
 	}
@@ -76,8 +65,7 @@ public class BlockTorchOff extends BlockTorch
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void randomDisplayTick(World world, int x, int y, int z, Random rand)
-	{
+	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
 		// Burned out torches have no particles
 	}
 

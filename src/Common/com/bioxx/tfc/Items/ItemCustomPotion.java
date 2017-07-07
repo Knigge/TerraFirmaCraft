@@ -11,55 +11,45 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-public class ItemCustomPotion extends ItemPotion
-{
-	/** maps potion damage values to lists of effect names */
+public class ItemCustomPotion extends ItemPotion {
+	/**
+	 * maps potion damage values to lists of effect names
+	 */
 	/*private HashMap effectCache = new HashMap();
 	private static final Map field_77835_b = new LinkedHashMap();*/
-
-	public ItemCustomPotion()
-	{
+	public ItemCustomPotion() {
 		super();
 		this.setCreativeTab(TFCTabs.TFC_FOODS);
 	}
 
 	@Override
-	public ItemStack onEaten(ItemStack is, World world, EntityPlayer player)
-	{
-		if (!player.capabilities.isCreativeMode)
-		{
+	public ItemStack onEaten(ItemStack is, World world, EntityPlayer player) {
+		if (!player.capabilities.isCreativeMode) {
 			--is.stackSize;
 		}
 
-		if (!world.isRemote)
-		{
+		if (!world.isRemote) {
 			List var4 = this.getEffects(is);
 
-			if (var4 != null)
-			{
+			if (var4 != null) {
 
 				for (Object aVar4 : var4) {
 					PotionEffect var6 = (PotionEffect) aVar4;
 					player.addPotionEffect(new PotionEffect(var6));
 				}
-			}
-			else
-			{
+			} else {
 				TFC_Core.getPlayerFoodStats(player).restoreWater(player, 12000);
 			}
 		}
 
-		if (!player.capabilities.isCreativeMode)
-		{
+		if (!player.capabilities.isCreativeMode) {
 			boolean broken = false;
-			if(world.rand.nextInt(50) == 0)
-			{
+			if (world.rand.nextInt(50) == 0) {
 				player.playSound("random.glass", 0.7f, player.worldObj.rand.nextFloat() * 0.2F + 0.8F);
 				broken = true;
 			}
 
-			if (!broken && is.stackSize <= 0)
-			{
+			if (!broken && is.stackSize <= 0) {
 				return new ItemStack(Items.glass_bottle);
 			}
 		}

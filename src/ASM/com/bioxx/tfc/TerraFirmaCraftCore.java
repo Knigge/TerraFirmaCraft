@@ -3,8 +3,7 @@
 //=======================================================
 package com.bioxx.tfc;
 
-import java.util.Arrays;
-
+import com.google.common.eventbus.EventBus;
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.LoadController;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -17,12 +16,11 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 
-import com.google.common.eventbus.EventBus;
+import java.util.Arrays;
 
 @SuppressWarnings("WeakerAccess")
 @MCVersion(value = "1.7.10")
-public class TerraFirmaCraftCore extends DummyModContainer
-{
+public class TerraFirmaCraftCore extends DummyModContainer {
 	@Instance("tfc_coremod")
 	public static TerraFirmaCraftCore instance;
 
@@ -30,8 +28,7 @@ public class TerraFirmaCraftCore extends DummyModContainer
 	public static CommonProxy proxy;
 
 
-	public TerraFirmaCraftCore()
-	{
+	public TerraFirmaCraftCore() {
 		super(new ModMetadata());
 		ModMetadata meta = getMetadata();
 		meta.modId = "tfc_coremod";
@@ -53,28 +50,24 @@ public class TerraFirmaCraftCore extends DummyModContainer
 	}
 
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) 
-	{
+	public void preInit(FMLPreInitializationEvent event) {
 		instance = this;
 
 	}
 
 	@EventHandler
-	public void initialize(FMLInitializationEvent evt)
-	{
+	public void initialize(FMLInitializationEvent evt) {
 
 	}
 
 	@EventHandler
-	public void modsLoaded(FMLPostInitializationEvent evt) 
-	{
+	public void modsLoaded(FMLPostInitializationEvent evt) {
 
 	}
 
 	@EventHandler
-	public void serverStarting(FMLServerStartingEvent evt)
-	{
+	public void serverStarting(FMLServerStartingEvent evt) {
 
-	}	
+	}
 
 }

@@ -1,12 +1,5 @@
 package com.bioxx.tfc.Containers;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-
 import com.bioxx.tfc.Containers.Slots.SlotAnvilFlux;
 import com.bioxx.tfc.Containers.Slots.SlotAnvilHammer;
 import com.bioxx.tfc.Containers.Slots.SlotAnvilIn;
@@ -15,17 +8,21 @@ import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.TileEntities.TEAnvil;
 import com.bioxx.tfc.api.TFCItems;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.ICrafting;
+import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 
 @SuppressWarnings("CanBeFinal")
-public class ContainerAnvil extends ContainerTFC
-{
+public class ContainerAnvil extends ContainerTFC {
 	private TEAnvil anvil;
 	private int greenIndicator;
 	private int redIndicator;
 	private int tier = -1;
 
-	public ContainerAnvil(InventoryPlayer inventoryplayer, TEAnvil anvil, World world, int x, int y, int z)
-	{
+	public ContainerAnvil(InventoryPlayer inventoryplayer, TEAnvil anvil, World world, int x, int y, int z) {
 		this.anvil = anvil;
 
 		redIndicator = -1000;
@@ -37,8 +34,8 @@ public class ContainerAnvil extends ContainerTFC
 		addSlotToContainer(new SlotAnvilIn(anvil, 1, 87, 46));
 
 		//Weld slots
-		addSlotToContainer(new SlotAnvilIn(anvil,  2, 14, 12));
-		addSlotToContainer(new SlotAnvilIn(anvil,  3, 32, 12));
+		addSlotToContainer(new SlotAnvilIn(anvil, 2, 14, 12));
+		addSlotToContainer(new SlotAnvilIn(anvil, 3, 32, 12));
 		addSlotToContainer(new SlotAnvilWeldOut(anvil, 4, 23, 34));
 		//blueprint slot
 		addSlotToContainer(new SlotAnvilIn(anvil, 5, 105, 46));
@@ -64,34 +61,29 @@ public class ContainerAnvil extends ContainerTFC
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)inventorySlots.get(slotNum);
-		Slot slothammer = (Slot)inventorySlots.get(0);
-		Slot[] slotinput = {(Slot)inventorySlots.get(1), (Slot)inventorySlots.get(2), (Slot)inventorySlots.get(3), (Slot)inventorySlots.get(5)};
+		Slot slot = (Slot) inventorySlots.get(slotNum);
+		Slot slothammer = (Slot) inventorySlots.get(0);
+		Slot[] slotinput = {(Slot) inventorySlots.get(1), (Slot) inventorySlots.get(2), (Slot) inventorySlots.get(3), (Slot) inventorySlots.get(5)};
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From anvil to inventory
-			if (slotNum < 7)
-			{
+			if (slotNum < 7) {
 				if (!this.mergeItemStack(slotStack, 7, inventorySlots.size(), true))
 					return null;
 			}
 			// Flux
-			else if(slotStack.getItem() == TFCItems.powder && slotStack.getItemDamage() == 0)
-			{
+			else if (slotStack.getItem() == TFCItems.powder && slotStack.getItemDamage() == 0) {
 				if (!this.mergeItemStack(slotStack, 6, 7, false))
 					return null;
 			}
 			// Hammer
-			else if(slotStack.getItem() instanceof ItemHammer)
-			{
-				if(slothammer.getHasStack())
+			else if (slotStack.getItem() instanceof ItemHammer) {
+				if (slothammer.getHasStack())
 					return null;
 				ItemStack stack = slotStack.copy();
 				stack.stackSize = 1;
@@ -99,15 +91,12 @@ public class ContainerAnvil extends ContainerTFC
 				slotStack.stackSize--;
 			}
 			// Input & Weld Slots
-			else
-			{
+			else {
 				int j = 0;
-				while(j < slotinput.length)
-				{
-					if(slotinput[j].getHasStack())
+				while (j < slotinput.length) {
+					if (slotinput[j].getHasStack())
 						j++;
-					else
-					{
+					else {
 						ItemStack stack = slotStack.copy();
 						stack.stackSize = 1;
 						slotinput[j].putStack(stack);
@@ -117,7 +106,7 @@ public class ContainerAnvil extends ContainerTFC
 				}
 			}
 
-			if(slotStack.stackSize <= 0)
+			if (slotStack.stackSize <= 0)
 				slot.putStack(null);
 			else
 				slot.onSlotChanged();
@@ -132,8 +121,7 @@ public class ContainerAnvil extends ContainerTFC
 	}
 
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 
 		for (Object crafter : this.crafters) {
@@ -156,14 +144,12 @@ public class ContainerAnvil extends ContainerTFC
 	}
 
 	/**
-	 * This is needed to make sure that something is done when 
+	 * This is needed to make sure that something is done when
 	 * the client receives the updated progress bar
-	 * */
+	 */
 	@Override
-	public void updateProgressBar(int par1, int par2)
-	{
-		if(anvil != null)
-		{
+	public void updateProgressBar(int par1, int par2) {
+		if (anvil != null) {
 			if (par1 == 0)
 				this.anvil.craftingValue = par2;
 			else if (par1 == 1)
@@ -174,8 +160,7 @@ public class ContainerAnvil extends ContainerTFC
 	}
 
 	@Override
-	public void onContainerClosed(EntityPlayer par1EntityPlayer)
-	{
+	public void onContainerClosed(EntityPlayer par1EntityPlayer) {
 		super.onContainerClosed(par1EntityPlayer);
 		anvil.closeInventory();
 	}

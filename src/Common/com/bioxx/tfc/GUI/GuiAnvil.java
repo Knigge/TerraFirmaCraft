@@ -1,9 +1,15 @@
 package com.bioxx.tfc.GUI;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
+import com.bioxx.tfc.Containers.ContainerAnvil;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Textures;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.TEAnvil;
+import com.bioxx.tfc.api.Crafting.AnvilManager;
+import com.bioxx.tfc.api.Crafting.PlanRecipe;
+import com.bioxx.tfc.api.Enums.RuleEnum;
+import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
@@ -14,33 +20,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Containers.ContainerAnvil;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Textures;
-import com.bioxx.tfc.TileEntities.TEAnvil;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Crafting.AnvilManager;
-import com.bioxx.tfc.api.Crafting.PlanRecipe;
-import com.bioxx.tfc.api.Enums.RuleEnum;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
-public class GuiAnvil extends GuiContainerTFC
-{
-	public TEAnvil anvilTE;
+public class GuiAnvil extends GuiContainerTFC {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_anvil.png");
+	public TEAnvil anvilTE;
 	private EntityPlayer player;
 	private int x, y, z;
 	private String plan = "";
 	private ItemStack input;
 	private ItemStack input2;
 
-	public GuiAnvil(InventoryPlayer inventoryplayer, TEAnvil te, World world, int x, int y, int z)
-	{
+	public GuiAnvil(InventoryPlayer inventoryplayer, TEAnvil te, World world, int x, int y, int z) {
 		super(new ContainerAnvil(inventoryplayer, te, world, x, y, z), 208, 117);
 		anvilTE = te;
 		player = inventoryplayer.player;
@@ -51,8 +47,7 @@ public class GuiAnvil extends GuiContainerTFC
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void initGui()
-	{
+	public void initGui() {
 		super.initGui();
 
 		buttonList.clear();
@@ -72,8 +67,7 @@ public class GuiAnvil extends GuiContainerTFC
 	}
 
 	@Override
-	public void updateScreen()
-	{
+	public void updateScreen() {
 		super.updateScreen();
 		if (anvilTE != null) // Fixes NPE
 		{
@@ -82,7 +76,7 @@ public class GuiAnvil extends GuiContainerTFC
 			ItemStack stack2 = this.anvilTE.anvilItemStacks[TEAnvil.INPUT2_SLOT];
 
 			if (craftingPlan != null && !Objects.equals(craftingPlan, plan) ||
-					stack1 != null && stack1 != input || 
+					stack1 != null && stack1 != input ||
 					stack2 != null && stack2 != input2) // Fixes NPE
 			{
 				plan = this.anvilTE.craftingPlan;
@@ -94,8 +88,7 @@ public class GuiAnvil extends GuiContainerTFC
 	}
 
 	@Override
-	protected void actionPerformed(GuiButton guibutton)
-	{
+	protected void actionPerformed(GuiButton guibutton) {
 		if (guibutton.id == 0)
 			anvilTE.actionLightHammer();
 		else if (guibutton.id == 2)
@@ -120,16 +113,13 @@ public class GuiAnvil extends GuiContainerTFC
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
-	{
+	protected void drawGuiContainerBackgroundLayer(float f, int i, int j) {
 		this.drawGui(texture);
 	}
 
 	@Override
-	protected void drawForeground(int guiLeft, int guiTop)
-	{
-		if (anvilTE != null)
-		{
+	protected void drawForeground(int guiLeft, int guiTop) {
+		if (anvilTE != null) {
 			int i1 = anvilTE.getCraftingValue();
 			drawTexturedModalRect(guiLeft + 27 + i1, guiTop + 103, 213, 10, 5, 5);
 
@@ -137,8 +127,7 @@ public class GuiAnvil extends GuiContainerTFC
 			drawTexturedModalRect(guiLeft + 27 + i1, guiTop + 108, 208, 10, 5, 6);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 0.5F);
 			//Round to 1 decimal place XX.X%
-			if (anvilTE.workRecipe != null)
-			{
+			if (anvilTE.workRecipe != null) {
 				int s0 = (int) (anvilTE.workRecipe.getSkillMult(player) * 1000);
 				float s1 = s0 / 10f;
 				fontRendererObj.drawString("Skill: " + s1 + "%", guiLeft + 150, guiTop + 8, 0xff6000);
@@ -152,8 +141,7 @@ public class GuiAnvil extends GuiContainerTFC
 	}
 
 	@Override
-	public void drawTooltip(int mx, int my, String text)
-	{
+	public void drawTooltip(int mx, int my, String text) {
 		List<String> list = new ArrayList<String>();
 		list.add(text);
 		this.drawHoveringText(list, mx, my + 15, this.fontRendererObj);
@@ -162,10 +150,8 @@ public class GuiAnvil extends GuiContainerTFC
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 	}
 
-	public void drawItemRulesImages(int w, int h)
-	{
-		if (anvilTE != null && anvilTE.itemCraftingRules != null)
-		{
+	public void drawItemRulesImages(int w, int h) {
+		if (anvilTE != null && anvilTE.itemCraftingRules != null) {
 			PlanRecipe p = AnvilManager.getInstance().getPlan(anvilTE.craftingPlan);
 			if (p == null)
 				return;
@@ -199,10 +185,8 @@ public class GuiAnvil extends GuiContainerTFC
 		//drawTexturedModalRect(w + 75, h + 7, 208, 49, 19, 21);
 	}
 
-	public void drawRulesImages(int w, int h)
-	{
-		if (anvilTE.workRecipe != null)
-		{
+	public void drawRulesImages(int w, int h) {
+		if (anvilTE.workRecipe != null) {
 			PlanRecipe p = AnvilManager.getInstance().getPlan(anvilTE.craftingPlan);
 			if (p == null)
 				return;
@@ -245,30 +229,27 @@ public class GuiAnvil extends GuiContainerTFC
 		//drawTexturedModalRect(w + 75, h + 7, 208, 49, 19, 21);
 	}
 
-	public IIcon getIconFromRule(int action)
-	{
-		switch (action)
-		{
-		case 0:
-			return TFC_Textures.anvilHit;
-		case 1:
-			return TFC_Textures.anvilDraw;
-		case 3:
-			return TFC_Textures.anvilPunch;
-		case 4:
-			return TFC_Textures.anvilBend;
-		case 5:
-			return TFC_Textures.anvilUpset;
-		case 6:
-			return TFC_Textures.anvilShrink;
-		default:
-			return TFC_Textures.invisibleTexture;
+	public IIcon getIconFromRule(int action) {
+		switch (action) {
+			case 0:
+				return TFC_Textures.anvilHit;
+			case 1:
+				return TFC_Textures.anvilDraw;
+			case 3:
+				return TFC_Textures.anvilPunch;
+			case 4:
+				return TFC_Textures.anvilBend;
+			case 5:
+				return TFC_Textures.anvilUpset;
+			case 6:
+				return TFC_Textures.anvilShrink;
+			default:
+				return TFC_Textures.invisibleTexture;
 		}
 	}
 
 	@Override
-	protected boolean func_146978_c/*isPointInRegion*/(int slotX, int slotY, int sizeX, int sizeY, int clickX, int clickY)
-	{
+	protected boolean func_146978_c/*isPointInRegion*/(int slotX, int slotY, int sizeX, int sizeY, int clickX, int clickY) {
 		int k1 = this.guiLeft;
 		int l1 = this.guiTop;
 		clickX -= k1;
@@ -279,8 +260,7 @@ public class GuiAnvil extends GuiContainerTFC
 	/**
 	 * Draws a textured rectangle at the stored z-value. Args: x, y, u, v, width, height
 	 */
-	public void drawTexturedModalRect(int drawX, int drawY, int drawWidth, int drawHeight, int u, int v, int width, int height)
-	{
+	public void drawTexturedModalRect(int drawX, int drawY, int drawWidth, int drawHeight, int u, int v, int width, int height) {
 		float f = 0.00390625F;
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
@@ -293,8 +273,7 @@ public class GuiAnvil extends GuiContainerTFC
 	}
 
 	@Override
-	public void drawTexturedModelRectFromIcon(int x, int y, IIcon par3Icon, int width, int height)
-	{
+	public void drawTexturedModelRectFromIcon(int x, int y, IIcon par3Icon, int width, int height) {
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
 		tessellator.addVertexWithUV(x, y + height, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());

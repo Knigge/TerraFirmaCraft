@@ -1,13 +1,12 @@
 package com.bioxx.tfc.Food;
 
-import java.util.Random;
-
 import net.minecraft.item.ItemStack;
+
+import java.util.Random;
 
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class FloraIndex
-{
+public class FloraIndex {
 	public String type;
 	public int bloomStart;
 	public int bloomFinish;
@@ -31,8 +30,7 @@ public class FloraIndex
 	 * h1 = Harvest Start Month
 	 * h2 = Harvest End Month
 	 */
-	public FloraIndex(String n, int b1, int b2, int h1, int h2, ItemStack o)
-	{
+	public FloraIndex(String n, int b1, int b2, int h1, int h2, ItemStack o) {
 		minEVT = 0.25f;
 		type = n;
 		bloomStart = b1;
@@ -42,8 +40,7 @@ public class FloraIndex
 		output = o;
 	}
 
-	public FloraIndex(String n, int h1, int h2, ItemStack o)
-	{
+	public FloraIndex(String n, int h1, int h2, ItemStack o) {
 		minEVT = 0.25f;
 		type = n;
 		bloomStart = 0;
@@ -53,57 +50,48 @@ public class FloraIndex
 		output = o;
 	}
 
-	public FloraIndex setHangTime(int time)
-	{
+	public FloraIndex setHangTime(int time) {
 		fruitHangTime = time;
 		return this;
 	}
 
-	public FloraIndex setBioTemp(float min, float max)
-	{
+	public FloraIndex setBioTemp(float min, float max) {
 		this.minBioTemp = min;
 		this.maxBioTemp = max;
 		return this;
 	}
 
-	public FloraIndex setRain(float min, float max)
-	{
+	public FloraIndex setRain(float min, float max) {
 		this.minRain = min;
 		this.maxRain = max;
 		return this;
 	}
 
-	public FloraIndex setEVT(float min, float max)
-	{
+	public FloraIndex setEVT(float min, float max) {
 		this.minEVT = min;
 		this.maxEVT = max;
 		return this;
 	}
 
-	public ItemStack getOutput(Random r, int i)
-	{
+	public ItemStack getOutput(Random r, int i) {
 		ItemStack is = output.copy();
 		is.stackSize += r.nextInt(i);
 		return is;
 	}
 
-	public ItemStack getOutput()
-	{
+	public ItemStack getOutput() {
 		return output.copy();
 	}
 
-	public boolean inHarvest(int month)
-	{
+	public boolean inHarvest(int month) {
 		return month >= harvestStart && month <= harvestFinish;
 	}
 
-	public boolean inBloom(int month)
-	{
+	public boolean inBloom(int month) {
 		return month >= bloomStart && month <= bloomFinish;
 	}
 
-	public FloraIndex setTemp(float min, float max)
-	{
+	public FloraIndex setTemp(float min, float max) {
 		minTemp = min;
 		maxTemp = max;
 		return this;

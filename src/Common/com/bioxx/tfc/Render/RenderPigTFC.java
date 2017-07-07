@@ -12,14 +12,13 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class RenderPigTFC extends RenderPig
-{
+public class RenderPigTFC extends RenderPig {
 
 	private static final ResourceLocation PIG_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/pig.png");
-	private static final ResourceLocation PIGVIL_TEXTURE = new ResourceLocation(Reference.MOD_ID,"textures/mob/pigvil.png");
-	public RenderPigTFC(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)
-	{
-		super(par1ModelBase,par2ModelBase, par3);
+	private static final ResourceLocation PIGVIL_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/pigvil.png");
+
+	public RenderPigTFC(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3) {
+		super(par1ModelBase, par2ModelBase, par3);
 	}
 
 	/**
@@ -29,35 +28,31 @@ public class RenderPigTFC extends RenderPig
 	 * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
 	 */
 	@Override
-	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
-	{
-		this.shadowSize = 0.35f + (TFC_Core.getPercentGrown((IAnimal)par1Entity)*0.35f);
+	public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9) {
+		this.shadowSize = 0.35f + (TFC_Core.getPercentGrown((IAnimal) par1Entity) * 0.35f);
 		super.doRender(par1Entity, par2, par4, par6, par8, par9);
 	}
 
 	@Override
-	protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2)
-	{
+	protected void preRenderCallback(EntityLivingBase par1EntityLivingBase, float par2) {
 		float scale = ((EntityPigTFC) par1EntityLivingBase).getSizeMod() / 2 + 0.5f;
 		GL11.glScalef(scale, scale, scale);
 	}
 
 	@Override
-	protected ResourceLocation getEntityTexture(Entity entity)
-	{
+	protected ResourceLocation getEntityTexture(Entity entity) {
 		return PIG_TEXTURE;
 	}
 
-	protected int shouldRenderPass(EntityPigTFC pig, int p_77032_2_, float p_77032_3_)
-	{
-		if(pig.hasCustomNameTag() && "Pigvil".equals(pig.getCustomNameTag())) {
+	protected int shouldRenderPass(EntityPigTFC pig, int p_77032_2_, float p_77032_3_) {
+		if (pig.hasCustomNameTag() && "Pigvil".equals(pig.getCustomNameTag())) {
 			this.bindTexture(PIGVIL_TEXTURE);
 			return 1;
 		}
 		return -1;
 	}
-	protected int shouldRenderPass(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_)
-	{
-		return this.shouldRenderPass((EntityPigTFC)p_77032_1_, p_77032_2_, p_77032_3_);
+
+	protected int shouldRenderPass(EntityLivingBase p_77032_1_, int p_77032_2_, float p_77032_3_) {
+		return this.shouldRenderPass((EntityPigTFC) p_77032_1_, p_77032_2_, p_77032_3_);
 	}
 }

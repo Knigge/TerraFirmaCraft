@@ -10,104 +10,86 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class TEWorkbench extends TileEntity implements IInventory
-{
+public class TEWorkbench extends TileEntity implements IInventory {
 	public ItemStack[] craftingMatrix;
 
-	public TEWorkbench()
-	{
+	public TEWorkbench() {
 		craftingMatrix = new ItemStack[9];
 	}
 
 	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		if(craftingMatrix[i] != null)
-		{
-			if(craftingMatrix[i].stackSize <= j)
-			{
+	public ItemStack decrStackSize(int i, int j) {
+		if (craftingMatrix[i] != null) {
+			if (craftingMatrix[i].stackSize <= j) {
 				ItemStack itemstack = craftingMatrix[i];
 				craftingMatrix[i] = null;
 				return itemstack;
 			}
 			ItemStack itemstack1 = craftingMatrix[i].splitStack(j);
-			if(craftingMatrix[i].stackSize == 0)
+			if (craftingMatrix[i].stackSize == 0)
 				craftingMatrix[i] = null;
 			return itemstack1;
-		}
-		else
+		} else
 			return null;
 	}
 
 	@Override
-	public int getInventoryStackLimit()
-	{
+	public int getInventoryStackLimit() {
 		return 64;
 	}
 
 	@Override
-	public int getSizeInventory()
-	{
+	public int getSizeInventory() {
 		return craftingMatrix.length;
 	}
 
 	@Override
-	public ItemStack getStackInSlot(int i)
-	{
+	public ItemStack getStackInSlot(int i) {
 		return craftingMatrix[i];
 	}
 
 	@Override
-	public ItemStack getStackInSlotOnClosing(int var1)
-	{
+	public ItemStack getStackInSlotOnClosing(int var1) {
 		return null;
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack) 
-	{
+	public void setInventorySlotContents(int i, ItemStack itemstack) {
 		craftingMatrix[i] = itemstack;
-		if(itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+		if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
 	@Override
-	public void updateEntity()
-	{
+	public void updateEntity() {
 	}
 
 	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack) 
-	{
+	public boolean isItemValidForSlot(int i, ItemStack itemstack) {
 		return false;
 	}
 
 	@Override
-	public String getInventoryName()
-	{
+	public String getInventoryName() {
 		return "Workbench";
 	}
 
 	@Override
-	public boolean hasCustomInventoryName()
-	{
+	public boolean hasCustomInventoryName() {
 		return false;
 	}
 
 	@Override
-	public void openInventory()
-	{
+	public void openInventory() {
 	}
 
 	@Override
-	public void closeInventory()
-	{
+	public void closeInventory() {
 	}
 
 	/*@Override
@@ -123,16 +105,14 @@ public class TEWorkbench extends TileEntity implements IInventory
 	}*/
 
 	@Override
-	public Packet getDescriptionPacket()
-	{
+	public Packet getDescriptionPacket() {
 		NBTTagCompound nbt = new NBTTagCompound();
 		writeToNBT(nbt);
 		return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, nbt);
 	}
 
 	@Override
-	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt)
-	{
+	public void onDataPacket(NetworkManager net, S35PacketUpdateTileEntity pkt) {
 		readFromNBT(pkt.func_148857_g());
 	}
 }

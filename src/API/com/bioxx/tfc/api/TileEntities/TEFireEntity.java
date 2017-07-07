@@ -1,16 +1,15 @@
 package com.bioxx.tfc.api.TileEntities;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.bioxx.tfc.TileEntities.NetworkTileEntity;
 import com.bioxx.tfc.api.HeatIndex;
 import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFC_ItemHeat;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class TEFireEntity extends NetworkTileEntity
-{
+public class TEFireEntity extends NetworkTileEntity {
+	public static final int AIRTOADD = 200;
 	public int airFromBellows;
 	public float fireTemp;
 	public int maxFireTempScale = 2000; // Fixes NPE
@@ -18,96 +17,75 @@ public class TEFireEntity extends NetworkTileEntity
 	public int fuelBurnTemp;
 	public int fuelTasteProfile;
 
-	public static final int AIRTOADD = 200;
-
-	public TEFireEntity()
-	{
+	public TEFireEntity() {
 	}
 
-	public void careForInventorySlot(ItemStack is)
-	{
-		if(is != null)
-		{
+	public void careForInventorySlot(ItemStack is) {
+		if (is != null) {
 			HeatRegistry manager = HeatRegistry.getInstance();
 			HeatIndex index = manager.findMatchingIndex(is);
 
-			if (index != null && index.hasOutput())
-			{
+			if (index != null && index.hasOutput()) {
 				float temp = TFC_ItemHeat.getTemp(is);
-				if (fireTemp > temp)
-				{
+				if (fireTemp > temp) {
 					temp += TFC_ItemHeat.getTempIncrease(is);
-				}
-				else
+				} else
 					temp -= TFC_ItemHeat.getTempDecrease(is);
 				TFC_ItemHeat.setTemp(is, temp);
 			}
 		}
 	}
 
-	public void receiveAirFromBellows()
-	{
-		if(airFromBellows < AIRTOADD * 3)
+	public void receiveAirFromBellows() {
+		if (airFromBellows < AIRTOADD * 3)
 			airFromBellows += AIRTOADD;
-		if(airFromBellows > AIRTOADD * 3)
+		if (airFromBellows > AIRTOADD * 3)
 			airFromBellows = AIRTOADD * 3;
 	}
 
-	public void keepTempToRange()
-	{
-		if(fireTemp > getMaxTemp())
+	public void keepTempToRange() {
+		if (fireTemp > getMaxTemp())
 			fireTemp = getMaxTemp();
-		else if(fireTemp < 0)
+		else if (fireTemp < 0)
 			fireTemp = 0;
 	}
 
-	public int getMaxTemp()
-	{
+	public int getMaxTemp() {
 		return fuelBurnTemp + airFromBellows;
 	}
 
-	public int getTemperatureScaled(int s)
-	{
-		return (int)(fireTemp * s / maxFireTempScale);
+	public int getTemperatureScaled(int s) {
+		return (int) (fireTemp * s / maxFireTempScale);
 	}
 
-	protected float handleTemp()
-	{
-		if(fuelTimeLeft > 0)
-		{
+	protected float handleTemp() {
+		if (fuelTimeLeft > 0) {
 			fuelTimeLeft--;
-			if(airFromBellows > 0)
+			if (airFromBellows > 0)
 				fuelTimeLeft--;
-		}
-		else if(fuelTimeLeft < 0)
+		} else if (fuelTimeLeft < 0)
 			fuelTimeLeft = 0;
 
-		if(fuelTimeLeft > 0)
+		if (fuelTimeLeft > 0)
 			return fuelBurnTemp + airFromBellows;
 		else
 			return 0;
 	}
 
-	public void handleAirReduction()
-	{
-		if(airFromBellows > 0)
+	public void handleAirReduction() {
+		if (airFromBellows > 0)
 			airFromBellows--;
 	}
 
-	public void handleTempFlux(float desiredTemp)
-	{
-		if(fireTemp < desiredTemp)
-		{
-			if(airFromBellows == 0)
+	public void handleTempFlux(float desiredTemp) {
+		if (fireTemp < desiredTemp) {
+			if (airFromBellows == 0)
 				fireTemp++;
 			else
 				fireTemp += 2;
-		}
-		else if(fireTemp > desiredTemp)
-		{
-			if(desiredTemp == 0)
-			{
-				if(airFromBellows == 0)
+		} else if (fireTemp > desiredTemp) {
+			if (desiredTemp == 0) {
+				if (airFromBellows == 0)
 					fireTemp -= 1;
 				else
 					fireTemp -= 0.5;
@@ -117,8 +95,7 @@ public class TEFireEntity extends NetworkTileEntity
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setFloat("temperature", fireTemp);
 		nbt.setInteger("fuelTime", fuelTimeLeft);
@@ -128,8 +105,7 @@ public class TEFireEntity extends NetworkTileEntity
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		fireTemp = nbt.getFloat("temperature");
 		fuelTimeLeft = nbt.getInteger("fuelTime");
@@ -139,26 +115,22 @@ public class TEFireEntity extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleInitPacket(NBTTagCompound nbt)
-	{
+	public void handleInitPacket(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
+	public void handleDataPacket(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void createDataNBT(NBTTagCompound nbt)
-	{
+	public void createDataNBT(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	public void createInitNBT(NBTTagCompound nbt)
-	{
+	public void createInitNBT(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub
 	}
 }

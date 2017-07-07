@@ -1,15 +1,13 @@
 package com.bioxx.tfc.Render.Blocks;
 
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-
-public class RenderSmoke  implements ISimpleBlockRenderingHandler 
-{
+public class RenderSmoke implements ISimpleBlockRenderingHandler {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;
 	private static float pixel12 = 12f / 16f;
@@ -17,8 +15,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 
 	@SuppressWarnings("UnnecessaryLocalVariable")
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-	{
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		//IBlockAccess blockAccess = renderer.blockAccess;
 		renderer.enableAO = false;
 		Tessellator tessellator = Tessellator.instance;
@@ -48,16 +45,14 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 
 		int l = block.getMixedBrightnessForBlock(world, x, y, z);
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y - 1, z, 0)) {
 			tessellator.setBrightness(renderer.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y - 1, z));
 			tessellator.setColorRGBA_F(f10, f13, f16, alpha);
 			renderer.renderFaceYNeg(block, x, y, z, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 0));
 			flag = true;
 		}
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y + 1, z, 1)) {
 			tessellator.setBrightness(renderer.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y + 1, z));
 			tessellator.setColorRGBA_F(f7, f8, f9, alpha);
 			renderer.renderFaceYPos(block, x, y, z, renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 1));
@@ -65,8 +60,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 		}
 
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z - 1, 2)) {
 			tessellator.setBrightness(renderer.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z - 1));
 			tessellator.setColorRGBA_F(f11, f14, f17, alpha);
 			iicon = renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 2);
@@ -74,8 +68,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 			flag = true;
 		}
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x, y, z + 1, 3)) {
 			tessellator.setBrightness(renderer.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x, y, z + 1));
 			tessellator.setColorRGBA_F(f11, f14, f17, alpha);
 			iicon = renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 3);
@@ -83,8 +76,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 			flag = true;
 		}
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x - 1, y, z, 4)) {
 			tessellator.setBrightness(renderer.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x - 1, y, z));
 			tessellator.setColorRGBA_F(f12, f15, f18, alpha);
 			iicon = renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 4);
@@ -92,8 +84,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 			flag = true;
 		}
 
-		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5))
-		{
+		if (renderer.renderAllFaces || block.shouldSideBeRendered(renderer.blockAccess, x + 1, y, z, 5)) {
 			tessellator.setBrightness(renderer.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(renderer.blockAccess, x + 1, y, z));
 			tessellator.setColorRGBA_F(f12, f15, f18, alpha);
 			iicon = renderer.getBlockIcon(block, renderer.blockAccess, x, y, z, 5);
@@ -104,20 +95,17 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-	{
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory(int modelId)
-	{
+	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
 	}
 
 	@Override
-	public int getRenderId()
-	{
+	public int getRenderId() {
 		return 0;
 	}
 }

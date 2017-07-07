@@ -1,28 +1,23 @@
 package com.bioxx.tfc.Containers.Slots;
 
+import com.bioxx.tfc.Items.ItemTuyere;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.bioxx.tfc.Items.ItemTuyere;
-
 @SuppressWarnings("SameParameterValue")
-public class SlotTuyere extends Slot
-{
-	public SlotTuyere(IInventory iinventory, int i, int j, int k)
-	{
+public class SlotTuyere extends Slot {
+	public SlotTuyere(IInventory iinventory, int i, int j, int k) {
 		super(iinventory, i, j, k);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack)
-	{
+	public boolean isItemValid(ItemStack itemstack) {
 		return itemstack.getItem() instanceof ItemTuyere;
 	}
 
 	@Override
-	public int getSlotStackLimit()
-	{
+	public int getSlotStackLimit() {
 		return 1;
 	}
 }

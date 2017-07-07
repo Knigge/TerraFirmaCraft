@@ -1,5 +1,8 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotLogPile;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TELogPile;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -7,13 +10,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotLogPile;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TELogPile;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-public class ContainerLogPile extends ContainerTFC
-{
+public class ContainerLogPile extends ContainerTFC {
 	private World world;
 	//private int posX;
 	//private int posY;
@@ -21,8 +19,7 @@ public class ContainerLogPile extends ContainerTFC
 	private TELogPile logpile;
 	private EntityPlayer player;
 
-	public ContainerLogPile(InventoryPlayer playerinv, TELogPile pile, World world, int x, int y, int z)
-	{
+	public ContainerLogPile(InventoryPlayer playerinv, TELogPile pile, World world, int x, int y, int z) {
 		this.player = playerinv.player;
 		this.logpile = pile;
 		this.world = world;
@@ -38,11 +35,10 @@ public class ContainerLogPile extends ContainerTFC
 	 * Callback for when the crafting gui is closed.
 	 */
 	@Override
-	public void onContainerClosed(EntityPlayer par1EntityPlayer)
-	{
+	public void onContainerClosed(EntityPlayer par1EntityPlayer) {
 		super.onContainerClosed(par1EntityPlayer);
 
-		if(!world.isRemote)
+		if (!world.isRemote)
 			logpile.closeInventory();
 	}
 
@@ -50,24 +46,19 @@ public class ContainerLogPile extends ContainerTFC
 	 * Called to transfer a stack from one inventory to the other eg. when shift clicking.
 	 */
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)this.inventorySlots.get(slotNum);
+		Slot slot = (Slot) this.inventorySlots.get(slotNum);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From pile to inventory
-			if (slotNum < 4)
-			{
+			if (slotNum < 4) {
 				if (!this.mergeItemStack(slotStack, 4, inventorySlots.size(), true))
 					return null;
-			}
-			else
-			{
+			} else {
 				if (!this.mergeItemStack(slotStack, 0, 4, false))
 					return null;
 			}
@@ -87,21 +78,18 @@ public class ContainerLogPile extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer var1)
-	{
+	public boolean canInteractWith(EntityPlayer var1) {
 		return true;
 	}
 
-	protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize)
-	{
-		this.addSlotToContainer(new SlotLogPile(getPlayer(),chestInventory, 0, 71, 25));
-		this.addSlotToContainer(new SlotLogPile(getPlayer(),chestInventory, 1, 89, 25));
-		this.addSlotToContainer(new SlotLogPile(getPlayer(),chestInventory, 2, 71, 43));
-		this.addSlotToContainer(new SlotLogPile(getPlayer(),chestInventory, 3, 89, 43));
+	protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize) {
+		this.addSlotToContainer(new SlotLogPile(getPlayer(), chestInventory, 0, 71, 25));
+		this.addSlotToContainer(new SlotLogPile(getPlayer(), chestInventory, 1, 89, 25));
+		this.addSlotToContainer(new SlotLogPile(getPlayer(), chestInventory, 2, 71, 43));
+		this.addSlotToContainer(new SlotLogPile(getPlayer(), chestInventory, 3, 89, 43));
 	}
-	
-	public EntityPlayer getPlayer()
-	{
+
+	public EntityPlayer getPlayer() {
 		return player;
 	}
 }

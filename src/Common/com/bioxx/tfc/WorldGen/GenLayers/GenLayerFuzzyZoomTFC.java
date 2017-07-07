@@ -3,10 +3,8 @@ package com.bioxx.tfc.WorldGen.GenLayers;
 import net.minecraft.world.gen.layer.GenLayer;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class GenLayerFuzzyZoomTFC extends GenLayerTFC
-{
-	public GenLayerFuzzyZoomTFC(long par1, GenLayer par3GenLayer)
-	{
+public class GenLayerFuzzyZoomTFC extends GenLayerTFC {
+	public GenLayerFuzzyZoomTFC(long par1, GenLayer par3GenLayer) {
 		super(par1);
 		super.parent = (GenLayerTFC) par3GenLayer;
 	}
@@ -16,8 +14,7 @@ public class GenLayerFuzzyZoomTFC extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int par1, int par2, int par3, int par4)
-	{
+	public int[] getInts(int par1, int par2, int par3, int par4) {
 		int var5 = par1 >> 1;
 		int var6 = par2 >> 1;
 		int var7 = (par3 >> 1) + 3;
@@ -27,15 +24,13 @@ public class GenLayerFuzzyZoomTFC extends GenLayerTFC
 		int var11 = var7 << 1;
 		int var13;
 
-		for (int var12 = 0; var12 < var8 - 1; ++var12)
-		{
+		for (int var12 = 0; var12 < var8 - 1; ++var12) {
 			var13 = var12 << 1;
 			int var14 = var13 * var11;
 			int var15 = var9[(var12) * var7];
 			int var16 = var9[(var12 + 1) * var7];
 
-			for (int var17 = 0; var17 < var7 - 1; ++var17)
-			{
+			for (int var17 = 0; var17 < var7 - 1; ++var17) {
 				this.initChunkSeed(var17 + var5 << 1, var12 + var6 << 1);
 				int var18 = var9[var17 + 1 + (var12) * var7];
 				int var19 = var9[var17 + 1 + (var12 + 1) * var7];
@@ -59,16 +54,14 @@ public class GenLayerFuzzyZoomTFC extends GenLayerTFC
 	/**
 	 * randomly choose between the two args
 	 */
-	protected int choose(int par1, int par2)
-	{
+	protected int choose(int par1, int par2) {
 		return this.nextInt(2) == 0 ? par1 : par2;
 	}
 
 	/**
 	 * randomly choose between the four args
 	 */
-	protected int choose(int par1, int par2, int par3, int par4)
-	{
+	protected int choose(int par1, int par2, int par3, int par4) {
 		int var5 = this.nextInt(4);
 		return var5 == 0 ? par1 : var5 == 1 ? par2 : var5 == 2 ? par3 : par4;
 	}

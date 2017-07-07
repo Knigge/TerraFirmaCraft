@@ -1,7 +1,6 @@
 package com.bioxx.tfc.Commands;
-import java.util.Collections;
-import java.util.List;
 
+import com.bioxx.tfc.Core.TFC_Core;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.PlayerNotFoundException;
@@ -13,19 +12,17 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.EnumChatFormatting;
 
-import com.bioxx.tfc.Core.TFC_Core;
+import java.util.Collections;
+import java.util.List;
 
-public class CommandTransferTamed extends CommandBase
-{
+public class CommandTransferTamed extends CommandBase {
 	@Override
-	public List getCommandAliases()
-	{
+	public List getCommandAliases() {
 		return Collections.singletonList("transfer");
 	}
 
 	@Override
-	public String getCommandName()
-	{
+	public String getCommandName() {
 		return "transferTamed";
 	}
 
@@ -33,72 +30,59 @@ public class CommandTransferTamed extends CommandBase
 	 * Return the required permission level for this command.
 	 */
 	@Override
-	public int getRequiredPermissionLevel()
-	{
+	public int getRequiredPermissionLevel() {
 		return 0;
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender)
-	{
+	public boolean canCommandSenderUseCommand(ICommandSender sender) {
 		return true;
 	}
 
 	@Override
-	public String getCommandUsage(ICommandSender sender)
-	{
+	public String getCommandUsage(ICommandSender sender) {
 		return "commands.transferTamed.usage";
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void processCommand(ICommandSender sender, String[] chars)
-	{
-		if(sender instanceof EntityPlayer){
+	public void processCommand(ICommandSender sender, String[] chars) {
+		if (sender instanceof EntityPlayer) {
 			EntityPlayerMP entityplayermp = null;
-			if(chars.length > 0){
+			if (chars.length > 0) {
 				entityplayermp = getPlayer(sender, chars[0]);
 			}
 
 			EntityTameable tamedEntity = null;
 			List<EntityTameable> entitiesInRange =
-					((EntityPlayer)sender).
-					worldObj.
-					getEntitiesWithinAABB(
-						EntityTameable.class,
-						((EntityPlayer)sender).boundingBox.expand(3, 1, 3)
-					);
+					((EntityPlayer) sender).
+							worldObj.
+							getEntitiesWithinAABB(
+									EntityTameable.class,
+									((EntityPlayer) sender).boundingBox.expand(3, 1, 3)
+							);
 
-			if (entitiesInRange.isEmpty())
-			{
+			if (entitiesInRange.isEmpty()) {
 				throw new WrongUsageException("commands.transferTamed.noTamed");
-			}
-			else if(entitiesInRange.size() > 1){
+			} else if (entitiesInRange.size() > 1) {
 				throw new WrongUsageException("commands.transferTamed.tooMany");
-			}
-			else if(entitiesInRange.size() == 1){
+			} else if (entitiesInRange.size() == 1) {
 				tamedEntity = entitiesInRange.get(0);
-				if(tamedEntity.getOwner() == null || !tamedEntity.getOwner().equals(sender)){
+				if (tamedEntity.getOwner() == null || !tamedEntity.getOwner().equals(sender)) {
 					throw new WrongUsageException("commands.transferTamed.wrongOwner");
 				}
 			}
 
-			if (entityplayermp == null)
-			{
-				if(tamedEntity != null && chars.length == 0){
+			if (entityplayermp == null) {
+				if (tamedEntity != null && chars.length == 0) {
 					tamedEntity.setTamed(false);
 					tamedEntity.func_152115_b("");
-				}
-				else{
+				} else {
 					throw new PlayerNotFoundException();
 				}
-			}
-			else if (entityplayermp == sender)
-			{
+			} else if (entityplayermp == sender) {
 				throw new PlayerNotFoundException("commands.transferTamed.sameTarget");
-			}
-			else if (tamedEntity != null)
-			{
+			} else if (tamedEntity != null) {
 				tamedEntity.func_152115_b(entityplayermp.getUniqueID().toString());
 
 				ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.transferTamed.display.incoming", sender.func_145748_c_());
@@ -108,8 +92,7 @@ public class CommandTransferTamed extends CommandBase
 				TFC_Core.sendInfoMessage(entityplayermp, chatcomponenttranslation);
 				sender.addChatMessage(chatcomponenttranslation1);
 			}
-		}
-		else{
+		} else {
 			throw new WrongUsageException("commands.transferTamed.wrongSender");
 		}
 	}
@@ -118,8 +101,7 @@ public class CommandTransferTamed extends CommandBase
 	 * Adds the strings available in this command to the given list of tab completion options.
 	 */
 	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] string)
-	{
+	public List addTabCompletionOptions(ICommandSender sender, String[] string) {
 		/*
 		  Returns a List of strings (chosen from the given strings) which the last word in the given string array is a
 		  beginning-match for. (Tab completion).
@@ -131,8 +113,7 @@ public class CommandTransferTamed extends CommandBase
 	 * Return whether the specified command parameter index is a username parameter.
 	 */
 	@Override
-	public boolean isUsernameIndex(String[] string, int index)
-	{
+	public boolean isUsernameIndex(String[] string, int index) {
 		return index == 0;
 	}
 

@@ -2,8 +2,7 @@ package com.bioxx.tfc.Core;
 
 import net.minecraft.util.IIcon;
 
-public class TFC_Textures
-{
+public class TFC_Textures {
 	/**
 	 * Registered in ItemTerraTool
 	 */

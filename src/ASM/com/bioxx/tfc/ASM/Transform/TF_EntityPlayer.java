@@ -1,19 +1,17 @@
 package com.bioxx.tfc.ASM.Transform;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("Convert2Diamond")
-public class TF_EntityPlayer extends ClassTransformer
-{
+public class TF_EntityPlayer extends ClassTransformer {
 
 	@SuppressWarnings("deprecation")
-	public TF_EntityPlayer()
-	{
+	public TF_EntityPlayer() {
 		mcpClassName = "net.minecraft.entity.player.EntityPlayer";
 		obfClassName = "yz";
 
@@ -26,16 +24,16 @@ public class TF_EntityPlayer extends ClassTransformer
 		LabelNode ln = new LabelNode();
 		// if ( ServerOverrides.canPlayerMove( this ) == false ) {
 		list.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/bioxx/tfc/ServerOverrides","canPlayerMove","(Lnet/minecraft/entity/EntityLivingBase;)Z"));
-		list.add(new JumpNode(Opcodes.IFNE,ln));
+		list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/bioxx/tfc/ServerOverrides", "canPlayerMove", "(Lnet/minecraft/entity/EntityLivingBase;)Z"));
+		list.add(new JumpNode(Opcodes.IFNE, ln));
 
 		// forward=0;
 		list.add(new InsnNode(Opcodes.FCONST_0));
-		list.add(new VarInsnNode(Opcodes.FSTORE,1));
+		list.add(new VarInsnNode(Opcodes.FSTORE, 1));
 
 		// strafe=0;
 		list.add(new InsnNode(Opcodes.FCONST_0));
-		list.add(new VarInsnNode(Opcodes.FSTORE,2));
+		list.add(new VarInsnNode(Opcodes.FSTORE, 2));
 
 		// }
 		list.add(ln);

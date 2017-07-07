@@ -6,8 +6,7 @@ import net.minecraft.inventory.Slot;
 public class SlotAnvilIn extends Slot
 
 {
-	public SlotAnvilIn(IInventory iinventory, int i, int j, int k)
-	{
+	public SlotAnvilIn(IInventory iinventory, int i, int j, int k) {
 		super(iinventory, i, j, k);
 	}
 

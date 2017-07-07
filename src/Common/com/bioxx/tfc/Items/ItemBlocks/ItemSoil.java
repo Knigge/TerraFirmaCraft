@@ -1,7 +1,11 @@
 package com.bioxx.tfc.Items.ItemBlocks;
 
-import java.util.List;
-
+import com.bioxx.tfc.Blocks.Terrain.BlockPeat;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,27 +13,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IIcon;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import java.util.List;
 
-import com.bioxx.tfc.Blocks.Terrain.BlockPeat;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.Constant.Global;
-
-public class ItemSoil extends ItemTerraBlock
-{
+public class ItemSoil extends ItemTerraBlock {
 	private IIcon icon;
 
-	public ItemSoil(Block b)
-	{
+	public ItemSoil(Block b) {
 		super(b);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
-	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
-	{
+	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) {
 		super.addInformation(is, player, arraylist, flag);
 
 		Block b = Block.getBlockFromItem(is.getItem());
@@ -42,8 +37,7 @@ public class ItemSoil extends ItemTerraBlock
 				|| b == TFCBlocks.clay2
 				|| TFC_Core.isGrassType2(b)
 				|| b == TFCBlocks.tilledSoil2
-				|| b == TFCBlocks.gravel2)
-		{
+				|| b == TFCBlocks.gravel2) {
 			dam += 16;
 		}
 
@@ -54,14 +48,11 @@ public class ItemSoil extends ItemTerraBlock
 	}
 
 	@Override
-	public void registerIcons(IIconRegister registerer)
-	{
-		if (this.field_150939_a/*Block*/ instanceof BlockPeat)
-		{
+	public void registerIcons(IIconRegister registerer) {
+		if (this.field_150939_a/*Block*/ instanceof BlockPeat) {
 			String s = this.field_150939_a.getItemIconName();
 
-			if (s != null)
-			{
+			if (s != null) {
 				icon = registerer.registerIcon(s);
 			}
 
@@ -73,13 +64,10 @@ public class ItemSoil extends ItemTerraBlock
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int damage)
-	{
-		if (this.field_150939_a/*Block*/instanceof BlockPeat)
-		{
+	public IIcon getIconFromDamage(int damage) {
+		if (this.field_150939_a/*Block*/ instanceof BlockPeat) {
 			return icon != null ? icon : this.field_150939_a.getBlockTextureFromSide(1);
-		}
-		else
+		} else
 			return super.getIconFromDamage(damage);
 	}
 

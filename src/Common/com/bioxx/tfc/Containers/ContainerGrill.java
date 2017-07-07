@@ -1,5 +1,9 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotCookableFoodOnly;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TEGrill;
+import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.ICrafting;
@@ -7,26 +11,18 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotCookableFoodOnly;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TEGrill;
-import com.bioxx.tfc.api.TileEntities.TEFireEntity;
-
-public class ContainerGrill extends ContainerTFC
-{
+public class ContainerGrill extends ContainerTFC {
 	//private TEGrill grill;
 	private TEFireEntity fire;
 	private float firetemp;
 	//private int charcoal;
 
-	public ContainerGrill(InventoryPlayer inventoryplayer, TEGrill grill, World world, int x, int y, int z)
-	{
+	public ContainerGrill(InventoryPlayer inventoryplayer, TEGrill grill, World world, int x, int y, int z) {
 		//this.grill = grill;
 		firetemp = -1111;
 
-		if(world.getTileEntity(x, y-1, z) instanceof TEFireEntity)
-		{
-			fire = (TEFireEntity)world.getTileEntity(x, y-1, z);
+		if (world.getTileEntity(x, y - 1, z) instanceof TEFireEntity) {
+			fire = (TEFireEntity) world.getTileEntity(x, y - 1, z);
 		}
 
 		//Input slot
@@ -41,29 +37,23 @@ public class ContainerGrill extends ContainerTFC
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer)
-	{
+	public boolean canInteractWith(EntityPlayer entityplayer) {
 		return true;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
 		Slot slot = (Slot) inventorySlots.get(slotNum);
 
-		if(slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
-			if (slotNum < 6)
-			{
+			if (slotNum < 6) {
 				if (!this.mergeItemStack(slotStack, 6, this.inventorySlots.size(), true))
 					return null;
-			}
-			else
-			{
+			} else {
 				if (!this.mergeItemStack(slotStack, 0, 6, false))
 					return null;
 			}
@@ -84,16 +74,13 @@ public class ContainerGrill extends ContainerTFC
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void detectAndSendChanges()
-	{
+	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		for (int var1 = 0; var1 < this.inventorySlots.size(); ++var1)
-		{
-			ItemStack var2 = ((Slot)this.inventorySlots.get(var1)).getStack();
-			ItemStack var3 = (ItemStack)this.inventoryItemStacks.get(var1);
+		for (int var1 = 0; var1 < this.inventorySlots.size(); ++var1) {
+			ItemStack var2 = ((Slot) this.inventorySlots.get(var1)).getStack();
+			ItemStack var3 = (ItemStack) this.inventoryItemStacks.get(var1);
 
-			if (!ItemStack.areItemStacksEqual(var3, var2))
-			{
+			if (!ItemStack.areItemStacksEqual(var3, var2)) {
 				var3 = var2 == null ? null : var2.copy();
 				this.inventoryItemStacks.set(var1, var3);
 
@@ -108,14 +95,13 @@ public class ContainerGrill extends ContainerTFC
 				var2.sendProgressBarUpdate(this, 0, (int) this.fire.fireTemp);
 		}
 
-		if(this.fire != null)
+		if (this.fire != null)
 			firetemp = this.fire.fireTemp;
 		else firetemp = 0;
 	}
 
 	@Override
-	public void updateProgressBar(int par1, int par2)
-	{
+	public void updateProgressBar(int par1, int par2) {
 		if (this.fire != null && par1 == 0)
 			this.fire.fireTemp = par2;
 	}

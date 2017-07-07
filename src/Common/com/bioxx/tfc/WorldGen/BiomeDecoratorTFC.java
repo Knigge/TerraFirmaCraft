@@ -1,23 +1,23 @@
 package com.bioxx.tfc.WorldGen;
 
-import java.util.Random;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeDecorator;
-import net.minecraft.world.biome.BiomeGenBase;
-
 import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Food.CropIndex;
 import com.bioxx.tfc.Food.CropManager;
 import com.bioxx.tfc.WorldGen.Generators.*;
 import com.bioxx.tfc.api.TFCBlocks;
+import net.minecraft.init.Blocks;
+import net.minecraft.world.World;
+import net.minecraft.world.biome.BiomeDecorator;
+import net.minecraft.world.biome.BiomeGenBase;
+
+import java.util.Random;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class BiomeDecoratorTFC extends BiomeDecorator
-{
-	/** The amount of tall grass to generate per chunk. */
+public class BiomeDecoratorTFC extends BiomeDecorator {
+	/**
+	 * The amount of tall grass to generate per chunk.
+	 */
 	public int grassPerChunk;
 
 	public TFCBiome biome;
@@ -45,13 +45,16 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 	 */
 	public int reedsPerChunk;
 
-	/** Amount of waterlilys per chunk. */
+	/**
+	 * Amount of waterlilys per chunk.
+	 */
 	public int lilyPadPerChunk;
 
 
-	/**Added By TFC**/
-	public BiomeDecoratorTFC(TFCBiome par1)
-	{
+	/**
+	 * Added By TFC
+	 **/
+	public BiomeDecoratorTFC(TFCBiome par1) {
 		super();
 		this.grassPerChunk = 1;
 		this.mushroomsPerChunk = 0;
@@ -67,8 +70,7 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 	 * The method that does the work of actually decorating chunks
 	 */
 	@Override
-	protected void genDecorations(BiomeGenBase bgb)
-	{
+	protected void genDecorations(BiomeGenBase bgb) {
 		this.generateOres();
 		int var2;
 		int xCoord;
@@ -80,19 +82,16 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 		CropIndex crop = CropManager.getInstance().getCropFromId(cropid);
 		WorldGenGrowCrops cropGen = new WorldGenGrowCrops(cropid);
 
-		if(randomGenerator.nextInt(20) == 0 && crop != null)
-		{
+		if (randomGenerator.nextInt(20) == 0 && crop != null) {
 			int num = 2 + randomGenerator.nextInt(8);
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 			//yCoord = this.currentWorld.getHeightValue(xCoord, zCoord) + 1;
-			for (int count = 0; count < num; ++count)
-			{
+			for (int count = 0; count < num; ++count) {
 				cropGen.generate(currentWorld, randomGenerator, xCoord, zCoord, 1);
 			}
 		}
-		for (var2 = 0; var2 < this.lilyPadPerChunk; ++var2)
-		{
+		for (var2 = 0; var2 < this.lilyPadPerChunk; ++var2) {
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 			yCoord = this.currentWorld.getHeightValue(xCoord, zCoord);
@@ -100,28 +99,24 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 			generateLilyPads(this.currentWorld, this.randomGenerator, xCoord, yCoord, zCoord);
 		}
 
-		for (var2 = 0; var2 < 10; ++var2)
-		{
-			if (randomGenerator.nextInt(100) < 10)
-			{
+		for (var2 = 0; var2 < 10; ++var2) {
+			if (randomGenerator.nextInt(100) < 10) {
 				xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 				zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 				yCoord = this.currentWorld.getHeightValue(xCoord, zCoord);
-				if(TFC_Climate.getBioTemperatureHeight(currentWorld, xCoord, yCoord, zCoord) >= 25)
+				if (TFC_Climate.getBioTemperatureHeight(currentWorld, xCoord, yCoord, zCoord) >= 25)
 					this.reedGen.generate(this.currentWorld, this.randomGenerator, xCoord, yCoord, zCoord);
 			}
 		}
 
-		if (this.randomGenerator.nextInt(300) == 0)
-		{
+		if (this.randomGenerator.nextInt(300) == 0) {
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 			yCoord = this.currentWorld.getHeightValue(xCoord, zCoord);
 			new WorldGenCustomPumpkin().generate(this.currentWorld, this.randomGenerator, xCoord, yCoord, zCoord);
 		}
 
-		for (var2 = 0; var2 < this.cactiPerChunk; ++var2)
-		{
+		for (var2 = 0; var2 < this.cactiPerChunk; ++var2) {
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
 			yCoord = this.currentWorld.getHeightValue(xCoord, zCoord);
@@ -131,20 +126,17 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 				new WorldGenCustomCactus().generate(this.currentWorld, this.randomGenerator, xCoord, yCoord, zCoord);
 		}
 
-		for (var2 = 0; var2 < this.waterPlantsPerChunk; ++var2)
-		{
+		for (var2 = 0; var2 < this.waterPlantsPerChunk; ++var2) {
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
-			yCoord = this.currentWorld.getPrecipitationHeight(xCoord, zCoord)-1;
+			yCoord = this.currentWorld.getPrecipitationHeight(xCoord, zCoord) - 1;
 			if (TFC_Climate.getBioTemperatureHeight(currentWorld, xCoord, yCoord, zCoord) >= 7)
 				new WorldGenWaterPlants(TFCBlocks.waterPlant).generate(this.currentWorld, this.randomGenerator, xCoord, yCoord, zCoord);
 		}
 	}
 
-	public void generateLilyPads(World world, Random random, int x, int y, int z)
-	{
-		for (int l = 0; l < 10; ++l)
-		{
+	public void generateLilyPads(World world, Random random, int x, int y, int z) {
+		for (int l = 0; l < 10; ++l) {
 			int i1 = x + random.nextInt(8) - random.nextInt(8);
 			int j1 = y + random.nextInt(4) - random.nextInt(4);
 			int k1 = z + random.nextInt(8) - random.nextInt(8);
@@ -162,10 +154,8 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 	 * ChunkProviderGenerate.populate
 	 */
 	@Override
-	public void decorateChunk(World par1World, Random par2Random, BiomeGenBase bgb, int par3, int par4)
-	{
-		if (this.currentWorld == null)
-		{
+	public void decorateChunk(World par1World, Random par2Random, BiomeGenBase bgb, int par3, int par4) {
+		if (this.currentWorld == null) {
 			this.currentWorld = par1World;
 			this.randomGenerator = par2Random;
 			this.chunk_X = par3;

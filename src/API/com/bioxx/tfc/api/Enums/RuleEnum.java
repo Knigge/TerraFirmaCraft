@@ -1,8 +1,7 @@
 package com.bioxx.tfc.api.Enums;
 
 
-public enum RuleEnum
-{
+public enum RuleEnum {
 	ANY("gui.Anvil.Rule1", -1, 0, 2),
 	HITANY("gui.Anvil.Rule2", 0, 0, 2),
 	HITLAST("gui.Anvil.Rule3", 0, 0, 0),
@@ -48,19 +47,16 @@ public enum RuleEnum
 	public final int Action;
 	public final String Name;
 
-	RuleEnum(String n, int action, int min, int max)
-	{
+	RuleEnum(String n, int action, int min, int max) {
 		Name = n;
 		Min = min;
 		Max = max;
 		Action = action;
 	}
 
-	public boolean matches(int action, int position)
-	{
-		if (Action == action || Action == -1)
-		{
-			if(position >= Min && position <= Max) {
+	public boolean matches(int action, int position) {
+		if (Action == action || Action == -1) {
+			if (position >= Min && position <= Max) {
 				return true;
 			}
 		}
@@ -68,11 +64,9 @@ public enum RuleEnum
 		return false;
 	}
 
-	public boolean matches(RuleEnum rule, int position)
-	{
-		if (Action == rule.Action || Action == RuleEnum.ANY.Action)
-		{
-			if(position >= Min && position <= Max) {
+	public boolean matches(RuleEnum rule, int position) {
+		if (Action == rule.Action || Action == RuleEnum.ANY.Action) {
+			if (position >= Min && position <= Max) {
 				return true;
 			}
 		}
@@ -80,12 +74,9 @@ public enum RuleEnum
 		return false;
 	}
 
-	public boolean matches(int[] actions, int position)
-	{
-		for(int i = Min; i <= Max; i++)
-		{
-			if (Action == actions[i] || Action == -1)
-			{
+	public boolean matches(int[] actions, int position) {
+		for (int i = Min; i <= Max; i++) {
+			if (Action == actions[i] || Action == -1) {
 				return true;
 			}
 		}

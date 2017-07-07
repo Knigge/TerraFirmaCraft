@@ -1,14 +1,12 @@
 package com.bioxx.tfc.WorldGen.GenLayers.River;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
+import com.bioxx.tfc.WorldGen.TFCBiome;
 import net.minecraft.world.gen.layer.GenLayer;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.WorldGen.TFCBiome;
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
 @SuppressWarnings("CanBeFinal")
-public class GenLayerRiverMixTFC extends GenLayerTFC
-{
+public class GenLayerRiverMixTFC extends GenLayerTFC {
 	private GenLayer biomePatternGeneratorChain;
 	private GenLayer riverPatternGeneratorChain;
 	private int[] layerBiomes;
@@ -21,8 +19,7 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 	private int zp;
 
 	@SuppressWarnings("SameParameterValue")
-	public GenLayerRiverMixTFC(long par1, GenLayer par3GenLayer, GenLayer par4GenLayer)
-	{
+	public GenLayerRiverMixTFC(long par1, GenLayer par3GenLayer, GenLayer par4GenLayer) {
 		super(par1);
 		this.biomePatternGeneratorChain = par3GenLayer;
 		this.riverPatternGeneratorChain = par4GenLayer;
@@ -33,62 +30,50 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int x, int z, int xSize, int zSize)
-	{
+	public int[] getInts(int x, int z, int xSize, int zSize) {
 		layerBiomes = this.biomePatternGeneratorChain.getInts(x, z, xSize, zSize);
 		layerRivers = this.riverPatternGeneratorChain.getInts(x, z, xSize, zSize);
 		layerOut = new int[xSize * zSize];
 
-		for (int zElement = 0; zElement < zSize; ++zElement)
-		{
-			for (int xElement = 0; xElement < xSize; ++xElement)
-			{
+		for (int zElement = 0; zElement < zSize; ++zElement) {
+			for (int xElement = 0; xElement < xSize; ++xElement) {
 				int index = xElement + zElement * xSize;
 				int b = layerBiomes[index];
 				int r = layerRivers[index];
 
-				xn = index-1;
-				xp = index+1;
-				zn = index-zSize;
-				zp = index+zSize;
+				xn = index - 1;
+				xp = index + 1;
+				zn = index - zSize;
+				zp = index + zSize;
 
 				if (TFC_Core.isOceanicBiome(b) || TFC_Core.isMountainBiome(b))
 					layerOut[index] = b;
-				else if (r > 0)
-				{
+				else if (r > 0) {
 					layerOut[index] = r;
 
 					//Here we make sure that rivers dont run along ocean/beach splits. We turn the river into oceans.
-					if (TFC_Core.isBeachBiome(b))
-					{
+					if (TFC_Core.isBeachBiome(b)) {
 						layerOut[index] = TFCBiome.OCEAN.biomeID;
-						if(inBounds(xn, layerOut) && layerOut[xn] == TFCBiome.RIVER.biomeID)
-						{
+						if (inBounds(xn, layerOut) && layerOut[xn] == TFCBiome.RIVER.biomeID) {
 							layerOut[xn] = TFCBiome.OCEAN.biomeID;
 						}
-						if(inBounds(zn, layerOut) && layerOut[zn] == TFCBiome.RIVER.biomeID)
-						{
+						if (inBounds(zn, layerOut) && layerOut[zn] == TFCBiome.RIVER.biomeID) {
 							layerOut[zn] = TFCBiome.OCEAN.biomeID;
 						}
-						if(inBounds(zp, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[zp]) && layerRivers[zp] == 0)
-						{
+						if (inBounds(zp, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[zp]) && layerRivers[zp] == 0) {
 							layerOut[index] = b;
 						}
-						if(inBounds(zn, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[zn]) && layerRivers[zn] == 0)
-						{
+						if (inBounds(zn, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[zn]) && layerRivers[zn] == 0) {
 							layerOut[index] = b;
 						}
-						if(inBounds(xn, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[xn]) && layerRivers[xn] == 0)
-						{
+						if (inBounds(xn, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[xn]) && layerRivers[xn] == 0) {
 							layerOut[index] = b;
 						}
-						if(inBounds(xp, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[xp]) && layerRivers[xp] == 0)
-						{
+						if (inBounds(xp, layerOut) && TFC_Core.isOceanicBiome(layerBiomes[xp]) && layerRivers[xp] == 0) {
 							layerOut[index] = b;
 						}
 					}
-				}
-				else
+				} else
 					layerOut[index] = b;
 
 				//Similar to above, if we're near a lake, we turn the river into lake.
@@ -102,32 +87,25 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 	}
 
 	@SuppressWarnings("WeakerAccess")
-	public void removeRiver(int index, int biomeToReplaceWith)
-	{		
-		if(layerOut[index] == TFCBiome.RIVER.biomeID)
-		{
-			if(xn >= 0 && layerBiomes[xn] == biomeToReplaceWith)
-			{
+	public void removeRiver(int index, int biomeToReplaceWith) {
+		if (layerOut[index] == TFCBiome.RIVER.biomeID) {
+			if (xn >= 0 && layerBiomes[xn] == biomeToReplaceWith) {
 				layerOut[index] = biomeToReplaceWith;
 			}
-			if(zn >= 0 && layerBiomes[zn] == biomeToReplaceWith)
-			{
+			if (zn >= 0 && layerBiomes[zn] == biomeToReplaceWith) {
 				layerOut[index] = biomeToReplaceWith;
 			}
-			if(xp < layerBiomes.length && layerBiomes[xp] == biomeToReplaceWith)
-			{
+			if (xp < layerBiomes.length && layerBiomes[xp] == biomeToReplaceWith) {
 				layerOut[index] = biomeToReplaceWith;
 			}
-			if(zp < layerBiomes.length && layerBiomes[zp] == biomeToReplaceWith)
-			{
+			if (zp < layerBiomes.length && layerBiomes[zp] == biomeToReplaceWith) {
 				layerOut[index] = biomeToReplaceWith;
 			}
 		}
 	}
 
 	@SuppressWarnings("WeakerAccess")
-	public boolean inBounds(int index, int[] array)
-	{
+	public boolean inBounds(int index, int[] array) {
 		return index < array.length && index >= 0;
 	}
 
@@ -136,8 +114,7 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 	 * argument).
 	 */
 	@Override
-	public void initWorldGenSeed(long par1)
-	{
+	public void initWorldGenSeed(long par1) {
 		this.biomePatternGeneratorChain.initWorldGenSeed(par1);
 		this.riverPatternGeneratorChain.initWorldGenSeed(par1);
 		super.initWorldGenSeed(par1);

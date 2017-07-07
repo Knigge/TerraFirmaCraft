@@ -1,26 +1,23 @@
 package com.bioxx.tfc.Handlers.Network;
 
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.NetworkTileEntity;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.TileEntities.NetworkTileEntity;
-
-public class DataBlockPacket extends AbstractPacket
-{
+public class DataBlockPacket extends AbstractPacket {
 	private int x;
 	private int y;
 	private int z;
 	private NBTTagCompound nbtData;
 
-	public DataBlockPacket() {}
+	public DataBlockPacket() {
+	}
 
-	public DataBlockPacket(int x, int y, int z, NBTTagCompound data)
-	{
+	public DataBlockPacket(int x, int y, int z, NBTTagCompound data) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -28,48 +25,37 @@ public class DataBlockPacket extends AbstractPacket
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
-	{
+	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
 		PacketBuffer pb = new PacketBuffer(buffer);
 		pb.writeInt(x);
 		pb.writeShort(y);
 		pb.writeInt(z);
-		try
-		{
+		try {
 			pb.writeNBTTagCompoundToBuffer(nbtData);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
-	{
+	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
 		PacketBuffer pb = new PacketBuffer(buffer);
 		x = pb.readInt();
 		y = pb.readShort();
 		z = pb.readInt();
-		try
-		{
+		try {
 			nbtData = pb.readNBTTagCompoundFromBuffer();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player)
-	{
-		if (player.worldObj.getTileEntity(x, y, z) instanceof NetworkTileEntity)
-		{
+	public void handleClientSide(EntityPlayer player) {
+		if (player.worldObj.getTileEntity(x, y, z) instanceof NetworkTileEntity) {
 			NetworkTileEntity te = (NetworkTileEntity) player.worldObj.getTileEntity(x, y, z);
-			if (te != null)
-			{
+			if (te != null) {
 				te.entityplayer = player;
 				te.handleDataPacket(nbtData);
 			}
@@ -77,11 +63,9 @@ public class DataBlockPacket extends AbstractPacket
 	}
 
 	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
-		NetworkTileEntity te = (NetworkTileEntity)player.worldObj.getTileEntity(x, y, z);
-		if (te != null)
-		{
+	public void handleServerSide(EntityPlayer player) {
+		NetworkTileEntity te = (NetworkTileEntity) player.worldObj.getTileEntity(x, y, z);
+		if (te != null) {
 			te.entityplayer = player;
 			te.handleDataPacket(nbtData);
 		}

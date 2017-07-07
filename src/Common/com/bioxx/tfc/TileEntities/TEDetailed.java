@@ -1,26 +1,85 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.BitSet;
-
-import net.minecraft.nbt.NBTTagCompound;
-
 import com.bioxx.tfc.Blocks.BlockDetailed;
 import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
 import com.bioxx.tfc.api.TFCBlocks;
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.BitSet;
 
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "CanBeFinal"})
 public class TEDetailed extends NetworkTileEntity {
+	public static final byte PACKET_UPDATE = 0;
+	public static final byte PACKET_ACTIVATE = 1;
 	public short typeID = -1;
 	public byte metaID;
 	public BitSet data;
-	public static final byte PACKET_UPDATE = 0;
-	public static final byte PACKET_ACTIVATE = 1;
 	protected byte packetType = -1;
 	private BitSet quads;
 
 	public TEDetailed() {
 		data = new BitSet(512);
 		quads = new BitSet(8);
+	}
+
+	public static BitSet fromByteArray(byte[] bytes, int size) {
+		BitSet bits = new BitSet(size);
+		for (int i = 0; i < bytes.length * 8; i++) {
+			if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0)
+				bits.set(i);
+		}
+		return bits;
+	}
+
+	public static byte[] toByteArray(BitSet bits) {
+		byte[] bytes = new byte[bits.length() / 8 + 1];
+		for (int i = 0; i < bits.length(); i++) {
+			if (bits.get(i))
+				bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
+		}
+		return bytes;
+	}
+
+	public static BitSet turnCube(byte[] bytes, int xAngle, int yAngle, int zAngle) {
+		if (xAngle == 0 && yAngle == 0 && zAngle == 0)
+			return fromByteArray(bytes, 512);
+
+		BitSet data = fromByteArray(bytes, 512);
+		BitSet turnedData = new BitSet(512);
+
+		int xCoord, yCoord, zCoord;
+		for (int x = 0; x < 8; ++x)
+			for (int z = 0; z < 8; ++z)
+				for (int y = 0; y < 8; ++y) {
+					xCoord = x;
+					yCoord = y;
+					zCoord = z;
+
+					// X:
+					for (int i = 0; i < xAngle; i += 90) {
+						int buf = yCoord;
+						yCoord = 7 - zCoord;
+						zCoord = buf;
+					}
+					// Z:
+					for (int i = 0; i < zAngle; i += 90) {
+						int buf = xCoord;
+						xCoord = 7 - yCoord;
+						yCoord = buf;
+					}
+					// Y:
+					for (int i = 0; i < yAngle; i += 90) {
+						int buf = zCoord;
+						zCoord = 7 - xCoord;
+						xCoord = buf;
+					}
+
+					int srcI = (x * 8 + z) * 8 + y;
+					int resI = (xCoord * 8 + zCoord) * 8 + yCoord;
+					turnedData.set(resI, data.get(srcI));
+				}
+
+		return turnedData;
 	}
 
 	@Override
@@ -155,8 +214,8 @@ public class TEDetailed extends NetworkTileEntity {
 		packetType = nbt.getByte("packetType");
 		/*if (packetType == TEDetailed.Packet_Update) {
 			//The data for this is already set in BlockDetailed onBlockActivatedServer()
-		} else */if (packetType == TEDetailed.PACKET_ACTIVATE)
-		{
+		} else */
+		if (packetType == TEDetailed.PACKET_ACTIVATE) {
 			nbt.setByte("chiselMode", PlayerManagerTFC.getInstance().getClientPlayer().chiselMode);
 			/*We've already added the xSelected, ySelected, and zSelected bytes to the nbt in the
 			 * BlockDetailed onBlockActivated().*/
@@ -168,66 +227,5 @@ public class TEDetailed extends NetworkTileEntity {
 		nbt.setShort("typeID", typeID);
 		nbt.setByte("metaID", metaID);
 		nbt.setByteArray("data", toByteArray(data));
-	}
-
-	public static BitSet fromByteArray(byte[] bytes, int size) {
-		BitSet bits = new BitSet(size);
-		for (int i = 0; i < bytes.length * 8; i++) {
-			if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0)
-				bits.set(i);
-		}
-		return bits;
-	}
-
-	public static byte[] toByteArray(BitSet bits) {
-		byte[] bytes = new byte[bits.length() / 8 + 1];
-		for (int i = 0; i < bits.length(); i++) {
-			if (bits.get(i))
-				bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
-		}
-		return bytes;
-	}
-
-	public static BitSet turnCube(byte[] bytes, int xAngle, int yAngle, int zAngle) {
-		if (xAngle == 0 && yAngle == 0 && zAngle == 0)
-			return fromByteArray(bytes, 512);
-
-		BitSet data = fromByteArray(bytes, 512);
-		BitSet turnedData = new BitSet(512);
-
-		int xCoord, yCoord, zCoord;
-		for (int x = 0; x < 8; ++x)
-			for (int z = 0; z < 8; ++z)
-				for (int y = 0; y < 8; ++y) {
-					xCoord = x; yCoord = y; zCoord = z;
-
-					// X:
-					for (int i = 0; i < xAngle; i += 90)
-					{
-						int buf = yCoord;
-						yCoord = 7 - zCoord;
-						zCoord = buf;
-					}
-					// Z:
-					for (int i = 0; i < zAngle; i += 90)
-					{
-						int buf = xCoord;
-						xCoord = 7 - yCoord;
-						yCoord = buf;
-					}
-					// Y:
-					for (int i = 0; i < yAngle; i += 90)
-					{
-						int buf = zCoord;
-						zCoord = 7 - xCoord;
-						xCoord = buf;
-					}
-
-					int srcI = (x * 8 + z) * 8 + y;
-					int resI = (xCoord * 8 + zCoord) * 8 + yCoord;
-					turnedData.set(resI, data.get(srcI));
-				}
-
-		return turnedData;
 	}
 }

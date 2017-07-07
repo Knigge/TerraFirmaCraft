@@ -1,7 +1,11 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.ArrayList;
-
+import com.bioxx.tfc.Blocks.BlockTerra;
+import com.bioxx.tfc.Core.Recipes;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Constant.Global;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
@@ -19,29 +23,22 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Blocks.BlockTerra;
-import com.bioxx.tfc.Core.Recipes;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.ArrayList;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond", "ConstantConditions"})
-public class BlockCustomDoor extends BlockTerra
-{
+public class BlockCustomDoor extends BlockTerra {
 	private int woodType;
 	private String[] woodNames =
-	{ "Oak Door Lower", "Oak Door Upper", "Aspen Door Lower", "Aspen Door Upper", "Birch Door Lower", "Birch Door Upper",
-			"Chestnut Door Lower","Chestnut Door Upper","Douglas Fir Door Lower","Douglas Fir Door Upper","Hickory Door Lower","Hickory Door Upper",
-			"Maple Door Lower","Maple Door Upper","Ash Door Lower","Ash Door Upper","Pine Door Lower","Pine Door Upper",
-			"Sequoia Door Lower","Sequoia Door Upper","Spruce Door Lower","Spruce Door Upper","Sycamore Door Lower","Sycamore Door Upper",
-			"White Cedar Door Lower","White Cedar Door Upper","White Elm Door Lower","White Elm Door Upper","Willow Door Lower","Willow Door Upper",
-			"Kapok Door Lower","Kapok Door Upper","Acacia Door Lower","Acacia Door Upper"};
+			{"Oak Door Lower", "Oak Door Upper", "Aspen Door Lower", "Aspen Door Upper", "Birch Door Lower", "Birch Door Upper",
+					"Chestnut Door Lower", "Chestnut Door Upper", "Douglas Fir Door Lower", "Douglas Fir Door Upper", "Hickory Door Lower", "Hickory Door Upper",
+					"Maple Door Lower", "Maple Door Upper", "Ash Door Lower", "Ash Door Upper", "Pine Door Lower", "Pine Door Upper",
+					"Sequoia Door Lower", "Sequoia Door Upper", "Spruce Door Lower", "Spruce Door Upper", "Sycamore Door Lower", "Sycamore Door Upper",
+					"White Cedar Door Lower", "White Cedar Door Upper", "White Elm Door Lower", "White Elm Door Upper", "Willow Door Lower", "Willow Door Upper",
+					"Kapok Door Lower", "Kapok Door Upper", "Acacia Door Lower", "Acacia Door Upper"};
 
 	private IIcon[] icons = new IIcon[Global.WOOD_ALL.length * 2];
-	public BlockCustomDoor(int woodId)
-	{
+
+	public BlockCustomDoor(int woodId) {
 		super(Material.wood);
 		this.setHardness(3);
 
@@ -53,25 +50,21 @@ public class BlockCustomDoor extends BlockTerra
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int par1, int par2)
-	{
+	public IIcon getIcon(int par1, int par2) {
 		return this.icons[getWoodType()];
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public IIcon getIcon(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-	{
-		if (par5 != 1 && par5 != 0)
-		{
+	public IIcon getIcon(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
+		if (par5 != 1 && par5 != 0) {
 			int meta = this.getFullMetadata(par1IBlockAccess, par2, par3, par4);
 			int rotation = meta & 3;
 			boolean flag = (meta & 4) != 0;
 			boolean flag1 = false;
 			boolean flag2 = (meta & 8) != 0;
 
-			if (flag)
-			{
+			if (flag) {
 				if (rotation == 0 && par5 == 2)
 					flag1 = !flag1;
 				else if (rotation == 1 && par5 == 5)
@@ -80,9 +73,7 @@ public class BlockCustomDoor extends BlockTerra
 					flag1 = !flag1;
 				else if (rotation == 3 && par5 == 4)
 					flag1 = !flag1;
-			}
-			else
-			{
+			} else {
 				if (rotation == 0 && par5 == 5)
 					flag1 = !flag1;
 				else if (rotation == 1 && par5 == 3)
@@ -97,172 +88,133 @@ public class BlockCustomDoor extends BlockTerra
 			}
 
 			return icons[getWoodType() + (flag1 ? woodNames.length : 0) + (flag2 ? 1 : 0)];
-		}
-		else
-		{
+		} else {
 			return icons[getWoodType()];
 		}
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister registerer)
-	{
+	public void registerBlockIcons(IIconRegister registerer) {
 		this.icons = new IIcon[woodNames.length * 2];
-		for(int i = 0; i < woodNames.length; i++)
-		{
-			icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "wood/doors/"+woodNames[i]);
+		for (int i = 0; i < woodNames.length; i++) {
+			icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "wood/doors/" + woodNames[i]);
 			this.icons[i + woodNames.length] = new IconFlipped(this.icons[i], true, false);
 		}
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		int var5 = this.getFullMetadata(par1IBlockAccess, par2, par3, par4);
 		return (var5 & 4) != 0;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return 7;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
-	{
+	public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
 		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
 		return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
-	{
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4) {
 		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
 		return super.getCollisionBoundingBoxFromPool(par1World, par2, par3, par4);
 	}
 
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		this.setDoorRotation(this.getFullMetadata(par1IBlockAccess, par2, par3, par4));
 	}
 
 	/**
 	 * Returns 0, 1, 2 or 3 depending on where the hinge is.
 	 */
-	public int getDoorOrientation(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int getDoorOrientation(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return this.getFullMetadata(par1IBlockAccess, par2, par3, par4) & 3;
 	}
 
-	public boolean isDoorOpen(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public boolean isDoorOpen(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		return (this.getFullMetadata(par1IBlockAccess, par2, par3, par4) & 4) != 0;
 	}
 
-	private void setDoorRotation(int par1)
-	{
+	private void setDoorRotation(int par1) {
 		float var2 = 0.1875F;
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 2.0F, 1.0F);
 		int var3 = par1 & 3;
 		boolean var4 = (par1 & 4) != 0;
 		boolean var5 = (par1 & 16) != 0;
 
-		if (var3 == 0)
-		{
-			if (var4)
-			{
+		if (var3 == 0) {
+			if (var4) {
 				if (!var5)
 					this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, var2);
 				else
 					this.setBlockBounds(0.0F, 0.0F, 1.0F - var2, 1.0F, 1.0F, 1.0F);
-			}
-			else
-			{
+			} else {
 				this.setBlockBounds(0.0F, 0.0F, 0.0F, var2, 1.0F, 1.0F);
 			}
-		}
-		else if (var3 == 1)
-		{
-			if (var4)
-			{
+		} else if (var3 == 1) {
+			if (var4) {
 				if (!var5)
 					this.setBlockBounds(1.0F - var2, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 				else
 					this.setBlockBounds(0.0F, 0.0F, 0.0F, var2, 1.0F, 1.0F);
-			}
-			else
-			{
+			} else {
 				this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, var2);
 			}
-		}
-		else if (var3 == 2)
-		{
-			if (var4)
-			{
+		} else if (var3 == 2) {
+			if (var4) {
 				if (!var5)
 					this.setBlockBounds(0.0F, 0.0F, 1.0F - var2, 1.0F, 1.0F, 1.0F);
 				else
 					this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, var2);
-			}
-			else
-			{
+			} else {
 				this.setBlockBounds(1.0F - var2, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 			}
-		}
-		else if (var3 == 3)
-		{
-			if (var4)
-			{
+		} else if (var3 == 3) {
+			if (var4) {
 				if (!var5)
 					this.setBlockBounds(0.0F, 0.0F, 0.0F, var2, 1.0F, 1.0F);
 				else
 					this.setBlockBounds(1.0F - var2, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-			}
-			else
-			{
+			} else {
 				this.setBlockBounds(0.0F, 0.0F, 1.0F - var2, 1.0F, 1.0F, 1.0F);
 			}
 		}
 	}
 
 	@Override
-	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {}
+	public void onBlockClicked(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer) {
+	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
-	{
-		if (this.blockMaterial == Material.iron)
-		{
+	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
+		if (this.blockMaterial == Material.iron) {
 			return false; //Allow items to interact with the door
-		}
-		else
-		{
+		} else {
 			int var10 = this.getFullMetadata(par1World, par2, par3, par4);
 			int var11 = var10 & 7;
 			var11 ^= 4;
 
-			if ((var10 & 8) == 0)
-			{
+			if ((var10 & 8) == 0) {
 				par1World.setBlockMetadataWithNotify(par2, par3, par4, var11, 3);
 				par1World.markBlockRangeForRenderUpdate(par2, par3, par4, par2, par3, par4);
-			}
-			else
-			{
+			} else {
 				par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, var11, 3);
 				par1World.markBlockRangeForRenderUpdate(par2, par3 - 1, par4, par2, par3, par4);
 			}
@@ -272,23 +224,18 @@ public class BlockCustomDoor extends BlockTerra
 		}
 	}
 
-	public void onPoweredBlockChange(World par1World, int par2, int par3, int par4, boolean par5)
-	{
+	public void onPoweredBlockChange(World par1World, int par2, int par3, int par4, boolean par5) {
 		int var6 = this.getFullMetadata(par1World, par2, par3, par4);
 		boolean var7 = (var6 & 4) != 0;
 
-		if (var7 != par5)
-		{
+		if (var7 != par5) {
 			int var8 = var6 & 7;
 			var8 ^= 4;
 
-			if ((var6 & 8) == 0)
-			{
+			if ((var6 & 8) == 0) {
 				par1World.setBlockMetadataWithNotify(par2, par3, par4, var8, 3);
 				par1World.markBlockRangeForRenderUpdate(par2, par3, par4, par2, par3, par4);
-			}
-			else
-			{
+			} else {
 				par1World.setBlockMetadataWithNotify(par2, par3 - 1, par4, var8, 3);
 				par1World.markBlockRangeForRenderUpdate(par2, par3 - 1, par4, par2, par3, par4);
 			}
@@ -302,22 +249,18 @@ public class BlockCustomDoor extends BlockTerra
 	 * their own) Args: x, y, z, neighbor Block
 	 */
 	@Override
-	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block par5)
-	{
+	public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, Block par5) {
 		int var6 = par1World.getBlockMetadata(par2, par3, par4);
 
-		if ((var6 & 8) == 0)
-		{
+		if ((var6 & 8) == 0) {
 			boolean var7 = false;
 
-			if (par1World.getBlock(par2, par3 + 1, par4) != this)
-			{
+			if (par1World.getBlock(par2, par3 + 1, par4) != this) {
 				par1World.setBlockToAir(par2, par3, par4);
 				var7 = true;
 			}
 
-			if (!World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4))
-			{
+			if (!World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4)) {
 				par1World.setBlockToAir(par2, par3, par4);
 				var7 = true;
 
@@ -325,20 +268,15 @@ public class BlockCustomDoor extends BlockTerra
 					par1World.setBlockToAir(par2, par3 + 1, par4);
 			}
 
-			if (var7)
-			{
+			if (var7) {
 				if (!par1World.isRemote)
 					this.dropBlockAsItem(par1World, par2, par3, par4, var6, 0);
-			}
-			else
-			{
+			} else {
 				boolean var8 = par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) || par1World.isBlockIndirectlyGettingPowered(par2, par3 + 1, par4);
 				if ((var8 || par5.canProvidePower()) && par5 != this)
 					this.onPoweredBlockChange(par1World, par2, par3, par4, var8);
 			}
-		}
-		else
-		{
+		} else {
 			if (par1World.getBlock(par2, par3 - 1, par4) != this)
 				par1World.setBlockToAir(par2, par3, par4);
 
@@ -352,8 +290,7 @@ public class BlockCustomDoor extends BlockTerra
 	 * x, y, z, startVec, endVec
 	 */
 	@Override
-	public MovingObjectPosition collisionRayTrace(World par1World, int par2, int par3, int par4, Vec3 par5Vec3, Vec3 par6Vec3)
-	{
+	public MovingObjectPosition collisionRayTrace(World par1World, int par2, int par3, int par4, Vec3 par5Vec3, Vec3 par6Vec3) {
 		this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
 		return super.collisionRayTrace(par1World, par2, par3, par4, par5Vec3, par6Vec3);
 	}
@@ -362,8 +299,7 @@ public class BlockCustomDoor extends BlockTerra
 	 * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
 	 */
 	@Override
-	public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
-	{
+	public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4) {
 		return par3 < 255 && (World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && super.canPlaceBlockAt(par1World, par2, par3, par4) && super.canPlaceBlockAt(par1World, par2, par3 + 1, par4));
 	}
 
@@ -372,28 +308,23 @@ public class BlockCustomDoor extends BlockTerra
 	 * and stop pistons
 	 */
 	@Override
-	public int getMobilityFlag()
-	{
+	public int getMobilityFlag() {
 		return 1;
 	}
 
 	/**
 	 * Returns the full metadata value created by combining the metadata of both blocks the door takes up.
 	 */
-	public int getFullMetadata(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
+	public int getFullMetadata(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		int var5 = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
 		boolean var6 = (var5 & 8) != 0;
 		int var7;
 		int var8;
 
-		if (var6)
-		{
+		if (var6) {
 			var7 = par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4);
 			var8 = var5;
-		}
-		else
-		{
+		} else {
 			var7 = var5;
 			var8 = par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4);
 		}
@@ -404,88 +335,77 @@ public class BlockCustomDoor extends BlockTerra
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public Item getItem(World par1World, int par2, int par3, int par4)
-	{
+	public Item getItem(World par1World, int par2, int par3, int par4) {
 		return this.blockMaterial == Material.iron ? Items.iron_door : Items.wooden_door;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer)
-	{
+	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
 		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer effectRenderer)
-	{
+	public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer effectRenderer) {
 		return true;
 	}
-	
-    /**
-     * Get the block's damage value (for use with pick block).
-     */
-    @Override
-	public int getDamageValue(World world, int x, int y, int z)
-    {
-		return getWoodType() / 2;
-    }
 
-    /**
-     * This returns a complete list of items dropped from this block.
-     */
+	/**
+	 * Get the block's damage value (for use with pick block).
+	 */
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
-	{
+	public int getDamageValue(World world, int x, int y, int z) {
+		return getWoodType() / 2;
+	}
+
+	/**
+	 * This returns a complete list of items dropped from this block.
+	 */
+	@Override
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
-	
+
 		// check if the block is the bottom half of the door
-		if ((metadata & 8) == 0)
-		{
+		if ((metadata & 8) == 0) {
 			// block is the bottom half of the door
 			// check if the top half of the door still exists (or is air)
-			Block block = world.getBlock(x, y+1, z);
+			Block block = world.getBlock(x, y + 1, z);
 			if (block != null && (block instanceof BlockCustomDoor || block == Blocks.air)) // only return an item is the top half of the door exists, or the bottom half is air.
 			{
 				// top half of the door still exists or is air
 				// return the door item (used to return the door item when mouse pointer over the bottom half of the door)
 				int damageValue = getDamageValue(world, x, y, z);
-				ret.add(new ItemStack(Recipes.doors[damageValue], 1, 0));				
-			}		
-		}
-		else
-		{
+				ret.add(new ItemStack(Recipes.doors[damageValue], 1, 0));
+			}
+		} else {
 			// block is the top half of the door
 			// check if the bottom half of the door still exists
-			Block block = world.getBlock(x, y-1, z);
+			Block block = world.getBlock(x, y - 1, z);
 			if (block instanceof BlockCustomDoor) // only return an item is the bottom half of the door exists
 			{
 				// bottom half of the door still exists
 				// return the door item (used to return the door item when mouse pointer over the top half of the door)
 				int damageValue = getDamageValue(world, x, y, z);
-				ret.add(new ItemStack(Recipes.doors[damageValue], 1, 0));				
+				ret.add(new ItemStack(Recipes.doors[damageValue], 1, 0));
 			}
 		}
-		
+
 		return ret;
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	@Override
-    public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
-    {
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		int damageValue = getDamageValue(world, x, y, z);
 		return new ItemStack(Recipes.doors[damageValue], 1, 0);
-    }
+	}
 
-	public int getWoodType()
-	{
+	public int getWoodType() {
 		return woodType;
 	}
 
-	private void setWoodType(int woodType)
-	{
+	private void setWoodType(int woodType) {
 		this.woodType = woodType;
 	}
 }

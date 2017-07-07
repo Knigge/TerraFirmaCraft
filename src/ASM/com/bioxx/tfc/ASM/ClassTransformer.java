@@ -1,9 +1,5 @@
 package com.bioxx.tfc.ASM;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.bioxx.tfc.TFCASMLoadingPlugin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,35 +8,32 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
-public class ClassTransformer implements net.minecraft.launchwrapper.IClassTransformer
-{
+public class ClassTransformer implements net.minecraft.launchwrapper.IClassTransformer {
 	public static final Logger LOG = LogManager.getLogger("TerraFirmaCraft ASM");
+	public static int numInsertions;
 	protected Map<String, Patch> mcpMethodNodes = new HashMap<String, Patch>();
 	protected Map<String, Patch> obfMethodNodes = new HashMap<String, Patch>();
 	protected String mcpClassName;
 	protected String obfClassName;
 
-
 	@Override
-	public byte[] transform(String name, String transformedName, byte[] bytes)
-	{
+	public byte[] transform(String name, String transformedName, byte[] bytes) {
 		// log.info("transforming: " + name);
-		if (name.equals(obfClassName))
-		{
+		if (name.equals(obfClassName)) {
 			return transform(bytes);
-		}
-		else if (name.equals(mcpClassName))
-		{
+		} else if (name.equals(mcpClassName)) {
 			return transform(bytes);
 		}
 
 		return bytes;
 	}
 
-	public static int numInsertions;
-	protected byte[] transform(byte[] bytes)
-	{
+	protected byte[] transform(byte[] bytes) {
 		ClassNode classNode = new ClassNode();
 		ClassReader classReader = new ClassReader(bytes);
 		classReader.accept(classNode, 0);
@@ -122,12 +115,9 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		return writer.toByteArray();
 	}
 
-	private int findLine(InsnList methodList, int line)
-	{
-		for (int index = 0; index < methodList.size(); index++)
-		{
-			if(this.isLineNumber(methodList.get(index), line))
-			{
+	private int findLine(InsnList methodList, int line) {
+		for (int index = 0; index < methodList.size(); index++) {
+			if (this.isLineNumber(methodList.get(index), line)) {
 				return index;
 			}
 		}
@@ -159,95 +149,84 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		return false;
 	}*/
 
-	private void performDirectOperation(InsnList methodInsn, InstrSet input)
-	{
-		AbstractInsnNode current = methodInsn.get(input.offset+numInsertions);
-		switch(input.opType)
-		{
-		case InsertAfter:
-			numInsertions+=input.iList.size();
-			methodInsn.insert(current, input.iList);
-			break;
-		case InsertBefore:
-			numInsertions+=input.iList.size();
-			methodInsn.insertBefore(current, input.iList);
-			break;
-		case Remove:
-			numInsertions--;
-			methodInsn.remove(current);
-			break;
-		case Replace:
-			if(current instanceof JumpInsnNode && input.iList.get(0) instanceof JumpInsnNode)
-			{
-				((JumpInsnNode)input.iList.get(0)).label = ((JumpInsnNode)current).label;
-			}
-			methodInsn.insert(current, input.iList);
-			methodInsn.remove(current);
-			break;
-		default:
-			break;
+	private void performDirectOperation(InsnList methodInsn, InstrSet input) {
+		AbstractInsnNode current = methodInsn.get(input.offset + numInsertions);
+		switch (input.opType) {
+			case InsertAfter:
+				numInsertions += input.iList.size();
+				methodInsn.insert(current, input.iList);
+				break;
+			case InsertBefore:
+				numInsertions += input.iList.size();
+				methodInsn.insertBefore(current, input.iList);
+				break;
+			case Remove:
+				numInsertions--;
+				methodInsn.remove(current);
+				break;
+			case Replace:
+				if (current instanceof JumpInsnNode && input.iList.get(0) instanceof JumpInsnNode) {
+					((JumpInsnNode) input.iList.get(0)).label = ((JumpInsnNode) current).label;
+				}
+				methodInsn.insert(current, input.iList);
+				methodInsn.remove(current);
+				break;
+			default:
+				break;
 		}
 	}
 
-	private void performAnchorOperation(InsnList methodInsn, InstrSet input, int anchor)
-	{
+	private void performAnchorOperation(InsnList methodInsn, InstrSet input, int anchor) {
 		AbstractInsnNode current = methodInsn.get(anchor + input.offset + numInsertions);
-		if(input.iList.get(0) instanceof JumpInsnNode)
-		{
-			input.iList.set(input.iList.get(0), new JumpInsnNode(input.iList.get(0).getOpcode(), (LabelNode)current.getPrevious()));
+		if (input.iList.get(0) instanceof JumpInsnNode) {
+			input.iList.set(input.iList.get(0), new JumpInsnNode(input.iList.get(0).getOpcode(), (LabelNode) current.getPrevious()));
 		}
-		switch(input.opType)
-		{
-		case InsertAfter:
-			numInsertions+=input.iList.size();
-			methodInsn.insert(current, input.iList);
-			break;
-		case InsertBefore:
-			numInsertions+=input.iList.size();
-			methodInsn.insertBefore(current, input.iList);
-			break;
-		case Remove:
-			numInsertions--;
-			methodInsn.remove(current);
-			break;
-		case Replace:
-			methodInsn.insert(current, input.iList);
-			methodInsn.remove(current);
-			break;
-		case Switch:
+		switch (input.opType) {
+			case InsertAfter:
+				numInsertions += input.iList.size();
+				methodInsn.insert(current, input.iList);
+				break;
+			case InsertBefore:
+				numInsertions += input.iList.size();
+				methodInsn.insertBefore(current, input.iList);
+				break;
+			case Remove:
+				numInsertions--;
+				methodInsn.remove(current);
+				break;
+			case Replace:
+				methodInsn.insert(current, input.iList);
+				methodInsn.remove(current);
+				break;
+			case Switch:
 			/*
 			  Current is the first node. We will remove it and insert after the chosen index
 			  and then move back one, grab that node and move it to the original location
 			  */
-			int otherAnchor = findLine(methodInsn, input.offsetLine);
-			AbstractInsnNode other = methodInsn.get(otherAnchor + input.offsetSwitch + numInsertions);
-			methodInsn.remove(current);
-			methodInsn.insert(other, current);
-			current = methodInsn.get(anchor + input.offset + numInsertions);
-			methodInsn.remove(other);
-			methodInsn.insertBefore(current, other);
-			break;
-		default:
-			break;
+				int otherAnchor = findLine(methodInsn, input.offsetLine);
+				AbstractInsnNode other = methodInsn.get(otherAnchor + input.offsetSwitch + numInsertions);
+				methodInsn.remove(current);
+				methodInsn.insert(other, current);
+				current = methodInsn.get(anchor + input.offset + numInsertions);
+				methodInsn.remove(other);
+				methodInsn.insertBefore(current, other);
+				break;
+			default:
+				break;
 		}
 	}
 
-	protected Map<String, Patch> getMethodNodeList()
-	{
-		if(TFCASMLoadingPlugin.runtimeDeobf)
-		{
+	protected Map<String, Patch> getMethodNodeList() {
+		if (TFCASMLoadingPlugin.runtimeDeobf) {
 			return obfMethodNodes;
 		}
 		return mcpMethodNodes;
 	}
 
-	private boolean isLineNumber(AbstractInsnNode current, int line)
-	{
-		if(current instanceof LineNumberNode)
-		{
-			int l = ((LineNumberNode)current).line;
-			if(l == line)
-			{
+	private boolean isLineNumber(AbstractInsnNode current, int line) {
+		if (current instanceof LineNumberNode) {
+			int l = ((LineNumberNode) current).line;
+			if (l == line) {
 				return true;
 			}
 		}
@@ -313,9 +292,21 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		}
 	}*/
 
+	public enum PatchOpType {
+		Modify,
+		Replace,
+	}
+
+	public enum InstrOpType {
+		InsertAfter,
+		InsertBefore,
+		Switch,
+		Replace,
+		Remove
+	}
+
 	@SuppressWarnings("CanBeFinal")
-	public class InstrSet
-	{
+	public class InstrSet {
 		/**
 		 * InsnList of instructions that should be inserted at the specified point
 		 */
@@ -327,7 +318,7 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		public int offset;
 
 		/**
-		 * The line number of the LineNumberNode to use as the starting offset, also known as the anchor point. 
+		 * The line number of the LineNumberNode to use as the starting offset, also known as the anchor point.
 		 * If this is -1 then the top of the method is used as the anchor point
 		 */
 		public int startLine = -1;
@@ -341,36 +332,35 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		public int offsetSwitch = -1;
 		public int offsetLine = -1;
 
-		public InstrSet(InsnList list, int off, InstrOpType op)
-		{
+		public InstrSet(InsnList list, int off, InstrOpType op) {
 			iList = list;
 			offset = off;
 			opType = op;
 		}
-		public InstrSet(AbstractInsnNode node, int off, InstrOpType op)
-		{
+
+		public InstrSet(AbstractInsnNode node, int off, InstrOpType op) {
 			iList = new InsnList();
 			iList.add(node);
 			offset = off;
 			opType = op;
 		}
-		public InstrSet(InsnList list, int startLineNum, int off, InstrOpType op)
-		{
+
+		public InstrSet(InsnList list, int startLineNum, int off, InstrOpType op) {
 			iList = list;
 			startLine = startLineNum;
 			offset = off;
 			opType = op;
 		}
-		public InstrSet(AbstractInsnNode node, int startLineNum, int off, InstrOpType op)
-		{
+
+		public InstrSet(AbstractInsnNode node, int startLineNum, int off, InstrOpType op) {
 			iList = new InsnList();
 			iList.add(node);
 			startLine = startLineNum;
 			offset = off;
 			opType = op;
 		}
-		public InstrSet(int startLineNum, int off, int swLineNum, int swOffset)
-		{
+
+		public InstrSet(int startLineNum, int off, int swLineNum, int swOffset) {
 			startLine = startLineNum;
 			offset = off;
 			opType = InstrOpType.Switch;
@@ -380,51 +370,32 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 	}
 
 	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
-	public class Patch
-	{
+	public class Patch {
 		/**
 		 * InstrSet Instance that should be used to modify the given method
 		 */
 		public List<InstrSet> instructions;
 		public PatchOpType opType = PatchOpType.Modify;
 
-		public Patch(List<InstrSet> set)
-		{
+		public Patch(List<InstrSet> set) {
 			instructions = set;
 		}
 
-		public Patch(List<InstrSet> set, PatchOpType op)
-		{
+		public Patch(List<InstrSet> set, PatchOpType op) {
 			instructions = set;
 			opType = op;
 		}
 	}
 
-	public enum PatchOpType
-	{
-		Modify,
-		Replace,
-	}
-
-	public enum InstrOpType
-	{
-		InsertAfter,
-		InsertBefore,
-		Switch,
-		Replace,
-		Remove
-	}
-
 	@SuppressWarnings("SameParameterValue")
-	public class JumpNode extends JumpInsnNode
-	{
+	public class JumpNode extends JumpInsnNode {
 		public int line;
+
 		public JumpNode(int opcode, LabelNode label) {
 			super(opcode, label);
 		}
 
-		public JumpNode(int opcode, int labelLine) 
-		{
+		public JumpNode(int opcode, int labelLine) {
 			super(opcode, null);
 			line = labelLine;
 		}

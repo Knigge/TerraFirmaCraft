@@ -1,8 +1,7 @@
 package com.bioxx.tfc;
 
 @SuppressWarnings("WeakerAccess")
-public class Reference
-{
+public class Reference {
 	public static final String MOD_ID = "terrafirmacraft";
 	public static final String MOD_NAME = "TerraFirmaCraft";
 
@@ -10,7 +9,7 @@ public class Reference
 	public static final int VERSION_MINOR = 79;
 	public static final int VERSION_REVISION = 29;
 
-	public static final String MOD_VERSION = VERSION_MAJOR+"."+VERSION_MINOR+"."+VERSION_REVISION;
+	public static final String MOD_VERSION = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_REVISION;
 
 	public static final String MOD_DEPENDENCIES = "required-after:tfc_coremod";
 	public static final String MOD_CHANNEL = "TerraFirmaCraft";

@@ -4,21 +4,19 @@ package com.bioxx.tfc.ASM.Transform;
  * Invaluable help from AtomicStryker's MultiMine coremod code <3
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("Convert2Diamond")
-public class TF_EntityLeashKnot extends ClassTransformer
-{
+public class TF_EntityLeashKnot extends ClassTransformer {
 
 	@SuppressWarnings("deprecation")
-	public TF_EntityLeashKnot()
-	{
+	public TF_EntityLeashKnot() {
 		mcpClassName = "net.minecraft.entity.EntityLeashKnot";
 		obfClassName = "su";
 
@@ -33,7 +31,7 @@ public class TF_EntityLeashKnot extends ClassTransformer
 		list.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		list.add(new FieldInsnNode(Opcodes.GETFIELD, "net/minecraft/entity/EntityLeashKnot", "field_146062_d", "I"));
 		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "net/minecraft/world/World","getBlock","(III)Z"));*/
-		list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/bioxx/tfc/ServerOverrides","isValidSurface","(Lnet/minecraft/block/Block;)I"));
+		list.add(new MethodInsnNode(Opcodes.INVOKESTATIC, "com/bioxx/tfc/ServerOverrides", "isValidSurface", "(Lnet/minecraft/block/Block;)I"));
 		//list.add(new InsnNode(Opcodes.IRETURN));
 		nodes.add(new InstrSet(list, 11, InstrOpType.Replace));
 

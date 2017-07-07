@@ -3,14 +3,12 @@ package com.bioxx.tfc.Food;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemSoup extends ItemMeal
-{
+public class ItemSoup extends ItemMeal {
 
-	public ItemSoup()
-	{
+	public ItemSoup() {
 		super();
 		this.hasSubtypes = true;
-		this.metaNames = new String[]{"Soup0","Soup1","Soup2","Soup3"};
+		this.metaNames = new String[]{"Soup0", "Soup1", "Soup2", "Soup3"};
 		this.metaIcons = new IIcon[4];
 		this.setFolder("food/");
 	}

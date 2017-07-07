@@ -1,8 +1,11 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
-import java.util.List;
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Constant.Global;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMushroom;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -14,22 +17,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenBigMushroom;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockFungi extends BlockMushroom
-{
+public class BlockFungi extends BlockMushroom {
 	@SideOnly(Side.CLIENT)
 	private IIcon[] icons;
 
-	public BlockFungi()
-	{
+	public BlockFungi() {
 		super();
 		float var3 = 0.2F;
 		this.setBlockBounds(0.5F - var3, 0.0F, 0.5F - var3, 0.5F + var3, var3 * 2.0F, 0.5F + var3);
@@ -42,19 +38,16 @@ public class BlockFungi extends BlockMushroom
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int par1, int par2)
-	{
+	public IIcon getIcon(int par1, int par2) {
 		if (par2 >= this.icons.length) par2 = 0;
 		return this.icons[par2];
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister register)
-	{
+	public void registerBlockIcons(IIconRegister register) {
 		this.icons = new IIcon[Global.FUNGI_META_NAMES.length];
-		for (int i = 0; i < this.icons.length; ++i)
-		{
+		for (int i = 0; i < this.icons.length; ++i) {
 			// The first 2 mushrooms are from vanilla
 			this.icons[i] = register.registerIcon((icons.length > 2 ? Reference.MOD_ID + ":plants/" : "") + Global.FUNGI_META_NAMES[i]);
 		}
@@ -64,8 +57,7 @@ public class BlockFungi extends BlockMushroom
 	 * Determines the damage on the item the block drops. Used in cloth and wood.
 	 */
 	@Override
-	public int damageDropped(int par1)
-	{
+	public int damageDropped(int par1) {
 		return par1;
 	}
 
@@ -75,10 +67,8 @@ public class BlockFungi extends BlockMushroom
 	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubBlocks(Item item, CreativeTabs tab, List list)
-	{
-		for (int i = 0; i < this.icons.length; ++i)
-		{
+	public void getSubBlocks(Item item, CreativeTabs tab, List list) {
+		for (int i = 0; i < this.icons.length; ++i) {
 			list.add(new ItemStack(item, 1, i));
 		}
 	}
@@ -87,21 +77,16 @@ public class BlockFungi extends BlockMushroom
 	 * Can this block stay at this position.  Similar to canPlaceBlockAt except gets checked often with plants.
 	 */
 	@Override
-	public boolean canBlockStay(World world, int x, int y, int z)
-	{
-		if (y >= 0 && y < 256)
-		{
+	public boolean canBlockStay(World world, int x, int y, int z) {
+		if (y >= 0 && y < 256) {
 			Block var5 = world.getBlock(x, y - 1, z);
 			return var5 == Blocks.mycelium || world.getFullBlockLightValue(x, y, z) < 13 && this.canThisPlantGrowOnThisBlock(var5);
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	protected boolean canThisPlantGrowOnThisBlock(Block block)
-	{
+	protected boolean canThisPlantGrowOnThisBlock(Block block) {
 		return TFC_Core.isSoil(block) || TFC_Core.isFarmland(block);
 	}
 
@@ -109,8 +94,7 @@ public class BlockFungi extends BlockMushroom
 	 * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
 	 */
 	@Override
-	public boolean canPlaceBlockAt(World world, int x, int y, int z)
-	{
+	public boolean canPlaceBlockAt(World world, int x, int y, int z) {
 		Block var5 = world.getBlock(x, y, z);
 		return (world.isAirBlock(x, y, z) || var5.getMaterial().isReplaceable())
 				&& this.canThisPlantGrowOnThisBlock(var5)
@@ -121,8 +105,7 @@ public class BlockFungi extends BlockMushroom
 	 * Fertilize the mushroom.
 	 */
 	@Override
-	public boolean func_149884_c/*fertilizeMushroom*/(World world, int x, int y, int z, Random rnd)
-	{
+	public boolean func_149884_c/*fertilizeMushroom*/(World world, int x, int y, int z, Random rnd) {
 		Block block = world.getBlock(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		WorldGenBigMushroom bigGen = null;
@@ -134,12 +117,9 @@ public class BlockFungi extends BlockMushroom
 		else if (this == block && meta == 1)
 			bigGen = new WorldGenBigMushroom(1);
 
-		if (bigGen != null && bigGen.generate(world, rnd, x, y, z))
-		{
+		if (bigGen != null && bigGen.generate(world, rnd, x, y, z)) {
 			return true;
-		}
-		else
-		{
+		} else {
 			world.setBlock(x, y, z, this, meta, 3);
 			return false;
 		}
@@ -149,12 +129,10 @@ public class BlockFungi extends BlockMushroom
 	 * Ticks the block if it's been scheduled
 	 */
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rnd)
-	{
+	public void updateTick(World world, int x, int y, int z, Random rnd) {
 		int meta = world.getBlockMetadata(x, y, z);
 
-		if (rnd.nextInt(25) == 0)
-		{
+		if (rnd.nextInt(25) == 0) {
 			byte var6 = 4;
 			int var7 = 5;
 			int i;
@@ -162,12 +140,9 @@ public class BlockFungi extends BlockMushroom
 			int j; // Initially used for z, then switched to y
 			int k; // Initially used for y, then switched to z
 
-			for (i = x - var6; i <= x + var6; ++i)
-			{
-				for (j = z - var6; j <= z + var6; ++j)
-				{
-					for (k = y - 1; k <= y + 1; ++k)
-					{
+			for (i = x - var6; i <= x + var6; ++i) {
+				for (j = z - var6; j <= z + var6; ++j) {
+					for (k = y - 1; k <= y + 1; ++k) {
 						if (world.blockExists(i, k, j) && world.getBlock(i, k, j) == this) // Correctly doing x, y, z
 						{
 							--var7;
@@ -182,10 +157,8 @@ public class BlockFungi extends BlockMushroom
 			j = y + rnd.nextInt(2) - rnd.nextInt(2);
 			k = z + rnd.nextInt(3) - 1;
 
-			for (int var11 = 0; var11 < 4; ++var11)
-			{
-				if (world.blockExists(i, j, k) && world.isAirBlock(i, j, k) && this.canBlockStay(world, i, j, k))
-				{
+			for (int var11 = 0; var11 < 4; ++var11) {
+				if (world.blockExists(i, j, k) && world.isAirBlock(i, j, k) && this.canBlockStay(world, i, j, k)) {
 					x = i;
 					y = j;
 					z = k;

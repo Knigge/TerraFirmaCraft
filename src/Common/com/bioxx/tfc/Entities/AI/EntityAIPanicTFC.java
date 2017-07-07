@@ -1,18 +1,16 @@
 package com.bioxx.tfc.Entities.AI;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.api.Entities.IAnimal;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.util.Vec3;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.Entities.IAnimal;
+import java.util.List;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class EntityAIPanicTFC extends EntityAIBase
-{
+public class EntityAIPanicTFC extends EntityAIBase {
 	private final EntityCreature theEntityCreature;
 	private final boolean alertHerd;
 	private final double speed;
@@ -20,8 +18,7 @@ public class EntityAIPanicTFC extends EntityAIBase
 	private double randPosY;
 	private double randPosZ;
 
-	public EntityAIPanicTFC(EntityCreature par1EntityCreature, double par2, boolean par3)
-	{
+	public EntityAIPanicTFC(EntityCreature par1EntityCreature, double par2, boolean par3) {
 		this.theEntityCreature = par1EntityCreature;
 		this.speed = par2;
 		this.alertHerd = par3;
@@ -32,40 +29,30 @@ public class EntityAIPanicTFC extends EntityAIBase
 	 * Returns whether the EntityAIBase should begin execution.
 	 */
 	@Override
-	public boolean shouldExecute()
-	{
+	public boolean shouldExecute() {
 		if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() &&
-			(!(this.theEntityCreature instanceof IAnimal) || ((IAnimal) this.theEntityCreature).getAttackedVec() == null))
-		{
+				(!(this.theEntityCreature instanceof IAnimal) || ((IAnimal) this.theEntityCreature).getAttackedVec() == null)) {
 			return false;
-		}
-		else
-		{
+		} else {
 			Vec3 attackedVec = this.theEntityCreature instanceof IAnimal ? ((IAnimal) this.theEntityCreature).getAttackedVec() : null;
 			//TerraFirmaCraft.log.info(attackedVec != null);
 			Vec3 vec3 = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 5, 4);
-			if (attackedVec != null)
-			{
+			if (attackedVec != null) {
 				//noinspection ConstantConditions
 				if (this.theEntityCreature instanceof IAnimal)
 					attackedVec = updateAttackVec((IAnimal) this.theEntityCreature, attackedVec);
 				vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntityCreature, 5, 4, attackedVec);
 			}
-			if (vec3 == null)
-			{
+			if (vec3 == null) {
 				return false;
-			}
-			else
-			{
+			} else {
 				this.randPosX = vec3.xCoord;
 				this.randPosY = vec3.yCoord;
 				this.randPosZ = vec3.zCoord;
-				if (alertHerd && this.theEntityCreature instanceof IAnimal)
-				{
+				if (alertHerd && this.theEntityCreature instanceof IAnimal) {
 					List list = this.theEntityCreature.worldObj.getEntitiesWithinAABB(this.theEntityCreature.getClass(),
 							this.theEntityCreature.boundingBox.expand(8, 8, 8));
-					for (Object entity : list)
-					{
+					for (Object entity : list) {
 						//TerraFirmaCraft.log.info(entity);
 						((IAnimal) entity).setAttackedVec(attackedVec);
 					}
@@ -75,11 +62,9 @@ public class EntityAIPanicTFC extends EntityAIBase
 		}
 	}
 
-	public Vec3 updateAttackVec(IAnimal theCreature, Vec3 attackedVec)
-	{
+	public Vec3 updateAttackVec(IAnimal theCreature, Vec3 attackedVec) {
 		if (theCreature.getFearSource() != null &&
-			TFC_Core.getEntityPos(theEntityCreature).distanceTo(attackedVec) > this.theEntityCreature.getDistanceToEntity(theCreature.getFearSource()))
-		{
+				TFC_Core.getEntityPos(theEntityCreature).distanceTo(attackedVec) > this.theEntityCreature.getDistanceToEntity(theCreature.getFearSource())) {
 			Vec3 newVec = Vec3.createVectorHelper(theCreature.getFearSource().posX, theCreature.getFearSource().posY, theCreature.getFearSource().posZ);
 			theCreature.setAttackedVec(newVec);
 			return newVec;
@@ -91,8 +76,7 @@ public class EntityAIPanicTFC extends EntityAIBase
 	 * Execute a one shot task or start executing a continuous task
 	 */
 	@Override
-	public void startExecuting()
-	{
+	public void startExecuting() {
 		this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
 	}
 
@@ -100,8 +84,7 @@ public class EntityAIPanicTFC extends EntityAIBase
 	 * Returns whether an in-progress EntityAIBase should continue executing
 	 */
 	@Override
-	public boolean continueExecuting()
-	{
+	public boolean continueExecuting() {
 		return !this.theEntityCreature.getNavigator().noPath();
 	}
 }

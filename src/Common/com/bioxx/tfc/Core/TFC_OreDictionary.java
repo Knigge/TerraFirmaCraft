@@ -1,19 +1,15 @@
 package com.bioxx.tfc.Core;
 
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
-
-public class TFC_OreDictionary
-{
-	public static void registerOreDict()
-	{
+public class TFC_OreDictionary {
+	public static void registerOreDict() {
 		final int WILD = OreDictionary.WILDCARD_VALUE;
 
 		//Wood & Trees
@@ -92,7 +88,6 @@ public class TFC_OreDictionary
 		OreDictionary.registerOre("dustElectrum", new ItemStack(TFCItems.metalDust, 1, 30)); //Electrum
 		OreDictionary.registerOre("dustCupronickel", new ItemStack(TFCItems.metalDust, 1, 31)); //Cupronickel
 		OreDictionary.registerOre("dustConstantan", new ItemStack(TFCItems.metalDust, 1, 31)); //Cupronickel
-
 
 
 		OreDictionary.registerOre("oreCopper", new ItemStack(TFCItems.orePile, 1, 0)); //Native Copper Pile
@@ -198,7 +193,6 @@ public class TFC_OreDictionary
 		OreDictionary.registerOre("oreRichTungsten", new ItemStack(TFCItems.oreChunk, 1, 35)); //Wolframite
 		OreDictionary.registerOre("orePoorTungsten", new ItemStack(TFCItems.oreChunk, 1, 52)); //Scheelite
 		OreDictionary.registerOre("orePoorTungsten", new ItemStack(TFCItems.oreChunk, 1, 53)); //Wolframite
-
 
 
 		OreDictionary.registerOre("oreKaolinite", new ItemStack(TFCItems.oreMineralChunk, 1, 0));

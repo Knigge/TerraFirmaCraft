@@ -1,27 +1,23 @@
 package com.bioxx.tfc.Items;
 
-import java.util.List;
-
-import com.bioxx.tfc.Items.ItemTerra;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.Enums.EnumWeight;
+import com.bioxx.tfc.api.Interfaces.ISmeltable;
+import com.bioxx.tfc.api.Metal;
+import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.api.Metal;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Constant.Global;
-import com.bioxx.tfc.api.Enums.EnumSize;
-import com.bioxx.tfc.api.Enums.EnumWeight;
-import com.bioxx.tfc.api.Interfaces.ISmeltable;
+import java.util.List;
 
-public class ItemOre extends ItemTerra implements ISmeltable
-{
-	public ItemOre()
-	{
+public class ItemOre extends ItemTerra implements ISmeltable {
+	public ItemOre() {
 		super();
 		setMaxDamage(0);
 		setHasSubtypes(true);
@@ -45,302 +41,447 @@ public class ItemOre extends ItemTerra implements ISmeltable
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.SMALL;
 	}
 
 	@Override
-	public EnumWeight getWeight(ItemStack is)
-	{
+	public EnumWeight getWeight(ItemStack is) {
 		return EnumWeight.HEAVY;
 	}
 
 	@Override
-	public void registerIcons(IIconRegister registerer)
-	{
+	public void registerIcons(IIconRegister registerer) {
 		metaIcons = new IIcon[metaNames.length];
-		for(int i = 0; i < metaNames.length; i++)
-		{
+		for (int i = 0; i < metaNames.length; i++) {
 			metaIcons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + textureFolder + metaNames[i] + " Ore");
 		}
 	}
 
 	@Override
-	public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist)
-	{
-		if(getMetalType(is) != null)
-		{
-			if (TFC_Core.showShiftInformation())
-			{
+	public void addExtraInformation(ItemStack is, EntityPlayer player, List<String> arraylist) {
+		if (getMetalType(is) != null) {
+			if (TFC_Core.showShiftInformation()) {
 				arraylist.add(TFC_Core.translate("gui.units") + ": " + getMetalReturnAmount(is));
-			}
-			else
-			{
+			} else {
 				arraylist.add(TFC_Core.translate("gui.ShowHelp"));
 			}
 		}
 	}
 
 	@Override
-	public Metal getMetalType(ItemStack is)
-	{
+	public Metal getMetalType(ItemStack is) {
 		int dam = is.getItemDamage();
-		switch(dam)
-		{
-		case 0: return Global.COPPER;
-		case 1: return Global.GOLD;
-		case 2: return Global.PLATINUM;
-		case 3: return Global.PIGIRON;
-		case 4: return Global.SILVER;
-		case 5: return Global.TIN;
-		case 6: return Global.LEAD;
-		case 7: return Global.BISMUTH;
-		case 8: return Global.NICKEL;
-		case 9: return Global.COPPER;
-		case 10: return Global.PIGIRON;
-		case 11: return Global.PIGIRON;
-		case 12: return Global.ZINC;
-		case 13: return Global.COPPER;
-		case 14: return Global.OSMIUM;
-		case 15: return Global.ALUMINUM;
-		case 16: return Global.TUNGSTEN;
-		case 17: return Global.TUNGSTEN;
-		//Rich Ores
-		case 18: return Global.COPPER;
-		case 19: return Global.GOLD;
-		case 20: return Global.PLATINUM;
-		case 21: return Global.PIGIRON;
-		case 22: return Global.SILVER;
-		case 23: return Global.TIN;
-		case 24: return Global.LEAD;
-		case 25: return Global.BISMUTH;
-		case 26: return Global.NICKEL;
-		case 27: return Global.COPPER;
-		case 28: return Global.PIGIRON;
-		case 29: return Global.PIGIRON;
-		case 30: return Global.ZINC;
-		case 31: return Global.COPPER;
-		case 32: return Global.OSMIUM;
-		case 33: return Global.ALUMINUM;
-		case 34: return Global.TUNGSTEN;
-		case 35: return Global.TUNGSTEN;
-		//Poor Ores
-		case 36: return Global.COPPER;
-		case 37: return Global.GOLD;
-		case 38: return Global.PLATINUM;
-		case 39: return Global.PIGIRON;
-		case 40: return Global.SILVER;
-		case 41: return Global.TIN;
-		case 42: return Global.LEAD;
-		case 43: return Global.BISMUTH;
-		case 44: return Global.NICKEL;
-		case 45: return Global.COPPER;
-		case 46: return Global.PIGIRON;
-		case 47: return Global.PIGIRON;
-		case 48: return Global.ZINC;
-		case 49: return Global.COPPER;
-		case 50: return Global.OSMIUM;
-		case 51: return Global.ALUMINUM;
-		case 52: return Global.TUNGSTEN;
-		case 53: return Global.TUNGSTEN;
+		switch (dam) {
+			case 0:
+				return Global.COPPER;
+			case 1:
+				return Global.GOLD;
+			case 2:
+				return Global.PLATINUM;
+			case 3:
+				return Global.PIGIRON;
+			case 4:
+				return Global.SILVER;
+			case 5:
+				return Global.TIN;
+			case 6:
+				return Global.LEAD;
+			case 7:
+				return Global.BISMUTH;
+			case 8:
+				return Global.NICKEL;
+			case 9:
+				return Global.COPPER;
+			case 10:
+				return Global.PIGIRON;
+			case 11:
+				return Global.PIGIRON;
+			case 12:
+				return Global.ZINC;
+			case 13:
+				return Global.COPPER;
+			case 14:
+				return Global.OSMIUM;
+			case 15:
+				return Global.ALUMINUM;
+			case 16:
+				return Global.TUNGSTEN;
+			case 17:
+				return Global.TUNGSTEN;
+			//Rich Ores
+			case 18:
+				return Global.COPPER;
+			case 19:
+				return Global.GOLD;
+			case 20:
+				return Global.PLATINUM;
+			case 21:
+				return Global.PIGIRON;
+			case 22:
+				return Global.SILVER;
+			case 23:
+				return Global.TIN;
+			case 24:
+				return Global.LEAD;
+			case 25:
+				return Global.BISMUTH;
+			case 26:
+				return Global.NICKEL;
+			case 27:
+				return Global.COPPER;
+			case 28:
+				return Global.PIGIRON;
+			case 29:
+				return Global.PIGIRON;
+			case 30:
+				return Global.ZINC;
+			case 31:
+				return Global.COPPER;
+			case 32:
+				return Global.OSMIUM;
+			case 33:
+				return Global.ALUMINUM;
+			case 34:
+				return Global.TUNGSTEN;
+			case 35:
+				return Global.TUNGSTEN;
+			//Poor Ores
+			case 36:
+				return Global.COPPER;
+			case 37:
+				return Global.GOLD;
+			case 38:
+				return Global.PLATINUM;
+			case 39:
+				return Global.PIGIRON;
+			case 40:
+				return Global.SILVER;
+			case 41:
+				return Global.TIN;
+			case 42:
+				return Global.LEAD;
+			case 43:
+				return Global.BISMUTH;
+			case 44:
+				return Global.NICKEL;
+			case 45:
+				return Global.COPPER;
+			case 46:
+				return Global.PIGIRON;
+			case 47:
+				return Global.PIGIRON;
+			case 48:
+				return Global.ZINC;
+			case 49:
+				return Global.COPPER;
+			case 50:
+				return Global.OSMIUM;
+			case 51:
+				return Global.ALUMINUM;
+			case 52:
+				return Global.TUNGSTEN;
+			case 53:
+				return Global.TUNGSTEN;
 		}
 		return null;
 	}
 
 	@Override
-	public short getMetalReturnAmount(ItemStack is)
-	{
+	public short getMetalReturnAmount(ItemStack is) {
 		int dam = is.getItemDamage();
-		switch(dam)
-		{
-		case 0:
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-		case 6:
-		case 7:
-		case 8:
-		case 9:
-		case 10:
-		case 11:
-		case 12:
-		case 13:
-		case 14:
-		case 15:
-		case 16:
-		case 17: return (short) TFCOptions.normalOreUnits;
-		case 18:
-		case 19:
-		case 20:
-		case 21:
-		case 22:
-		case 23:
-		case 24:
-		case 25:
-		case 26:
-		case 27:
-		case 28:
-		case 29:
-		case 30:
-		case 31:
-		case 32:
-		case 33:
-		case 34:
-		case 35: return (short) TFCOptions.richOreUnits;
-		case 36:
-		case 37:
-		case 38:
-		case 39:
-		case 40:
-		case 41:
-		case 42:
-		case 43:
-		case 44:
-		case 45:
-		case 46:
-		case 47:
-		case 48:
-		case 49:
-		case 50:
-		case 51:
-		case 52:
-		case 53: return (short) TFCOptions.poorOreUnits;
+		switch (dam) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+			case 13:
+			case 14:
+			case 15:
+			case 16:
+			case 17:
+				return (short) TFCOptions.normalOreUnits;
+			case 18:
+			case 19:
+			case 20:
+			case 21:
+			case 22:
+			case 23:
+			case 24:
+			case 25:
+			case 26:
+			case 27:
+			case 28:
+			case 29:
+			case 30:
+			case 31:
+			case 32:
+			case 33:
+			case 34:
+			case 35:
+				return (short) TFCOptions.richOreUnits;
+			case 36:
+			case 37:
+			case 38:
+			case 39:
+			case 40:
+			case 41:
+			case 42:
+			case 43:
+			case 44:
+			case 45:
+			case 46:
+			case 47:
+			case 48:
+			case 49:
+			case 50:
+			case 51:
+			case 52:
+			case 53:
+				return (short) TFCOptions.poorOreUnits;
 		}
 		return 0;
 	}
 
 	@Override
-	public boolean isSmeltable(ItemStack is)
-	{
-		switch(is.getItemDamage())
-		{
-			case 0: return true;
-			case 1: return true;
-			case 2: return true;
-			case 3: return true;
-			case 4: return true;
-			case 5: return true;
-			case 6: return true;
-			case 7: return true;
-			case 8: return true;
-			case 9: return true;
-			case 10: return true;
-			case 11: return true;
-			case 12: return true;
-			case 13: return true;
-			case 14: return true;
+	public boolean isSmeltable(ItemStack is) {
+		switch (is.getItemDamage()) {
+			case 0:
+				return true;
+			case 1:
+				return true;
+			case 2:
+				return true;
+			case 3:
+				return true;
+			case 4:
+				return true;
+			case 5:
+				return true;
+			case 6:
+				return true;
+			case 7:
+				return true;
+			case 8:
+				return true;
+			case 9:
+				return true;
+			case 10:
+				return true;
+			case 11:
+				return true;
+			case 12:
+				return true;
+			case 13:
+				return true;
+			case 14:
+				return true;
 			case 15:
 				return TFCOptions.enableAluminumSmelting;
-			case 16: return true;
-			case 17: return true;
-			case 18: return true;
-			case 19: return true;
-			case 20: return true;
-			case 21: return true;
-			case 22: return true;
-			case 23: return true;
-			case 24: return true;
-			case 25: return true;
-			case 26: return true;
-			case 27: return true;
-			case 28: return true;
-			case 29: return true;
-			case 30: return true;
-			case 31: return true;
-			case 32: return true;
+			case 16:
+				return true;
+			case 17:
+				return true;
+			case 18:
+				return true;
+			case 19:
+				return true;
+			case 20:
+				return true;
+			case 21:
+				return true;
+			case 22:
+				return true;
+			case 23:
+				return true;
+			case 24:
+				return true;
+			case 25:
+				return true;
+			case 26:
+				return true;
+			case 27:
+				return true;
+			case 28:
+				return true;
+			case 29:
+				return true;
+			case 30:
+				return true;
+			case 31:
+				return true;
+			case 32:
+				return true;
 			case 33:
 				return TFCOptions.enableAluminumSmelting;
-			case 34: return true;
-			case 35: return true;
-			case 36: return true;
-			case 37: return true;
-			case 38: return true;
-			case 39: return true;
-			case 40: return true;
-			case 41: return true;
-			case 42: return true;
-			case 43: return true;
-			case 44: return true;
-			case 45: return true;
-			case 46: return true;
-			case 47: return true;
-			case 48: return true;
-			case 49: return true;
-			case 50: return true;
+			case 34:
+				return true;
+			case 35:
+				return true;
+			case 36:
+				return true;
+			case 37:
+				return true;
+			case 38:
+				return true;
+			case 39:
+				return true;
+			case 40:
+				return true;
+			case 41:
+				return true;
+			case 42:
+				return true;
+			case 43:
+				return true;
+			case 44:
+				return true;
+			case 45:
+				return true;
+			case 46:
+				return true;
+			case 47:
+				return true;
+			case 48:
+				return true;
+			case 49:
+				return true;
+			case 50:
+				return true;
 			case 51:
 				return TFCOptions.enableAluminumSmelting;
-			case 52: return true;
-			case 53: return true;
-		default:
-			return false;
+			case 52:
+				return true;
+			case 53:
+				return true;
+			default:
+				return false;
 		}
 	}
 
 	@Override
-	public EnumTier getSmeltTier(ItemStack is)
-	{
+	public EnumTier getSmeltTier(ItemStack is) {
 		int dam = is.getItemDamage();
-		switch(dam)
-		{
-		case 0: return EnumTier.TierI;
-		case 1: return EnumTier.TierI;
-		case 2: return EnumTier.TierIV;
-		case 3: return EnumTier.TierIII;
-		case 4: return EnumTier.TierI;
-		case 5: return EnumTier.TierI;
-		case 6: return EnumTier.TierI;
-		case 7: return EnumTier.TierI;
-		case 8: return EnumTier.TierIII;
-		case 9: return EnumTier.TierI;
-		case 10: return EnumTier.TierIII;
-		case 11: return EnumTier.TierIII;
-		case 12: return EnumTier.TierI;
-		case 13: return EnumTier.TierI;
-		case 14: return EnumTier.TierIV;
-		case 15: return EnumTier.TierIII;
-		case 16: return EnumTier.TierIV;
-		case 17: return EnumTier.TierIV;
-		//Rich Ores
-		case 18: return EnumTier.TierI;
-		case 19: return EnumTier.TierI;
-		case 20: return EnumTier.TierIV;
-		case 21: return EnumTier.TierIII;
-		case 22: return EnumTier.TierI;
-		case 23: return EnumTier.TierI;
-		case 24: return EnumTier.TierI;
-		case 25: return EnumTier.TierI;
-		case 26: return EnumTier.TierIII;
-		case 27: return EnumTier.TierI;
-		case 28: return EnumTier.TierIII;
-		case 29: return EnumTier.TierIII;
-		case 30: return EnumTier.TierI;
-		case 31: return EnumTier.TierI;
-		case 32: return EnumTier.TierIV;
-		case 33: return EnumTier.TierIII;
-		case 34: return EnumTier.TierIV;
-		case 35: return EnumTier.TierIV;
-		//Poor Ores
-		case 36: return EnumTier.TierI;
-		case 37: return EnumTier.TierI;
-		case 38: return EnumTier.TierIV;
-		case 39: return EnumTier.TierIII;
-		case 40: return EnumTier.TierI;
-		case 41: return EnumTier.TierI;
-		case 42: return EnumTier.TierI;
-		case 43: return EnumTier.TierI;
-		case 44: return EnumTier.TierIII;
-		case 45: return EnumTier.TierI;
-		case 46: return EnumTier.TierIII;
-		case 47: return EnumTier.TierIII;
-		case 48: return EnumTier.TierI;
-		case 49: return EnumTier.TierI;
-		case 50: return EnumTier.TierIV;
-		case 51: return EnumTier.TierIII;
-		case 52: return EnumTier.TierIV;
-		case 53: return EnumTier.TierIV;
+		switch (dam) {
+			case 0:
+				return EnumTier.TierI;
+			case 1:
+				return EnumTier.TierI;
+			case 2:
+				return EnumTier.TierIV;
+			case 3:
+				return EnumTier.TierIII;
+			case 4:
+				return EnumTier.TierI;
+			case 5:
+				return EnumTier.TierI;
+			case 6:
+				return EnumTier.TierI;
+			case 7:
+				return EnumTier.TierI;
+			case 8:
+				return EnumTier.TierIII;
+			case 9:
+				return EnumTier.TierI;
+			case 10:
+				return EnumTier.TierIII;
+			case 11:
+				return EnumTier.TierIII;
+			case 12:
+				return EnumTier.TierI;
+			case 13:
+				return EnumTier.TierI;
+			case 14:
+				return EnumTier.TierIV;
+			case 15:
+				return EnumTier.TierIII;
+			case 16:
+				return EnumTier.TierIV;
+			case 17:
+				return EnumTier.TierIV;
+			//Rich Ores
+			case 18:
+				return EnumTier.TierI;
+			case 19:
+				return EnumTier.TierI;
+			case 20:
+				return EnumTier.TierIV;
+			case 21:
+				return EnumTier.TierIII;
+			case 22:
+				return EnumTier.TierI;
+			case 23:
+				return EnumTier.TierI;
+			case 24:
+				return EnumTier.TierI;
+			case 25:
+				return EnumTier.TierI;
+			case 26:
+				return EnumTier.TierIII;
+			case 27:
+				return EnumTier.TierI;
+			case 28:
+				return EnumTier.TierIII;
+			case 29:
+				return EnumTier.TierIII;
+			case 30:
+				return EnumTier.TierI;
+			case 31:
+				return EnumTier.TierI;
+			case 32:
+				return EnumTier.TierIV;
+			case 33:
+				return EnumTier.TierIII;
+			case 34:
+				return EnumTier.TierIV;
+			case 35:
+				return EnumTier.TierIV;
+			//Poor Ores
+			case 36:
+				return EnumTier.TierI;
+			case 37:
+				return EnumTier.TierI;
+			case 38:
+				return EnumTier.TierIV;
+			case 39:
+				return EnumTier.TierIII;
+			case 40:
+				return EnumTier.TierI;
+			case 41:
+				return EnumTier.TierI;
+			case 42:
+				return EnumTier.TierI;
+			case 43:
+				return EnumTier.TierI;
+			case 44:
+				return EnumTier.TierIII;
+			case 45:
+				return EnumTier.TierI;
+			case 46:
+				return EnumTier.TierIII;
+			case 47:
+				return EnumTier.TierIII;
+			case 48:
+				return EnumTier.TierI;
+			case 49:
+				return EnumTier.TierI;
+			case 50:
+				return EnumTier.TierIV;
+			case 51:
+				return EnumTier.TierIII;
+			case 52:
+				return EnumTier.TierIV;
+			case 53:
+				return EnumTier.TierIV;
 		}
 		return EnumTier.TierX;
 	}

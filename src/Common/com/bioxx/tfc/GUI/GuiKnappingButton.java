@@ -1,29 +1,23 @@
 package com.bioxx.tfc.GUI;
 
+import com.bioxx.tfc.Core.Player.PlayerInfo;
+import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
+import com.bioxx.tfc.Core.TFC_Core;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.IIcon;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.Player.PlayerInfo;
-import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class GuiKnappingButton extends GuiButton
-{
-	public GuiKnappingButton(int index, int xPos, int yPos, int width, int height)
-	{
+public class GuiKnappingButton extends GuiButton {
+	public GuiKnappingButton(int index, int xPos, int yPos, int width, int height) {
 		super(index, xPos, yPos, width, height, "");
 	}
 
 	@Override
-	public void drawButton(Minecraft par1Minecraft, int xPos, int yPos)
-	{
-		if (this.visible)
-		{
+	public void drawButton(Minecraft par1Minecraft, int xPos, int yPos) {
+		if (this.visible) {
 			PlayerInfo pi = PlayerManagerTFC.getInstance().getClientPlayer();
 			IIcon icon = null;
 

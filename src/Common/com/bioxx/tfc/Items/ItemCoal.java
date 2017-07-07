@@ -1,8 +1,12 @@
 package com.bioxx.tfc.Items;
 
-import java.util.List;
-
+import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.TileEntities.TECoalPile;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.Enums.EnumWeight;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,18 +14,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.Enums.EnumSize;
-import com.bioxx.tfc.api.Enums.EnumWeight;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemCoal extends ItemTerra {
+	private int[][] map =
+			{{0, -1, 0},
+					{0, 1, 0},
+					{0, 0, -1},
+					{0, 0, 1},
+					{-1, 0, 0},
+					{1, 0, 0},
+			};
+
 	public ItemCoal() {
 		super();
 		this.setHasSubtypes(true);
@@ -32,15 +39,6 @@ public class ItemCoal extends ItemTerra {
 		this.setSize(EnumSize.TINY);
 	}
 
-	private int[][] map =
-			{{0, -1, 0},
-					{0, 1, 0},
-					{0, 0, -1},
-					{0, 0, 1},
-					{-1, 0, 0},
-					{1, 0, 0},
-			};
-
 	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -50,28 +48,22 @@ public class ItemCoal extends ItemTerra {
 		list.add(new ItemStack(item, 1, 2));
 	}
 
-	private boolean createPile(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, int l)
-	{
+	private boolean createPile(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, int l) {
 		TECoalPile te;
-		if(world.isAirBlock(x, y, z) && isValid(world, x, y, z))
-		{
+		if (world.isAirBlock(x, y, z) && isValid(world, x, y, z)) {
 			world.setBlock(x, y, z, TFCBlocks.coalPile, l, 3);
-			te = (TECoalPile)world.getTileEntity(x, y, z);
-		}
-		else
-		{
+			te = (TECoalPile) world.getTileEntity(x, y, z);
+		} else {
 			return false;
 		}
 
-		if(te != null)
-		{
-			te.storage[0] = new ItemStack(this,1,itemstack.getItemDamage());
-			if(entityplayer.capabilities.isCreativeMode)
-			{
-				te.storage[0] = new ItemStack(this,4,itemstack.getItemDamage());
-				te.storage[1] = new ItemStack(this,4,itemstack.getItemDamage());
-				te.storage[2] = new ItemStack(this,4,itemstack.getItemDamage());
-				te.storage[3] = new ItemStack(this,4,itemstack.getItemDamage());
+		if (te != null) {
+			te.storage[0] = new ItemStack(this, 1, itemstack.getItemDamage());
+			if (entityplayer.capabilities.isCreativeMode) {
+				te.storage[0] = new ItemStack(this, 4, itemstack.getItemDamage());
+				te.storage[1] = new ItemStack(this, 4, itemstack.getItemDamage());
+				te.storage[2] = new ItemStack(this, 4, itemstack.getItemDamage());
+				te.storage[3] = new ItemStack(this, 4, itemstack.getItemDamage());
 			}
 		}
 
@@ -85,20 +77,16 @@ public class ItemCoal extends ItemTerra {
 			if (te instanceof TECoalPile) {
 				TECoalPile lp = (TECoalPile) te;
 
-				if (lp.storage[0] == null || lp.storage[0].stackSize < 4)
-				{
+				if (lp.storage[0] == null || lp.storage[0].stackSize < 4) {
 					return false;
 				}
-				if (lp.storage[1] == null || lp.storage[1].stackSize < 4)
-				{
+				if (lp.storage[1] == null || lp.storage[1].stackSize < 4) {
 					return false;
 				}
-				if (lp.storage[2] == null || lp.storage[2].stackSize < 4)
-				{
+				if (lp.storage[2] == null || lp.storage[2].stackSize < 4) {
 					return false;
 				}
-				if (lp.storage[3] == null || lp.storage[3].stackSize < 4)
-				{
+				if (lp.storage[3] == null || lp.storage[3].stackSize < 4) {
 					return false;
 				}
 			}
@@ -162,24 +150,23 @@ public class ItemCoal extends ItemTerra {
 			} else if (world.getBlock(x, y, z) == TFCBlocks.coalPile) {
 				TECoalPile te = (TECoalPile) world.getTileEntity(x, y, z);
 				if (te != null) {
-					if(te.storage[0] != null && te.contentsMatch(0, is)) {
-						te.injectContents(0,1);
-					} else if(te.storage[0] == null) {
-						te.addContents(0, new ItemStack(this,1, is.getItemDamage()));
-					} else if(te.storage[1] != null && te.contentsMatch(1,is)) {
-						te.injectContents(1,1);
-					} else if(te.storage[1] == null) {
-						te.addContents(1, new ItemStack(this,1, is.getItemDamage()));
-					} else if(te.storage[2] != null && te.contentsMatch(2,is)) {
-						te.injectContents(2,1);
-					} else if(te.storage[2] == null) {
-						te.addContents(2, new ItemStack(this,1, is.getItemDamage()));
-					} else if(te.storage[3] != null && te.contentsMatch(3,is)) {
-						te.injectContents(3,1);
-					} else if(te.storage[3] == null) {
-						te.addContents(3, new ItemStack(this,1, is.getItemDamage()));
-					} else
-					{
+					if (te.storage[0] != null && te.contentsMatch(0, is)) {
+						te.injectContents(0, 1);
+					} else if (te.storage[0] == null) {
+						te.addContents(0, new ItemStack(this, 1, is.getItemDamage()));
+					} else if (te.storage[1] != null && te.contentsMatch(1, is)) {
+						te.injectContents(1, 1);
+					} else if (te.storage[1] == null) {
+						te.addContents(1, new ItemStack(this, 1, is.getItemDamage()));
+					} else if (te.storage[2] != null && te.contentsMatch(2, is)) {
+						te.injectContents(2, 1);
+					} else if (te.storage[2] == null) {
+						te.addContents(2, new ItemStack(this, 1, is.getItemDamage()));
+					} else if (te.storage[3] != null && te.contentsMatch(3, is)) {
+						te.injectContents(3, 1);
+					} else if (te.storage[3] == null) {
+						te.addContents(3, new ItemStack(this, 1, is.getItemDamage()));
+					} else {
 						int dir = MathHelper.floor_double(player.rotationYaw * 4F / 360F + 0.5D) & 3;
 						if (side == 0)
 							--y;
@@ -207,8 +194,8 @@ public class ItemCoal extends ItemTerra {
 		}
 		return false;
 	}
-	private void playSound(World world, int x, int y, int z)
-	{
+
+	private void playSound(World world, int x, int y, int z) {
 		world.playSoundEffect(x + 0.5, y + 0.5, z + 0.5, TFCBlocks.charcoal.stepSound.func_150496_b(), (TFCBlocks.charcoal.stepSound.getVolume() + 1.0F) / 2.0F, TFCBlocks.charcoal.stepSound.getPitch() * 0.8F);
 	}
 }

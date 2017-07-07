@@ -1,23 +1,21 @@
 package com.bioxx.tfc.Core.Player;
 
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_Climate;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Time;
+import com.bioxx.tfc.api.Interfaces.IClothing;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
-import com.bioxx.tfc.Core.TFC_Climate;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Time;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.Interfaces.IClothing;
-import com.bioxx.tfc.api.TileEntities.TEFireEntity;
+import java.util.Random;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class BodyTempStats
-{
+public class BodyTempStats {
 	private int temperatureLevel;
 	private int extraFoodConsumed;
 	private int extraWaterConsumed;
@@ -26,123 +24,18 @@ public class BodyTempStats
 
 	private Random rand = new Random();
 
-	public void onUpdate(EntityPlayer player)
-	{
-		if (TFC_Time.getTotalTicks() - this.tempTimer >= 20)
-		{
-			this.tempTimer += 20;
-			if(heatStorage > temperatureLevel)
-				heatStorage--;
-			//player.addChatMessage("HS: "+heatStorage);
-			if(!player.capabilities.isCreativeMode)
-				applyTemperature(player);
-		}
-	}
-
-	private void applyTemperature(EntityPlayer player)
-	{
-		FoodStatsTFC food = TFC_Core.getPlayerFoodStats(player);
-
-		//Player's basic body functions.
-		int prevTemperatureLevel = temperatureLevel;
-		if(rand.nextInt(2000-getBaseBodyTempMod(player))<100 && food.stomachLevel >= 500)
-			temperatureLevel++;
-		if((player.isSprinting() || player.swingProgress != 0) && rand.nextInt(1000 - (getBaseBodyTempMod(player)) / 2) < 100)
-			temperatureLevel++;
-		//if(rand.nextInt(1500 - (player.isInWater()?1000:0))<10 && food.waterLevel >= 500)
-		//	temperatureLevel--;
-
-		temperatureLevel += applyTemperatureFromEnvironment(player);
-
-		//If we are warm then add it to heat reserves
-		heatStorage = Math.max(Math.min(temperatureLevel+heatStorage, 14), 0);
-
-		extraFoodConsumed = 0; //(temperatureLevel <0 && heatStorage <= 0 && rand.nextInt(350)<100)?temperatureLevel/-10:0;
-		extraWaterConsumed = 0; //(temperatureLevel >0 && heatStorage <= 0 && rand.nextInt(350)<100)?temperatureLevel/10:0;
-
-		if(temperatureLevel != prevTemperatureLevel &&
-				!(prevTemperatureLevel >=-10 && prevTemperatureLevel <=10 &&
-						temperatureLevel >=-10 && temperatureLevel <=10))
-		{
-			tellPlayerMessage(player);
-		}
-		//prevTemperatureLevel = temperatureLevel;
-		if(temperatureLevel >= -10 && temperatureLevel <= 10)
-		{
-			extraFoodConsumed = 0;
-			extraWaterConsumed = 0;
-		}
-	}
-
-	public int applyTemperatureFromEnvironment(EntityPlayer player)
-	{
-		int x = (int)(player.posX);
-		int y = (int)(player.posY);
-		int z = (int)(player.posZ);
-		float temperature = TFC_Climate.getHeightAdjustedTemp(player.worldObj, x, y, z);
-		temperature += applyTemperatureFromHeatSources(player);
-
-		//if it's cold
-		if(temperature <= 10)
-		{
-			int modifier = (int)((temperature - 10) * 15);
-			if(rand.nextInt(1200 + modifier) < 10)
-				return -1;
-		}
-		//if it's warm
-		else if(temperature >= 30)
-		{
-			int modifier = Math.min(1199, (int)((temperature - 30) * 15));
-			if(rand.nextInt(1200 - modifier) < 10)
-				return 1;
-		}
-		else if(temperature <20)
-		{
-			if(temperatureLevel <= -1)
-			{
-				if(rand.nextInt(1200 -  Math.min(1199,(int)(temperature - 10)*15))<100)
-					return 1;
-			}
-			else if(temperature >= 1)
-			{
-				if(rand.nextInt(1200 -  Math.min(1199,(int)(temperature - 10) * 15)) < 100)
-					return -1;
-			}
-		}
-		else if(temperature > 20)
-		{
-			if(temperatureLevel <= 1)
-			{
-				if(rand.nextInt(1200 -  Math.min(1199,(int)(temperature - 20)*10))<100)
-					return 1;
-			}
-			else if(temperature > 1)
-			{
-				if(rand.nextInt(1200 -  Math.min(1199,(int)(temperature - 20)*10))<100)
-					return -1;
-			}
-		}
-		return 0;
-	}
-
-	public static float applyTemperatureFromHeatSources(EntityPlayer player)
-	{
-		int x = (int)(player.posX);
-		int y = (int)(player.posY);
-		int z = (int)(player.posZ);
+	public static float applyTemperatureFromHeatSources(EntityPlayer player) {
+		int x = (int) (player.posX);
+		int y = (int) (player.posY);
+		int z = (int) (player.posZ);
 		float temperatureMod = 0;
 
-		for(int i = x - 7; i<x +7;i++)
-		{
-			for(int j = y-3;j<y+3;j++)
-			{
-				for(int k = z-7;k<z+7;k++)
-				{
-					if (player.worldObj.blockExists(i, j, k))
-					{
+		for (int i = x - 7; i < x + 7; i++) {
+			for (int j = y - 3; j < y + 3; j++) {
+				for (int k = z - 7; k < z + 7; k++) {
+					if (player.worldObj.blockExists(i, j, k)) {
 						TileEntity te = player.worldObj.getTileEntity(i, j, k);
-						if (player.worldObj.getBlock(i, j, k) == Blocks.lava || player.worldObj.getBlock(i, j, k) == TFCBlocks.lava || te instanceof TEFireEntity)
-						{
+						if (player.worldObj.getBlock(i, j, k) == Blocks.lava || player.worldObj.getBlock(i, j, k) == TFCBlocks.lava || te instanceof TEFireEntity) {
 							//returnAmount += (rand.nextInt(2000 - 198*(10-( (int)player.getDistance(i, j, k) )) )<10?1:0);
 							//Lava averages 700-1200 C = 950 C, assume source is lava.
 							double tempValue = 950;
@@ -167,27 +60,106 @@ public class BodyTempStats
 		return temperatureMod;
 	}
 
-	public int getBaseBodyTempMod(EntityPlayer player)
-	{
+	public void onUpdate(EntityPlayer player) {
+		if (TFC_Time.getTotalTicks() - this.tempTimer >= 20) {
+			this.tempTimer += 20;
+			if (heatStorage > temperatureLevel)
+				heatStorage--;
+			//player.addChatMessage("HS: "+heatStorage);
+			if (!player.capabilities.isCreativeMode)
+				applyTemperature(player);
+		}
+	}
+
+	private void applyTemperature(EntityPlayer player) {
+		FoodStatsTFC food = TFC_Core.getPlayerFoodStats(player);
+
+		//Player's basic body functions.
+		int prevTemperatureLevel = temperatureLevel;
+		if (rand.nextInt(2000 - getBaseBodyTempMod(player)) < 100 && food.stomachLevel >= 500)
+			temperatureLevel++;
+		if ((player.isSprinting() || player.swingProgress != 0) && rand.nextInt(1000 - (getBaseBodyTempMod(player)) / 2) < 100)
+			temperatureLevel++;
+		//if(rand.nextInt(1500 - (player.isInWater()?1000:0))<10 && food.waterLevel >= 500)
+		//	temperatureLevel--;
+
+		temperatureLevel += applyTemperatureFromEnvironment(player);
+
+		//If we are warm then add it to heat reserves
+		heatStorage = Math.max(Math.min(temperatureLevel + heatStorage, 14), 0);
+
+		extraFoodConsumed = 0; //(temperatureLevel <0 && heatStorage <= 0 && rand.nextInt(350)<100)?temperatureLevel/-10:0;
+		extraWaterConsumed = 0; //(temperatureLevel >0 && heatStorage <= 0 && rand.nextInt(350)<100)?temperatureLevel/10:0;
+
+		if (temperatureLevel != prevTemperatureLevel &&
+				!(prevTemperatureLevel >= -10 && prevTemperatureLevel <= 10 &&
+						temperatureLevel >= -10 && temperatureLevel <= 10)) {
+			tellPlayerMessage(player);
+		}
+		//prevTemperatureLevel = temperatureLevel;
+		if (temperatureLevel >= -10 && temperatureLevel <= 10) {
+			extraFoodConsumed = 0;
+			extraWaterConsumed = 0;
+		}
+	}
+
+	public int applyTemperatureFromEnvironment(EntityPlayer player) {
+		int x = (int) (player.posX);
+		int y = (int) (player.posY);
+		int z = (int) (player.posZ);
+		float temperature = TFC_Climate.getHeightAdjustedTemp(player.worldObj, x, y, z);
+		temperature += applyTemperatureFromHeatSources(player);
+
+		//if it's cold
+		if (temperature <= 10) {
+			int modifier = (int) ((temperature - 10) * 15);
+			if (rand.nextInt(1200 + modifier) < 10)
+				return -1;
+		}
+		//if it's warm
+		else if (temperature >= 30) {
+			int modifier = Math.min(1199, (int) ((temperature - 30) * 15));
+			if (rand.nextInt(1200 - modifier) < 10)
+				return 1;
+		} else if (temperature < 20) {
+			if (temperatureLevel <= -1) {
+				if (rand.nextInt(1200 - Math.min(1199, (int) (temperature - 10) * 15)) < 100)
+					return 1;
+			} else if (temperature >= 1) {
+				if (rand.nextInt(1200 - Math.min(1199, (int) (temperature - 10) * 15)) < 100)
+					return -1;
+			}
+		} else if (temperature > 20) {
+			if (temperatureLevel <= 1) {
+				if (rand.nextInt(1200 - Math.min(1199, (int) (temperature - 20) * 10)) < 100)
+					return 1;
+			} else if (temperature > 1) {
+				if (rand.nextInt(1200 - Math.min(1199, (int) (temperature - 20) * 10)) < 100)
+					return -1;
+			}
+		}
+		return 0;
+	}
+
+	public int getBaseBodyTempMod(EntityPlayer player) {
 		ItemStack itemHead = player.inventory.armorItemInSlot(3);
 		ItemStack itemChest = player.inventory.armorItemInSlot(2);
 		ItemStack itemLegs = player.inventory.armorItemInSlot(1);
 		ItemStack itemFeet = player.inventory.armorItemInSlot(0);
 		int returnAmount = 0;
-		if(itemHead != null && itemHead.getItem() instanceof IClothing)
+		if (itemHead != null && itemHead.getItem() instanceof IClothing)
 			returnAmount += ((IClothing) itemHead.getItem()).getThermal();
-		if(itemChest != null && itemChest.getItem() instanceof IClothing)
+		if (itemChest != null && itemChest.getItem() instanceof IClothing)
 			returnAmount += ((IClothing) itemChest.getItem()).getThermal();
-		if(itemLegs != null && itemLegs.getItem() instanceof IClothing)
+		if (itemLegs != null && itemLegs.getItem() instanceof IClothing)
 			returnAmount += ((IClothing) itemLegs.getItem()).getThermal();
-		if(itemFeet != null && itemFeet.getItem() instanceof IClothing)
+		if (itemFeet != null && itemFeet.getItem() instanceof IClothing)
 			returnAmount += ((IClothing) itemFeet.getItem()).getThermal();
 		return returnAmount;
 	}
 
 	@SuppressWarnings("EmptyMethod")
-	private void tellPlayerMessage(EntityPlayer player)
-	{
+	private void tellPlayerMessage(EntityPlayer player) {
 		//!TODO: add config options for this
 		/*		switch(temperatureLevel/10)
 		{
@@ -210,10 +182,8 @@ public class BodyTempStats
 		 */
 	}
 
-	public void readNBT(NBTTagCompound nbt)
-	{
-		if (nbt.hasKey("tempCompound"))
-		{
+	public void readNBT(NBTTagCompound nbt) {
+		if (nbt.hasKey("tempCompound")) {
 			NBTTagCompound tempCompound = nbt.getCompoundTag("tempCompound");
 			this.temperatureLevel = tempCompound.getInteger("tempLev");
 			this.extraWaterConsumed = tempCompound.getInteger("waterExtra");
@@ -226,24 +196,21 @@ public class BodyTempStats
 	/**
 	 * Writes food stats to an NBT object.
 	 */
-	public void writeNBT(NBTTagCompound nbt)
-	{
+	public void writeNBT(NBTTagCompound nbt) {
 		NBTTagCompound tempCompound = new NBTTagCompound();
-		tempCompound.setInteger("tempLev",this.temperatureLevel);
-		tempCompound.setInteger("waterExtra",this.extraWaterConsumed);
-		tempCompound.setInteger("foodExtra",this.extraFoodConsumed);
-		tempCompound.setInteger("heatStorage",this.heatStorage);
-		tempCompound.setLong("tempTimer",this.tempTimer);
+		tempCompound.setInteger("tempLev", this.temperatureLevel);
+		tempCompound.setInteger("waterExtra", this.extraWaterConsumed);
+		tempCompound.setInteger("foodExtra", this.extraFoodConsumed);
+		tempCompound.setInteger("heatStorage", this.heatStorage);
+		tempCompound.setLong("tempTimer", this.tempTimer);
 		nbt.setTag("tempCompound", tempCompound);
 	}
 
-	public int getExtraFood()
-	{
+	public int getExtraFood() {
 		return extraFoodConsumed;
 	}
 
-	public int getExtraWater()
-	{
+	public int getExtraWater() {
 		return extraWaterConsumed;
 	}
 }

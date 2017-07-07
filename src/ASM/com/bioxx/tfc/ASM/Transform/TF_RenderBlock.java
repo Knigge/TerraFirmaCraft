@@ -7,21 +7,19 @@ package com.bioxx.tfc.ASM.Transform;
  * partial blocks and not the solid blocks.
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
-public class TF_RenderBlock extends ClassTransformer
-{
+import java.util.ArrayList;
+import java.util.List;
 
-	public TF_RenderBlock()
-	{
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
+public class TF_RenderBlock extends ClassTransformer {
+
+	public TF_RenderBlock() {
 		mcpClassName = "net.minecraft.client.renderer.RenderBlocks";
 		obfClassName = "ble";
 
@@ -34,7 +32,7 @@ public class TF_RenderBlock extends ClassTransformer
 		nodes.add(new InstrSet(new InsnNode(Opcodes.DSUB), 7189, 6, InstrOpType.InsertAfter));
 
 		nodes.add(new InstrSet(new LdcInsnNode(16.0D), 7190, 1, InstrOpType.InsertAfter));
-		nodes.add(new InstrSet(new InsnNode(Opcodes.DSUB),7190, 5, InstrOpType.InsertAfter));
+		nodes.add(new InstrSet(new InsnNode(Opcodes.DSUB), 7190, 5, InstrOpType.InsertAfter));
 
 		nodes.add(new InstrSet(new VarInsnNode(Opcodes.DLOAD, 10), 7267, 5, InstrOpType.Replace));
 		nodes.add(new InstrSet(new VarInsnNode(Opcodes.DLOAD, 14), 7267, 6, InstrOpType.Replace));

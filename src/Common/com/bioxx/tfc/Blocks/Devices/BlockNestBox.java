@@ -1,5 +1,13 @@
 package com.bioxx.tfc.Blocks.Devices;
 
+import com.bioxx.tfc.Blocks.BlockTerraContainer;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Textures;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.TENestBox;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,46 +16,30 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Blocks.BlockTerraContainer;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Textures;
-import com.bioxx.tfc.TileEntities.TENestBox;
-import com.bioxx.tfc.api.TFCBlocks;
-
-public class BlockNestBox extends BlockTerraContainer
-{
-	public BlockNestBox()
-	{
+public class BlockNestBox extends BlockTerraContainer {
+	public BlockNestBox() {
 		super(Material.wood);
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 		this.setBlockBounds(0.1f, 0, 0.1f, 0.9f, 0.4f, 0.9f);
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.nestBoxRenderId;
 	}
 
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegisterer)
-	{
+	public void registerBlockIcons(IIconRegister iconRegisterer) {
 		this.blockIcon = TFC_Textures.invisibleTexture; // This gets registered in TFC.Blocks.Terrain.BlockGrass
 	}
 
@@ -58,22 +50,18 @@ public class BlockNestBox extends BlockTerraContainer
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int i, int j, int k)
-	{
+	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int i, int j, int k) {
 		return true;
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		return this.blockIcon;
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!world.isRemote)
-		{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+		if (!world.isRemote) {
 			//((NetworkTileEntity)world.getTileEntity(x,y,z)).validate();
 			entityplayer.openGui(TerraFirmaCraft.instance, 41, world, x, y, z);
 			return true;
@@ -82,8 +70,7 @@ public class BlockNestBox extends BlockTerraContainer
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
+	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TENestBox();
 	}
 }

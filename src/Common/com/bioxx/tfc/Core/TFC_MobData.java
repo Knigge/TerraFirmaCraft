@@ -1,7 +1,6 @@
 package com.bioxx.tfc.Core;
 
-public class TFC_MobData 
-{
+public class TFC_MobData {
 	//Steve
 	public static final float STEVE_DAMAGE = 10f;
 
@@ -32,11 +31,11 @@ public class TFC_MobData
 	//Bear
 	public static final int BEAR_DAMAGE = 175;
 	public static final int BEAR_HEALTH = 3000;
-	
+
 	//Polarbear
 	public static final int POLAR_BEAR_DAMAGE = 225;
 	public static final int POLAR_BEAR_HEALTH = 4000;
-	
+
 	//Silverfish
 	public static final int SILVERFISH_DAMAGE = 50;
 	public static final int SILVERFISH_HEALTH = 50;

@@ -1,5 +1,10 @@
 package com.bioxx.tfc.Blocks;
 
+import com.bioxx.tfc.Items.Tools.ItemHammer;
+import com.bioxx.tfc.TileEntities.TEPartial;
+import com.bioxx.tfc.api.Tools.IToolChisel;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.particle.EffectRenderer;
@@ -11,61 +16,45 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.util.ForgeDirection;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Items.Tools.ItemHammer;
-import com.bioxx.tfc.TileEntities.TEPartial;
-import com.bioxx.tfc.api.Tools.IToolChisel;
-
-public class BlockPartial extends BlockTerraContainer
-{
-	public BlockPartial(Material m)
-	{
+public class BlockPartial extends BlockTerraContainer {
+	public BlockPartial(Material m) {
 		super(m);
 	}
 
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer)
-	{
+	public boolean addDestroyEffects(World world, int x, int y, int z, int meta, EffectRenderer effectRenderer) {
 		// TODO Include particle spawning logic, or replace this with a functional getBlockTextureFromSideAndMetadata 
 		return true;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer effectRenderer)
-	{
+	public boolean addHitEffects(World worldObj, MovingObjectPosition target, EffectRenderer effectRenderer) {
 		// TODO Include particle spawning logic, or replace this with a functional getBlockTextureFromSideAndMetadata 
 		return true;
 	}
 
 	@Override
-	public void onBlockAdded(World world, int par2, int par3, int par4)
-	{
+	public void onBlockAdded(World world, int par2, int par3, int par4) {
 		super.onBlockAdded(world, par2, par3, par4);
 		world.markBlockForUpdate(par2, par3, par4);
 	}
 
 	@Override
-	public void onBlockDestroyedByExplosion(World world, int i, int j, int k, Explosion ex)
-	{
+	public void onBlockDestroyedByExplosion(World world, int i, int j, int k, Explosion ex) {
 		// Do Nothing
 	}
 
@@ -89,38 +78,33 @@ public class BlockPartial extends BlockTerraContainer
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l)
-	{
+	public void harvestBlock(World world, EntityPlayer entityplayer, int i, int j, int k, int l) {
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
+	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TEPartial();
 	}
 
 	@Override
-	public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face)
-	{
+	public int getFlammability(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
 		TEPartial te = (TEPartial) world.getTileEntity(x, y, z);
-		if(te.typeID >= 0)
+		if (te.typeID >= 0)
 			return Blocks.fire.getFlammability(Block.getBlockById(te.typeID));
 		else return 0;
 	}
 
 	@Override
-	public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face)
-	{
+	public int getFireSpreadSpeed(IBlockAccess world, int x, int y, int z, ForgeDirection face) {
 		TEPartial te = (TEPartial) world.getTileEntity(x, y, z);
-		if(te.typeID >= 0)
+		if (te.typeID >= 0)
 			return Blocks.fire.getEncouragement(Block.getBlockById(te.typeID));
 		else return 0;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
-	{
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return null;
 	}
 }

@@ -1,19 +1,16 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
-import java.util.Random;
-
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.Random;
 
-public class BlockCustomLeaves2 extends BlockCustomLeaves
-{
-	public BlockCustomLeaves2()
-	{
+public class BlockCustomLeaves2 extends BlockCustomLeaves {
+	public BlockCustomLeaves2() {
 		super();
 		woodNames = new String[Global.WOOD_ALL.length - 16];
 		System.arraycopy(Global.WOOD_ALL, 16, woodNames, 0, Global.WOOD_ALL.length - 16);
@@ -22,20 +19,17 @@ public class BlockCustomLeaves2 extends BlockCustomLeaves
 	}
 
 	@Override
-	public Item getItemDropped(int i, Random rand, int j)
-	{
+	public Item getItemDropped(int i, Random rand, int j) {
 		return Item.getItemFromBlock(TFCBlocks.sapling2);
 	}
 
-	protected void dropSapling(World world, int x, int y, int z, int meta)
-	{
+	protected void dropSapling(World world, int x, int y, int z, int meta) {
 		if (meta != 0)
 			dropBlockAsItem(world, x, y, z, new ItemStack(this.getItemDropped(0, null, 0), 1, meta));
 	}
 
 	@Override
-	protected void dropRareSapling(World world, int x, int y, int z, int meta)
-	{
+	protected void dropRareSapling(World world, int x, int y, int z, int meta) {
 	}
 
 

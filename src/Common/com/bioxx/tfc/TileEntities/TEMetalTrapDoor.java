@@ -1,47 +1,39 @@
 package com.bioxx.tfc.TileEntities;
 
+import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.bioxx.tfc.api.TFCBlocks;
-
-public class TEMetalTrapDoor extends NetworkTileEntity
-{
+public class TEMetalTrapDoor extends NetworkTileEntity {
 	public ItemStack sheetStack;
 	public byte data;
 
-	public TEMetalTrapDoor()
-	{
+	public TEMetalTrapDoor() {
 
 	}
 
 	@Override
-	public boolean canUpdate()
-	{
+	public boolean canUpdate() {
 		return false;
 	}
 
-	public int getSide()
-	{
+	public int getSide() {
 		return data & 7;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) 
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		sheetStack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("sheetType"));
 		data = nbt.getByte("data");
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) 
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setByte("data", data);
 		NBTTagCompound st = new NBTTagCompound();
-		if(sheetStack != null)
-		{
+		if (sheetStack != null) {
 			sheetStack.writeToNBT(st);
 			nbt.setTag("sheetType", st);
 		}

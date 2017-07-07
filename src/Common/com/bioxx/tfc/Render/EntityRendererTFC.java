@@ -1,17 +1,15 @@
 package com.bioxx.tfc.Render;
 
-import java.io.IOException;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.resources.IResourceManager;
 import net.minecraft.client.shader.ShaderGroup;
 import net.minecraft.util.ResourceLocation;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import org.apache.logging.log4j.LogManager;
+
+import java.io.IOException;
 
 @SideOnly(Side.CLIENT)
 public class EntityRendererTFC extends EntityRenderer {
@@ -24,45 +22,41 @@ public class EntityRendererTFC extends EntityRenderer {
 	}
 
 	@Override
-	public void deactivateShader()
-	{
-		if(allowShaderSwitching){
+	public void deactivateShader() {
+		if (allowShaderSwitching) {
 			super.activateNextShader();
 		}
 	}
 
-	public void setManualShader(ResourceLocation shaderLocation){
+	public void setManualShader(ResourceLocation shaderLocation) {
 		deactivateManualShader();
-		try{
+		try {
 			Minecraft mc = Minecraft.getMinecraft();
 			this.theShaderGroup = new ShaderGroup(mc.getTextureManager(), mc.getResourceManager(), mc.getFramebuffer(), shaderLocation);
 			this.theShaderGroup.createBindFramebuffers(mc.displayWidth, mc.displayHeight);
 			this.currentShader = shaderLocation;
-		}
-		catch (IOException ioexception)
-		{
+		} catch (IOException ioexception) {
 			LogManager.getLogger().warn("Failed to load shader: " + shaderLocation, ioexception);
 		}
 		allowShaderSwitching = false;
 	}
 
-	public void deactivateManualShader(){
+	public void deactivateManualShader() {
 		allowShaderSwitching = true;
 		super.deactivateShader();
 	}
-	
-	public ResourceLocation getCurrentShaderLocation(){
+
+	public ResourceLocation getCurrentShaderLocation() {
 		return this.currentShader;
 	}
 
-	public boolean getManualShaderBeingUsed(){
+	public boolean getManualShaderBeingUsed() {
 		return !this.allowShaderSwitching;
 	}
 
 	@Override
-	public void activateNextShader()
-	{
-		if(allowShaderSwitching){
+	public void activateNextShader() {
+		if (allowShaderSwitching) {
 			super.activateNextShader();
 		}
 	}

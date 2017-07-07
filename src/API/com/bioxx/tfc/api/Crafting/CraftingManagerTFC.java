@@ -1,10 +1,5 @@
 package com.bioxx.tfc.api.Crafting;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -12,81 +7,68 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
-@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
-public class CraftingManagerTFC
-{
-	private static final CraftingManagerTFC INSTANCE = new CraftingManagerTFC();
-	public static CraftingManagerTFC getInstance()
-	{
-		return INSTANCE;
-	}
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
+public class CraftingManagerTFC {
+	private static final CraftingManagerTFC INSTANCE = new CraftingManagerTFC();
 	private List<IRecipe> recipes;
 
 	@SuppressWarnings("unchecked")
-	private CraftingManagerTFC()
-	{
+	private CraftingManagerTFC() {
 		recipes = new ArrayList<IRecipe>();
 
 		Collections.sort(recipes, new RecipeSorterTFC(this));
 		//System.out.println(new StringBuilder().append(recipes.size()).append(" recipes").toString());
 	}
 
-	public ShapedRecipesTFC addRecipe(ItemStack itemstack, Object aobj[])
-	{
+	public static CraftingManagerTFC getInstance() {
+		return INSTANCE;
+	}
+
+	public ShapedRecipesTFC addRecipe(ItemStack itemstack, Object aobj[]) {
 		StringBuilder s = new StringBuilder();
 		int i = 0;
 		int j = 0;
 		int k = 0;
-		if (aobj[i] instanceof String[])
-		{
-			String as[] = (String[])aobj[i++];
+		if (aobj[i] instanceof String[]) {
+			String as[] = (String[]) aobj[i++];
 			for (String s2 : as) {
 				k++;
 				j = s2.length();
 				s.append(s2);
 			}
-		}
-		else
-		{
-			while (aobj[i] instanceof String)
-			{
-				String s1 = (String)aobj[i++];
+		} else {
+			while (aobj[i] instanceof String) {
+				String s1 = (String) aobj[i++];
 				k++;
 				j = s1.length();
 				s.append(s1);
 			}
 		}
 		HashMap<Character, ItemStack> hashmap = new HashMap<Character, ItemStack>();
-		for (; i < aobj.length; i += 2)
-		{
-			Character character = (Character)aobj[i];
+		for (; i < aobj.length; i += 2) {
+			Character character = (Character) aobj[i];
 			ItemStack itemstack1 = null;
-			if (aobj[i + 1] instanceof Item)
-			{
-				itemstack1 = new ItemStack((Item)aobj[i + 1]);
-			}
-			else if (aobj[i + 1] instanceof Block)
-			{
-				itemstack1 = new ItemStack((Block)aobj[i + 1], 1, -1);
-			}
-			else if (aobj[i + 1] instanceof ItemStack)
-			{
-				itemstack1 = (ItemStack)aobj[i + 1];
+			if (aobj[i + 1] instanceof Item) {
+				itemstack1 = new ItemStack((Item) aobj[i + 1]);
+			} else if (aobj[i + 1] instanceof Block) {
+				itemstack1 = new ItemStack((Block) aobj[i + 1], 1, -1);
+			} else if (aobj[i + 1] instanceof ItemStack) {
+				itemstack1 = (ItemStack) aobj[i + 1];
 			}
 			hashmap.put(character, itemstack1);
 		}
 
 		ItemStack aitemstack[] = new ItemStack[j * k];
-		for (int i1 = 0; i1 < j * k; i1++)
-		{
+		for (int i1 = 0; i1 < j * k; i1++) {
 			char c = s.charAt(i1);
-			if (hashmap.containsKey(c))
-			{
+			if (hashmap.containsKey(c)) {
 				aitemstack[i1] = hashmap.get(c).copy();
-			}
-			else
-			{
+			} else {
 				aitemstack[i1] = null;
 			}
 		}
@@ -97,8 +79,7 @@ public class CraftingManagerTFC
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
-	public ShapelessRecipesTFC addShapelessRecipe(ItemStack itemstack, Object aobj[])
-	{
+	public ShapelessRecipesTFC addShapelessRecipe(ItemStack itemstack, Object aobj[]) {
 		ArrayList<ItemStack> arraylist = new ArrayList<ItemStack>();
 		int i = aobj.length;
 		for (Object obj : aobj) {
@@ -121,8 +102,7 @@ public class CraftingManagerTFC
 		return recipesTFC;
 	}
 
-	public ItemStack findMatchingRecipe(InventoryCrafting inventorycrafting, World world)
-	{
+	public ItemStack findMatchingRecipe(InventoryCrafting inventorycrafting, World world) {
 		/*int i = 0;
 		ItemStack itemstack = null;
 		ItemStack itemstack1 = null;
@@ -166,8 +146,7 @@ public class CraftingManagerTFC
 		return null;
 	}
 
-	public List<IRecipe> getRecipeList()
-	{
+	public List<IRecipe> getRecipeList() {
 		return recipes;
 	}
 }

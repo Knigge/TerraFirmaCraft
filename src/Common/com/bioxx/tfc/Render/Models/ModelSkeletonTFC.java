@@ -1,26 +1,20 @@
 package com.bioxx.tfc.Render.Models;
 
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.client.model.ModelZombie;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-
+import com.bioxx.tfc.Entities.Mobs.EntitySkeletonTFC;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.Entities.Mobs.EntitySkeletonTFC;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.model.ModelZombie;
+import net.minecraft.entity.EntityLivingBase;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @SideOnly(Side.CLIENT)
-public class ModelSkeletonTFC extends ModelZombie
-{
-	public ModelSkeletonTFC()
-	{
+public class ModelSkeletonTFC extends ModelZombie {
+	public ModelSkeletonTFC() {
 		this(0.0F);
 	}
 
-	public ModelSkeletonTFC(float par1)
-	{
+	public ModelSkeletonTFC(float par1) {
 		super(par1, 0.0F, 64, 32);
 		this.bipedRightArm = new ModelRenderer(this, 40, 16);
 		this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, par1);
@@ -43,9 +37,8 @@ public class ModelSkeletonTFC extends ModelZombie
 	 * and third as in the setRotationAngles method.
 	 */
 	@Override
-	public void setLivingAnimations(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
-	{
-		this.aimedBow = ((EntitySkeletonTFC)par1EntityLivingBase).getSkeletonType() == 1;
+	public void setLivingAnimations(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4) {
+		this.aimedBow = ((EntitySkeletonTFC) par1EntityLivingBase).getSkeletonType() == 1;
 		super.setLivingAnimations(par1EntityLivingBase, par2, par3, par4);
 	}
 

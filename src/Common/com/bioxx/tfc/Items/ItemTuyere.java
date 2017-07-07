@@ -1,12 +1,10 @@
 package com.bioxx.tfc.Items;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class ItemTuyere extends ItemTerra
-{
+public class ItemTuyere extends ItemTerra {
 	public int blockMeta;
 
-	public ItemTuyere(int maxDam, int meta)
-	{
+	public ItemTuyere(int maxDam, int meta) {
 		super();
 		this.hasSubtypes = false;
 		this.setMaxDamage(maxDam);

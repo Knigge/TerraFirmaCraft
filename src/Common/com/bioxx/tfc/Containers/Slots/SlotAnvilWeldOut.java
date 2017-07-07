@@ -5,16 +5,13 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 @SuppressWarnings("SameParameterValue")
-public class SlotAnvilWeldOut extends Slot
-{
-	public SlotAnvilWeldOut(IInventory iinventory, int i, int j, int k)
-	{
+public class SlotAnvilWeldOut extends Slot {
+	public SlotAnvilWeldOut(IInventory iinventory, int i, int j, int k) {
 		super(iinventory, i, j, k);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack)
-	{
+	public boolean isItemValid(ItemStack itemstack) {
 		return false;
 	}
 }

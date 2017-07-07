@@ -1,15 +1,13 @@
 package com.bioxx.tfc.Render.Models;
 
-import net.minecraft.client.model.ModelSheep1;
-import net.minecraft.entity.Entity;
-
-import org.lwjgl.opengl.GL11;
-
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Entities.IAnimal;
-public class ModelSheep1TFC extends ModelSheep1
-{
-	
+import net.minecraft.client.model.ModelSheep1;
+import net.minecraft.entity.Entity;
+import org.lwjgl.opengl.GL11;
+
+public class ModelSheep1TFC extends ModelSheep1 {
+
 	/*private ModelRenderer horn1;
 	private ModelRenderer horn2;
 	private ModelRenderer horn3;
@@ -25,8 +23,7 @@ public class ModelSheep1TFC extends ModelSheep1
 	
 	private ModelRenderer ear;
 	private ModelRenderer earb;*/
-	public ModelSheep1TFC()
-	{
+	public ModelSheep1TFC() {
 		super();
 		/*
 		horn1 = new ModelRenderer(this,28,14);
@@ -191,7 +188,7 @@ public class ModelSheep1TFC extends ModelSheep1
 		horn6b.rotateAngleY = -(float)(0f*Math.PI/180f);
 		horn6b.rotateAngleZ = -(float)(0f*Math.PI/180f);
 		horn6b.setRotationPoint(4F + locHornX1,locHornY1 -7.5F,locHornZ1 + 2.5F);*/
-		
+
 		//head.addChild(horn6b);
 		//head.addChild(horn5b);
 		//head.addChild(horn4b);
@@ -202,32 +199,31 @@ public class ModelSheep1TFC extends ModelSheep1
 	}
 
 	@Override
-	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7)
-	{
+	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7) {
 		this.setRotationAngles(par2, par3, par4, par5, par6, par7, entity);
 
-		float percent = TFC_Core.getPercentGrown((IAnimal)entity);
-		float ageScale = 2.0F-percent;
-		float ageHeadScale = (float)Math.pow(1/ageScale,0.66);
+		float percent = TFC_Core.getPercentGrown((IAnimal) entity);
+		float ageScale = 2.0F - percent;
+		float ageHeadScale = (float) Math.pow(1 / ageScale, 0.66);
 		//float offset = 1.4f - percent;
 
 		/*if(((IAnimal)entity).isAdult()) {
 			offset = 0;
 		}*/
-		
-		GL11.glPushMatrix ();
+
+		GL11.glPushMatrix();
 
 		GL11.glTranslatef(0.0F, 0.75f - (0.75f * percent), 0f);
 		GL11.glScalef(ageHeadScale, ageHeadScale, ageHeadScale);
-		GL11.glTranslatef (0.0F, (ageScale-1)*-0.125f,0.1875f-(0.1875f*percent));
+		GL11.glTranslatef(0.0F, (ageScale - 1) * -0.125f, 0.1875f - (0.1875f * percent));
 
-		
+
 		this.head.render(par7);
-		
+
 		GL11.glPopMatrix();
-		GL11.glPushMatrix ();
+		GL11.glPushMatrix();
 		GL11.glTranslatef(0.0F, 0.75f - (0.75f * percent), 0f);
-		GL11.glScalef(1/ageScale, 1/ageScale, 1/ageScale);
+		GL11.glScalef(1 / ageScale, 1 / ageScale, 1 / ageScale);
 		this.body.render(par7);
 		this.leg1.render(par7);
 		this.leg2.render(par7);

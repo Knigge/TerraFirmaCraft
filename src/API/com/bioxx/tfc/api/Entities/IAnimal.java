@@ -8,20 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 
 @SuppressWarnings("SameParameterValue")
-public interface IAnimal
-{
-	enum GenderEnum
-	{
-		MALE,FEMALE;
-		public static final GenderEnum[] GENDERS = {MALE, FEMALE};
-	}
-	
-	enum InteractionEnum
-	{
-		MOUNT,SHEAR,MILK,BREED, NAME, TOLERATEPLAYER;
-		public static final InteractionEnum[] INTERACTIONS = {MOUNT,SHEAR,MILK,BREED, NAME, TOLERATEPLAYER};
-	}
-
+public interface IAnimal {
 	boolean canFamiliarize();
 
 	boolean canMateWith(IAnimal animal);
@@ -31,11 +18,13 @@ public interface IAnimal
 	EntityAgeable createChildTFC(EntityAgeable entityageable);
 
 	/**
-	  Represents interaction with the animal that makes the animal happy, thus increasing it's familiarization
+	 * Represents interaction with the animal that makes the animal happy, thus increasing it's familiarization
 	 */
 	void familiarize(EntityPlayer ep);
 
 	int getAge();
+
+	void setAge(int age);
 
 	/**
 	 * @return Aggression modifier of the animal. Used for rendering and various other purposes.
@@ -43,35 +32,53 @@ public interface IAnimal
 	 */
 	float getAggressionMod();
 
+	void setAggressionMod(float aggression);
+
 	int getAnimalTypeID();
 
 	Vec3 getAttackedVec();
 
+	void setAttackedVec(Vec3 attackedVec);
+
 	int getBirthDay();
+
+	void setBirthDay(int day);
 
 	int getDueDay();
 
 	EntityLiving getEntity();
-	
+
 	/**
 	 * Represents how familiar the animal is with players. This is used for most human interaction.
-	 * @return	familiarity
+	 *
+	 * @return familiarity
 	 */
 	int getFamiliarity();
+
+	void setFamiliarity(int f);
 
 	boolean getFamiliarizedToday();
 
 	Entity getFearSource();
 
+	void setFearSource(Entity fearSource);
+
 	GenderEnum getGender();
 
+	//public int getSex();
+
 	int getHunger();
+
+	void setHunger(int h);
 
 	//	It would be nice to call this isInLove() except that would shadow
 	//	EntityAnimal.isInLove() causing MCP to obfuscate this method, which
 	//	we don't want because the callers won't be obfuscated.
-	//	
+	//
 	boolean getInLove();
+
+	void setInLove(boolean b);
+
 	/**
 	 * @return The length of time (in days) until this type of animal reatures maturity
 	 */
@@ -84,18 +91,23 @@ public interface IAnimal
 	 */
 	float getObedienceMod();
 
-	//public int getSex();
+	void setObedienceMod(float obedience);
+
 	/**
 	 * @return Size modifier of the animal. Used for rendering and various other purposes.
 	 * Size is primarilly affected by the area the animal lives in; forests generally have smaller animals, as do colder climates.
 	 */
 	float getSizeMod();
 
+	void setSizeMod(float size);
+
 	/**
 	 * @return Strength modifier of the animal. Used for rendering and various other purposes.
 	 * Absolute strength is affected by size, but inherant musculature also plays a roll.
 	 */
 	float getStrengthMod();
+
+	void setStrengthMod(float strength);
 
 	/**
 	 * Used to calculate whether an animal should become more familiar or less familiar with players
@@ -106,6 +118,7 @@ public interface IAnimal
 
 	/**
 	 * separate from isBreedingItem, this just determines if an animal would eat from an itemstack.
+	 *
 	 * @param item the item
 	 * @return see desc.
 	 */
@@ -115,27 +128,15 @@ public interface IAnimal
 
 	void mate(IAnimal animal);
 
-	void setAge(int age);
-
-	void setAggressionMod(float aggression);
-
-	void setAttackedVec(Vec3 attackedVec);
-
-	void setBirthDay(int day);
-	
-	void setFamiliarity(int f);
-	
-	void setFearSource(Entity fearSource);
-
-	void setHunger(int h);
-
-	void setInLove(boolean b);
-	
-	void setObedienceMod(float obedience);
-	
-	void setSizeMod(float size);
-
-	void setStrengthMod(float strength);
-
 	boolean trySetName(String name, EntityPlayer player);
+
+	enum GenderEnum {
+		MALE, FEMALE;
+		public static final GenderEnum[] GENDERS = {MALE, FEMALE};
+	}
+
+	enum InteractionEnum {
+		MOUNT, SHEAR, MILK, BREED, NAME, TOLERATEPLAYER;
+		public static final InteractionEnum[] INTERACTIONS = {MOUNT, SHEAR, MILK, BREED, NAME, TOLERATEPLAYER};
+	}
 }

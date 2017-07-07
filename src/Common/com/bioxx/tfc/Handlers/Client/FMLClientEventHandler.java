@@ -1,5 +1,14 @@
 package com.bioxx.tfc.Handlers.Client;
 
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Food.ItemMeal;
+import com.bioxx.tfc.api.Food;
+import com.bioxx.tfc.api.FoodRegistry;
+import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -10,43 +19,36 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.util.IIcon;
-
-import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Food.ItemMeal;
-import com.bioxx.tfc.api.Food;
-import com.bioxx.tfc.api.FoodRegistry;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class FMLClientEventHandler
-{
+public class FMLClientEventHandler {
+	public static void drawQuad(int x, int y, int xSize, int ySize, double zLevel, IIcon ico) {
+		Tessellator var9 = Tessellator.instance;
+		var9.startDrawingQuads();
+		var9.addVertexWithUV(x, y + ySize, zLevel, ico.getMinU(), ico.getMaxV());
+		var9.addVertexWithUV(x + xSize, y + ySize, zLevel, ico.getMaxU(), ico.getMaxV());
+		var9.addVertexWithUV(x + xSize, y, zLevel, ico.getMaxU(), ico.getMinV());
+		var9.addVertexWithUV(x, y, zLevel, ico.getMinU(), ico.getMinV());
+		var9.draw();
+	}
+
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
-	public void renderTick(TickEvent.RenderTickEvent event)
-	{
+	public void renderTick(TickEvent.RenderTickEvent event) {
 		Minecraft mc = FMLClientHandler.instance().getClient();
 		//World world = mc.theWorld;
-		if (event.phase != TickEvent.Phase.START)
-		{
+		if (event.phase != TickEvent.Phase.START) {
 			GuiScreen gui = mc.currentScreen;
-			if (gui instanceof GuiContainer && !GuiScreen.isShiftKeyDown() && !Mouse.isGrabbed())
-			{
-				if(mc.thePlayer.inventory.getItemStack() == null)
-					renderMealIngredInGui((GuiContainer)gui, mc.thePlayer);
+			if (gui instanceof GuiContainer && !GuiScreen.isShiftKeyDown() && !Mouse.isGrabbed()) {
+				if (mc.thePlayer.inventory.getItemStack() == null)
+					renderMealIngredInGui((GuiContainer) gui, mc.thePlayer);
 			}
 		}
 	}
 
-	public void renderMealIngredInGui(GuiContainer gui, EntityPlayer player)
-	{
+	public void renderMealIngredInGui(GuiContainer gui, EntityPlayer player) {
 		Minecraft mc = FMLClientHandler.instance().getClient();
 		ScaledResolution var13 = new ScaledResolution(mc, mc.displayWidth, mc.displayHeight);
 		int scaledWidth = var13.getScaledWidth();
@@ -65,10 +67,8 @@ public class FMLClientEventHandler
 		int shifty = 0;
 
 		Slot slot = gui.getSlotAtPosition(mouseX, mouseY);
-		if (slot != null && slot.func_111238_b())
-		{
-			if (slot.getHasStack() && slot.getStack().getItem() instanceof ItemMeal && slot.getStack().hasTagCompound())
-			{
+		if (slot != null && slot.func_111238_b()) {
+			if (slot.getHasStack() && slot.getStack().getItem() instanceof ItemMeal && slot.getStack().hasTagCompound()) {
 				int[] fg = Food.getFoodGroups(slot.getStack());
 				TFC_Core.bindTexture(TextureMap.locationItemsTexture);
 				GL11.glColor4f(1, 1, 1, 1.0F);
@@ -97,17 +97,6 @@ public class FMLClientEventHandler
 		GL11.glPopAttrib();
 
 		GL11.glPopMatrix();
-	}
-
-	public static void drawQuad(int x, int y, int xSize, int ySize, double zLevel, IIcon ico)
-	{
-		Tessellator var9 = Tessellator.instance;
-		var9.startDrawingQuads();
-		var9.addVertexWithUV(x, y + ySize, zLevel, ico.getMinU(), ico.getMaxV());
-		var9.addVertexWithUV(x + xSize, y + ySize, zLevel, ico.getMaxU(), ico.getMaxV());
-		var9.addVertexWithUV(x + xSize, y, zLevel, ico.getMaxU(), ico.getMinV());
-		var9.addVertexWithUV(x, y, zLevel, ico.getMinU(), ico.getMinV());
-		var9.draw();
 	}
 
 	/*private boolean isMouseOverSlot(Slot slot, int x, int y)

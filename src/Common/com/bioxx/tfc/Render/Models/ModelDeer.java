@@ -5,20 +5,18 @@
 // - ZeuX
 package com.bioxx.tfc.Render.Models;
 
-import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.model.ModelRenderer;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.MathHelper;
-
-import org.lwjgl.opengl.GL11;
-
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityDeer;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.MathHelper;
+import org.lwjgl.opengl.GL11;
+
 @SuppressWarnings({"CanBeFinal", "FieldCanBeLocal"})
-public class ModelDeer extends ModelBase
-{
+public class ModelDeer extends ModelBase {
 	//fields
 	private ModelRenderer antler24;
 	private ModelRenderer antler23;
@@ -60,8 +58,7 @@ public class ModelDeer extends ModelBase
 	private ModelRenderer hoof4;
 	private boolean running;
 
-	public ModelDeer()
-	{
+	public ModelDeer() {
 		textureWidth = 128;
 		textureHeight = 64;
 
@@ -210,7 +207,7 @@ public class ModelDeer extends ModelBase
 
 		setRotation(leg2, 0F, 0F, 0F);
 		leg3 = new ModelRenderer(this, 8, 16);
-		leg3.addBox(-0.5F,0F,0F,/*-0.5F, 3F, 0F,*/ 2, 7, 2);
+		leg3.addBox(-0.5F, 0F, 0F,/*-0.5F, 3F, 0F,*/ 2, 7, 2);
 		leg3.setRotationPoint(0F, 3F, -1F);
 		leg3.setTextureSize(128, 64);
 		setRotation(leg3, 0F, 0F, 0F);
@@ -221,7 +218,7 @@ public class ModelDeer extends ModelBase
 		leg4.setRotationPoint(0F, 3F, -1F);
 		leg4.setTextureSize(128, 64);
 
-		setRotation(leg4,  -0.3490659F, 0F, -0.0349066F);
+		setRotation(leg4, -0.3490659F, 0F, -0.0349066F);
 		snout = new ModelRenderer(this, 54, 0);
 		snout.addBox(-1.5F, -9.3F, -9F, 3, 3, 4);
 		snout.setRotationPoint(0F, 0F, 0F);
@@ -342,15 +339,14 @@ public class ModelDeer extends ModelBase
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-	{
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 		running = false;
-		running = ((EntityDeer)entity).getRunning();
+		running = ((EntityDeer) entity).getRunning();
 		//int sex = 0;
 		//long tempAge = 0;
-		float age = 1f - TFC_Core.getPercentGrown((IAnimal)entity);
+		float age = 1f - TFC_Core.getPercentGrown((IAnimal) entity);
 		/*if (entity instanceof EntityAnimalTFC){
 			tempAge = Math.min(TFC_Time.getTotalTicks()-((EntityAnimalTFC)entity).adultTime,0);
 			if(tempAge < 0) {
@@ -359,23 +355,23 @@ public class ModelDeer extends ModelBase
 			sex = ((EntityAnimalTFC)entity).sex;
 		}*/
 
-		float aa =  2F - (1.0F - age);
-		GL11.glTranslatef (0.0F, -6F * f5 * age/(float)Math.pow(aa,0.4),0);
-		GL11.glPushMatrix ();
-		float ab = (float)Math.sqrt(1.0F / aa);
+		float aa = 2F - (1.0F - age);
+		GL11.glTranslatef(0.0F, -6F * f5 * age / (float) Math.pow(aa, 0.4), 0);
+		GL11.glPushMatrix();
+		float ab = (float) Math.sqrt(1.0F / aa);
 		GL11.glScalef(ab, ab, ab);
-		GL11.glTranslatef (0.0F, 22F * f5 * age/(float)Math.pow(aa,0.4),2F*f5*age/ab);
-		if(((IAnimal)entity).getGender() == GenderEnum.MALE){
-			if(aa <=1.75){
+		GL11.glTranslatef(0.0F, 22F * f5 * age / (float) Math.pow(aa, 0.4), 2F * f5 * age / ab);
+		if (((IAnimal) entity).getGender() == GenderEnum.MALE) {
+			if (aa <= 1.75) {
 				antler11.isHidden = false;
 				antler21.isHidden = false;
-				if(aa <=1.5){
+				if (aa <= 1.5) {
 					antler12.isHidden = false;
 					antler22.isHidden = false;
-					if(aa <= 1.3){
+					if (aa <= 1.3) {
 						antler13.isHidden = false;
 						antler23.isHidden = false;
-						if(aa <= 1.1){
+						if (aa <= 1.1) {
 							antler14.isHidden = false;
 							antler24.isHidden = false;
 						}
@@ -389,7 +385,7 @@ public class ModelDeer extends ModelBase
 		GL11.glPopMatrix();
 		GL11.glPushMatrix();
 		GL11.glScalef(1.0F / aa, ab, 1.0F / aa);
-		GL11.glTranslatef(0.0F, 22F * f5 * age/(float)Math.pow(aa,0.4), 0.0F);
+		GL11.glTranslatef(0.0F, 22F * f5 * age / (float) Math.pow(aa, 0.4), 0.0F);
 		thigh1.render(f5);
 		upperLeg4.render(f5);
 		upperLeg3.render(f5);
@@ -476,21 +472,19 @@ public class ModelDeer extends ModelBase
 		}    */
 	}
 
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
 
 	@Override
-	public void setRotationAngles (float f, float f1, float f2, float f3, float f4, float f5, Entity entity)
-	{
-		super.setRotationAngles (f, f1, f2, f3, f4, f5, entity);
+	public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
+		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
 		//TerraFirmaCraft.log.info("f: "+f+"; f1: "+f1+"; f2: "+f2+"; f3: "+f3+"; f4: "+f4+"; f5: "+f5);
-		f1 = Math.min(f1*7.5f, 0.75f);
-		f*=0.95f;
+		f1 = Math.min(f1 * 7.5f, 0.75f);
+		f *= 0.95f;
 
 		antler11.isHidden = true;
 		antler12.isHidden = true;
@@ -501,7 +495,7 @@ public class ModelDeer extends ModelBase
 		antler23.isHidden = true;
 		antler24.isHidden = true;
 		setRotation(antler21, f4 / (180F / (float) Math.PI), f3 / (180F / (float) Math.PI), 0F);
-		setRotation(head,f4 / (180F / (float)Math.PI)+ 0.1570796F, f3 / (180F / (float)Math.PI), 0F);
+		setRotation(head, f4 / (180F / (float) Math.PI) + 0.1570796F, f3 / (180F / (float) Math.PI), 0F);
 		setRotation(antler11, f4 / (180F / (float) Math.PI), f3 / (180F / (float) Math.PI), 0F);
 		setRotation(torso, 0.122173F, 0F, 0F);
 		setRotation(collar, f4 / (3 * (180F / (float) Math.PI)) + 1.151917F, f3 / (3 * (180F / (float) Math.PI)), 0F);
@@ -511,67 +505,66 @@ public class ModelDeer extends ModelBase
 		setRotation(calf1, 0.5585054F, 0F, -0.1745329F);
 		setRotation(calf2, 0.5585054F, 0F, 0.1745329F);
 		setRotation(toes3, 1.134464F, 0, 0);
-		setRotation(hoof1,-1.134464F, 0F, 0F);
-		setRotation(hoof2,-1.134464F, 0F, 0F);
-		setRotation(hoof3,-1.134464F, 0F, 0F);
+		setRotation(hoof1, -1.134464F, 0F, 0F);
+		setRotation(hoof2, -1.134464F, 0F, 0F);
+		setRotation(hoof3, -1.134464F, 0F, 0F);
 		setRotation(hoof4, -1.134464F, 0F, 0F);
 
 		setRotation(tail, -1.308997F, 0F, 0F);
 
-		setRotation(leg1, -22F/180F * (float)Math.PI, 0F, 0F);
-		setRotation(leg2, -22F/180F * (float)Math.PI, 0F, 0F);
-		setRotation(leg3, -0.3490659F, 0F,0.0349066F);
-		setRotation(leg4, -0.3490659F, 0F,-0.0349066F);
+		setRotation(leg1, -22F / 180F * (float) Math.PI, 0F, 0F);
+		setRotation(leg2, -22F / 180F * (float) Math.PI, 0F, 0F);
+		setRotation(leg3, -0.3490659F, 0F, 0.0349066F);
+		setRotation(leg4, -0.3490659F, 0F, -0.0349066F);
 
 		setRotation(upperLeg4, 0.3490659F, 0F, 0.0349066F);
 		setRotation(upperLeg3, 0.3490659F, 0F, -0.0349066F);
 		setRotation(thigh1, -0.1745329F, 0F, 0.1745329F);
 		setRotation(thigh2, -0.1745329F, 0F, -0.1745329F);
 
-		if(!running){
+		if (!running) {
 			setRotation(upperLeg4, MathHelper.cos(f / 1.5F + 3F * (float) Math.PI / 2F) * 0.7F * f1 + 0.3490659F, 0F, 0.0349066F);
 			setRotation(upperLeg3, MathHelper.cos(f / 1.5F + (float) Math.PI / 2F) * 0.7F * f1 + 0.3490659F, 0F, -0.0349066F);
 			setRotation(thigh1, MathHelper.cos(f / 1.5F + (float) Math.PI * 7F / 4F) * 0.7F * f1 - 0.1745329F, 0F, 0.1745329F);
 			setRotation(thigh2, MathHelper.cos(f / 1.5F + 3f * (float) Math.PI / 4F) * 0.7F * f1 - 0.1745329F, 0F, -0.1745329F);
-			if (MathHelper.sin(f/1.5F + (float)Math.PI/2F) * 0.7F * f1 > 0){
-				setRotation(lowerleg3,MathHelper.sin(f/1.5F + (float)Math.PI/2F) * 1.4F * f1, 0F, 0F);
-				setRotation(leg3,-MathHelper.sin(f/1.5F + (float)Math.PI/2F) * 0.7F * f1  -0.3490659F, 0F,0.0349066F);
+			if (MathHelper.sin(f / 1.5F + (float) Math.PI / 2F) * 0.7F * f1 > 0) {
+				setRotation(lowerleg3, MathHelper.sin(f / 1.5F + (float) Math.PI / 2F) * 1.4F * f1, 0F, 0F);
+				setRotation(leg3, -MathHelper.sin(f / 1.5F + (float) Math.PI / 2F) * 0.7F * f1 - 0.3490659F, 0F, 0.0349066F);
 				setRotation(toes3, MathHelper.sin(f / 1.5F + (float) Math.PI / 2F) * 2.1F * f1 + 1.134464F, 0, 0);
 			}
-			if (MathHelper.sin(f/1.5F + 1F*(float)Math.PI/2F)*0.7F * f1 < 0){
-				setRotation(lowerleg4,MathHelper.sin(f/1.5F + 3F*(float)Math.PI/2F) * 1.4F * f1, 0F, 0F);
-				setRotation(leg4,-MathHelper.sin(f/1.5F + 3F*(float)Math.PI/2F) * 0.7F * f1  -0.3490659F, 0F,-0.0349066F);
+			if (MathHelper.sin(f / 1.5F + 1F * (float) Math.PI / 2F) * 0.7F * f1 < 0) {
+				setRotation(lowerleg4, MathHelper.sin(f / 1.5F + 3F * (float) Math.PI / 2F) * 1.4F * f1, 0F, 0F);
+				setRotation(leg4, -MathHelper.sin(f / 1.5F + 3F * (float) Math.PI / 2F) * 0.7F * f1 - 0.3490659F, 0F, -0.0349066F);
 				setRotation(toes4, MathHelper.sin(f / 1.5F + 3F * (float) Math.PI / 2F) * 2.1F * f1 + 1.134464F, 0, 0);
 			}
-			if(MathHelper.sin(f/1.5F  + (float)Math.PI*7F/4F) * 0.7F * f1 > 0){
+			if (MathHelper.sin(f / 1.5F + (float) Math.PI * 7F / 4F) * 0.7F * f1 > 0) {
 				setRotation(calf1, MathHelper.sin(f / 1.5F + (float) Math.PI * 7F / 4F) * 1.4F * f1 + 0.5585054F, 0F, -0.1745329F);
-				setRotation(leg1,-MathHelper.sin(f/1.5F  + (float)Math.PI*7F/4F) * 1.4F * f1 -22F/180F * (float)Math.PI, 0F, 0F);
+				setRotation(leg1, -MathHelper.sin(f / 1.5F + (float) Math.PI * 7F / 4F) * 1.4F * f1 - 22F / 180F * (float) Math.PI, 0F, 0F);
 				setRotation(toes1, MathHelper.sin(f / 1.5F + (float) Math.PI * 7F / 4F) * 2.1F * f1 + 1.134464F, 0F, 0F);
-			}			
-			if (MathHelper.sin(f/1.5F + 3f*(float)Math.PI/4F) * 0.7F * f1 > 0){
+			}
+			if (MathHelper.sin(f / 1.5F + 3f * (float) Math.PI / 4F) * 0.7F * f1 > 0) {
 				setRotation(calf2, MathHelper.sin(f / 1.5F + 3f * (float) Math.PI / 4F) * 1.4F * f1 + 0.5585054F, 0F, 0.1745329F);
-				setRotation(leg2,-MathHelper.sin(f/1.5F + 3f*(float)Math.PI/4F) * 1.4F * f1 -22F/180F * (float)Math.PI, 0F, 0F);
+				setRotation(leg2, -MathHelper.sin(f / 1.5F + 3f * (float) Math.PI / 4F) * 1.4F * f1 - 22F / 180F * (float) Math.PI, 0F, 0F);
 				setRotation(toes2, MathHelper.sin(f / 1.5F + 3f * (float) Math.PI / 4F) * 2.1F * f1 + 1.134464F, 0F, 0F);
 			}
 
-		}
-		else{
-			if (MathHelper.cos(f/1.5F + 5*(float)Math.PI/4F) > -Math.sqrt(0.5) && MathHelper.cos(f/1.5F +5*(float)Math.PI/4F) < Math.sqrt(0.5)){
+		} else {
+			if (MathHelper.cos(f / 1.5F + 5 * (float) Math.PI / 4F) > -Math.sqrt(0.5) && MathHelper.cos(f / 1.5F + 5 * (float) Math.PI / 4F) < Math.sqrt(0.5)) {
 				setRotation(upperLeg4, MathHelper.cos(f / 1.5F + 5F * (float) Math.PI / 4F) * 2.8F * f1 + 0.3490659F, 0F, 0.0349066F);
 			}
-			if (MathHelper.sin(f/1.5F + 5F*(float)Math.PI/4F - 3F*(float)Math.PI/8)> 0){
-				setRotation(lowerleg4,MathHelper.sin(f/1.5F + 5F*(float)Math.PI/4F - 3F*(float)Math.PI/8) * 3.5F * f1, 0F, 0F);
-				setRotation(leg4,-MathHelper.sin(f/1.5F + 5F*(float)Math.PI/4F - 3F*(float)Math.PI/8) * 3.5F * f1  -0.3490659F, 0F,-0.0349066F);
+			if (MathHelper.sin(f / 1.5F + 5F * (float) Math.PI / 4F - 3F * (float) Math.PI / 8) > 0) {
+				setRotation(lowerleg4, MathHelper.sin(f / 1.5F + 5F * (float) Math.PI / 4F - 3F * (float) Math.PI / 8) * 3.5F * f1, 0F, 0F);
+				setRotation(leg4, -MathHelper.sin(f / 1.5F + 5F * (float) Math.PI / 4F - 3F * (float) Math.PI / 8) * 3.5F * f1 - 0.3490659F, 0F, -0.0349066F);
 				setRotation(toes4, MathHelper.sin(f / 1.5F + 5F * (float) Math.PI / 4F - 3F * (float) Math.PI / 8) * 2.1F * f1 + 1.134464F, 0, 0);
 			}
 
 
-			if (MathHelper.cos(f/1.5F + (float)Math.PI/2F) > -Math.sqrt(0.5) && MathHelper.cos(f/1.5F + (float)Math.PI/2F) < Math.sqrt(0.5)){
+			if (MathHelper.cos(f / 1.5F + (float) Math.PI / 2F) > -Math.sqrt(0.5) && MathHelper.cos(f / 1.5F + (float) Math.PI / 2F) < Math.sqrt(0.5)) {
 				setRotation(upperLeg3, MathHelper.cos(f / 1.5F + (float) Math.PI / 2F) * 2.8F * f1 + 0.3490659F, 0F, -0.0349066F);
 			}
-			if (MathHelper.sin(f/1.5F + (float)Math.PI/2F - 3F*(float)Math.PI/8) > 0){
-				setRotation(lowerleg3,MathHelper.sin(f/1.5F + (float)Math.PI/2F - 3F*(float)Math.PI/8) * 3.5F * f1, 0F, 0F);
-				setRotation(leg3,-MathHelper.sin(f/1.5F + (float)Math.PI/2F - 3F*(float)Math.PI/8)* 3.5F * f1  -0.3490659F, 0F,0.0349066F);
+			if (MathHelper.sin(f / 1.5F + (float) Math.PI / 2F - 3F * (float) Math.PI / 8) > 0) {
+				setRotation(lowerleg3, MathHelper.sin(f / 1.5F + (float) Math.PI / 2F - 3F * (float) Math.PI / 8) * 3.5F * f1, 0F, 0F);
+				setRotation(leg3, -MathHelper.sin(f / 1.5F + (float) Math.PI / 2F - 3F * (float) Math.PI / 8) * 3.5F * f1 - 0.3490659F, 0F, 0.0349066F);
 				setRotation(toes3, MathHelper.sin(f / 1.5F + (float) Math.PI / 2F - 3F * (float) Math.PI / 8) * 2.1F * f1 + 1.134464F, 0, 0);
 			}
 

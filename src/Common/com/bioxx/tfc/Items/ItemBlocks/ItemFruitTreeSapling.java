@@ -8,31 +8,26 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 
-public class ItemFruitTreeSapling extends ItemTerraBlock
-{
-    public ItemFruitTreeSapling(Block b)
-    {
-        super(b);
-        this.metaNames = Global.FRUIT_META_NAMES;
-        this.icons = new IIcon[metaNames.length];
-    }
+public class ItemFruitTreeSapling extends ItemTerraBlock {
+	public ItemFruitTreeSapling(Block b) {
+		super(b);
+		this.metaNames = Global.FRUIT_META_NAMES;
+		this.icons = new IIcon[metaNames.length];
+	}
 
-    @Override
-    public IIcon getIconFromDamage(int index)
-    {
-        return icons[index];
-    }
+	@Override
+	public IIcon getIconFromDamage(int index) {
+		return icons[index];
+	}
 
-    @Override
-    public void registerIcons(IIconRegister registerer)
-    {
-        for(int i = 0; i < this.metaNames.length; i++)
-            icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "wood/fruit trees/" + this.metaNames[i] + " Sapling");
-    }
+	@Override
+	public void registerIcons(IIconRegister registerer) {
+		for (int i = 0; i < this.metaNames.length; i++)
+			icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "wood/fruit trees/" + this.metaNames[i] + " Sapling");
+	}
 
-    @Override
-    public EnumWeight getWeight(ItemStack is)
-    {
-        return EnumWeight.MEDIUM;
-    }
+	@Override
+	public EnumWeight getWeight(ItemStack is) {
+		return EnumWeight.MEDIUM;
+	}
 }

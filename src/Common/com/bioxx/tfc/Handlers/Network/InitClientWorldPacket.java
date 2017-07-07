@@ -1,23 +1,19 @@
 package com.bioxx.tfc.Handlers.Network;
 
+import com.bioxx.tfc.Core.Player.*;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Time;
+import com.bioxx.tfc.api.TFCOptions;
+import cpw.mods.fml.common.network.ByteBufUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandlerContext;
+import net.minecraft.entity.player.EntityPlayer;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-
-import net.minecraft.entity.player.EntityPlayer;
-
-import cpw.mods.fml.common.network.ByteBufUtils;
-
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.Core.TFC_Time;
-import com.bioxx.tfc.Core.Player.*;
-import com.bioxx.tfc.api.TFCOptions;
-
 @SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
-public class InitClientWorldPacket extends AbstractPacket
-{
+public class InitClientWorldPacket extends AbstractPacket {
 	private long seed;
 	private long soberTime;
 	private float stomachLevel;
@@ -38,10 +34,10 @@ public class InitClientWorldPacket extends AbstractPacket
 			smallOreUnits, poorOreUnits, normalOreUnits, richOreUnits, torchBurnTime, oilLampFuelMult;
 	private float pitKilnBurnTime, bloomeryBurnTime, charcoalPitBurnTime, saplingTimerMultiplier, animalTimeMultiplier;
 
-	public InitClientWorldPacket() {}
+	public InitClientWorldPacket() {
+	}
 
-	public InitClientWorldPacket(EntityPlayer p)
-	{
+	public InitClientWorldPacket(EntityPlayer p) {
 		this.seed = p.worldObj.getSeed();
 		// Make sure to update time before loading food stats!
 		TFC_Time.updateTime(p.worldObj);
@@ -78,15 +74,14 @@ public class InitClientWorldPacket extends AbstractPacket
 		this.animalTimeMultiplier = TFCOptions.animalTimeMultiplier;
 
 
-		if(p.getEntityData().hasKey("craftingTable"))
+		if (p.getEntityData().hasKey("craftingTable"))
 			this.craftingTable = true;
 		this.playerSkills = TFC_Core.getSkillStats(p);
 		this.chiselMode = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(p).chiselMode;
 	}
 
 	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
-	{
+	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
 		buffer.writeLong(this.seed);
 		buffer.writeFloat(this.stomachLevel);
 		buffer.writeFloat(this.waterLevel);
@@ -122,8 +117,7 @@ public class InitClientWorldPacket extends AbstractPacket
 	}
 
 	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer)
-	{
+	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
 		this.seed = buffer.readLong();
 		this.stomachLevel = buffer.readFloat();
 		this.waterLevel = buffer.readFloat();
@@ -139,8 +133,7 @@ public class InitClientWorldPacket extends AbstractPacket
 		String name;
 		int lvl;
 		int size = buffer.readInt();
-		for(int l = 0; l < size; l++)
-		{
+		for (int l = 0; l < size; l++) {
 			name = ByteBufUtils.readUTF8String(buffer);
 			lvl = buffer.readInt();
 			this.skillMap.put(name, lvl);
@@ -170,8 +163,7 @@ public class InitClientWorldPacket extends AbstractPacket
 	}
 
 	@Override
-	public void handleClientSide(EntityPlayer player)
-	{
+	public void handleClientSide(EntityPlayer player) {
 		FoodStatsTFC fs = TFC_Core.getPlayerFoodStats(player);
 		fs.stomachLevel = this.stomachLevel;
 		fs.waterLevel = this.waterLevel;
@@ -182,16 +174,14 @@ public class InitClientWorldPacket extends AbstractPacket
 		fs.nutrDairy = this.nutrDairy;
 		TFC_Core.setPlayerFoodStats(player, fs);
 
-		if(this.craftingTable)
-		{
+		if (this.craftingTable) {
 			player.getEntityData().setBoolean("craftingTable", this.craftingTable);
 			PlayerInventory.upgradePlayerCrafting(player);
 		}
 		TFC_Core.setupWorld(player.worldObj, this.seed);
 
 		this.playerSkills = TFC_Core.getSkillStats(player);
-		for(String skill : skillMap.keySet())
-		{
+		for (String skill : skillMap.keySet()) {
 			playerSkills.setSkillSave(skill, skillMap.get(skill));
 		}
 		skillMap.clear();
@@ -224,8 +214,7 @@ public class InitClientWorldPacket extends AbstractPacket
 	}
 
 	@Override
-	public void handleServerSide(EntityPlayer player)
-	{
+	public void handleServerSide(EntityPlayer player) {
 	}
 
 }

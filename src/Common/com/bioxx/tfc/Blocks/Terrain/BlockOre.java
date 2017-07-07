@@ -1,8 +1,15 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
-import java.util.ArrayList;
-import java.util.Random;
-
+import com.bioxx.tfc.Core.TFC_Climate;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.TEOre;
+import com.bioxx.tfc.WorldGen.DataLayer;
+import com.bioxx.tfc.api.Constant.Global;
+import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCItems;
+import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -15,60 +22,52 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-
 import net.minecraftforge.oredict.OreDictionary;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Core.TFC_Climate;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.TileEntities.TEOre;
-import com.bioxx.tfc.WorldGen.DataLayer;
-import com.bioxx.tfc.api.TFCBlocks;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.TFCOptions;
-import com.bioxx.tfc.api.Constant.Global;
+import java.util.ArrayList;
+import java.util.Random;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
-public class BlockOre extends BlockCollapsible
-{
+public class BlockOre extends BlockCollapsible {
 	public String[] blockNames = Global.ORE_METAL;
+	protected IIcon[] icons = new IIcon[blockNames.length];
 
-	public BlockOre(Material mat)
-	{
+	public BlockOre(Material mat) {
 		super(mat);
 		this.setTickRandomly(true);
 		this.setCreativeTab(null);
 	}
 
+	public static Item getDroppedItem(int meta) {
+		if (meta < (Global.ORE_METAL.length + 1))
+			return TFCItems.smallOreChunk;
+		else
+			return null;
+	}
+
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
-	{
-		if(TFCOptions.enableDebugMode && world.isRemote)
-		{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int par6, float par7, float par8, float par9) {
+		if (TFCOptions.enableDebugMode && world.isRemote) {
 			int metadata = world.getBlockMetadata(x, y, z);
 			TerraFirmaCraft.LOG.info("Meta = " + (new StringBuilder()).append(getUnlocalizedName()).append(":").append(metadata).toString());
-			TEOre te = (TEOre)world.getTileEntity(x, y, z);
-			if(te != null)
+			TEOre te = (TEOre) world.getTileEntity(x, y, z);
+			if (te != null)
 				TerraFirmaCraft.LOG.info("Ore  BaseID = " + te.baseBlockID + "| BaseMeta =" + te.baseBlockMeta);
 		}
 		return false;
 	}
 
 	@Override
-	public int[] getDropBlock(World world, int x, int y, int z)
-	{
-		int[] data = new int[]{ -1, -1 };
+	public int[] getDropBlock(World world, int x, int y, int z) {
+		int[] data = new int[]{-1, -1};
 		DataLayer dl = TFC_Climate.getCacheManager(world).getRockLayerAt(x, z, TFC_Core.getRockLayerFromHeight(world, x, y, z));
 
-		if(dl != null)
-		{
+		if (dl != null) {
 			BlockStone stone = null;
 			if (dl.block instanceof BlockStone)
 				stone = (BlockStone) dl.block;
 
-			if (stone != null)
-			{
+			if (stone != null) {
 				data[0] = Block.getIdFromBlock(stone.dropBlock); // Cobblestone version of rock in that layer.
 				data[1] = dl.data2; // Metadata
 			}
@@ -77,64 +76,51 @@ public class BlockOre extends BlockCollapsible
 	}
 
 	@Override
-	public int damageDropped(int dmg)
-	{
+	public int damageDropped(int dmg) {
 		return dmg;
 	}
 
 	@Override
-	public int quantityDropped(int meta, int fortune, Random random)
-	{
+	public int quantityDropped(int meta, int fortune, Random random) {
 		return 1;
 	}
 
 	@Override
-	public IIcon getIcon(int side, int meta)
-	{
-		if(meta >= icons.length)
+	public IIcon getIcon(int side, int meta) {
+		if (meta >= icons.length)
 			return icons[0];
 		return icons[meta];
 	}
 
-	protected IIcon[] icons = new IIcon[blockNames.length];
-
 	@Override
-	public void registerBlockIcons(IIconRegister iconRegisterer)
-	{
-		for(int i = 0; i < blockNames.length; i++)
-			icons[i] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "ores/"+ blockNames[i] + " Ore");
+	public void registerBlockIcons(IIconRegister iconRegisterer) {
+		for (int i = 0; i < blockNames.length; i++)
+			icons[i] = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "ores/" + blockNames[i] + " Ore");
 	}
 
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.oreRenderId;
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
-	{
-		if(!world.isRemote)
-		{
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+		if (!world.isRemote) {
 			boolean dropOres = false;
 			boolean hasHammer = false;
 			int meta = world.getBlockMetadata(x, y, z);
 			ItemStack itemstack = null;
-			if(player != null)
-			{
+			if (player != null) {
 				TFC_Core.addPlayerExhaustion(player, 0.001f);
 				player.addStat(StatList.mineBlockStatArray[getIdFromBlock(this)], 1);
 				dropOres = player.canHarvestBlock(this);
 				ItemStack heldItem = player.getCurrentEquippedItem();
-				if (heldItem != null)
-				{
+				if (heldItem != null) {
 					int[] itemIDs = OreDictionary.getOreIDs(heldItem);
-					for (int id : itemIDs)
-					{
+					for (int id : itemIDs) {
 						String name = OreDictionary.getOreName(id);
-						if (name.startsWith("itemHammer"))
-						{
+						if (name.startsWith("itemHammer")) {
 							hasHammer = true;
 							break;
 						}
@@ -142,13 +128,11 @@ public class BlockOre extends BlockCollapsible
 				}
 			}
 
-			if (player == null || dropOres)
-			{
-					TEOre te = (TEOre) world.getTileEntity(x, y, z);
-					int ore = getOreGrade(te, meta);
-					itemstack = new ItemStack(TFCItems.oreChunk, 1, damageDropped(ore));
-			}
-			else if (hasHammer)
+			if (player == null || dropOres) {
+				TEOre te = (TEOre) world.getTileEntity(x, y, z);
+				int ore = getOreGrade(te, meta);
+				itemstack = new ItemStack(TFCItems.oreChunk, 1, damageDropped(ore));
+			} else if (hasHammer)
 				itemstack = new ItemStack(TFCItems.smallOreChunk, 1, meta);
 
 			if (itemstack != null)
@@ -158,21 +142,18 @@ public class BlockOre extends BlockCollapsible
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int meta)
-	{
+	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int meta) {
 		//Intentionally empty so that mining ore blocks cannot trigger a cave in.
 	}
 
 	@Override
-	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune)
-	{
+	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int metadata, int fortune) {
 		ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
 		TEOre te = (TEOre) world.getTileEntity(x, y, z);
 		int ore = getOreGrade(te, metadata);
 
 		int count = quantityDropped(metadata, fortune, world.rand);
-		for (int i = 0; i < count; i++)
-		{
+		for (int i = 0; i < count; i++) {
 			ItemStack itemstack;
 			itemstack = new ItemStack(TFCItems.oreChunk, 1, damageDropped(ore));
 
@@ -181,32 +162,20 @@ public class BlockOre extends BlockCollapsible
 		return ret;
 	}
 
-	public static Item getDroppedItem(int meta)
-	{
-		if(meta < (Global.ORE_METAL.length + 1))
-			return TFCItems.smallOreChunk;
-		else
-			return null;
-	}
-
 	@Override
-	public boolean canDropFromExplosion(Explosion exp)
-	{
+	public boolean canDropFromExplosion(Explosion exp) {
 		return false;
 	}
 
 	@Override
-	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion exp)
-	{
+	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion exp) {
 		world.setBlockToAir(x, y, z);
 	}
 
 	@Override
-	public void onBlockExploded(World world, int x, int y, int z, Explosion exp)
-	{
-		if(!world.isRemote)
-		{
-			TEOre te = (TEOre)world.getTileEntity(x, y, z);
+	public void onBlockExploded(World world, int x, int y, int z, Explosion exp) {
+		if (!world.isRemote) {
+			TEOre te = (TEOre) world.getTileEntity(x, y, z);
 			Random random = new Random();
 			ItemStack itemstack;
 			int meta = world.getBlockMetadata(x, y, z);
@@ -219,14 +188,12 @@ public class BlockOre extends BlockCollapsible
 		}
 	}
 
-	public int getOreGrade(TEOre te, int ore)
-	{
-		if(te != null)
-		{
+	public int getOreGrade(TEOre te, int ore) {
+		if (te != null) {
 			int grade = te.extraData & 7;
-			if(grade == 1)
+			if (grade == 1)
 				ore += 18;
-			else if(grade == 2)
+			else if (grade == 2)
 				ore += 36;
 		}
 		return ore;
@@ -234,37 +201,30 @@ public class BlockOre extends BlockCollapsible
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
-	{
+	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z) {
 		return null;
 	}
 
 	@Override
-	public TileEntity createTileEntity(World w, int meta)
-	{
+	public TileEntity createTileEntity(World w, int meta) {
 		return new TEOre();
 	}
 
 	@Override
-	public void updateTick(World world, int x, int y, int z, Random rand)
-	{
+	public void updateTick(World world, int x, int y, int z, Random rand) {
 		if (!world.isRemote)
 			scanVisible(world, x, y, z);
 	}
 
-	public void scanVisible(World world, int x, int y, int z)
-	{
-		if (!world.isRemote)
-		{
-			TEOre te = (TEOre)world.getTileEntity(x, y, z);
-			if((te.extraData & 8) == 0 && y < 255 && y > 0)
-			{
-				if(world.blockExists(x, y-1, z) && world.blockExists(x, y+1, z) && world.blockExists(x-1, y, z) && world.blockExists(x+1, y, z) &&
-						world.blockExists(x, y, z-1) && world.blockExists(x, y, z+1))
-					if(!world.getBlock(x, y - 1, z).isOpaqueCube() || !world.getBlock(x, y + 1, z).isOpaqueCube() ||
-							!world.getBlock(x - 1, y, z).isOpaqueCube() || !world.getBlock(x + 1, y, z).isOpaqueCube() || 
-							!world.getBlock(x, y, z - 1).isOpaqueCube() || !world.getBlock(x, y, z + 1).isOpaqueCube())
-					{
+	public void scanVisible(World world, int x, int y, int z) {
+		if (!world.isRemote) {
+			TEOre te = (TEOre) world.getTileEntity(x, y, z);
+			if ((te.extraData & 8) == 0 && y < 255 && y > 0) {
+				if (world.blockExists(x, y - 1, z) && world.blockExists(x, y + 1, z) && world.blockExists(x - 1, y, z) && world.blockExists(x + 1, y, z) &&
+						world.blockExists(x, y, z - 1) && world.blockExists(x, y, z + 1))
+					if (!world.getBlock(x, y - 1, z).isOpaqueCube() || !world.getBlock(x, y + 1, z).isOpaqueCube() ||
+							!world.getBlock(x - 1, y, z).isOpaqueCube() || !world.getBlock(x + 1, y, z).isOpaqueCube() ||
+							!world.getBlock(x, y, z - 1).isOpaqueCube() || !world.getBlock(x, y, z + 1).isOpaqueCube()) {
 						te.setVisible();
 					}
 			}
@@ -272,10 +232,8 @@ public class BlockOre extends BlockCollapsible
 	}
 
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block b)
-	{
-		if(!world.isRemote)
-		{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block b) {
+		if (!world.isRemote) {
 			scanVisible(world, x, y, z);
 		}
 	}

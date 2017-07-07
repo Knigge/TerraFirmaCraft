@@ -30,34 +30,28 @@ import net.minecraft.world.World;
 import java.util.Set;
 
 @SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "CanBeFinal"})
-public class ItemHammer extends ItemTerraTool implements ICausesDamage
-{
+public class ItemHammer extends ItemTerraTool implements ICausesDamage {
 	private static final Set<Block> BLOCKS = Sets.newHashSet(TFCBlocks.cokeblock);
 	private float damageVsEntity;
 
-	public ItemHammer(ToolMaterial e, float damage)
-	{
+	public ItemHammer(ToolMaterial e, float damage) {
 		super(0, e, BLOCKS);
 		this.damageVsEntity = damage;
 	}
 
 	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-	{
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		Block id2 = player.worldObj.getBlock(x, y, z);
 		int meta2 = player.worldObj.getBlockMetadata(x, y, z);
 
-		if(id2 == TFCBlocks.stoneIgEx || id2 == TFCBlocks.stoneIgIn)
-		{
-			if(side == 1)
-			{
+		if (id2 == TFCBlocks.stoneIgEx || id2 == TFCBlocks.stoneIgIn) {
+			if (side == 1) {
 				world.setBlock(x, y, z, TFCBlocks.anvil);
 				player.triggerAchievement(TFC_Achievements.achAnvil);
 				TEAnvil te = (TEAnvil) world.getTileEntity(x, y, z);
-				if(te == null)
+				if (te == null)
 					world.setTileEntity(x, y, z, new TEAnvil());
-				if(te != null)
-				{
+				if (te != null) {
 					te.stonePair[0] = Block.getIdFromBlock(id2);
 					te.stonePair[1] = meta2;
 					te.validate();
@@ -66,162 +60,149 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
 				return true;
 			}
 		}
-    	boolean placed = false;
-        int toolSlot = player.inventory.currentItem;
-        int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
+		boolean placed = false;
+		int toolSlot = player.inventory.currentItem;
+		int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
 
-        if (toolSlot < 8)
-        {
-	        ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
-            if (nextSlotStack != null)
-            {
-                Item item = nextSlotStack.getItem();
-  
-                if (item instanceof ItemBlock)
-                {
-                    int posX = x;
-                    int posY = y;
-                    int posZ = z;
+		if (toolSlot < 8) {
+			ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
+			if (nextSlotStack != null) {
+				Item item = nextSlotStack.getItem();
 
-                    switch (side)
-                    {
-                        case 0:
-                            --posY;
-                            break;
-                        case 1:
-                            ++posY;
-                            break;
-                        case 2:
-                            --posZ;
-                            break;
-                        case 3:
-                            ++posZ;
-                            break;
-                        case 4:
-                            --posX;
-                            break;
-                        case 5:
-                            ++posX;
-                            break;
-                    }
+				if (item instanceof ItemBlock) {
+					int posX = x;
+					int posY = y;
+					int posZ = z;
 
-                    AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
-                    AxisAlignedBB playerBounds = player.boundingBox;
+					switch (side) {
+						case 0:
+							--posY;
+							break;
+						case 1:
+							++posY;
+							break;
+						case 2:
+							--posZ;
+							break;
+						case 3:
+							++posZ;
+							break;
+						case 4:
+							--posX;
+							break;
+						case 5:
+							++posX;
+							break;
+					}
 
-	                Block blockToPlace = ((ItemBlock) item).field_150939_a;
-	                if(blockToPlace.getMaterial().blocksMovement())
-	                {
-	                    if (playerBounds.intersectsWith(blockBounds))
-	                        return false;
-	                }
+					AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
+					AxisAlignedBB playerBounds = player.boundingBox;
 
-	                int dmg = nextSlotStack.getItemDamage();
-                    int count = nextSlotStack.stackSize;
+					Block blockToPlace = ((ItemBlock) item).field_150939_a;
+					if (blockToPlace.getMaterial().blocksMovement()) {
+						if (playerBounds.intersectsWith(blockBounds))
+							return false;
+					}
 
-                	placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
+					int dmg = nextSlotStack.getItemDamage();
+					int count = nextSlotStack.stackSize;
 
-                    if(player.capabilities.isCreativeMode) {
+					placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
 
-                    	nextSlotStack.setItemDamage(dmg);
-                    	nextSlotStack.stackSize = count;
-                    }
-                    if (nextSlotStack.stackSize < 1)
-                    {
-                        player.inventory.setInventorySlotContents(nextSlot, null);
-                    }
-                }
-            }
-        }
-        return placed;
-	    
+					if (player.capabilities.isCreativeMode) {
+
+						nextSlotStack.setItemDamage(dmg);
+						nextSlotStack.stackSize = count;
+					}
+					if (nextSlotStack.stackSize < 1) {
+						player.inventory.setInventorySlotContents(nextSlot, null);
+					}
+				}
+			}
+		}
+		return placed;
+
 
 	}
 
 	@Override
-	public EnumSize getSize(ItemStack is)
-	{
+	public EnumSize getSize(ItemStack is) {
 		return EnumSize.SMALL;
 	}
 
 	@Override
-	public EnumDamageType getDamageType()
-	{
+	public EnumDamageType getDamageType() {
 		return EnumDamageType.CRUSHING;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Multimap getAttributeModifiers(ItemStack is)
-	{
+	public Multimap getAttributeModifiers(ItemStack is) {
 		Multimap multimap = HashMultimap.create();
 		multimap.put(SharedMonsterAttributes.attackDamage.getAttributeUnlocalizedName(), new AttributeModifier(field_111210_e, "Tool modifier", getWeaponDamage(is), 0));
 		return multimap;
 	}
 
-	public double getWeaponDamage(ItemStack is)
-	{
+	public double getWeaponDamage(ItemStack is) {
 		return Math.floor(damageVsEntity + (damageVsEntity * AnvilManager.getDamageBuff(is)));
 	}
 
 	@Override
-	public int getMaxDamage(ItemStack is)
-	{
+	public int getMaxDamage(ItemStack is) {
 		return (int) Math.floor(getMaxDamage() + (getMaxDamage() * AnvilManager.getDurabilityBuff(is)));
 	}
 
 	@Override
-	public EnumItemReach getReach(ItemStack is)
-	{
+	public EnumItemReach getReach(ItemStack is) {
 		return EnumItemReach.MEDIUM;
 	}
 
 	@Override
-  	public boolean canHarvestBlock(Block block, ItemStack itemStack)
-  	{
-	  return checkBlock(block);
-  	}
-    
-    @Override
-    public boolean onBlockStartBreak(ItemStack itemstack,  int x,  int y,  int z,  EntityPlayer player) {
-        if (this.checkBlock(player.worldObj.getBlock(x, y, z)))
-        {
-	        if (this.checkNeighbours(player.worldObj, x, y, z) || player.capabilities.isCreativeMode) {
-	            return false;
-	        }
-	        else {
-	        	itemstack.damageItem( itemstack.getMaxDamage() / 30 + 100, player);
-	        	TFC_Core.addPlayerExhaustion(player, 0.1F);
-	        }
+	public boolean canHarvestBlock(Block block, ItemStack itemStack) {
+		return checkBlock(block);
+	}
 
-        }
-        return false;
+	@Override
+	public boolean onBlockStartBreak(ItemStack itemstack, int x, int y, int z, EntityPlayer player) {
+		if (this.checkBlock(player.worldObj.getBlock(x, y, z))) {
+			if (this.checkNeighbours(player.worldObj, x, y, z) || player.capabilities.isCreativeMode) {
+				return false;
+			} else {
+				itemstack.damageItem(itemstack.getMaxDamage() / 30 + 100, player);
+				TFC_Core.addPlayerExhaustion(player, 0.1F);
+			}
 
-    }
-    @Override
-    public float getDigSpeed(ItemStack stack,  Block block,  int meta) {
-        float digSpeed = 1.0F;
-        if (checkBlock(block)) {
-            digSpeed += stack.getMaxDamage() / TFCOptions.hammerBreakSpeed;
-        }
-        return digSpeed + (digSpeed * AnvilManager.getDurabilityBuff(stack));
-    }
-    
-	private boolean checkNeighbours(World world,  int x,  int y,  int z) {
-        		
-		return  !checkNeighbourBlock(world.getBlock(x + 1, y, z)) && 
-				!checkNeighbourBlock(world.getBlock(x - 1, y, z)) && 
-				!checkNeighbourBlock(world.getBlock(x, y + 1, z)) && 
-				!checkNeighbourBlock(world.getBlock(x, y - 1, z)) && 
-				!checkNeighbourBlock(world.getBlock(x, y, z + 1)) && 
+		}
+		return false;
+
+	}
+
+	@Override
+	public float getDigSpeed(ItemStack stack, Block block, int meta) {
+		float digSpeed = 1.0F;
+		if (checkBlock(block)) {
+			digSpeed += stack.getMaxDamage() / TFCOptions.hammerBreakSpeed;
+		}
+		return digSpeed + (digSpeed * AnvilManager.getDurabilityBuff(stack));
+	}
+
+	private boolean checkNeighbours(World world, int x, int y, int z) {
+
+		return !checkNeighbourBlock(world.getBlock(x + 1, y, z)) &&
+				!checkNeighbourBlock(world.getBlock(x - 1, y, z)) &&
+				!checkNeighbourBlock(world.getBlock(x, y + 1, z)) &&
+				!checkNeighbourBlock(world.getBlock(x, y - 1, z)) &&
+				!checkNeighbourBlock(world.getBlock(x, y, z + 1)) &&
 				!checkNeighbourBlock(world.getBlock(x, y, z - 1));
 	}
-    
-    private boolean checkBlock(Block block) {
-         String checkBlockName = block.getUnlocalizedName().toLowerCase();
-        return block instanceof BlockSmooth || checkBlockName.contains("brick") || checkBlockName.contains("smooth") || checkBlockName.contains("glass");
-    }
-    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean checkNeighbourBlock(Block block) {
-    	return block instanceof BlockStone || block instanceof BlockOre;
+
+	private boolean checkBlock(Block block) {
+		String checkBlockName = block.getUnlocalizedName().toLowerCase();
+		return block instanceof BlockSmooth || checkBlockName.contains("brick") || checkBlockName.contains("smooth") || checkBlockName.contains("glass");
+	}
+
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private boolean checkNeighbourBlock(Block block) {
+		return block instanceof BlockStone || block instanceof BlockOre;
 	}
 }

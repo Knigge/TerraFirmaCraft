@@ -1,17 +1,15 @@
 package com.bioxx.tfc.Containers.Slots;
 
+import com.bioxx.tfc.api.Interfaces.IEquipable;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.bioxx.tfc.api.Interfaces.IEquipable;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
-public class SlotExtraEquipable extends Slot
-{
+public class SlotExtraEquipable extends Slot {
 	public final IEquipable.EquipType armorType;
-	public SlotExtraEquipable(IInventory inv, int index, int x, int y, IEquipable.EquipType armortype) 
-	{
+
+	public SlotExtraEquipable(IInventory inv, int index, int x, int y, IEquipable.EquipType armortype) {
 		super(inv, index, x, y);
 		armorType = armortype;
 	}
@@ -21,8 +19,7 @@ public class SlotExtraEquipable extends Slot
 	 * of armor slots)
 	 */
 	@Override
-	public int getSlotStackLimit()
-	{
+	public int getSlotStackLimit() {
 		return 1;
 	}
 
@@ -37,10 +34,9 @@ public class SlotExtraEquipable extends Slot
 	 * requirements for each slot.
 	 */
 	@Override
-	public boolean isItemValid(ItemStack is)
-	{
-		if(is != null && is.getItem() instanceof IEquipable)
-			if(((IEquipable)is.getItem()).getEquipType(is) == armorType)
+	public boolean isItemValid(ItemStack is) {
+		if (is != null && is.getItem() instanceof IEquipable)
+			if (((IEquipable) is.getItem()).getEquipType(is) == armorType)
 				return true;
 
 		return false;

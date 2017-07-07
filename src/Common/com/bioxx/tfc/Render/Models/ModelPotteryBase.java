@@ -1,23 +1,20 @@
 package com.bioxx.tfc.Render.Models;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.MathHelper;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
-public class ModelPotteryBase extends ModelBox
-{
+public class ModelPotteryBase extends ModelBox {
 	protected final List<TexturedQuad> polygons;
 
 	@SuppressWarnings("SameParameterValue")
@@ -26,7 +23,7 @@ public class ModelPotteryBase extends ModelBox
 	                        float scale, Object[] dataArray, boolean connectTop) {
 		super(renderer, textureOffsetX, textureOffsetY, originX, originY, originZ, width, height, depth, scale);
 		/*
-        this.vertexPositions = new PositionTextureVertex[8];
+	    this.vertexPositions = new PositionTextureVertex[8];
         this.quadList = new TexturedQuad[6];
         float maxX = originX + (float)width;
         float maxY = originY + (float)height;
@@ -69,8 +66,8 @@ public class ModelPotteryBase extends ModelBox
         		textureOffsetX + depth + width + depth, textureOffsetY + depth, textureOffsetX + depth + width + depth + width, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight);
 		 */
 		Object[] rings = new Object[dataArray.length];
-		
-		for(int i = 0; i < dataArray.length;i ++){
+
+		for (int i = 0; i < dataArray.length; i++) {
 		/*rings[0] = newRing(originX,originY,originZ,8,0+0.01f,8,8);
 		rings[1] = newRing(originX,originY,originZ,8,3,8,12);
 		rings[2] = newRing(originX,originY,originZ,8,6,8,14);
@@ -78,17 +75,17 @@ public class ModelPotteryBase extends ModelBox
 		rings[4] = newRing(originX,originY,originZ,8,12,8,12);
 		rings[5] = newRing(originX,originY,originZ,8,14,8,6);
 		rings[6] = newRing(originX,originY,originZ,8,16,8,6);*/
-			float[] data = (float[])dataArray[i];
-			rings[i] = newRing(data[0],data[1],data[2],data[3],data[4],data[5],data[6]);
+			float[] data = (float[]) dataArray[i];
+			rings[i] = newRing(data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
 		}
 
-		polygons = buildSides(rings,renderer, textureOffsetX,  textureOffsetY,
-			 originX,  originY, originZ,  width,  height,  depth,
-			 scale, connectTop);
-		
+		polygons = buildSides(rings, renderer, textureOffsetX, textureOffsetY,
+				originX, originY, originZ, width, height, depth,
+				scale, connectTop);
+
 	}
 
-	public PositionTextureVertex [] newRing(float originX,float originY,float originZ,float offsetX,float offsetY,float offsetZ,float width){
+	public PositionTextureVertex[] newRing(float originX, float originY, float originZ, float offsetX, float offsetY, float offsetZ, float width) {
 		PositionTextureVertex[] vert = new PositionTextureVertex[8];
 		float widthX = width / (MathHelper.sqrt_float(2) + 2);
 		vert[0] = new PositionTextureVertex(originX + offsetX - (width / 2) - widthX, originY + offsetY, originZ + offsetZ - (width / 2f), 0, 0);
@@ -103,40 +100,39 @@ public class ModelPotteryBase extends ModelBox
 	}
 
 	public List<TexturedQuad> buildSides(Object[] vertices, ModelRenderer renderer, int textureOffsetX, int textureOffsetY,
-			float originX, float originY, float originZ, int width, int height, int depth,
-			float scale, boolean connectTopFace){
+	                                     float originX, float originY, float originZ, int width, int height, int depth,
+	                                     float scale, boolean connectTopFace) {
 
 		ArrayList<TexturedQuad> aList = new ArrayList<TexturedQuad>();
-		for(int i = 0; i < vertices.length-1;i++){
-			for(int j = 0; j < 8; j++){
-				aList.add(new TexturedQuad(new PositionTextureVertex[] {((PositionTextureVertex [])(vertices[i+1]))[j],((PositionTextureVertex [])(vertices[i+1]))[(j+1)%8], ((PositionTextureVertex [])(vertices[i]))[(j+1)%8], ((PositionTextureVertex [])(vertices[i]))[j]}, 
+		for (int i = 0; i < vertices.length - 1; i++) {
+			for (int j = 0; j < 8; j++) {
+				aList.add(new TexturedQuad(new PositionTextureVertex[]{((PositionTextureVertex[]) (vertices[i + 1]))[j], ((PositionTextureVertex[]) (vertices[i + 1]))[(j + 1) % 8], ((PositionTextureVertex[]) (vertices[i]))[(j + 1) % 8], ((PositionTextureVertex[]) (vertices[i]))[j]},
 						textureOffsetX + depth + width, textureOffsetY + depth, textureOffsetX + depth + width + depth, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight));
 			}
 		}
-		PositionTextureVertex [] baseRing = (PositionTextureVertex [])(vertices[0]);
-		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[1],baseRing[2],baseRing[3],baseRing[0]}));
-		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[0],baseRing[3],baseRing[4],baseRing[7]}));
-		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[5],baseRing[6],baseRing[7],baseRing[4]}));
-		
-		if(connectTopFace){
-			PositionTextureVertex [] topRing = (PositionTextureVertex [])(vertices[vertices.length -1]);
-			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[1],topRing[2],topRing[3],topRing[0]}));
-			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[0],topRing[3],topRing[4],topRing[7]}));
-			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[5],topRing[6],topRing[7],topRing[4]}));
+		PositionTextureVertex[] baseRing = (PositionTextureVertex[]) (vertices[0]);
+		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[1], baseRing[2], baseRing[3], baseRing[0]}));
+		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[0], baseRing[3], baseRing[4], baseRing[7]}));
+		aList.add(new TexturedQuad(new PositionTextureVertex[]{baseRing[5], baseRing[6], baseRing[7], baseRing[4]}));
+
+		if (connectTopFace) {
+			PositionTextureVertex[] topRing = (PositionTextureVertex[]) (vertices[vertices.length - 1]);
+			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[1], topRing[2], topRing[3], topRing[0]}));
+			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[0], topRing[3], topRing[4], topRing[7]}));
+			aList.add(new TexturedQuad(new PositionTextureVertex[]{topRing[5], topRing[6], topRing[7], topRing[4]}));
 		}
 		return aList;
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void render(Tessellator par1Tessellator, float par2)
-	{
+	public void render(Tessellator par1Tessellator, float par2) {
 		/*for (int var3 = 0; var3 < this.quadList.length; ++var3)
 		{
 			this.quadList[var3].draw(par1Tessellator, par2);
 		}*/
 		GL11.glDisable(GL11.GL_CULL_FACE);
-		for (TexturedQuad quad : polygons){
+		for (TexturedQuad quad : polygons) {
 			quad.draw(par1Tessellator, par2);
 		}
 		GL11.glEnable(GL11.GL_CULL_FACE);

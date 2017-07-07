@@ -1,12 +1,10 @@
 package com.bioxx.tfc.api.Interfaces;
 
+import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.api.Enums.EnumFoodGroup;
-
-public interface IFood
-{
+public interface IFood {
 	EnumFoodGroup getFoodGroup();
 
 	int getFoodID();
@@ -20,10 +18,12 @@ public interface IFood
 	 * Normally returns null.
 	 */
 	ItemStack onDecayed(ItemStack is, World world, int i, int j, int k);
+
 	/**
 	 * @return Is this food edible as is.
 	 */
 	boolean isEdible(ItemStack is);
+
 	/**
 	 * @return Is this item usable in meals
 	 */

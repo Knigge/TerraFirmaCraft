@@ -1,22 +1,18 @@
 package com.bioxx.tfc.Containers.Slots;
 
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-import com.bioxx.tfc.api.TFCItems;
-
 @SuppressWarnings("SameParameterValue")
-public class SlotAnvilFlux extends Slot
-{
-	public SlotAnvilFlux(IInventory iinventory, int i, int j, int k)
-	{
+public class SlotAnvilFlux extends Slot {
+	public SlotAnvilFlux(IInventory iinventory, int i, int j, int k) {
 		super(iinventory, i, j, k);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack)
-	{
+	public boolean isItemValid(ItemStack itemstack) {
 		return itemstack.getItem() == TFCItems.powder && itemstack.getItemDamage() == 0;
 	}
 }

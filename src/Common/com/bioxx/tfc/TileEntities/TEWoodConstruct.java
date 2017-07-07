@@ -1,27 +1,23 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import com.bioxx.tfc.api.TFCItems;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
-public class TEWoodConstruct extends NetworkTileEntity
-{
+public class TEWoodConstruct extends NetworkTileEntity {
+	public static int plankDetailLevel = 8;
 	public byte[] woodTypes = new byte[192];
 	public BitSet data;
-	public static int plankDetailLevel = 8;
-
 	//This should not be stored and are calculated at runtime on the client only for faster subsequent rendering operations
 	public boolean[] solidCheck = new boolean[48];
 
-	public TEWoodConstruct()
-	{
+	public TEWoodConstruct() {
 		data = new BitSet(192);
 	}
 
@@ -54,18 +50,32 @@ public class TEWoodConstruct extends NetworkTileEntity
 		}
 	}*/
 
+	public static BitSet fromByteArray(byte[] bytes) {
+		BitSet bits = new BitSet(192);
+		for (int i = 0; i < bytes.length * 8; i++) {
+			if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0)
+				bits.set(i);
+		}
+		return bits;
+	}
+
+	public static byte[] toByteArray(BitSet bits) {
+		byte[] bytes = new byte[bits.length() / 8 + 1];
+		for (int i = 0; i < bits.length(); i++) {
+			if (bits.get(i))
+				bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
+		}
+		return bytes;
+	}
+
 	@Override
-	public boolean canUpdate()
-	{
+	public boolean canUpdate() {
 		return false;
 	}
 
-	public void ejectContents()
-	{
-		for(int i = 0; i < 192; i++)
-		{
-			if(data.get(i))
-			{
+	public void ejectContents() {
+		for (int i = 0; i < 192; i++) {
+			if (data.get(i)) {
 				data.clear(i);
 				ItemStack stack = new ItemStack(TFCItems.singlePlank, 1, woodTypes[i]);
 				EntityItem e = new EntityItem(worldObj, xCoord, yCoord, zCoord, stack);
@@ -75,13 +85,10 @@ public class TEWoodConstruct extends NetworkTileEntity
 		}
 	}
 
-	public List<ItemStack> getDrops()
-	{
+	public List<ItemStack> getDrops() {
 		List<ItemStack> list = new ArrayList<ItemStack>();
-		for(int i = 0; i < 192; i++)
-		{
-			if(data.get(i))
-			{
+		for (int i = 0; i < 192; i++) {
+			if (data.get(i)) {
 				ItemStack stack = new ItemStack(TFCItems.singlePlank, 1, woodTypes[i]);
 				list.add(stack);
 			}
@@ -89,31 +96,8 @@ public class TEWoodConstruct extends NetworkTileEntity
 		return list;
 	}
 
-	public static BitSet fromByteArray(byte[] bytes)
-	{
-		BitSet bits = new BitSet(192);
-		for (int i = 0; i < bytes.length * 8; i++)
-		{
-			if ((bytes[bytes.length - i / 8 - 1] & (1 << (i % 8))) > 0)
-				bits.set(i);
-		}
-		return bits;
-	}
-
-	public static byte[] toByteArray(BitSet bits)
-	{
-		byte[] bytes = new byte[bits.length() / 8 + 1];
-		for (int i=0; i < bits.length(); i++)
-		{
-			if (bits.get(i))
-				bytes[bytes.length - i / 8 - 1] |= 1 << (i % 8);
-		}
-		return bytes;
-	}
-
 	@Override
-	public void readFromNBT(NBTTagCompound nbt)
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		woodTypes = nbt.getByteArray("woodTypes");
 		data = new BitSet(192);
@@ -122,8 +106,7 @@ public class TEWoodConstruct extends NetworkTileEntity
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt)
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setByteArray("woodTypes", woodTypes);
 		nbt.setByteArray("data", toByteArray(data));
@@ -131,8 +114,7 @@ public class TEWoodConstruct extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleInitPacket(NBTTagCompound nbt)
-	{
+	public void handleInitPacket(NBTTagCompound nbt) {
 		woodTypes = nbt.getByteArray("woodTypes");
 		data = new BitSet(192);
 		data.or(fromByteArray(nbt.getByteArray("data")));
@@ -140,8 +122,7 @@ public class TEWoodConstruct extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
+	public void handleDataPacket(NBTTagCompound nbt) {
 		int index = nbt.getInteger("index");
 		byte meta = nbt.getByte("meta");
 		this.data.flip(index);
@@ -151,13 +132,10 @@ public class TEWoodConstruct extends NetworkTileEntity
 	}
 
 	@Override
-	public void createInitNBT(NBTTagCompound nbt)
-	{
+	public void createInitNBT(NBTTagCompound nbt) {
 		nbt.setByteArray("woodTypes", woodTypes);
 		nbt.setByteArray("data", toByteArray(data));
 	}
-
-
 
 
 	//TODO

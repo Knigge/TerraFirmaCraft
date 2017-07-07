@@ -1,13 +1,10 @@
 package com.bioxx.tfc.api;
 
+import com.bioxx.tfc.Core.FluidBaseTFC;
 import net.minecraft.init.Blocks;
-
 import net.minecraftforge.fluids.Fluid;
 
-import com.bioxx.tfc.Core.FluidBaseTFC;
-
-public class TFCFluids
-{
+public class TFCFluids {
 	public static final Fluid SALTWATER = new FluidBaseTFC("saltwater").setBaseColor(0x354d35);
 	public static final Fluid FRESHWATER = new FluidBaseTFC("freshwater").setBaseColor(0x354d35);
 	public static final Fluid HOTWATER = new FluidBaseTFC("hotwater").setBaseColor(0x1f5099).setTemperature(350/*Kelvin, Rough temp of spring in Aachen, Germany */);

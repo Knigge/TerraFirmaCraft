@@ -1,5 +1,12 @@
 package com.bioxx.tfc.Containers;
 
+import com.bioxx.tfc.Containers.Slots.SlotBlocked;
+import com.bioxx.tfc.Containers.Slots.SlotFoodOnly;
+import com.bioxx.tfc.Containers.Slots.SlotSize;
+import com.bioxx.tfc.Core.Player.PlayerInventory;
+import com.bioxx.tfc.TileEntities.TEFoodPrep;
+import com.bioxx.tfc.api.Enums.EnumSize;
+import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
@@ -7,17 +14,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import com.bioxx.tfc.Containers.Slots.SlotBlocked;
-import com.bioxx.tfc.Containers.Slots.SlotFoodOnly;
-import com.bioxx.tfc.Containers.Slots.SlotSize;
-import com.bioxx.tfc.Core.Player.PlayerInventory;
-import com.bioxx.tfc.TileEntities.TEFoodPrep;
-import com.bioxx.tfc.api.TFCItems;
-import com.bioxx.tfc.api.Enums.EnumSize;
-
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
-public class ContainerFoodPrep extends ContainerTFC
-{
+public class ContainerFoodPrep extends ContainerTFC {
 	//private World world;
 	//private int posX;
 	//private int posY;
@@ -26,8 +24,7 @@ public class ContainerFoodPrep extends ContainerTFC
 	private EntityPlayer player;
 	private int guiTab;
 
-	public ContainerFoodPrep(InventoryPlayer playerinv, TEFoodPrep pile, World world, int x, int y, int z, int tab)
-	{
+	public ContainerFoodPrep(InventoryPlayer playerinv, TEFoodPrep pile, World world, int x, int y, int z, int tab) {
 		this.player = playerinv.player;
 		this.te = pile;
 		//this.world = world;
@@ -45,22 +42,18 @@ public class ContainerFoodPrep extends ContainerTFC
 	 * Callback for when the crafting gui is closed.
 	 */
 	@Override
-	public void onContainerClosed(EntityPlayer par1EntityPlayer)
-	{
+	public void onContainerClosed(EntityPlayer par1EntityPlayer) {
 		super.onContainerClosed(par1EntityPlayer);
 		te.closeInventory();
 	}
 
 	@Override
-	public boolean canInteractWith(EntityPlayer var1)
-	{
+	public boolean canInteractWith(EntityPlayer var1) {
 		return true;
 	}
 
-	protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize)
-	{
-		if(guiTab == 0)
-		{
+	protected void layoutContainer(IInventory playerInventory, IInventory chestInventory, int xSize, int ySize) {
+		if (guiTab == 0) {
 			this.addSlotToContainer(new SlotFoodOnly(chestInventory, 0, 44, 24).addItemInclusion(TFCItems.wheatBread, TFCItems.barleyBread, TFCItems.oatBread,
 					TFCItems.ryeBread, TFCItems.riceBread, TFCItems.cornBread).setSize(EnumSize.HUGE));
 			this.addSlotToContainer(new SlotFoodOnly(chestInventory, 1, 62, 24).addItemException(TFCItems.woodenBucketMilk).setSize(EnumSize.HUGE));
@@ -69,9 +62,7 @@ public class ContainerFoodPrep extends ContainerTFC
 			this.addSlotToContainer(new SlotFoodOnly(chestInventory, 4, 116, 24).addItemException(TFCItems.woodenBucketMilk).setSize(EnumSize.HUGE));
 			/*this.addSlotToContainer(new SlotFoodOnly(chestInventory, 5, 125, 11).addItemInclusion(TFCItems.WheatBread, TFCItems.BarleyBread, TFCItems.OatBread, 
 					TFCItems.RyeBread, TFCItems.RiceBread, TFCItems.CornBread).setSize(EnumSize.HUGE));*/
-		}
-		else if(guiTab == 1)
-		{
+		} else if (guiTab == 1) {
 			this.addSlotToContainer(new SlotBlocked(chestInventory, 0, 15, 8));
 			this.addSlotToContainer(new SlotFoodOnly(chestInventory, 1, 53, 24).addItemException(TFCItems.woodenBucketMilk).setSize(EnumSize.HUGE));
 			this.addSlotToContainer(new SlotFoodOnly(chestInventory, 2, 71, 24).addItemException(TFCItems.woodenBucketMilk).setSize(EnumSize.HUGE));
@@ -86,31 +77,26 @@ public class ContainerFoodPrep extends ContainerTFC
 		this.addSlotToContainer(new SlotSize(chestInventory, 10, 145, 62).setSize(EnumSize.SMALL));
 	}
 
-	public EntityPlayer getPlayer()
-	{
+	public EntityPlayer getPlayer() {
 		return player;
 	}
 
 	@Override
-	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)
-	{
+	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum) {
 		ItemStack origStack = null;
-		Slot slot = (Slot)this.inventorySlots.get(slotNum);
+		Slot slot = (Slot) this.inventorySlots.get(slotNum);
 
-		if (slot != null && slot.getHasStack())
-		{
+		if (slot != null && slot.getHasStack()) {
 			ItemStack slotStack = slot.getStack();
 			origStack = slotStack.copy();
 
 			// From food prep to inventory
-			if (slotNum < 10)
-			{
+			if (slotNum < 10) {
 				if (!this.mergeItemStack(slotStack, 10, inventorySlots.size(), true))
 					return null;
 			}
 			// Slot exception lists already handle what should go where
-			else
-			{
+			else {
 				if (!this.mergeItemStack(slotStack, 0, 10, false))
 					return null;
 			}

@@ -1,17 +1,14 @@
 package com.bioxx.tfc.api.Events;
 
+import cpw.mods.fml.common.eventhandler.Cancelable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-
 import net.minecraftforge.event.entity.EntityEvent;
-
-import cpw.mods.fml.common.eventhandler.Cancelable;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @Cancelable
-public class AnvilCraftEvent extends EntityEvent 
-{	
+public class AnvilCraftEvent extends EntityEvent {
 	/**
 	 * The item which is currently being worked.
 	 */
@@ -28,13 +25,13 @@ public class AnvilCraftEvent extends EntityEvent
 	public TileEntity anvilTE;
 
 	/**
-	 * Fires when an item has finished crafting 
+	 * Fires when an item has finished crafting
+	 *
 	 * @param entityplayer is the player who is doing the crafting
-	 * @param i1 is the item which is currently being worked
-	 * @param r is the result item from the crafting process if allowed to finish
+	 * @param i1           is the item which is currently being worked
+	 * @param r            is the result item from the crafting process if allowed to finish
 	 */
-	public AnvilCraftEvent(EntityPlayer entityplayer, TileEntity te, ItemStack i1, ItemStack i2, ItemStack r)
-	{
+	public AnvilCraftEvent(EntityPlayer entityplayer, TileEntity te, ItemStack i1, ItemStack i2, ItemStack r) {
 		super(entityplayer);
 		input1 = i1;
 		input2 = i2;

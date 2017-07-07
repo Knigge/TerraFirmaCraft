@@ -1,8 +1,13 @@
 package com.bioxx.tfc.Blocks.Devices;
 
-import java.util.List;
-import java.util.Random;
-
+import com.bioxx.tfc.Blocks.BlockTerraContainer;
+import com.bioxx.tfc.Core.TFCTabs;
+import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.TerraFirmaCraft;
+import com.bioxx.tfc.TileEntities.TEHopper;
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -20,39 +25,46 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.bioxx.tfc.TerraFirmaCraft;
-import com.bioxx.tfc.Blocks.BlockTerraContainer;
-import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.TileEntities.TEHopper;
-import com.bioxx.tfc.api.TFCBlocks;
+import java.util.List;
+import java.util.Random;
 
 @SuppressWarnings("WeakerAccess")
-public class BlockHopper extends BlockTerraContainer
-{
-	private final Random random = new Random();
+public class BlockHopper extends BlockTerraContainer {
 	@SideOnly(Side.CLIENT)
 	private static IIcon hopperoutside;
 	@SideOnly(Side.CLIENT)
 	private static IIcon hopperTop;
 	@SideOnly(Side.CLIENT)
 	private static IIcon hopperInside;
+	private final Random random = new Random();
 
-	public BlockHopper()
-	{
+	public BlockHopper() {
 		super(Material.iron);
 		this.setCreativeTab(TFCTabs.TFC_DEVICES);
+	}
+
+	public static int getDirectionFromMetadata(int meta) {
+		return meta & 7;
+	}
+
+	public static boolean checkMeta(int meta) {
+		return (meta & 8) != 8;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public static IIcon getHopperIcon(String s) {
+		return "hopper_outside".equals(s) ? hopperoutside : "hopper_inside".equals(s) ? hopperInside : null;
+	}
+
+	public static TEHopper getHopperTE(IBlockAccess access, int x, int y, int z) {
+		return (TEHopper) access.getTileEntity(x, y, z);
 	}
 
 	/**
 	 * Updates the blocks bounds based on its current state. Args: world, x, y, z
 	 */
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-	{
+	public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
 	}
 
@@ -61,8 +73,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * mask.) Parameters: World, X, Y, Z, mask, list, colliding entity
 	 */
 	@Override
-	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
-	{
+	public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity) {
 		this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.625F, 1.0F);
 		super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
 		float f = 0.125F;
@@ -81,12 +92,10 @@ public class BlockHopper extends BlockTerraContainer
 	 * Called when a block is placed using its ItemBlock. Args: World, X, Y, Z, side, hitX, hitY, hitZ, block metadata
 	 */
 	@Override
-	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
-	{
+	public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta) {
 		int j1 = Facing.oppositeSide[side];
 
-		if (j1 == 1)
-		{
+		if (j1 == 1) {
 			j1 = 0;
 		}
 
@@ -97,12 +106,10 @@ public class BlockHopper extends BlockTerraContainer
 	 * Called when the block is placed in the world.
 	 */
 	@Override
-	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack is)
-	{
+	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack is) {
 		super.onBlockPlacedBy(world, x, y, z, entity, is);
 
-		if (is.hasDisplayName())
-		{
+		if (is.hasDisplayName()) {
 			TEHopper tileentityhopper = getHopperTE(world, x, y, z);
 			tileentityhopper.setCustomName(is.getDisplayName());
 		}
@@ -112,8 +119,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * Called whenever the block is added into the world. Args: world, x, y, z
 	 */
 	@Override
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
+	public void onBlockAdded(World world, int x, int y, int z) {
 		super.onBlockAdded(world, x, y, z);
 		this.updatePowerState(world, x, y, z);
 	}
@@ -122,26 +128,18 @@ public class BlockHopper extends BlockTerraContainer
 	 * Called upon block activation (right click on the block.)
 	 */
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
 		TEHopper te = getHopperTE(world, x, y, z);
-		if (world.isRemote)
-		{
-			if (te != null && te.pressBlock != null && player.isSneaking())
-			{
+		if (world.isRemote) {
+			if (te != null && te.pressBlock != null && player.isSneaking()) {
 				te.pressBlock = null;
 				te.pressCooldown = 0;
 			}
 			return true;
-		}
-		else
-		{
-			if (te != null && te.pressCooldown == 0)
-			{
+		} else {
+			if (te != null && te.pressCooldown == 0) {
 				player.openGui(TerraFirmaCraft.instance, 49, world, x, y, z);
-			}
-			else if (te != null && te.pressBlock != null && player.isSneaking())
-			{
+			} else if (te != null && te.pressBlock != null && player.isSneaking()) {
 				TFC_Core.giveItemToPlayer(te.pressBlock, player);
 				te.pressBlock = null;
 				te.pressCooldown = 0;
@@ -156,52 +154,42 @@ public class BlockHopper extends BlockTerraContainer
 	 * their own) Args: x, y, z, neighbor Block
 	 */
 	@Override
-	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
-	{
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		this.updatePowerState(world, x, y, z);
 	}
 
-	private void updatePowerState(World world, int x, int y, int z)
-	{
+	private void updatePowerState(World world, int x, int y, int z) {
 		int meta = world.getBlockMetadata(x, y, z);
 		int dir = getDirectionFromMetadata(meta);
 		boolean recievesPower = !world.isBlockIndirectlyGettingPowered(x, y, z);
 		boolean hopperPower = checkMeta(meta);
 
-		if (recievesPower != hopperPower)
-		{
+		if (recievesPower != hopperPower) {
 			world.setBlockMetadataWithNotify(x, y, z, dir | (recievesPower ? 0 : 8), 4);
 		}
 	}
 
 	@Override
-	public void breakBlock(World world, int x, int y, int z, Block block, int meta)
-	{
-		if (world.getTileEntity(x, y, z) instanceof TEHopper)
-		{
+	public void breakBlock(World world, int x, int y, int z, Block block, int meta) {
+		if (world.getTileEntity(x, y, z) instanceof TEHopper) {
 			TEHopper te = (TEHopper) world.getTileEntity(x, y, z);
 
-			for (int i1 = 0; i1 < te.getSizeInventory(); ++i1)
-			{
+			for (int i1 = 0; i1 < te.getSizeInventory(); ++i1) {
 				ItemStack itemstack = te.getStackInSlot(i1);
 
-				if (itemstack != null)
-				{
-					while (itemstack.stackSize > 0)
-					{
+				if (itemstack != null) {
+					while (itemstack.stackSize > 0) {
 						int j1 = this.random.nextInt(21) + 10;
 
-						if (j1 > itemstack.stackSize)
-						{
+						if (j1 > itemstack.stackSize) {
 							j1 = itemstack.stackSize;
 						}
 
 						itemstack.stackSize -= j1;
 						EntityItem entityitem = new EntityItem(world, x + 0.5f, y + 0.5f, z + 0.5f, new ItemStack(itemstack.getItem(), j1, itemstack.getItemDamage()));
 
-						if (itemstack.hasTagCompound())
-						{
-							entityitem.getEntityItem().setTagCompound((NBTTagCompound)itemstack.getTagCompound().copy());
+						if (itemstack.hasTagCompound()) {
+							entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
 						}
 
 						//float f3 = 0.05F;
@@ -209,8 +197,7 @@ public class BlockHopper extends BlockTerraContainer
 					}
 				}
 			}
-			if(te.pressBlock != null)
-			{
+			if (te.pressBlock != null) {
 				EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, te.pressBlock);
 				world.spawnEntityInWorld(entityitem);
 			}
@@ -224,8 +211,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * The type of render function that is called for this block
 	 */
 	@Override
-	public int getRenderType()
-	{
+	public int getRenderType() {
 		return TFCBlocks.hopperRenderId;
 	}
 
@@ -233,8 +219,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
 	 */
 	@Override
-	public boolean renderAsNormalBlock()
-	{
+	public boolean renderAsNormalBlock() {
 		return false;
 	}
 
@@ -243,8 +228,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
 	 */
 	@Override
-	public boolean isOpaqueCube()
-	{
+	public boolean isOpaqueCube() {
 		return false;
 	}
 
@@ -254,8 +238,7 @@ public class BlockHopper extends BlockTerraContainer
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side)
-	{
+	public boolean shouldSideBeRendered(IBlockAccess blockAccess, int x, int y, int z, int side) {
 		return true;
 	}
 
@@ -264,19 +247,8 @@ public class BlockHopper extends BlockTerraContainer
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public IIcon getIcon(int side, int meta)
-	{
+	public IIcon getIcon(int side, int meta) {
 		return side == 1 ? hopperTop : hopperoutside;
-	}
-
-	public static int getDirectionFromMetadata(int meta)
-	{
-		return meta & 7;
-	}
-
-	public static boolean checkMeta(int meta)
-	{
-		return (meta & 8) != 8;
 	}
 
 	/**
@@ -284,8 +256,7 @@ public class BlockHopper extends BlockTerraContainer
 	 * getComparatorInputOverride instead of the actual redstone signal strength.
 	 */
 	@Override
-	public boolean hasComparatorInputOverride()
-	{
+	public boolean hasComparatorInputOverride() {
 		return true;
 	}
 
@@ -294,29 +265,16 @@ public class BlockHopper extends BlockTerraContainer
 	 * strength when this block inputs to a comparator.
 	 */
 	@Override
-	public int getComparatorInputOverride(World world, int x, int y, int z, int meta)
-	{
+	public int getComparatorInputOverride(World world, int x, int y, int z, int meta) {
 		return Container.calcRedstoneFromInventory(getHopperTE(world, x, y, z));
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void registerBlockIcons(IIconRegister registerer)
-	{
+	public void registerBlockIcons(IIconRegister registerer) {
 		hopperoutside = registerer.registerIcon("hopper_outside");
 		hopperTop = registerer.registerIcon("hopper_top");
 		hopperInside = registerer.registerIcon("hopper_inside");
-	}
-
-	@SideOnly(Side.CLIENT)
-	public static IIcon getHopperIcon(String s)
-	{
-		return "hopper_outside".equals(s) ? hopperoutside : "hopper_inside".equals(s) ? hopperInside : null;
-	}
-
-	public static TEHopper getHopperTE(IBlockAccess access, int x, int y, int z)
-	{
-		return (TEHopper)access.getTileEntity(x, y, z);
 	}
 
 	/**
@@ -324,13 +282,12 @@ public class BlockHopper extends BlockTerraContainer
 	 */
 	@Override
 	@SideOnly(Side.CLIENT)
-	public String getItemIconName()
-	{
+	public String getItemIconName() {
 		return "hopper";
 	}
+
 	@Override
-	public TileEntity createNewTileEntity(World var1, int var2)
-	{
+	public TileEntity createNewTileEntity(World var1, int var2) {
 		return new TEHopper();
 	}
 }

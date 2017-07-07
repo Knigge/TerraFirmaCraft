@@ -1,4 +1,3 @@
-
 package com.bioxx.tfc.Render.Models;
 
 import net.minecraft.client.model.ModelBase;
@@ -7,8 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "FieldCanBeLocal"})
-public class ModelUngulate extends ModelBase
-{
+public class ModelUngulate extends ModelBase {
 	//fields
 	private ModelRenderer body1;
 	private ModelRenderer neck;
@@ -35,8 +33,7 @@ public class ModelUngulate extends ModelBase
 	private ModelRenderer rightHoofFront;
 	private ModelRenderer leftHoofFront;
 
-	public ModelUngulate()
-	{
+	public ModelUngulate() {
 		textureWidth = 64;
 		textureHeight = 32;
 
@@ -117,13 +114,13 @@ public class ModelUngulate extends ModelBase
 		leftFoot.setRotationPoint(0F, 5F, 1.5F);
 		leftFoot.setTextureSize(64, 32);
 		leftFoot.mirror = true;
-		setRotation(leftFoot, 3*-0.2617994F, 0F, 0F);
+		setRotation(leftFoot, 3 * -0.2617994F, 0F, 0F);
 		rightFoot = new ModelRenderer(this, 0, 0);
 		rightFoot.addBox(-1.3F, 0.8F, -0.3F, 2, 6, 2);
 		rightFoot.setRotationPoint(0F, 5F, 1.5F);
 		rightFoot.setTextureSize(64, 32);
 		rightFoot.mirror = true;
-		setRotation(rightFoot, 3*-0.2617994F, 0F, 0F);
+		setRotation(rightFoot, 3 * -0.2617994F, 0F, 0F);
 		leftHoofBack = new ModelRenderer(this, 0, 0);
 		leftHoofBack.addBox(-0.6F, 0.5F, -0.5F, 2, 1, 2);
 		leftHoofBack.setRotationPoint(0F, 6F, -0.5F);
@@ -141,25 +138,25 @@ public class ModelUngulate extends ModelBase
 		leftShoulder.setRotationPoint(3F, 3F, -4F);
 		leftShoulder.setTextureSize(64, 32);
 		leftShoulder.mirror = true;
-		setRotation(leftShoulder, 2*0.52359877559829887307710723054658F+0.1047198F, 0F, 0F);
+		setRotation(leftShoulder, 2 * 0.52359877559829887307710723054658F + 0.1047198F, 0F, 0F);
 		rightShoulder = new ModelRenderer(this, 0, 0);
 		rightShoulder.addBox(-0.5F, -1F, -2F, 2, 5, 3);
 		rightShoulder.setRotationPoint(-3F, 3F, -4F);
 		rightShoulder.setTextureSize(64, 32);
 		rightShoulder.mirror = true;
-		setRotation(rightShoulder, 2*0.52359877559829887307710723054658F+0.1047198F, 0F, 0F);
+		setRotation(rightShoulder, 2 * 0.52359877559829887307710723054658F + 0.1047198F, 0F, 0F);
 		leftArm = new ModelRenderer(this, 0, 0);
 		leftArm.addBox(-1F, 0.8F, 0F, 2, 5, 2);
 		leftArm.setRotationPoint(-0.4F, 2F, 0F);
 		leftArm.setTextureSize(64, 32);
 		leftArm.mirror = true;
-		setRotation(leftArm, -2*0.52359877559829887307710723054658F, 0F, 0F);
+		setRotation(leftArm, -2 * 0.52359877559829887307710723054658F, 0F, 0F);
 		rightArm = new ModelRenderer(this, 0, 0);
 		rightArm.addBox(-1F, 0.8F, 0F, 2, 5, 2);
 		rightArm.setRotationPoint(0.4F, 2F, 0F);
 		rightArm.setTextureSize(64, 32);
 		rightArm.mirror = true;
-		setRotation(rightArm, -2*0.52359877559829887307710723054658F, 0F, 0F);
+		setRotation(rightArm, -2 * 0.52359877559829887307710723054658F, 0F, 0F);
 		leftWrist = new ModelRenderer(this, 0, 0);
 		leftWrist.addBox(-1F, 0.5F, 0F, 2, 5, 2);
 		leftWrist.setRotationPoint(0F, 5F, 0F);
@@ -211,8 +208,7 @@ public class ModelUngulate extends ModelBase
 	}
 
 	@Override
-	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
-	{
+	public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
 		super.render(entity, f, f1, f2, f3, f4, f5);
 		setRotationAngles(f, f1, f2, f3, f4, f5);
 		body1.render(f5);
@@ -242,48 +238,46 @@ public class ModelUngulate extends ModelBase
 	}
 
 	@SuppressWarnings("SameParameterValue")
-	private void setRotation(ModelRenderer model, float x, float y, float z)
-	{
+	private void setRotation(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
 		model.rotateAngleZ = z;
 	}
 
-	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6)
-	{
-		float frontRightLeg = par1 + (float)(Math.PI*0.75F);
-		float frontLeftLeg = par1 + (float)(Math.PI*2.25F);
+	public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6) {
+		float frontRightLeg = par1 + (float) (Math.PI * 0.75F);
+		float frontLeftLeg = par1 + (float) (Math.PI * 2.25F);
 		//float BRL = par1;
 		//float BLL = par1;
-		float speedMod = Math.min(Math.abs(Math.max(Math.abs(par2),0.001F)),1F)*(par2!=0?par2/Math.abs(par2):1);
-		float rightArmInitAngle =  -2*0.52359877559829887307710723054658F;
-		float leftArmInitAngle =  -2*0.52359877559829887307710723054658F;
+		float speedMod = Math.min(Math.abs(Math.max(Math.abs(par2), 0.001F)), 1F) * (par2 != 0 ? par2 / Math.abs(par2) : 1);
+		float rightArmInitAngle = -2 * 0.52359877559829887307710723054658F;
+		float leftArmInitAngle = -2 * 0.52359877559829887307710723054658F;
 		float leftThighInitAngle = -0.52359877559829887307710723054658F;
 		float rightThighInitAngle = -0.52359877559829887307710723054658F;
 		float rightCalfInitAngle = 3 * 0.2617994F + 0.52359877559829887307710723054658F;
 		float leftCalfInitAngle = 3 * 0.2617994F + 0.52359877559829887307710723054658F;
-		float rightFootInitAngle = 3*-0.2617994F;
+		float rightFootInitAngle = 3 * -0.2617994F;
 		//float leftFootInitAngle = 3*-0.2617994F;
-		rightWrist.rotateAngleX = Math.max(0,-MathHelper.cos(frontRightLeg*0.6662F)*1.8F*speedMod);
+		rightWrist.rotateAngleX = Math.max(0, -MathHelper.cos(frontRightLeg * 0.6662F) * 1.8F * speedMod);
 		//LeftFoot.rotateAngleX = Math.max(0,-MathHelper.cos(FRL*0.6662F)*1.8F*speedMod)+leftFootInitAngle;
-		leftWrist.rotateAngleX = Math.max(0,-MathHelper.cos(frontLeftLeg*0.6662F)*1.8F*speedMod);
+		leftWrist.rotateAngleX = Math.max(0, -MathHelper.cos(frontLeftLeg * 0.6662F) * 1.8F * speedMod);
 		//RightFoot.rotateAngleX = Math.max(0,-MathHelper.cos(FLL*0.6662F)*1.8F*speedMod)+rightFootInitAngle;
 		//RightArm.rotateAngleX = MathHelper.sin(FRL*0.6662F)*1.4F*par2 + rightArmInitAngle;
-		rightShoulder.rotateAngleX = MathHelper.sin(frontRightLeg*0.6662F)*1.4F*speedMod - rightArmInitAngle;
-		leftShoulder.rotateAngleX = MathHelper.sin(frontLeftLeg*0.6662F)*1.4F*speedMod - leftArmInitAngle;
-		if(MathHelper.cos(frontRightLeg*0.6662F+(float)Math.PI/2F)*1.4F*speedMod > 0){
-			rightArm.rotateAngleX = MathHelper.cos(frontRightLeg*0.6662F+(float)Math.PI/2F)*1.4F*speedMod + rightArmInitAngle;
-			leftCalf.rotateAngleX = MathHelper.cos(frontRightLeg*0.6662F+(float)Math.PI/2F)*0.7F*(MathHelper.sin(frontLeftLeg*0.6662F)*speedMod>0?1.5F:1)*speedMod + leftCalfInitAngle;
+		rightShoulder.rotateAngleX = MathHelper.sin(frontRightLeg * 0.6662F) * 1.4F * speedMod - rightArmInitAngle;
+		leftShoulder.rotateAngleX = MathHelper.sin(frontLeftLeg * 0.6662F) * 1.4F * speedMod - leftArmInitAngle;
+		if (MathHelper.cos(frontRightLeg * 0.6662F + (float) Math.PI / 2F) * 1.4F * speedMod > 0) {
+			rightArm.rotateAngleX = MathHelper.cos(frontRightLeg * 0.6662F + (float) Math.PI / 2F) * 1.4F * speedMod + rightArmInitAngle;
+			leftCalf.rotateAngleX = MathHelper.cos(frontRightLeg * 0.6662F + (float) Math.PI / 2F) * 0.7F * (MathHelper.sin(frontLeftLeg * 0.6662F) * speedMod > 0 ? 1.5F : 1) * speedMod + leftCalfInitAngle;
 		}
-		if(MathHelper.cos(frontLeftLeg*0.6662F + (float)Math.PI/2F)*1.4F*speedMod  > 0){
-			leftArm.rotateAngleX = MathHelper.cos(frontLeftLeg*0.6662F+(float)Math.PI/2F)*1.4F*speedMod + leftArmInitAngle;
-			rightCalf.rotateAngleX = MathHelper.cos(frontLeftLeg*0.6662F+(float)Math.PI/2F)*0.7F*(MathHelper.sin(frontRightLeg*0.6662F)*speedMod>0?1.5F:1)*speedMod + rightCalfInitAngle;
+		if (MathHelper.cos(frontLeftLeg * 0.6662F + (float) Math.PI / 2F) * 1.4F * speedMod > 0) {
+			leftArm.rotateAngleX = MathHelper.cos(frontLeftLeg * 0.6662F + (float) Math.PI / 2F) * 1.4F * speedMod + leftArmInitAngle;
+			rightCalf.rotateAngleX = MathHelper.cos(frontLeftLeg * 0.6662F + (float) Math.PI / 2F) * 0.7F * (MathHelper.sin(frontRightLeg * 0.6662F) * speedMod > 0 ? 1.5F : 1) * speedMod + rightCalfInitAngle;
 
 		}
-		rightThigh.rotateAngleX = MathHelper.sin(frontLeftLeg*0.6662F)*0.7F*speedMod + rightThighInitAngle;
-		rightFoot.rotateAngleX = MathHelper.sin(frontLeftLeg*0.6662F)*0.7F*(MathHelper.sin(frontRightLeg*0.6662F)*speedMod>0?2:1)*speedMod + rightFootInitAngle;
-		leftThigh.rotateAngleX = MathHelper.sin(frontRightLeg*0.6662F)*0.7F*speedMod +leftThighInitAngle;
-		leftFoot.rotateAngleX = MathHelper.sin(frontRightLeg * 0.6662F)*0.7F*(MathHelper.sin(frontLeftLeg*0.6662F)*speedMod>0?2:1)*speedMod + rightFootInitAngle;
+		rightThigh.rotateAngleX = MathHelper.sin(frontLeftLeg * 0.6662F) * 0.7F * speedMod + rightThighInitAngle;
+		rightFoot.rotateAngleX = MathHelper.sin(frontLeftLeg * 0.6662F) * 0.7F * (MathHelper.sin(frontRightLeg * 0.6662F) * speedMod > 0 ? 2 : 1) * speedMod + rightFootInitAngle;
+		leftThigh.rotateAngleX = MathHelper.sin(frontRightLeg * 0.6662F) * 0.7F * speedMod + leftThighInitAngle;
+		leftFoot.rotateAngleX = MathHelper.sin(frontRightLeg * 0.6662F) * 0.7F * (MathHelper.sin(frontLeftLeg * 0.6662F) * speedMod > 0 ? 2 : 1) * speedMod + rightFootInitAngle;
 		/*
 	  else if(MathHelper.cos(FRL*0.6662F)*1.4F*par2 + rightArmInitAngle < RightArm.rotateAngleX){
 		  //TerraFirmaCraft.log.info("Check2");
@@ -299,7 +293,7 @@ public class ModelUngulate extends ModelBase
 		  LeftArm.rotateAngleX = MathHelper.cos(FLL*0.6662F)*1.4F*par2 + leftArmInitAngle;
 		 */
 		/*
-      this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
+	  this.leg1.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;
       this.leg2.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
       this.leg3.rotateAngleX = MathHelper.cos(par1 * 0.6662F + (float)Math.PI) * 1.4F * par2;
       this.leg4.rotateAngleX = MathHelper.cos(par1 * 0.6662F) * 1.4F * par2;*/

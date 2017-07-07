@@ -7,20 +7,18 @@ package com.bioxx.tfc.ASM.Transform;
 
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.IntInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 
-@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
-public class TF_EntityFallingBlock extends ClassTransformer
-{
+import java.util.ArrayList;
+import java.util.List;
 
-	public TF_EntityFallingBlock()
-	{
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
+public class TF_EntityFallingBlock extends ClassTransformer {
+
+	public TF_EntityFallingBlock() {
 		mcpClassName = "net.minecraft.entity.item.EntityFallingBlock";
 		obfClassName = "vv";
 

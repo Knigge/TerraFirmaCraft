@@ -1,16 +1,13 @@
 package com.bioxx.tfc.Render.TESR;
 
+import com.bioxx.tfc.Reference;
+import com.bioxx.tfc.TileEntities.TEBellows;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.Reference;
-import com.bioxx.tfc.TileEntities.TEBellows;
-
-public class TESRBellows extends TESRBase
-{
+public class TESRBellows extends TESRBase {
 	private static final ResourceLocation FRONT_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Bellows Front.png");
 	private static final ResourceLocation BACK_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Bellows Back.png");
 	private static final ResourceLocation SIDE1_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Bellows82.png");
@@ -19,14 +16,14 @@ public class TESRBellows extends TESRBase
 	private static final ResourceLocation SIDE4_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Bellows85.png");
 
 	@Override
-	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f)
-	{
+	public void renderTileEntityAt(TileEntity tileentity, double x, double y, double z, float f) {
 		TEBellows bellows = (TEBellows) tileentity;
-		if (bellows != null)
-		{
+		if (bellows != null) {
 			int meta = bellows.getWorldObj().getBlockMetadata(bellows.xCoord, bellows.yCoord, bellows.zCoord);
 			float pos = bellows.blowTimer * 0.1F;
-			if(pos < 0) { pos = 0; }
+			if (pos < 0) {
+				pos = 0;
+			}
 
 			Tessellator t = Tessellator.instance;
 			GL11.glPushMatrix();
@@ -40,18 +37,16 @@ public class TESRBellows extends TESRBase
 		}
 	}
 
-	private void renderBack(Tessellator t, int meta, float pos)
-	{
+	private void renderBack(Tessellator t, int meta, float pos) {
 		float i;
 		float j;
 		float l = 0.125F;
-		float m = 1-l;
+		float m = 1 - l;
 
-		if(meta == 0)
-		{
+		if (meta == 0) {
 			i = pos;
 			j = 0.1F + pos;
-			
+
 			bindTexture(BACK_TEXTURE);
 			t.startDrawingQuads();
 			//back
@@ -64,7 +59,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, 0, 1);
 			t.addVertexWithUV(1, 1, j, 1, 1);
 			t.addVertexWithUV(0, 1, j, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(0, 1, i, 0, 0);
 			t.addVertexWithUV(0, 1, j, 0, l);
@@ -86,12 +81,10 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, l, 1);
 			t.addVertexWithUV(0, 0, j, l, 0);
 			t.draw();
-		}
-		else if(meta == 1)
-		{
+		} else if (meta == 1) {
 			i = 0.9F - pos;
 			j = 1.0F - pos;
-			
+
 			bindTexture(BACK_TEXTURE);
 			t.startDrawingQuads();
 			//front
@@ -104,7 +97,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(j, 1, 0, 0, 1);
 			t.addVertexWithUV(j, 1, 1, 1, 1);
 			t.addVertexWithUV(j, 0, 1, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(i, 1, 0, m, 0);
 			t.addVertexWithUV(i, 1, 1, m, 1);
@@ -126,12 +119,10 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(j, 0, 1, 1, 1);
 			t.addVertexWithUV(j, 1, 1, 1, 0);
 			t.draw();
-		}
-		else if(meta == 2)
-		{
+		} else if (meta == 2) {
 			i = 0.9F - pos;
 			j = 1.0F - pos;
-			
+
 			bindTexture(BACK_TEXTURE);
 			t.startDrawingQuads();
 			//back
@@ -144,7 +135,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, 0, 1);
 			t.addVertexWithUV(1, 1, j, 1, 1);
 			t.addVertexWithUV(0, 1, j, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(0, 1, i, 0, m);
 			t.addVertexWithUV(0, 1, j, 0, 1);
@@ -166,12 +157,10 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, l, 1);
 			t.addVertexWithUV(0, 0, j, l, 0);
 			t.draw();
-		}
-		else if(meta == 3)
-		{
+		} else if (meta == 3) {
 			i = pos;
 			j = 0.1F + pos;
-			
+
 			bindTexture(BACK_TEXTURE);
 			t.startDrawingQuads();
 			//front
@@ -184,7 +173,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(j, 1, 0, 0, 1);
 			t.addVertexWithUV(j, 1, 1, 1, 1);
 			t.addVertexWithUV(j, 0, 1, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(i, 1, 0, 0, 0);
 			t.addVertexWithUV(i, 1, 1, 0, 1);
@@ -209,23 +198,18 @@ public class TESRBellows extends TESRBase
 		}
 	}
 
-	private void renderBody(Tessellator t, int meta, float pos)
-	{
+	private void renderBody(Tessellator t, int meta, float pos) {
 		float i;
 		float j;
 		float k = 0.9F;
 		float l = 0.1F;
 
-		if(meta == 0 || meta == 2)
-		{
-			if(meta == 0)
-			{
+		if (meta == 0 || meta == 2) {
+			if (meta == 0) {
 				bindTexture(SIDE1_TEXTURE);
 				i = 0.05F + pos;
 				j = 0.95F;
-			}
-			else
-			{
+			} else {
 				bindTexture(SIDE4_TEXTURE);
 				i = 0.05F;
 				j = 0.95F - pos;
@@ -257,17 +241,12 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(l, l, j, 1, 1);
 			t.addVertexWithUV(l, l, i, 1, 0);
 			t.draw();
-		}
-		else if(meta == 1 || meta == 3)
-		{
-			if(meta == 3)
-			{
+		} else if (meta == 1 || meta == 3) {
+			if (meta == 3) {
 				bindTexture(SIDE3_TEXTURE);
 				i = 0.05F + pos;
 				j = 0.95F;
-			}
-			else
-			{
+			} else {
 				bindTexture(SIDE2_TEXTURE);
 				i = 0.05F;
 				j = 0.95F - pos;
@@ -302,15 +281,13 @@ public class TESRBellows extends TESRBase
 		}
 	}
 
-	private void renderFront(Tessellator t, int meta)
-	{
+	private void renderFront(Tessellator t, int meta) {
 		float i = 0.9F;
 		float j = 0.1F;
 		float l = 0.125F;
-		float m = 1-l;
-		
-		if(meta == 0)
-		{
+		float m = 1 - l;
+
+		if (meta == 0) {
 			bindTexture(FRONT_TEXTURE);
 			t.startDrawingQuads();
 			//front
@@ -327,7 +304,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(0, 1, i, 0, 1);
 			t.addVertexWithUV(1, 1, i, 1, 1);
 			t.addVertexWithUV(1, 0, i, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(0, 1, i, 0, m);
 			t.addVertexWithUV(0, 1, 1, 0, 1);
@@ -349,9 +326,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, 1, 1, 1);
 			t.addVertexWithUV(0, 0, 1, 1, 0);
 			t.draw();
-		}
-		else if(meta == 1)
-		{
+		} else if (meta == 1) {
 			bindTexture(FRONT_TEXTURE);
 			t.startDrawingQuads();
 			//front
@@ -368,7 +343,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(j, 1, 0, 0, 1);
 			t.addVertexWithUV(j, 1, 1, 1, 1);
 			t.addVertexWithUV(j, 0, 1, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(0, 1, 0, 0, 0);
 			t.addVertexWithUV(0, 1, 1, 0, 1);
@@ -390,9 +365,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(j, 0, 1, l, 1);
 			t.addVertexWithUV(j, 1, 1, l, 0);
 			t.draw();
-		}
-		else if(meta == 2)
-		{
+		} else if (meta == 2) {
 			bindTexture(FRONT_TEXTURE);
 			t.startDrawingQuads();
 			//back
@@ -409,7 +382,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, 0, 1);
 			t.addVertexWithUV(1, 1, j, 1, 1);
 			t.addVertexWithUV(0, 1, j, 1, 0);
-			
+
 			// top
 			t.addVertexWithUV(0, 1, 0, 0, 0);
 			t.addVertexWithUV(0, 1, j, 0, l);
@@ -431,9 +404,7 @@ public class TESRBellows extends TESRBase
 			t.addVertexWithUV(1, 0, j, l, 1);
 			t.addVertexWithUV(0, 0, j, l, 0);
 			t.draw();
-		}
-		else if(meta == 3)
-		{
+		} else if (meta == 3) {
 			bindTexture(FRONT_TEXTURE);
 			t.startDrawingQuads();
 			//back

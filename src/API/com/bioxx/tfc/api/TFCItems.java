@@ -1,17 +1,14 @@
 package com.bioxx.tfc.api;
 
-import java.util.List;
-
+import com.bioxx.tfc.TerraFirmaCraft;
+import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-
-import com.bioxx.tfc.TerraFirmaCraft;
+import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
-public class TFCItems
-{
+public class TFCItems {
 	public static Item gemRuby;
 	public static Item gemSapphire;
 	public static Item gemEmerald;
@@ -435,7 +432,9 @@ public class TFCItems
 	public static Item proPickRedSteel;
 	public static Item proPickSteel;
 
-	/**Armor Crafting related items*/
+	/**
+	 * Armor Crafting related items
+	 */
 	public static Item bismuthSheet;
 	public static Item bismuthBronzeSheet;
 	public static Item blackBronzeSheet;
@@ -582,7 +581,9 @@ public class TFCItems
 	public static Item woodenBucketMilk;
 	public static Item bottleMilk;
 
-	/**Food Related Items and Blocks*/
+	/**
+	 * Food Related Items and Blocks
+	 */
 	public static Item seedsWheat;
 	public static Item seedsMaize;
 	public static Item seedsTomato;
@@ -851,7 +852,7 @@ public class TFCItems
 
 	/**
 	 * Item Uses Setup
-	 * */
+	 */
 	public static int igInStoneUses = 60;
 	public static int igExStoneUses = 70;
 	public static int sedStoneUses = 50;
@@ -910,8 +911,7 @@ public class TFCItems
 
 	public static List<Item> foodList;
 
-	public static void registerItems()
-	{
+	public static void registerItems() {
 		TerraFirmaCraft.LOG.info("Registering Items");
 
 		GameRegistry.registerItem(goldPan, goldPan.getUnlocalizedName());
@@ -1406,67 +1406,67 @@ public class TFCItems
 		GameRegistry.registerItem(burlapCloth, burlapCloth.getUnlocalizedName());
 		GameRegistry.registerItem(spindle, spindle.getUnlocalizedName());
 		GameRegistry.registerItem(spindleHead, spindleHead.getUnlocalizedName());
-		GameRegistry.registerItem(stoneBrick , stoneBrick.getUnlocalizedName());
+		GameRegistry.registerItem(stoneBrick, stoneBrick.getUnlocalizedName());
 
-		GameRegistry.registerItem(mortar , mortar.getUnlocalizedName());
-		GameRegistry.registerItem(vinegar , vinegar.getUnlocalizedName());
-		GameRegistry.registerItem(brine , brine.getUnlocalizedName());
-		GameRegistry.registerItem(oliveOil , oliveOil.getUnlocalizedName());
-		GameRegistry.registerItem(limewater , limewater.getUnlocalizedName());
-		GameRegistry.registerItem(tannin , tannin.getUnlocalizedName());
+		GameRegistry.registerItem(mortar, mortar.getUnlocalizedName());
+		GameRegistry.registerItem(vinegar, vinegar.getUnlocalizedName());
+		GameRegistry.registerItem(brine, brine.getUnlocalizedName());
+		GameRegistry.registerItem(oliveOil, oliveOil.getUnlocalizedName());
+		GameRegistry.registerItem(limewater, limewater.getUnlocalizedName());
+		GameRegistry.registerItem(tannin, tannin.getUnlocalizedName());
 
-		GameRegistry.registerItem(hide , hide.getUnlocalizedName());
-		GameRegistry.registerItem(soakedHide , soakedHide.getUnlocalizedName());
-		GameRegistry.registerItem(scrapedHide , scrapedHide.getUnlocalizedName());
-		GameRegistry.registerItem(prepHide , prepHide.getUnlocalizedName());
-		GameRegistry.registerItem(sheepSkin , sheepSkin.getUnlocalizedName());
-		GameRegistry.registerItem(pbearSkin , pbearSkin.getUnlocalizedName());
-		GameRegistry.registerItem(flatLeather , flatLeather.getUnlocalizedName());
-		GameRegistry.registerItem(leather , leather.getUnlocalizedName());
-		GameRegistry.registerItem(straw , straw.getUnlocalizedName());
-		GameRegistry.registerItem(flatClay , flatClay.getUnlocalizedName());
+		GameRegistry.registerItem(hide, hide.getUnlocalizedName());
+		GameRegistry.registerItem(soakedHide, soakedHide.getUnlocalizedName());
+		GameRegistry.registerItem(scrapedHide, scrapedHide.getUnlocalizedName());
+		GameRegistry.registerItem(prepHide, prepHide.getUnlocalizedName());
+		GameRegistry.registerItem(sheepSkin, sheepSkin.getUnlocalizedName());
+		GameRegistry.registerItem(pbearSkin, pbearSkin.getUnlocalizedName());
+		GameRegistry.registerItem(flatLeather, flatLeather.getUnlocalizedName());
+		GameRegistry.registerItem(leather, leather.getUnlocalizedName());
+		GameRegistry.registerItem(straw, straw.getUnlocalizedName());
+		GameRegistry.registerItem(flatClay, flatClay.getUnlocalizedName());
 
-		GameRegistry.registerItem(potteryJug , potteryJug.getUnlocalizedName());
-		GameRegistry.registerItem(potterySmallVessel , potterySmallVessel.getUnlocalizedName());
+		GameRegistry.registerItem(potteryJug, potteryJug.getUnlocalizedName());
+		GameRegistry.registerItem(potterySmallVessel, potterySmallVessel.getUnlocalizedName());
 		GameRegistry.registerItem(potteryBowl, potteryBowl.getUnlocalizedName());
 		//GameRegistry.registerItem(PotteryPot , PotteryPot.getUnlocalizedName());
 
-		GameRegistry.registerItem(ceramicMold , ceramicMold.getUnlocalizedName());
-		GameRegistry.registerItem(fireBrick , fireBrick.getUnlocalizedName());
+		GameRegistry.registerItem(ceramicMold, ceramicMold.getUnlocalizedName());
+		GameRegistry.registerItem(fireBrick, fireBrick.getUnlocalizedName());
 
-		GameRegistry.registerItem(clayMoldAxe , clayMoldAxe.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldChisel , clayMoldChisel.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldHammer , clayMoldHammer.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldHoe , clayMoldHoe.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldKnife , clayMoldKnife.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldMace , clayMoldMace.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldPick , clayMoldPick.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldProPick , clayMoldProPick.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldSaw , clayMoldSaw.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldScythe , clayMoldScythe.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldShovel , clayMoldShovel.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldSword , clayMoldSword.getUnlocalizedName());
-		GameRegistry.registerItem(clayMoldJavelin , clayMoldJavelin.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldAxe, clayMoldAxe.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldChisel, clayMoldChisel.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldHammer, clayMoldHammer.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldHoe, clayMoldHoe.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldKnife, clayMoldKnife.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldMace, clayMoldMace.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldPick, clayMoldPick.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldProPick, clayMoldProPick.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldSaw, clayMoldSaw.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldScythe, clayMoldScythe.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldShovel, clayMoldShovel.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldSword, clayMoldSword.getUnlocalizedName());
+		GameRegistry.registerItem(clayMoldJavelin, clayMoldJavelin.getUnlocalizedName());
 
-		GameRegistry.registerItem(tuyereCopper , tuyereCopper.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereBronze , tuyereBronze.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereBlackBronze , tuyereBlackBronze.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereBismuthBronze , tuyereBismuthBronze.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereWroughtIron , tuyereWroughtIron.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereSteel , tuyereSteel.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereBlackSteel , tuyereBlackSteel.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereRedSteel , tuyereRedSteel.getUnlocalizedName());
-		GameRegistry.registerItem(tuyereBlueSteel , tuyereBlueSteel.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereCopper, tuyereCopper.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereBronze, tuyereBronze.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereBlackBronze, tuyereBlackBronze.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereBismuthBronze, tuyereBismuthBronze.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereWroughtIron, tuyereWroughtIron.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereSteel, tuyereSteel.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereBlackSteel, tuyereBlackSteel.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereRedSteel, tuyereRedSteel.getUnlocalizedName());
+		GameRegistry.registerItem(tuyereBlueSteel, tuyereBlueSteel.getUnlocalizedName());
 
-		GameRegistry.registerItem(bloom , bloom.getUnlocalizedName());
-		GameRegistry.registerItem(rawBloom , rawBloom.getUnlocalizedName());
+		GameRegistry.registerItem(bloom, bloom.getUnlocalizedName());
+		GameRegistry.registerItem(rawBloom, rawBloom.getUnlocalizedName());
 
-		GameRegistry.registerItem(unknownIngot , unknownIngot.getUnlocalizedName());
-		GameRegistry.registerItem(unknownUnshaped , unknownUnshaped.getUnlocalizedName());
+		GameRegistry.registerItem(unknownIngot, unknownIngot.getUnlocalizedName());
+		GameRegistry.registerItem(unknownUnshaped, unknownUnshaped.getUnlocalizedName());
 
-		GameRegistry.registerItem(jute , jute.getUnlocalizedName());
-		GameRegistry.registerItem(juteFiber , juteFiber.getUnlocalizedName());
-		GameRegistry.registerItem(reeds , reeds.getUnlocalizedName());
+		GameRegistry.registerItem(jute, jute.getUnlocalizedName());
+		GameRegistry.registerItem(juteFiber, juteFiber.getUnlocalizedName());
+		GameRegistry.registerItem(reeds, reeds.getUnlocalizedName());
 
 		GameRegistry.registerItem(fishingRod, fishingRod.getUnlocalizedName());
 		GameRegistry.registerItem(coal, coal.getUnlocalizedName());

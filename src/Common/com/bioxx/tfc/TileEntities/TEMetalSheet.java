@@ -4,128 +4,120 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 @SuppressWarnings("SameParameterValue")
-public class TEMetalSheet extends NetworkTileEntity
-{
+public class TEMetalSheet extends NetworkTileEntity {
 	public ItemStack sheetStack;
-	private byte sides;
 	public int metalID;
+	private byte sides;
 
-	public TEMetalSheet()
-	{
+	public TEMetalSheet() {
 
 	}
 
-	public void clearSides()
-	{
+	public void clearSides() {
 		sides = 0;
 	}
 
-	public boolean topExists()
-	{
+	public boolean topExists() {
 		return (sides & 1) > 0;
 	}
 
-	public boolean bottomExists()
-	{
+	public boolean bottomExists() {
 		return (sides & 2) > 0;
 	}
 
-	public boolean northExists()
-	{
+	public boolean northExists() {
 		return (sides & 4) > 0;
 	}
 
-	public boolean southExists()
-	{
+	public boolean southExists() {
 		return (sides & 8) > 0;
 	}
 
-	public boolean eastExists()
-	{
+	public boolean eastExists() {
 		return (sides & 16) > 0;
 	}
 
-	public boolean westExists()
-	{
+	public boolean westExists() {
 		return (sides & 32) > 0;
 	}
 
-	public void toggleBySide(int side, boolean setOn)
-	{
-		switch(side)
-		{
-		case 0:toggleBottom(setOn);break;
-		case 1:toggleTop(setOn);break;
-		case 2:toggleNorth(setOn);break;
-		case 3:toggleSouth(setOn);break;
-		case 4:toggleEast(setOn);break;
-		case 5:toggleWest(setOn);break;
+	public void toggleBySide(int side, boolean setOn) {
+		switch (side) {
+			case 0:
+				toggleBottom(setOn);
+				break;
+			case 1:
+				toggleTop(setOn);
+				break;
+			case 2:
+				toggleNorth(setOn);
+				break;
+			case 3:
+				toggleSouth(setOn);
+				break;
+			case 4:
+				toggleEast(setOn);
+				break;
+			case 5:
+				toggleWest(setOn);
+				break;
 		}
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
-	public void toggleTop(boolean setOn)
-	{
-		if(topExists() && !setOn)
+	public void toggleTop(boolean setOn) {
+		if (topExists() && !setOn)
 			sides -= 1;
 		else
 			sides += 1;
 	}
 
-	public void toggleBottom(boolean setOn)
-	{
-		if(bottomExists() && !setOn)
+	public void toggleBottom(boolean setOn) {
+		if (bottomExists() && !setOn)
 			sides -= 2;
 		else
 			sides += 2;
 	}
 
-	public void toggleNorth(boolean setOn)
-	{
-		if(northExists() && !setOn)
+	public void toggleNorth(boolean setOn) {
+		if (northExists() && !setOn)
 			sides -= 4;
 		else
 			sides += 4;
 	}
 
-	public void toggleSouth(boolean setOn)
-	{
-		if(southExists() && !setOn)
+	public void toggleSouth(boolean setOn) {
+		if (southExists() && !setOn)
 			sides -= 8;
 		else
 			sides += 8;
 	}
 
-	public void toggleEast(boolean setOn)
-	{
-		if(eastExists() && !setOn)
+	public void toggleEast(boolean setOn) {
+		if (eastExists() && !setOn)
 			sides -= 16;
 		else
 			sides += 16;
 	}
 
-	public void toggleWest(boolean setOn)
-	{
-		if(westExists() && !setOn)
+	public void toggleWest(boolean setOn) {
+		if (westExists() && !setOn)
 			sides -= 32;
 		else
 			sides += 32;
 	}
 
-	public boolean isEmpty()
-	{
+	public boolean isEmpty() {
 		return !topExists() && !bottomExists() && !northExists() && !southExists() && !eastExists() && !westExists();
 	}
 
 	@Override
-	public boolean canUpdate()
-	{
+	public boolean canUpdate() {
 		return false;
 	}
 
 	@Override
-	public void readFromNBT(NBTTagCompound nbt) 
-	{
+	public void readFromNBT(NBTTagCompound nbt) {
 		super.readFromNBT(nbt);
 		sheetStack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("sheetType"));
 		sides = nbt.getByte("sides");
@@ -133,12 +125,11 @@ public class TEMetalSheet extends NetworkTileEntity
 	}
 
 	@Override
-	public void writeToNBT(NBTTagCompound nbt) 
-	{
+	public void writeToNBT(NBTTagCompound nbt) {
 		super.writeToNBT(nbt);
 		nbt.setByte("sides", sides);
 		NBTTagCompound st = new NBTTagCompound();
-		if(sheetStack != null)
+		if (sheetStack != null)
 			sheetStack.writeToNBT(st);
 		nbt.setTag("sheetType", st);
 		nbt.setInteger("metalID", metalID);
@@ -155,10 +146,6 @@ public class TEMetalSheet extends NetworkTileEntity
 		nbt.setByte("sides", this.sides);
 		nbt.setInteger("metalID", this.metalID);
 	}
-
-
-
-
 
 
 	//TODO

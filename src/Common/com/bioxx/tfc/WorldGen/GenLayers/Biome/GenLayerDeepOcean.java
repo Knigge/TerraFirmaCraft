@@ -1,15 +1,12 @@
 package com.bioxx.tfc.WorldGen.GenLayers.Biome;
 
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
+import com.bioxx.tfc.WorldGen.TFCBiome;
 import net.minecraft.world.gen.layer.IntCache;
 
-import com.bioxx.tfc.WorldGen.TFCBiome;
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
 @SuppressWarnings("SameParameterValue")
-public class GenLayerDeepOcean extends GenLayerTFC
-{
-	public GenLayerDeepOcean(long seed, GenLayerTFC parent)
-	{
+public class GenLayerDeepOcean extends GenLayerTFC {
+	public GenLayerDeepOcean(long seed, GenLayerTFC parent) {
 		super(seed);
 		this.parent = parent;
 	}
@@ -19,8 +16,7 @@ public class GenLayerDeepOcean extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int parX, int parZ, int parXSize, int parZSize)
-	{
+	public int[] getInts(int parX, int parZ, int parXSize, int parZSize) {
 		int xSize = parXSize + 2;
 		int zSize = parZSize + 2;
 		int thisID;
@@ -28,10 +24,8 @@ public class GenLayerDeepOcean extends GenLayerTFC
 		validateIntArray(parentIDs, xSize, zSize);
 		int[] outCache = IntCache.getIntCache(parXSize * parZSize);
 
-		for (int z = 0; z < parZSize; ++z)
-		{
-			for (int x = 0; x < parXSize; ++x)
-			{
+		for (int z = 0; z < parZSize; ++z) {
+			for (int x = 0; x < parXSize; ++x) {
 				int northID = parentIDs[x + 1 + z * xSize];
 				int rightID = parentIDs[x + 2 + (z + 1) * xSize];
 				int leftID = parentIDs[x + (z + 1) * xSize];
@@ -40,32 +34,25 @@ public class GenLayerDeepOcean extends GenLayerTFC
 				int oceanCount = 0;
 				int outIndex = x + z * parXSize;
 
-				if (northID == 0)
-				{
+				if (northID == 0) {
 					++oceanCount;
 				}
 
-				if (rightID == 0)
-				{
+				if (rightID == 0) {
 					++oceanCount;
 				}
 
-				if (leftID == 0)
-				{
+				if (leftID == 0) {
 					++oceanCount;
 				}
 
-				if (southID == 0)
-				{
+				if (southID == 0) {
 					++oceanCount;
 				}
 
-				if (thisID == 0 && oceanCount > 3)
-				{
+				if (thisID == 0 && oceanCount > 3) {
 					outCache[outIndex] = TFCBiome.DEEP_OCEAN.biomeID;
-				}
-				else
-				{
+				} else {
 					outCache[outIndex] = thisID;
 				}
 			}

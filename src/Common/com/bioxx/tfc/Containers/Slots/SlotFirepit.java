@@ -9,17 +9,15 @@ import net.minecraft.item.ItemStack;
 public class SlotFirepit extends Slot
 
 {
-	public SlotFirepit(EntityPlayer entityplayer, IInventory iinventory, int i, int j, int k)
-	{
+	public SlotFirepit(EntityPlayer entityplayer, IInventory iinventory, int i, int j, int k) {
 		super(iinventory, i, j, k);
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack itemstack)
-	{
+	public boolean isItemValid(ItemStack itemstack) {
 		return false;
 	}
-	
+
 	@Override
 	public int getSlotStackLimit() {
 		return 1;

@@ -1,27 +1,52 @@
 package com.bioxx.tfc.Render.Blocks;
 
+import com.bioxx.tfc.api.TFCBlocks;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
-
-import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
-
 import org.lwjgl.opengl.GL11;
 
-import com.bioxx.tfc.api.TFCBlocks;
-
 @SuppressWarnings("WeakerAccess")
-public class RenderNestBox  implements ISimpleBlockRenderingHandler
-{
+public class RenderNestBox implements ISimpleBlockRenderingHandler {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;
 	private static float pixel12 = 12f / 16f;
 	private static float pixel14 = 14f / 16f;*/
 
+	public static void renderInvBlock(Block block, int m, RenderBlocks renderer) {
+		Tessellator var14 = Tessellator.instance;
+		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+		var14.startDrawingQuads();
+		var14.setNormal(0.0F, -1.0F, 0.0F);
+		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, m));
+		var14.draw();
+		var14.startDrawingQuads();
+		var14.setNormal(0.0F, 1.0F, 0.0F);
+		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, m));
+		var14.draw();
+		var14.startDrawingQuads();
+		var14.setNormal(0.0F, 0.0F, -1.0F);
+		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, m));
+		var14.draw();
+		var14.startDrawingQuads();
+		var14.setNormal(0.0F, 0.0F, 1.0F);
+		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, m));
+		var14.draw();
+		var14.startDrawingQuads();
+		var14.setNormal(-1.0F, 0.0F, 0.0F);
+		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, m));
+		var14.draw();
+		var14.startDrawingQuads();
+		var14.setNormal(1.0F, 0.0F, 0.0F);
+		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, m));
+		var14.draw();
+		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+	}
+
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderer)
-	{
+	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderer) {
 		//IBlockAccess blockAccess = renderer.blockAccess;
 		renderer.renderAllFaces = true;
 		renderer.setRenderBounds(0.15F, 0.1F, 0.15F, 0.85F, 0.1F, 0.85F);
@@ -54,8 +79,7 @@ public class RenderNestBox  implements ISimpleBlockRenderingHandler
 		return true;
 	}
 
-	public void rotate(RenderBlocks renderer, int i)
-	{
+	public void rotate(RenderBlocks renderer, int i) {
 		renderer.uvRotateEast = i;
 		renderer.uvRotateWest = i;
 		renderer.uvRotateNorth = i;
@@ -63,8 +87,7 @@ public class RenderNestBox  implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
-	{
+	public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer) {
 		renderer.setRenderBounds(0.15F, 0.2F, 0.15F, 0.85F, 0.1F, 0.85F);
 		rotate(renderer, 1);
 		renderInvBlock(TFCBlocks.planks, metadata, renderer);
@@ -95,45 +118,12 @@ public class RenderNestBox  implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public boolean shouldRender3DInInventory(int modelId)
-	{
+	public boolean shouldRender3DInInventory(int modelId) {
 		return true;
 	}
 
 	@Override
-	public int getRenderId()
-	{
+	public int getRenderId() {
 		return 0;
-	}
-
-	public static void renderInvBlock(Block block, int m, RenderBlocks renderer)
-	{
-		Tessellator var14 = Tessellator.instance;
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		var14.startDrawingQuads();
-		var14.setNormal(0.0F, -1.0F, 0.0F);
-		renderer.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, m));
-		var14.draw();
-		var14.startDrawingQuads();
-		var14.setNormal(0.0F, 1.0F, 0.0F);
-		renderer.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, m));
-		var14.draw();
-		var14.startDrawingQuads();
-		var14.setNormal(0.0F, 0.0F, -1.0F);
-		renderer.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, m));
-		var14.draw();
-		var14.startDrawingQuads();
-		var14.setNormal(0.0F, 0.0F, 1.0F);
-		renderer.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, m));
-		var14.draw();
-		var14.startDrawingQuads();
-		var14.setNormal(-1.0F, 0.0F, 0.0F);
-		renderer.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, m));
-		var14.draw();
-		var14.startDrawingQuads();
-		var14.setNormal(1.0F, 0.0F, 0.0F);
-		renderer.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, m));
-		var14.draw();
-		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
 }

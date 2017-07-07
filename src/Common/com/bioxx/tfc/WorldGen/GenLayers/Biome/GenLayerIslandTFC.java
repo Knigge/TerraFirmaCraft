@@ -1,13 +1,10 @@
 package com.bioxx.tfc.WorldGen.GenLayers.Biome;
 
+import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 import net.minecraft.world.gen.layer.IntCache;
 
-import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
-
-public class GenLayerIslandTFC extends GenLayerTFC
-{
-	public GenLayerIslandTFC(long par1)
-	{
+public class GenLayerIslandTFC extends GenLayerTFC {
+	public GenLayerIslandTFC(long par1) {
 		super(par1);
 	}
 
@@ -16,14 +13,11 @@ public class GenLayerIslandTFC extends GenLayerTFC
 	 * amounts, or biomeList[] indices based on the particular GenLayer subclass.
 	 */
 	@Override
-	public int[] getInts(int par1, int par2, int maxX, int maxZ)
-	{
+	public int[] getInts(int par1, int par2, int maxX, int maxZ) {
 		int[] var5 = IntCache.getIntCache(maxX * maxZ);
 
-		for (int z = 0; z < maxZ; ++z)
-		{
-			for (int x = 0; x < maxX; ++x)
-			{
+		for (int z = 0; z < maxZ; ++z) {
+			for (int x = 0; x < maxX; ++x) {
 				this.initChunkSeed(par1 + x, par2 + z);
 				var5[x + z * maxX] = this.nextInt(4) == 0 ? 1 : 0;
 			}

@@ -2,10 +2,9 @@ package com.bioxx.tfc.Core;
 
 import com.bioxx.tfc.Reference;
 
-public class TFC_Sounds
-{
+public class TFC_Sounds {
 	private static final String LOCATION = Reference.MOD_ID + ":";
-	
+
 	public static final String FALLININGROCKSHORT = LOCATION + "rock.slide.short";
 	public static final String FALLININGROCKLONG = LOCATION + "rock.slide.long";
 	public static final String FALLININGDIRTSHORT = LOCATION + "dirt.slide.short";
@@ -42,8 +41,7 @@ public class TFC_Sounds
 	public static final String CATMEOW = LOCATION + "mob.cat.meow";
 	public static final String CATCOUGH = LOCATION + "mob.cat.cough";
 	public static final String KITTENMEOW = LOCATION + "mob.kitten.meow";
-	
-	
+
 
 	public static final String TFCMUSIC = LOCATION + "music.tfc";
 }
