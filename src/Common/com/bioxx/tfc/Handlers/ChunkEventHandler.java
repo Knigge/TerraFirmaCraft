@@ -197,6 +197,7 @@ public class ChunkEventHandler
 		}
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	private ChunkCoordinates createSpawn(World world)
 	{
 		List biomeList = world.getWorldChunkManager().getBiomesToSpawnIn();

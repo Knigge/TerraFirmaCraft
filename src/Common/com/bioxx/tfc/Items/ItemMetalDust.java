@@ -11,6 +11,7 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemMetalDust extends ItemMetal
 {
     private short metalAmount;
@@ -23,6 +24,7 @@ public class ItemMetalDust extends ItemMetal
         metalAmount = 100;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         for (int i = 0; i < metaNames.length; i++)

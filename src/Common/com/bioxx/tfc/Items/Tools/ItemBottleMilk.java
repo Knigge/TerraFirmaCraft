@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class ItemBottleMilk extends ItemTerra implements IFood
 {
     public ItemBottleMilk()
@@ -39,12 +40,14 @@ public class ItemBottleMilk extends ItemTerra implements IFood
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
     {
         list.add(createTag(new ItemStack(this, 1), 20));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
     {

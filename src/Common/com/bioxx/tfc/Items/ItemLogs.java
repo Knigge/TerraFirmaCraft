@@ -23,6 +23,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemLogs extends ItemTerra
 {
 	public ItemLogs()
@@ -36,6 +37,7 @@ public class ItemLogs extends ItemTerra
 		this.setSize(EnumSize.MEDIUM);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{
@@ -46,7 +48,7 @@ public class ItemLogs extends ItemTerra
 
 	private boolean createPile(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, int l)
 	{
-		TELogPile te = null;
+		TELogPile te;
 		if(world.isAirBlock(x, y, z) && isValid(world, x, y, z))
 		{
 			world.setBlock(x, y, z, TFCBlocks.logPile, l, 3);
@@ -216,19 +218,19 @@ public class ItemLogs extends ItemTerra
 				}
 				else if(side == 2 && block.canPlaceBlockAt(world, x, y, z-1) && world.canPlaceEntityOnSide(TFCBlocks.woodVert, x, y, z-1, false, side, null, itemstack))
 				{
-					setSide(world, itemstack, m, side, x, y, z-1);
+					setSide(world, itemstack, m, 2, x, y, z-1);
 				}
 				else if(side == 3 && block.canPlaceBlockAt(world, x, y, z+1) && world.canPlaceEntityOnSide(TFCBlocks.woodVert, x, y, z+1, false, side, null, itemstack))
 				{
-					setSide(world, itemstack, m, side, x, y, z+1);
+					setSide(world, itemstack, m, 3, x, y, z+1);
 				}
 				else if(side == 4 && block.canPlaceBlockAt(world, x-1, y, z) && world.canPlaceEntityOnSide(TFCBlocks.woodVert, x-1, y, z, false, side, null, itemstack))
 				{
-					setSide(world, itemstack, m, side, x-1, y, z);
+					setSide(world, itemstack, m, 4, x-1, y, z);
 				}
 				else if(side == 5 && block.canPlaceBlockAt(world, x+1, y, z) && world.canPlaceEntityOnSide(TFCBlocks.woodVert, x+1, y, z, false, side, null, itemstack))
 				{
-					setSide(world, itemstack, m, side, x+1, y, z);
+					setSide(world, itemstack, m, 5, x+1, y, z);
 				}
 				return true;
 			}

@@ -26,10 +26,10 @@ public class TFCProvider extends WorldProvider
 	@Override
 	protected void registerWorldChunkManager()
 	{
-		/**
-		 * ChunkEventHandler.onLoadWorld gets called after the NEW World gen stuff.
-		 * Trying to make a NEW World will produce a crash because the cache is empty.
-		 * ..maybe this is not the best place for this, but it works :)
+		/*
+		  ChunkEventHandler.onLoadWorld gets called after the NEW World gen stuff.
+		  Trying to make a NEW World will produce a crash because the cache is empty.
+		  ..maybe this is not the best place for this, but it works :)
 		 */
 		TFC_Climate.worldPair.put(worldObj, new WorldCacheManager(worldObj));
 		TFC_Core.addCDM(worldObj);
@@ -184,15 +184,14 @@ public class TFCProvider extends WorldProvider
 	}
 
 	@Override
-	public boolean canSnowAt(int x, int y, int z, boolean checkLight)
-	{
-		if (TFC_Climate.getHeightAdjustedTemp(worldObj,x, y, z) > 0)
+	public boolean canSnowAt(int x, int y, int z, boolean checkLight) {
+		if (TFC_Climate.getHeightAdjustedTemp(worldObj, x, y, z) > 0)
 			return false;
 		Material material = worldObj.getBlock(x, y, z).getMaterial();
-		if (material == Material.snow)  // avoid vanilla MC to replace snow
-			return false;
-		else
-			return TFCBlocks.snow.canPlaceBlockAt(worldObj, x, y, z) && material.isReplaceable();
+		// avoid vanilla MC to replace snow
+		return material != Material.snow
+				&& TFCBlocks.snow.canPlaceBlockAt(worldObj, x, y, z)
+				&& material.isReplaceable();
 	}
 
 	/*private boolean canSnowAtTemp(int x, int y, int z)

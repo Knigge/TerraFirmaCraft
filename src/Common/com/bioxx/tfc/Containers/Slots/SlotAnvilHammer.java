@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.Items.Tools.ItemHammer;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotAnvilHammer extends Slot
 {
 	public SlotAnvilHammer(EntityPlayer entityplayer, IInventory iinventory, int i, int j, int k)

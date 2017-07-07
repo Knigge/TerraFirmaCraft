@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ModelQuiver extends ModelBase {
 
 	private ModelRenderer quiver;
@@ -63,9 +64,9 @@ public class ModelQuiver extends ModelBase {
     		arrows[i].isHidden = false;
     	}
     	this.quiver.render(0.0625F);
-    	for(int i = 0; i < arrows.length; i++){
-    		arrows[i].isHidden = true;
-    	}
+	    for (ModelRenderer arrow : arrows) {
+		    arrow.isHidden = true;
+	    }
     }
     
     @Override

@@ -2,6 +2,7 @@ package com.bioxx.tfc.WorldGen.GenLayers;
 
 import net.minecraft.world.gen.layer.GenLayer;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class GenLayerFuzzyZoomTFC extends GenLayerTFC
 {
 	public GenLayerFuzzyZoomTFC(long par1, GenLayer par3GenLayer)
@@ -30,13 +31,13 @@ public class GenLayerFuzzyZoomTFC extends GenLayerTFC
 		{
 			var13 = var12 << 1;
 			int var14 = var13 * var11;
-			int var15 = var9[0 + (var12 + 0) * var7];
-			int var16 = var9[0 + (var12 + 1) * var7];
+			int var15 = var9[(var12) * var7];
+			int var16 = var9[(var12 + 1) * var7];
 
 			for (int var17 = 0; var17 < var7 - 1; ++var17)
 			{
 				this.initChunkSeed(var17 + var5 << 1, var12 + var6 << 1);
-				int var18 = var9[var17 + 1 + (var12 + 0) * var7];
+				int var18 = var9[var17 + 1 + (var12) * var7];
 				int var19 = var9[var17 + 1 + (var12 + 1) * var7];
 				var10[var14] = var15;
 				var10[var14++ + var11] = this.choose(var15, var16);

@@ -23,6 +23,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Crafting.LoomManager;
 import com.bioxx.tfc.api.Crafting.LoomRecipe;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameParameterValue", "WeakerAccess"})
 public class TELoom extends NetworkTileEntity implements IInventory
 {
 	public byte rotation;
@@ -86,10 +87,12 @@ public class TELoom extends NetworkTileEntity implements IInventory
 		}
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public boolean isFinished(){
 		return finished;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public ItemStack addString(ItemStack i){
 		if(!isFinished() &&  i != null && !this.worldObj.isRemote){
 			recipe = LoomManager.getInstance().findPotentialRecipes(storage[0]);
@@ -188,7 +191,7 @@ public class TELoom extends NetworkTileEntity implements IInventory
 	}
 
 	public ResourceLocation getStringResource(){
-		LoomRecipe resource = null;
+		LoomRecipe resource;
 
 		if (storage[1] != null)
 			resource = LoomManager.getInstance().findMatchingResult(storage[1]);

@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockGrass extends BlockTerra
 {
 	protected int textureOffset;
@@ -54,21 +55,19 @@ public class BlockGrass extends BlockTerra
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{
 		// Change to false if this block should not be added to the creative tab
-		Boolean addToCreative = true;
+		//Boolean addToCreative = true;
 
-		if(addToCreative)
-		{
-			int count;
-			if(textureOffset == 0) count = 16;
-			else count = Global.STONE_ALL.length - 16;
+		int count;
+		if(textureOffset == 0) count = 16;
+		else count = Global.STONE_ALL.length - 16;
 
-			for(int i = 0; i < count; i++)
-				list.add(new ItemStack(item, 1, i));
-		}
+		for(int i = 0; i < count; i++)
+			list.add(new ItemStack(item, 1, i));
 	}
 
 	public static IIcon getIconSideOverlay()
@@ -143,12 +142,8 @@ public class BlockGrass extends BlockTerra
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side)
-	{
-		if(side == 0)
-			return false;
-		else
-			return super.shouldSideBeRendered(access, x, y, z, side);
+	public boolean shouldSideBeRendered(IBlockAccess access, int x, int y, int z, int side) {
+		return side != 0 && super.shouldSideBeRendered(access, x, y, z, side);
 	}
 
 	private boolean isSnow(IBlockAccess access, int x, int y, int z)

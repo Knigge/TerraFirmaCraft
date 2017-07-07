@@ -5,7 +5,8 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.bioxx.tfc.Core.TFC_Core;
 
-public class TFC_ItemHeat 
+@SuppressWarnings("WeakerAccess")
+public class TFC_ItemHeat
 {
 	public static String getHeatColor(float temp, float meltTemp)
 	{
@@ -306,6 +307,7 @@ public class TFC_ItemHeat
 		}
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static Boolean setTemp(ItemStack is, float temp)
 	{
 		if(is != null)

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemLeatherRack extends ItemTerraBlock
 {
 	public ItemLeatherRack(Block block)

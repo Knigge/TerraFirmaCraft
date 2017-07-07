@@ -1,7 +1,6 @@
 package com.bioxx.tfc.Items;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -10,6 +9,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemReeds extends Item
 {
 	private Block reeds = TFCBlocks.reeds;
@@ -51,7 +51,7 @@ public class ItemReeds extends Item
 		}
 		else
 		{
-			if (world.canPlaceEntityOnSide(this.reeds, x, y, z, false, side, (Entity)null, is))
+			if (world.canPlaceEntityOnSide(this.reeds, x, y, z, false, side, null, is))
 			{
 				int i1 = this.reeds.onBlockPlaced(world, x, y, z, side, par8, par9, par10, 0);
 				if (world.setBlock(x, y, z, this.reeds, i1, 3))

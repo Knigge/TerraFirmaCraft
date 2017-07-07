@@ -25,7 +25,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Vec3;
@@ -36,6 +35,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, ICausesDamage
 {
 	private static final float GESTATION_PERIOD = 2.25f;
@@ -166,6 +166,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 		//TerraFirmaCraft.log.info(var2+", s: "+getStrength()+", a: "+ getAggression());
 		return par1Entity.attackEntityFrom(DamageSource.causeMobDamage(this), damage);
 	}
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	protected boolean canDespawn()
 	{
@@ -240,11 +241,11 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0)); //age
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0); //age
 
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, happy ticks
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, pregnant, happy ticks
 		this.dataWatcher.addObject(24, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 	}
 
@@ -526,7 +527,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 
 					if (itemstack.stackSize <= 0)
 					{
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 					}
 
 					if (!this.worldObj.isRemote)
@@ -534,8 +535,8 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 						if (this.rand.nextInt(3) == 0)
 						{
 							this.setTamed(true);
-							this.setPathToEntity((PathEntity) null);
-							this.setAttackTarget((EntityLivingBase) null);
+							this.setPathToEntity(null);
+							this.setAttackTarget(null);
 							this.func_152115_b(player.getUniqueID().toString());
 							this.playTameEffect(true);
 							this.worldObj.setEntityState(this, (byte) 7);
@@ -561,7 +562,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 
 					if (!player.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
 					{
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 					}
 				}
 
@@ -664,9 +665,9 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 				this.setSitting(true);
 				this.isJumping = false;
 				// Set everything to null to prevent butt scooching
-				this.setPathToEntity((PathEntity) null);
-				this.setTarget((Entity) null);
-				this.setAttackTarget((EntityLivingBase) null);
+				this.setPathToEntity(null);
+				this.setTarget(null);
+				this.setAttackTarget(null);
 			}
 			// Animals who are tied to a player, or are tied to a fence and are angry/targeting another animal are allowed to stand up and move about
 			else if (leashedTo instanceof EntityPlayer || leashedTo instanceof EntityLeashKnot && this.isAngry())
@@ -707,8 +708,10 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 				int i = rand.nextInt(2) + 1;
 				for (int x = 0; x < i; x++)
 				{
-					ArrayList<Float> data = new ArrayList<Float>();
-					data.add(mateSizeMod);
+					// ???
+					//ArrayList<Float> data = new ArrayList<Float>();
+					//data.add(mateSizeMod);
+
 					EntityWolfTFC baby = (EntityWolfTFC) this.createChildTFC(this);
 					baby.setLocationAndAngles(posX, posY, posZ, 0.0F, 0.0F);
 					baby.rotationYawHead = baby.rotationYaw;
@@ -720,9 +723,9 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 			}
 		}
 
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		super.onLivingUpdate();
 		TFC_Core.preventEntityDataUpdate = false;
@@ -740,9 +743,9 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 		if (this.getLeashed() && this.isAngry() && getLeashedToEntity() == this.getOwner())
 		{
 			this.setAngry(false);
-			this.setPathToEntity((PathEntity) null);
-			this.setTarget((Entity) null);
-			this.setAttackTarget((EntityLivingBase) null);
+			this.setPathToEntity(null);
+			this.setTarget(null);
+			this.setAttackTarget(null);
 		}
 	}
 
@@ -813,7 +816,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 	@Override
 	public void setAge(int par1)
 	{
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 	}
 
 	@Override
@@ -858,7 +861,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 	public void setGrowingAge(int par1)
 	{
 		if (!TFC_Core.preventEntityDataUpdate)
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 	}
 
 	public void setHappyTicks(int happyTicks)
@@ -952,7 +955,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 		{
 			if (!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = { TFC_Core.getByteFromSmallFloat(sizeMod), TFC_Core.getByteFromSmallFloat(strengthMod), TFC_Core.getByteFromSmallFloat(aggressionMod), TFC_Core.getByteFromSmallFloat(obedienceMod), (byte) familiarity, (byte) (familiarizedToday
 						? 1 : 0), (byte) (pregnant ? 1 : 0), (byte) happyTicks
@@ -984,7 +987,7 @@ public class EntityWolfTFC extends EntityWolf implements IAnimal, IInnateArmor, 
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(24));
-				} catch (NumberFormatException e)
+				} catch (NumberFormatException ignored)
 				{
 				}
 			}

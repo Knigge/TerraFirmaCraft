@@ -19,13 +19,14 @@ import net.minecraft.world.chunk.IChunkProvider;
 import java.util.ArrayList;
 import java.util.Random;
 
+@SuppressWarnings("Convert2Diamond")
 public class WorldGenLooseRocks implements IWorldGenerator
 {
 	public WorldGenLooseRocks()
 	{
 	}
 
-	public boolean generateRocks(World world, Random random, int i, int j, int k)
+	public void generateRocks(World world, Random random, int i, int j, int k)
 	{
 		if ((world.isAirBlock(i, j + 1, k) || world.getBlock(i, j + 1, k) == Blocks.snow || world.getBlock(i, j + 1, k) == TFCBlocks.tallGrass) && 
 				(world.getBlock(i, j, k).getMaterial() == Material.grass || world.getBlock(i, j, k).getMaterial() == Material.rock) && world.getBlock(i, j, k).isOpaqueCube())
@@ -46,7 +47,6 @@ public class WorldGenLooseRocks implements IWorldGenerator
 				}
 			}
 		}
-		return true;
 	}
 
 	private ItemStack getCoreSample(World world, int xCoord, int yCoord, int zCoord)
@@ -114,7 +114,7 @@ public class WorldGenLooseRocks implements IWorldGenerator
 		}
 	}
 
-	public boolean generateSticks(World world, Random random, int i, int j, int k)
+	public void generateSticks(World world, Random random, int i, int j, int k)
 	{
 		if ((world.isAirBlock(i, j + 1, k) || world.getBlock(i, j + 1, k) == Blocks.snow || world.getBlock(i, j + 1, k) == TFCBlocks.tallGrass) && 
 				(world.getBlock(i, j, k).getMaterial() == Material.grass || world.getBlock(i, j, k).getMaterial() == Material.rock ||
@@ -132,9 +132,9 @@ public class WorldGenLooseRocks implements IWorldGenerator
 				}
 			}
 		}
-		return true;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	private boolean isNearTree(World world, int i, int j, int k)
 	{
 		if(world.getBlock(i, j + 3, k).getMaterial() == Material.leaves ||
@@ -153,18 +153,14 @@ public class WorldGenLooseRocks implements IWorldGenerator
 
 	public static boolean rocksNearby(World world, int i, int j, int k)
 	{
-		if ((world.getBlock(i + 1, j + 1, k) != TFCBlocks.worldItem) || 
+		return (world.getBlock(i + 1, j + 1, k) != TFCBlocks.worldItem) ||
 				(world.getBlock(i + 1, j + 1, k + 1) != TFCBlocks.worldItem) ||
 				(world.getBlock(i, j + 1, k + 1) != TFCBlocks.worldItem) ||
 				(world.getBlock(i - 1, j + 1, k) != TFCBlocks.worldItem) ||
 				(world.getBlock(i - 1, j + 1, k + 1) != TFCBlocks.worldItem) ||
 				(world.getBlock(i - 1, j + 1, k - 1) != TFCBlocks.worldItem) ||
 				(world.getBlock(i, j + 1, k - 1) != TFCBlocks.worldItem) ||
-				(world.getBlock(i + 1, j + 1, k) != TFCBlocks.worldItem))
-			{
-				return true;
-			}
-		
-		return false;
+				(world.getBlock(i + 1, j + 1, k) != TFCBlocks.worldItem);
+
 	}
 }

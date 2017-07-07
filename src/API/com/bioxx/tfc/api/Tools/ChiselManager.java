@@ -13,10 +13,11 @@ import com.bioxx.tfc.Core.Player.PlayerInfo;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class ChiselManager {
 
     private static final ChiselManager INSTANCE = new ChiselManager();
-    public static final ChiselManager getInstance(){return INSTANCE;}
+    public static ChiselManager getInstance(){return INSTANCE;}
 
     private List<ChiselMode> chiselModes;
 
@@ -55,8 +56,7 @@ public class ChiselManager {
 
     public boolean onUsedHandler(World world, EntityPlayer player, int x, int y, int z, Block id, int meta, int side, float hitX, float hitY, float hitZ) {
         int mode = -1;
-        PlayerInfo pi = null;
-        pi = ChiselMode.playerInfo(world, player);
+        PlayerInfo pi = ChiselMode.playerInfo(world, player);
         if(pi != null){ mode = pi.chiselMode; }
         return chiselModes.get(mode).onUsedHandler(world, player, x, y, z, id, meta, side, hitX, hitY, hitZ);
     }

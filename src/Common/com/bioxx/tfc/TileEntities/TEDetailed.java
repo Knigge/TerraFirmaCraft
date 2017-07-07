@@ -8,6 +8,7 @@ import com.bioxx.tfc.Blocks.BlockDetailed;
 import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "CanBeFinal"})
 public class TEDetailed extends NetworkTileEntity {
 	public short typeID = -1;
 	public byte metaID;
@@ -35,6 +36,7 @@ public class TEDetailed extends NetworkTileEntity {
 		return metaID;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public boolean getBlockExists(int x, int y, int z) {
 		return data.get((x * 8 + z) * 8 + y);
 	}

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerHorseInventoryTFC;
 import com.bioxx.tfc.Entities.Mobs.EntityHorseTFC;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class GuiScreenHorseInventoryTFC extends GuiContainerTFC
 {

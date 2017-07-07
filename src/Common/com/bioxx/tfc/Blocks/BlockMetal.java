@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class BlockMetal extends BlockTerra
 {
     protected String[] metalNames;
@@ -34,10 +35,11 @@ public class BlockMetal extends BlockTerra
         icons = new IIcon[metalNames.length];
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
-    /**
-     * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+    /*
+      returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
      */
     public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
     {

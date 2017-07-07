@@ -21,6 +21,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.Effects.GasFX;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockHotWater extends BlockCustomLiquid
 {
 	public BlockHotWater(Fluid fluid)

@@ -33,6 +33,7 @@ import com.bioxx.tfc.TileEntities.TEAnvil;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Crafting.AnvilReq;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockAnvil extends BlockTerraContainer
 {
 	private IIcon[] textureMapTop;
@@ -85,7 +86,7 @@ public class BlockAnvil extends BlockTerraContainer
 		}
 		else
 		{
-			if((TEAnvil)world.getTileEntity(i, j, k)!=null)
+			if(world.getTileEntity(i, j, k) !=null)
 			{
 				/*TEAnvil TEAnvil;
 				TEAnvil = (TEAnvil)world.getTileEntity(i, j, k);
@@ -357,6 +358,7 @@ public class BlockAnvil extends BlockTerraContainer
 		TFC_Textures.anvilShrink = registerer.registerIcon(Reference.MOD_ID + ":" + "Anvil Shrink");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

@@ -15,6 +15,7 @@ import com.bioxx.tfc.TileEntities.TEBloom;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockBloom extends BlockTerraContainer
 {
 	public BlockBloom()

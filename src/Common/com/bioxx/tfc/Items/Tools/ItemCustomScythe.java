@@ -13,8 +13,7 @@ import com.google.common.collect.Sets;
 
 public class ItemCustomScythe extends ItemTerraTool
 {
-	private static final Set<Block> BLOCKS = Sets.newHashSet(new Block[]
-	{ TFCBlocks.leaves, TFCBlocks.leaves2 });
+	private static final Set<Block> BLOCKS = Sets.newHashSet(TFCBlocks.leaves, TFCBlocks.leaves2);
 
 	public ItemCustomScythe(ToolMaterial e)
 	{

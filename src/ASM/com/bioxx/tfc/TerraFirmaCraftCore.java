@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.MCVersion;
 
 import com.google.common.eventbus.EventBus;
 
+@SuppressWarnings("WeakerAccess")
 @MCVersion(value = "1.7.10")
 public class TerraFirmaCraftCore extends DummyModContainer
 {

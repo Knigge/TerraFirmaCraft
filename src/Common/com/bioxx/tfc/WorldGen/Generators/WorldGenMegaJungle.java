@@ -8,6 +8,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenHugeTrees;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class WorldGenMegaJungle extends WorldGenHugeTrees
 {
 	public WorldGenMegaJungle(boolean doBlockNotify, int baseHeight, int extraHeight, int woodMeta, int leafMeta)
@@ -43,11 +44,10 @@ public class WorldGenMegaJungle extends WorldGenHugeTrees
 				}
 
 				l1 = 1 + rand.nextInt(2);
-				int i2 = i1;
 
-				for (int j2 = i1 - l1; j2 <= i2; ++j2)
+				for (int j2 = i1 - l1; j2 <= i1; ++j2)
 				{
-					int k2 = j2 - i2;
+					int k2 = j2 - i1;
 					this.func_150534_b(world, j1, j2, k1, 1 - k2, rand);
 				}
 			}

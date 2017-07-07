@@ -33,6 +33,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 {
 	/** RNG. */
@@ -86,7 +87,7 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 	/** A double array that hold terrain noise from noiseGen2 */
 	private double[] noise2;
 
-	/** A double array that hold terrain noise from noiseGen5 */
+	/* A double array that hold terrain noise from noiseGen5 */
 	//private double[] noise5;
 
 	/** A double array that holds terrain noise from noiseGen6 */
@@ -204,28 +205,27 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 		long var7 = this.rand.nextLong() / 2L * 2L + 1L;
 		long var9 = this.rand.nextLong() / 2L * 2L + 1L;
 		this.rand.setSeed(chunkX * var7 + chunkZ * var9 ^ this.worldObj.getSeed());
-		boolean var11 = false;
-
-		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, var11));
+		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(chunkProvider, worldObj, rand, chunkX, chunkZ, false));
 
 		int x;
 		int y;
 		int z;
 
 		TFC_Core.getCDM(worldObj).setFishPop(chunkX, chunkZ, ChunkData.FISH_POP_MAX);
-
+/*
 		int waterRand = 4;
 		if(TFC_Climate.getStability(worldObj, xCoord, zCoord) == 1)
 			waterRand = 6;
-
-		if (!var11 && this.rand.nextInt(waterRand) == 0)
+*/
+/*
+		if (this.rand.nextInt(waterRand) == 0)
 		{
 			x = xCoord + this.rand.nextInt(16) + 8;
 			z = zCoord + this.rand.nextInt(16) + 8;
 			y = Global.SEALEVEL - rand.nextInt(45);
 			//fissureGen.generate(this.worldObj, this.rand, x, y, z);
 		}
-
+*/
 		if (biome != null)
 		{
 			biome.decorate(this.worldObj, this.rand, xCoord, zCoord);
@@ -244,7 +244,7 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 			}
 		}
 
-		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, rand, chunkX, chunkZ, var11));
+		MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(chunkProvider, worldObj, rand, chunkX, chunkZ, false));
 		BlockCollapsible.fallInstantly = false;
 	}
 
@@ -378,13 +378,13 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 				for (int y = 0; y < subDivY; ++y)
 				{
 					double yLerp = 0.125D;
-					double noiseDL = this.noiseArray[((x + 0) * zSize + z + 0) * ySize + y + 0];
-					double noiseUL = this.noiseArray[((x + 0) * zSize + z + 1) * ySize + y + 0];
-					double noiseDR = this.noiseArray[((x + 1) * zSize + z + 0) * ySize + y + 0];
-					double noiseUR = this.noiseArray[((x + 1) * zSize + z + 1) * ySize + y + 0];
-					double noiseDLA = (this.noiseArray[((x + 0) * zSize + z + 0) * ySize + y + 1] - noiseDL) * yLerp;
-					double noiseULA = (this.noiseArray[((x + 0) * zSize + z + 1) * ySize + y + 1] - noiseUL) * yLerp;
-					double noiseDRA = (this.noiseArray[((x + 1) * zSize + z + 0) * ySize + y + 1] - noiseDR) * yLerp;
+					double noiseDL = this.noiseArray[((x) * zSize + z) * ySize + y];
+					double noiseUL = this.noiseArray[((x) * zSize + z + 1) * ySize + y];
+					double noiseDR = this.noiseArray[((x + 1) * zSize + z) * ySize + y];
+					double noiseUR = this.noiseArray[((x + 1) * zSize + z + 1) * ySize + y];
+					double noiseDLA = (this.noiseArray[((x) * zSize + z) * ySize + y + 1] - noiseDL) * yLerp;
+					double noiseULA = (this.noiseArray[((x) * zSize + z + 1) * ySize + y + 1] - noiseUL) * yLerp;
+					double noiseDRA = (this.noiseArray[((x + 1) * zSize + z) * ySize + y + 1] - noiseDR) * yLerp;
 					double noiseURA = (this.noiseArray[((x + 1) * zSize + z + 1) * ySize + y + 1] - noiseUR) * yLerp;
 
 					for (int var31 = 0; var31 < 8; ++var31)
@@ -397,7 +397,7 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 
 						for (int var42 = 0; var42 < 4; ++var42)
 						{
-							int index = var42 + x * 4 << 11 | 0 + z * 4 << 7 | y * 8 + var31;
+							int index = var42 + x * 4 << 11 | z * 4 << 7 | y * 8 + var31;
 
 							index -= arrayYHeight;
 							double zLerp = 0.25D;
@@ -529,7 +529,7 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 						rootBlendedCopy += scaledNoise6Value * 0.2D;
 						rootBlendedCopy = rootBlendedCopy * ySize / 16.0D;
 						double var28 = ySize / 2.0D + rootBlendedCopy * 4.0D;
-						double output = 0.0D;
+						double output;
 						double var32 = (y - var28) * 12.0D * 256.0D / 256.0D / (2.70 + variationBlended);
 
 						if (var32 < 0.0D)
@@ -575,7 +575,7 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate
 			{
 				int arrayIndex = xCoord + zCoord * 16;
 				int arrayIndexDL = zCoord + xCoord * 16;
-				int arrayIndex2 = xCoord+1 + zCoord+1 * 16;
+				int arrayIndex2 = xCoord+1 + zCoord+ 16;
 				TFCBiome biome = (TFCBiome)getBiome(xCoord,zCoord);
 				DataLayer rock1 = rockLayer1[arrayIndexDL] == null ? DataLayer.GRANITE : rockLayer1[arrayIndexDL];
 				DataLayer rock2 = rockLayer2[arrayIndexDL] == null ? DataLayer.GRANITE : rockLayer2[arrayIndexDL];

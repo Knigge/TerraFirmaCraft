@@ -31,6 +31,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockCustomLeaves extends BlockLeaves implements IShearable
 {
 	protected int adjacentTreeBlocks[][][];
@@ -82,6 +83,7 @@ public class BlockCustomLeaves extends BlockLeaves implements IShearable
 		entity.motionZ *= 0.1D;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
@@ -129,6 +131,7 @@ public class BlockCustomLeaves extends BlockLeaves implements IShearable
 		}
 
 }
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
 	public void breakBlock(World p_149749_1_, int p_149749_2_, int p_149749_3_, int p_149749_4_, Block p_149749_5_, int p_149749_6_)
     {
@@ -146,6 +149,8 @@ public class BlockCustomLeaves extends BlockLeaves implements IShearable
                         Block block = p_149749_1_.getBlock(p_149749_2_ + j1, p_149749_3_ + k1, p_149749_4_ + l1);
                         if (block.isLeaves(p_149749_1_, p_149749_2_ + j1, p_149749_3_ + k1, p_149749_4_ + l1))
                         {
+                        	// ???
+	                        //!TODO: check
                             //block.beginLeavesDecay(p_149749_1_, p_149749_2_ + j1, p_149749_3_ + k1, p_149749_4_ + l1);
                         }
                     }
@@ -166,8 +171,7 @@ public class BlockCustomLeaves extends BlockLeaves implements IShearable
 			byte searchDistance = 11;
 			int center = searchDistance / 2;
 			adjacentTreeBlocks = null;
-			if (this.adjacentTreeBlocks == null)
-				this.adjacentTreeBlocks = new int[searchDistance][searchDistance][searchDistance];
+			this.adjacentTreeBlocks = new int[searchDistance][searchDistance][searchDistance];
 
 			if (world.checkChunksExist(xOrig - maxDist, yOrig - maxDist, zOrig - maxDist, xOrig + maxDist, yOrig + maxDist, zOrig + maxDist))
 			{
@@ -237,7 +241,7 @@ public class BlockCustomLeaves extends BlockLeaves implements IShearable
 						this.destroyLeaves(world, xOrig, yOrig, zOrig);
 					}
 					else{
-						TerraFirmaCraft.LOG.warn(new StringBuilder().append("*** Recursion Limit " + recursionLimit + " REACHED***").toString());
+						TerraFirmaCraft.LOG.warn("*** Recursion Limit " + recursionLimit + " REACHED***");
 						this.beginLeavesDecay(world,  xOrig, yOrig, zOrig);
 					}
 					recursionCount -= 1;

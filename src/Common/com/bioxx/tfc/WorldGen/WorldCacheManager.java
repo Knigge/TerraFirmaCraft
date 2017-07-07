@@ -18,7 +18,8 @@ import com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Rock.GenRockLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Stability.GenStabilityLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Tree.GenTreeLayer;
 
-public class WorldCacheManager 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
+public class WorldCacheManager
 {	
 	//private World localWorld;
 	//Rocks
@@ -197,6 +198,8 @@ public class WorldCacheManager
 		{
 			Iterator iter = worldTempCache.keySet().iterator();
 			if(iter.hasNext())
+				//!TODO: really not sure about it..
+				//noinspection SuspiciousMethodCalls
 				worldTempCache.remove(iter.next());
 		}
 	}
@@ -219,7 +222,7 @@ public class WorldCacheManager
 		if (par6 && width == 16 && height == 16 && (x & 15) == 0 && (y & 15) == 0)
 		{
 			DataLayer[] var9 = cache[layer].getCachedData(indexLayers[layer], x, y);
-			System.arraycopy(var9, 0, layers, 0, width * height);
+			System.arraycopy(var9, 0, layers, 0, 256);
 			return layers;
 		}
 		else
@@ -242,7 +245,7 @@ public class WorldCacheManager
 		if (par6 && width == 16 && height == 16 && (x & 15) == 0 && (y & 15) == 0)
 		{
 			DataLayer[] var9 = cache.getCachedData(indexLayers, x, y);
-			System.arraycopy(var9, 0, layers, 0, width * height);
+			System.arraycopy(var9, 0, layers, 0, 256);
 			return layers;
 		}
 		else

@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.Crafting.*;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEBarrel extends NetworkTileEntity implements IInventory
 {
 	public FluidStack fluid;
@@ -321,7 +322,6 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 			{
 				FluidStack fs = FluidContainerRegistry.getFluidForFilledItem(out);
 				fluid.amount -= fs.amount;
-				is = null;
 				if(fluid.amount == 0)
 				{
 					fluid = null;
@@ -366,7 +366,7 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 		return 0;
 	}
 
-	public boolean actionSeal(int tab, EntityPlayer player)
+	public void actionSeal(int tab, EntityPlayer player)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setBoolean("seal", true);
@@ -375,10 +375,9 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 		this.broadcastPacketInRange(this.createDataPacket(nbt));
 		sealed = true;
 		this.worldObj.func_147479_m(xCoord, yCoord, zCoord);
-		return true;
 	}
 
-	public boolean actionUnSeal(int tab, EntityPlayer player)
+	public void actionUnSeal(int tab, EntityPlayer player)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setBoolean("seal", false);
@@ -387,7 +386,6 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 		this.broadcastPacketInRange(this.createDataPacket(nbt));
 		sealed = false;
 		this.worldObj.func_147479_m(xCoord, yCoord, zCoord);
-		return true;
 	}
 
 	public void actionEmpty()
@@ -497,6 +495,7 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 		//validate();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void handleInitPacket(NBTTagCompound nbt) 
 	{
@@ -725,7 +724,8 @@ public class TEBarrel extends NetworkTileEntity implements IInventory
 						((IFluidContainerItem) container.getItem()).drain(container, ((IFluidContainerItem)container.getItem()).getCapacity(container), true);
 					}
 				}
-				else if (inLiquid != null && container != null && container.stackSize == 1)
+				else //noinspection ConstantConditions
+					if (inLiquid != null && container != null && container.stackSize == 1)
 				{
 					if(addLiquid(inLiquid))
 					{

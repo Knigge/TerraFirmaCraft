@@ -1,14 +1,14 @@
 package com.bioxx.tfc.Core.Metal;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import net.minecraft.item.Item;
 
 import com.bioxx.tfc.api.Metal;
 
-public class MetalRegistry 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
+public class MetalRegistry
 {
 	public static MetalRegistry instance = new MetalRegistry();
 	
@@ -20,6 +20,7 @@ public class MetalRegistry
 	}
 	
 	//Returns true if the metal was added or false if a metal with a similar name already exists;
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean addMetal(Metal m, Alloy.EnumTier soloTier)
 	{
 		if(hash.containsKey(m.name))
@@ -36,11 +37,8 @@ public class MetalRegistry
 	
 	public Metal getMetalFromItem(Item i)
 	{
-		Iterator<Metal> iter = hash.values().iterator();
-		while(iter.hasNext())
-		{
-			Metal m = iter.next();
-			if(m.ingot == i || m.meltedItem == i)
+		for (Metal m : hash.values()) {
+			if (m.ingot == i || m.meltedItem == i)
 				return m;
 		}
 		

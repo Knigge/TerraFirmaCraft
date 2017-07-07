@@ -24,6 +24,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.Core.TFCTabs;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemDyeCustom extends ItemTerra
 {
 	/** List of dye color names */
@@ -43,8 +44,8 @@ public class ItemDyeCustom extends ItemTerra
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Gets an icon index based on an item's damage value
+	/*
+	  Gets an icon index based on an item's damage value
 	 */
 	public IIcon getIconFromDamage(int par1)
 	{
@@ -133,6 +134,7 @@ public class ItemDyeCustom extends ItemTerra
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)

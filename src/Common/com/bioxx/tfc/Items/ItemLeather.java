@@ -88,6 +88,7 @@ public class ItemLeather extends ItemLooseRock
 		this.itemIcon = registerer.registerIcon(Reference.MOD_ID + ":" + textureFolder + this.getUnlocalizedName().replace("item.", ""));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

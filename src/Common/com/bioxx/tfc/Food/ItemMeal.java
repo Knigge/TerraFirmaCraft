@@ -33,6 +33,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class ItemMeal extends ItemTerra implements IFood
 {
 	//private PotionEffect foodEffect;
@@ -132,10 +133,9 @@ public class ItemMeal extends ItemTerra implements IFood
 	protected void addFGInformation(ItemStack is, List<String> arraylist)
 	{
 		int[] fg = Food.getFoodGroups(is);
-		for (int i = 0; i < fg.length; i++)
-		{
-			if (fg[i] != -1)
-				arraylist.add(localize(fg[i]));
+		for (int aFg : fg) {
+			if (aFg != -1)
+				arraylist.add(localize(aFg));
 		}
 	}
 
@@ -171,7 +171,7 @@ public class ItemMeal extends ItemTerra implements IFood
 	}
 
 	/**
-	 * @param fs
+	 * @param fs fs
 	 * @param amount This should be the amount that is actually consumed aka (weight - decay)
 	 * @return The exact amount that should enter the stomach
 	 */

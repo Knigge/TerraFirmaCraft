@@ -30,6 +30,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEFarmland;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockFarmland extends BlockContainer
 {
 	private Block dirtBlock;
@@ -58,23 +59,20 @@ public class BlockFarmland extends BlockContainer
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{
 		// Change to false if this block should not be added to the creative tab
-		Boolean addToCreative = true;
+		//Boolean addToCreative = true;
 
-		if(addToCreative)
-		{
-			int count;
-			if(textureOffset == 0) count = 16;
-			else count = Global.STONE_ALL.length - 16;
+		int count;
+		if(textureOffset == 0) count = 16;
+		else count = Global.STONE_ALL.length - 16;
 
-			for(int i = 0; i < count; i++)
-				list.add(new ItemStack(item, 1, i));
-		}
+		for(int i = 0; i < count; i++)
+			list.add(new ItemStack(item, 1, i));
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -111,7 +109,7 @@ public class BlockFarmland extends BlockContainer
 	@Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
 	{
-		return AxisAlignedBB.getBoundingBox(x + 0, y + 0, z + 0, x + 1, y + 1, z + 1);
+		return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
 	}
 
 	@Override
@@ -170,16 +168,13 @@ public class BlockFarmland extends BlockContainer
 	}
 
 	@Override
-	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable)
-	{
+	public boolean canSustainPlant(IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plantable) {
 		Block plant = plantable.getPlant(world, x, y + 1, z);
 		if (plant == Blocks.pumpkin_stem || plant == Blocks.melon_stem)
 			return false;
 
 		EnumPlantType plantType = plantable.getPlantType(world, x, y + 1, z);
-		if (plantType == EnumPlantType.Crop)
-			return true;
+		return plantType == EnumPlantType.Crop || super.canSustainPlant(world, x, y, z, direction, plantable);
 
-		return super.canSustainPlant(world, x, y, z, direction, plantable);
 	}
 }

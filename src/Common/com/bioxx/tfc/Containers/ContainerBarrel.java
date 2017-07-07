@@ -20,6 +20,7 @@ import com.bioxx.tfc.TileEntities.TEBarrel;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Enums.EnumSize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class ContainerBarrel extends ContainerTFC
 {
 	public TEBarrel barrel;
@@ -156,6 +157,7 @@ public class ContainerBarrel extends ContainerTFC
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void updateProgressBar(int id, int val)
 	{

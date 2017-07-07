@@ -10,6 +10,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "SameReturnValue"})
 public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 {
 	public static boolean renderWoodSupportBeamH(Block block, int i, int j, int k, RenderBlocks renderblocks)
@@ -40,8 +41,7 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 					renderblocks.setRenderBounds(0.75F, 0.50F, 0.25F, 1.0F, 1.0F, 0.75F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
-				else if(!hasVerticalBeam)//if the block does not contain a vertical beam
-				{
+				else {
 					renderblocks.setRenderBounds(0.0F, 0.50F, 0.25F, 1.0F, 1.0F, 0.75F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
@@ -88,8 +88,7 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 					renderblocks.setRenderBounds(0.25F, 0.50F, 0.75F, 0.75F, 1.0F, 1.0F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
-				else if(!hasVerticalBeam)//if the block does not contain a vertical beam
-				{
+				else {
 					renderblocks.setRenderBounds(0.25F, 0.50F, 0.0F, 0.75F, 1.0F, 1.0F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
@@ -126,11 +125,11 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 		}
 
 		float minX = -1;
-		float minY = -1;
+		float minY;
 		float minZ = -1;
 
 		float maxX = -1;
-		float maxY = -1;
+		float maxY;
 		float maxZ = -1;
 
 		if(hasHorizontalBeamX)
@@ -220,8 +219,7 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 					renderblocks.setRenderBounds(0.75F, 0.50F, 0.25F, 1.0F, 1.0F, 0.75F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
-				else if(!hasVerticalBeam)//if the block does not contain a vertical beam
-				{
+				else {
 					renderblocks.setRenderBounds(0.0F, 0.50F, 0.25F, 1.0F, 1.0F, 0.75F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
@@ -268,8 +266,7 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 					renderblocks.setRenderBounds(0.25F, 0.50F, 0.75F, 0.75F, 1.0F, 1.0F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
-				else if(!hasVerticalBeam)//if the block does not contain a vertical beam
-				{
+				else {
 					renderblocks.setRenderBounds(0.25F, 0.50F, 0.0F, 0.75F, 1.0F, 1.0F);
 					renderblocks.renderStandardBlock(block, i, j, k);
 				}
@@ -319,13 +316,13 @@ public class RenderSupportBeam implements ISimpleBlockRenderingHandler
 		return true;
 	}
 
-	public static boolean isSurroundedByWater(IBlockAccess access, int i, int j, int k)
-	{
-		if(access.getBlock(i, j+1, k).getMaterial() == Material.water)
-			return true;
+	public static boolean isSurroundedByWater(IBlockAccess access, int i, int j, int k) {
+		return access.getBlock(i, j + 1, k).getMaterial() == Material.water
+				|| access.getBlock(i + 1, j, k).getMaterial() == Material.water
+				|| access.getBlock(i - 1, j, k).getMaterial() == Material.water
+				|| access.getBlock(i, j, k + 1).getMaterial() == Material.water
+				|| access.getBlock(i, j, k - 1).getMaterial() == Material.water;
 
-		return access.getBlock(i + 1, j, k).getMaterial() == Material.water ||access.getBlock(i - 1, j, k).getMaterial() == Material.water ||
-				access.getBlock(i, j, k + 1).getMaterial() == Material.water || access.getBlock(i, j, k - 1).getMaterial() == Material.water;
 	}
 
 	@Override

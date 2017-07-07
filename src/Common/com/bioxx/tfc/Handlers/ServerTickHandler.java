@@ -11,6 +11,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("WeakerAccess")
 public class ServerTickHandler
 {
 	private long wSeed = Long.MIN_VALUE;

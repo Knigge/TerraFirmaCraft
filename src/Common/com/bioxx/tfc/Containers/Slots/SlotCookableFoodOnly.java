@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Containers.Slots;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.inventory.IInventory;
@@ -11,6 +12,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Interfaces.ICookableFood;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class SlotCookableFoodOnly extends SlotSize
 {
 	private List<EnumFoodGroup> exceptionsFG = new ArrayList<EnumFoodGroup>();
@@ -41,15 +43,13 @@ public class SlotCookableFoodOnly extends SlotSize
 
 	public SlotCookableFoodOnly addFGException(EnumFoodGroup... ex)
 	{
-		for(int i = 0; i < ex.length; i++)
-			exceptionsFG.add(ex[i]);
+		Collections.addAll(exceptionsFG, ex);
 		return this;
 	}
 
 	public SlotCookableFoodOnly addFGInclusion(EnumFoodGroup... ex)
 	{
-		for(int i = 0; i < ex.length; i++)
-			inclusionsFG.add(ex[i]);
+		Collections.addAll(inclusionsFG, ex);
 		return this;
 	}
 }

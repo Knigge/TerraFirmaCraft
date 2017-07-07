@@ -17,6 +17,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings("WeakerAccess")
 public class ChiselMode
 {
 
@@ -55,11 +56,10 @@ public class ChiselMode
     public boolean onUsedHandler(World world, EntityPlayer player, int x, int y, int z, Block id, int meta, int side, float hitX, float hitY, float hitZ){ return false; }
 
     public boolean isChiselable(Block block){
-        boolean isChiselable = block == TFCBlocks.planks
+        return block == TFCBlocks.planks
                 || block instanceof BlockCobble
                 || block instanceof BlockStone
                 || block instanceof BlockSmooth;
-        return isChiselable;
     }
 
     public int hasChisel(EntityPlayer player){

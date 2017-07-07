@@ -13,6 +13,7 @@ import com.bioxx.tfc.Render.Models.ModelIngotPile;
 import com.bioxx.tfc.TileEntities.TEIngotPile;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRIngotPile extends TESRBase
 {
 	/** The normal small chest model. */

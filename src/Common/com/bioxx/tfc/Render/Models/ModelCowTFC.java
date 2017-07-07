@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ModelCowTFC extends ModelQuadruped
 {
 	public ModelRenderer udders;

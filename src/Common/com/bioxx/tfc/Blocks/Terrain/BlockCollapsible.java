@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.Util.ByteCoord;
 import com.bioxx.tfc.api.Util.CollapseData;
 import com.bioxx.tfc.api.Util.CollapseList;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockCollapsible extends BlockTerraContainer
 {
 	public Block dropBlock;
@@ -337,13 +338,7 @@ public class BlockCollapsible extends BlockTerraContainer
 	}
 
 	/**
-	 * This is called when a collapse is definitely happening on a block.
-	 * @param world
-	 * @param entityplayer
-	 * @param i
-	 * @param j
-	 * @param k
-	 * @param meta
+	  This is called when a collapse is definitely happening on a block.
 	 */
 	public void triggerCollapse(World world, EntityPlayer entityplayer, int i, int j, int k, int meta)
 	{
@@ -384,6 +379,7 @@ public class BlockCollapsible extends BlockTerraContainer
 	 * The coordinates given are the coordinates of the epicenter of the collapse
 	 * @return This is a list of all coordinates which should collapse vertically, radiating outward from the epicenter
 	 */
+	@SuppressWarnings("SuspiciousMethodCalls")
 	public List<ByteCoord> getCollapseMap(World world, int i, int j, int k)
 	{
 		//int checks = 0;
@@ -425,7 +421,7 @@ public class BlockCollapsible extends BlockTerraContainer
 				localY = block.coords.y;
 				localZ = block.coords.z;
 				if (world.isAirBlock(worldX, worldY, worldZ) /*&& localY < 4*/)
-					checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 1, localZ + 0), block.collapseChance - incrementChance*4, TFCDirection.UP));
+					checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY + 1, localZ), block.collapseChance - incrementChance*4, TFCDirection.UP));
 				else if(world.getBlock(worldX, worldY, worldZ) instanceof BlockCollapsible && 
 						((BlockCollapsible)world.getBlock(worldX, worldY, worldZ)).tryToCollapse(world, worldX, worldY, worldZ, block.collapseChance))
 				{
@@ -435,70 +431,70 @@ public class BlockCollapsible extends BlockTerraContainer
 					{
 					case NORTH:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
 						break;
 					}
 					case SOUTH:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
 						break;
 					}
 					case EAST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
 						break;
 					}
 					case WEST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
 						break;
 					}
 					case SOUTHEAST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
 						break;
 					}
 					case SOUTHWEST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
 						break;
 					}
 					case NORTHEAST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
 						break;
 					}
 					case NORTHWEST:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
 						break;
 					}
 					default:
 					{
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.EAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 0), block.collapseChance - incrementChance, TFCDirection.WEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY + 0, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY + 0, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
-						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 0, localY + 0, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.EAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ), block.collapseChance - incrementChance, TFCDirection.WEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHEAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX + 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHEAST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ + 1), block.collapseChance - incrementChanceDiag, TFCDirection.NORTHWEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX - 1, localY, localZ - 1), block.collapseChance - incrementChanceDiag, TFCDirection.SOUTHWEST));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ + 1), block.collapseChance - incrementChance, TFCDirection.SOUTH));
+						checkQueue.add(checkedmap, new CollapseData(new ByteCoord(localX, localY, localZ - 1), block.collapseChance - incrementChance, TFCDirection.NORTH));
 						break;
 					}
 					}

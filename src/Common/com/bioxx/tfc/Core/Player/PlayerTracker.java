@@ -48,7 +48,7 @@ public class PlayerTracker
 		//		TerraFirmaCraft.log.info("-----"+FMLClientHandler.instance().getClientPlayerEntity().getDisplayName()+" : "+
 		//				FMLClientHandler.instance().getClientPlayerEntity().getUniqueID().toString()+"-------");
 		//
-		TerraFirmaCraft.proxy.onClientLogin();
+		//TerraFirmaCraft.proxy.onClientLogin();
 	}
 
 	@SubscribeEvent

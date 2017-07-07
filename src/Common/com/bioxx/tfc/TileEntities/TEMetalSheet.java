@@ -3,6 +3,7 @@ package com.bioxx.tfc.TileEntities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+@SuppressWarnings("SameParameterValue")
 public class TEMetalSheet extends NetworkTileEntity
 {
 	public ItemStack sheetStack;
@@ -147,14 +148,6 @@ public class TEMetalSheet extends NetworkTileEntity
 	public void handleInitPacket(NBTTagCompound nbt) {
 		sides = nbt.getByte("sides");
 		metalID = nbt.getInteger("metalID");
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
 	}
 
 	@Override

@@ -20,13 +20,13 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Crafting.CraftingManagerTFC;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ContainerSpecialCrafting extends ContainerTFC
 {
 	/** The crafting matrix inventory (5x5).
 	 *  Used for knapping and leather working */
 	public InventoryCrafting craftMatrix = new InventoryCrafting(this, 5, 5);
 
-	private SlotSpecialCraftingOutput outputSlot;
 	private boolean decreasedStack;
 
 	/** The crafting result, size 1. */
@@ -47,7 +47,7 @@ public class ContainerSpecialCrafting extends ContainerTFC
 				craftMatrix.setInventorySlotContents(j1, is.copy());
 		}
 
-		outputSlot = new SlotSpecialCraftingOutput(this, inventoryplayer.player, craftMatrix, craftResult, 0, 128, 44);
+		SlotSpecialCraftingOutput outputSlot = new SlotSpecialCraftingOutput(this, inventoryplayer.player, craftMatrix, craftResult, 0, 128, 44);
 		addSlotToContainer(outputSlot);
 
 		PlayerInventory.buildInventoryLayout(this, inventoryplayer, 8, 108, true, true);
@@ -131,8 +131,7 @@ public class ContainerSpecialCrafting extends ContainerTFC
 	}
 
 	/**
-	 * Called to transfer a stack from one inventory to the other eg. when shift clicking.
-	 * @return 
+	  Called to transfer a stack from one inventory to the other eg. when shift clicking.
 	 */
 	@Override
 	public ItemStack transferStackInSlotTFC(EntityPlayer player, int slotNum)

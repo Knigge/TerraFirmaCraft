@@ -15,14 +15,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
-public class ModelPotteryBase extends ModelBox 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
+public class ModelPotteryBase extends ModelBox
 {
-	private Object[] rings;
-	protected List<TexturedQuad> polygons;
+	protected final List<TexturedQuad> polygons;
 
+	@SuppressWarnings("SameParameterValue")
 	public ModelPotteryBase(ModelRenderer renderer, int textureOffsetX, int textureOffsetY,
-			float originX, float originY, float originZ, int width, int height, int depth,
-			float scale, Object[] dataArray, boolean connectTop) {
+	                        float originX, float originY, float originZ, int width, int height, int depth,
+	                        float scale, Object[] dataArray, boolean connectTop) {
 		super(renderer, textureOffsetX, textureOffsetY, originX, originY, originZ, width, height, depth, scale);
 		/*
         this.vertexPositions = new PositionTextureVertex[8];
@@ -67,7 +68,7 @@ public class ModelPotteryBase extends ModelBox
         this.quadList[5] = new TexturedQuad(new PositionTextureVertex[] {vert4, vert5, vert6, vert7}, 
         		textureOffsetX + depth + width + depth, textureOffsetY + depth, textureOffsetX + depth + width + depth + width, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight);
 		 */
-		rings = new Object[dataArray.length];
+		Object[] rings = new Object[dataArray.length];
 		
 		for(int i = 0; i < dataArray.length;i ++){
 		/*rings[0] = newRing(originX,originY,originZ,8,0+0.01f,8,8);

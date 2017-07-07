@@ -9,6 +9,7 @@ import com.bioxx.tfc.Containers.ContainerSluice;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TESluice;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiSluice extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_sluice.png");

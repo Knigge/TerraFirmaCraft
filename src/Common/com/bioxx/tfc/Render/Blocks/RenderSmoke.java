@@ -15,6 +15,7 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 	private static float pixel12 = 12f / 16f;
 	private static float pixel14 = 14f / 16f;*/
 
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
 	{
@@ -29,6 +30,9 @@ public class RenderSmoke  implements ISimpleBlockRenderingHandler
 		float f7 = f4 * 1;
 		float f8 = f4 * 1;
 		float f9 = f4 * 1;
+		/*
+		  what the hell is that? // bSun0000
+ 		 */
 		float f10 = f3;
 		float f11 = f5;
 		float f12 = f6;

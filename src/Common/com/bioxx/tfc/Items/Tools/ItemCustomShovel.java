@@ -20,13 +20,11 @@ import com.google.common.collect.Sets;
 public class ItemCustomShovel extends ItemTerraTool
 {
 	/** an array of the blocks this spade is effective against */
-	private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(new Block[]
-	{
+	private static final Set<Block> BLOCKS_EFFECTIVE_AGAINST = Sets.newHashSet(
 			Blocks.grass, Blocks.dirt, Blocks.sand, Blocks.gravel, Blocks.snow, Blocks.snow_layer,
 			Blocks.clay, Blocks.farmland, Blocks.soul_sand, Blocks.mycelium,
 			TFCBlocks.dirt, TFCBlocks.dirt2, TFCBlocks.grass, TFCBlocks.grass2, TFCBlocks.clayGrass,
-			TFCBlocks.clayGrass2, TFCBlocks.peatGrass, TFCBlocks.peat, TFCBlocks.clay, TFCBlocks.clay2
-	});
+			TFCBlocks.clayGrass2, TFCBlocks.peatGrass, TFCBlocks.peat, TFCBlocks.clay, TFCBlocks.clay2);
 
 	public ItemCustomShovel(ToolMaterial par2EnumToolMaterial)
 	{
@@ -39,7 +37,7 @@ public class ItemCustomShovel extends ItemTerraTool
 	@Override
 	public boolean func_150897_b/*canHarvestBlock*/(Block par1Block)
 	{
-		return par1Block == Blocks.snow_layer ? true : par1Block == Blocks.snow;
+		return par1Block == Blocks.snow_layer || par1Block == Blocks.snow;
 	}
 
 	@Override
@@ -66,11 +64,10 @@ public class ItemCustomShovel extends ItemTerraTool
     	boolean placed = false;
         int toolSlot = player.inventory.currentItem;
         int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
-        ItemStack nextSlotStack = null;
 
         if (toolSlot < 8)
         {
-            nextSlotStack = player.inventory.getStackInSlot(nextSlot);
+	        ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
             if (nextSlotStack != null)
             {
                 Item item = nextSlotStack.getItem();
@@ -106,17 +103,14 @@ public class ItemCustomShovel extends ItemTerraTool
                     AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
                     AxisAlignedBB playerBounds = player.boundingBox;
 
-                    if(item instanceof ItemBlock)
-                    {
-                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
-                        if(blockToPlace.getMaterial().blocksMovement())
-                        {
-                            if (playerBounds.intersectsWith(blockBounds))
-                                return false;
-                        }
-                    }
+	                Block blockToPlace = ((ItemBlock) item).field_150939_a;
+	                if(blockToPlace.getMaterial().blocksMovement())
+	                {
+	                    if (playerBounds.intersectsWith(blockBounds))
+	                        return false;
+	                }
 
-                    int dmg = nextSlotStack.getItemDamage();
+	                int dmg = nextSlotStack.getItemDamage();
                     int count = nextSlotStack.stackSize;
 
                 	placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
@@ -128,8 +122,7 @@ public class ItemCustomShovel extends ItemTerraTool
                     }
                     if (nextSlotStack.stackSize < 1)
                     {
-                    	nextSlotStack = null;
-                        player.inventory.setInventorySlotContents(nextSlot, null);
+	                    player.inventory.setInventorySlotContents(nextSlot, null);
                     }
                 }
             }

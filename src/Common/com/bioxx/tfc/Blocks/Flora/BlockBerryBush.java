@@ -34,6 +34,7 @@ import com.bioxx.tfc.Food.ItemFoodTFC;
 import com.bioxx.tfc.TileEntities.TEBerryBush;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockBerryBush extends BlockTerraContainer
 {
 	public static IIcon[] icons;
@@ -62,10 +63,11 @@ public class BlockBerryBush extends BlockTerraContainer
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{
@@ -172,8 +174,7 @@ public class BlockBerryBush extends BlockTerraContainer
 		}
 		default:
 		{
-			setBlockBounds(minX, 0, minZ, maxX, 1f, maxZ);
-			return;
+			setBlockBounds(minX, 0, minZ, maxX, maxY, maxZ);
 		}
 		}
 	}

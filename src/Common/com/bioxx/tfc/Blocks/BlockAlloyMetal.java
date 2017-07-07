@@ -5,6 +5,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.IIcon;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockAlloyMetal extends BlockMetal
 {
     public BlockAlloyMetal(Material material)

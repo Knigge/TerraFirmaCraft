@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal", "Convert2Diamond"})
 public class BlockSulfur extends BlockTerra implements ICustomCollision
 {
 	private int itemMeta = Arrays.asList(Global.POWDER).indexOf("Sulfur Powder");
@@ -167,6 +168,7 @@ public class BlockSulfur extends BlockTerra implements ICustomCollision
 		}
 	}*/
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB aabb, List list, Entity entity)
 	{
@@ -191,6 +193,7 @@ public class BlockSulfur extends BlockTerra implements ICustomCollision
 		return CollisionRayTraceStandard.collisionRayTrace(this, world, x, y, z, player, view);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, List list) 
 	{

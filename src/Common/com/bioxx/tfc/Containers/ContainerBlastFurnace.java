@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.Items.ItemTuyere;
 import com.bioxx.tfc.TileEntities.TEBlastFurnace;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerBlastFurnace extends ContainerTFC
 {
 	private TEBlastFurnace tileentity;
@@ -90,12 +91,10 @@ public class ContainerBlastFurnace extends ContainerTFC
 	{
 		super.detectAndSendChanges();
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
-			if (this.firetemp != this.tileentity.fireTemp)
-			{
-				var2.sendProgressBarUpdate(this, 0, (int)this.tileentity.fireTemp);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
+			if (this.firetemp != this.tileentity.fireTemp) {
+				var2.sendProgressBarUpdate(this, 0, (int) this.tileentity.fireTemp);
 			}
 		}
 

@@ -31,6 +31,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
  * 
  * @author sirgingalot some code from: cpw
  */
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 @ChannelHandler.Sharable
 public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, AbstractPacket>
 {
@@ -50,6 +51,7 @@ public class PacketPipeline extends MessageToMessageCodec<FMLProxyPacket, Abstra
 	 *         packets have been registered or if the registry already contains
 	 *         this packet
 	 */
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean registerPacket (Class<? extends AbstractPacket> clazz)
 	{
 		if (this.packets.size() > 256)

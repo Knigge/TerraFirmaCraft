@@ -9,25 +9,20 @@ import net.minecraft.client.renderer.Tessellator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ModelFrond extends ModelBox 
+@SuppressWarnings("WeakerAccess")
+public class ModelFrond extends ModelBox
 {
-	/**
-     * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
-     */
-	//private PositionTextureVertex[] vertexPositions;
-    private Object[] blades;
 
-	private float lengthMod;
-	private float length;
+	private final float length;
 
     /** An array of 6 TexturedQuads, one for each face of a cube */
-    private TexturedQuad[] quadList;
+    private final TexturedQuad[] quadList;
 	
 	public ModelFrond(ModelRenderer renderer, int textureOffsetX, int textureOffsetY,
 			float originX, float originY, float originZ, int width, int height, int depth,
 			float scale) {
 		super(renderer, textureOffsetX, textureOffsetY, originX, originY, originZ, width, height, depth, scale);
-		this.lengthMod = 0.75f;
+		float lengthMod = 0.75f;
 		this.length = 8 * lengthMod;
 		/*
         this.vertexPositions = new PositionTextureVertex[8];
@@ -72,7 +67,10 @@ public class ModelFrond extends ModelBox
         this.quadList[5] = new TexturedQuad(new PositionTextureVertex[] {vert4, vert5, vert6, vert7}, 
         		textureOffsetX + depth + width + depth, textureOffsetY + depth, textureOffsetX + depth + width + depth + width, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight);
 	*/
-		blades = new Object[30];
+		/*
+      The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
+     */
+		Object[] blades = new Object[30];
 		for(int i = 0; i < 6;i++){
 			blades[i] = createBlade(originX, originY, originZ, (i / 3f - 2) * lengthMod, 0, 1.2f * i);
 		}
@@ -81,16 +79,17 @@ public class ModelFrond extends ModelBox
 			blades[i + 6] = createBlade(originX, originY, originZ, (3 - ((float) Math.pow(i - 12, 2) / 60f)) * lengthMod, 0, 1.2f * (i + 6));
 		}
 		for(int i = 0; i < 6; i ++){
-			blades[i+24] = createBlade(originX,originY,originZ,(2-(float)Math.pow(i,2)/4)*lengthMod,0,1.2f*(i+24));
+			blades[i+24] = createBlade(originX,originY,originZ,(2-(float)Math.pow(i,2)/4)* lengthMod,0,1.2f*(i+24));
 		}
 		
 		this.quadList = new TexturedQuad[30];
 		for (int i = 0; i <30;i++){
-			quadList[i] = new TexturedQuad((PositionTextureVertex[])blades[i],textureOffsetX + depth + width + depth, textureOffsetY + depth, textureOffsetX + depth + width + depth + width, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight);
+			quadList[i] = new TexturedQuad((PositionTextureVertex[]) blades[i],textureOffsetX + depth + width + depth, textureOffsetY + depth, textureOffsetX + depth + width + depth + width, textureOffsetY + depth + height, renderer.textureWidth, renderer.textureHeight);
 		}
 	}
 	
-	private PositionTextureVertex [] createBlade(float originX, float originY, float originZ,float modifierX,float modifierY,float modifierZ){
+	@SuppressWarnings("SameParameterValue")
+	private PositionTextureVertex [] createBlade(float originX, float originY, float originZ, float modifierX, float modifierY, float modifierZ){
 		
 		PositionTextureVertex vert0 = new PositionTextureVertex(originX, originY, originZ + modifierZ, 0.0F, 0.0F);
         PositionTextureVertex vert1 = new PositionTextureVertex(originX+length + modifierX, originY+modifierY, originZ + modifierZ + (modifierZ/15f), 0.0F, 8.0F);
@@ -103,10 +102,9 @@ public class ModelFrond extends ModelBox
 	@SideOnly(Side.CLIENT)
     public void render(Tessellator par1Tessellator, float par2)
     {
-        for (int var3 = 0; var3 < this.quadList.length; ++var3)
-        {
-            this.quadList[var3].draw(par1Tessellator, par2);
-        }
+	    for (TexturedQuad aQuadList : this.quadList) {
+		    aQuadList.draw(par1Tessellator, par2);
+	    }
     }
 
 }

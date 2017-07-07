@@ -19,6 +19,7 @@ public class ItemPotteryPot extends ItemPotteryBase
 		this.setCreativeTab(null);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

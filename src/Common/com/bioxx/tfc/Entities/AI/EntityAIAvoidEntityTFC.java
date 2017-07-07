@@ -16,6 +16,7 @@ import net.minecraft.util.Vec3;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.InteractionEnum;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class EntityAIAvoidEntityTFC extends EntityAIBase
 {
 	public final IEntitySelector field_98218_a = new EntityAIAvoidEntitySelectorTFC(this);
@@ -79,7 +80,7 @@ public class EntityAIAvoidEntityTFC extends EntityAIBase
 		else
 		{
 			this.entityPathEntity = this.entityPathNavigate.getPathToXYZ(vec3.xCoord, vec3.yCoord, vec3.zCoord);
-			return this.entityPathEntity == null ? false : this.entityPathEntity.isDestinationSame(vec3);
+			return this.entityPathEntity != null && this.entityPathEntity.isDestinationSame(vec3);
 		}
 	}
 

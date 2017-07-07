@@ -9,6 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class WorldGenJungleShrub extends WorldGenerator
 {
 	private final int meta;

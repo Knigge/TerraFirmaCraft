@@ -4,7 +4,8 @@ import net.minecraft.util.IIcon;
 
 import com.bioxx.tfc.api.Enums.RuleEnum;
 
-public class PlanRecipe 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class PlanRecipe
 {
 	public RuleEnum[] rules;
 	public IIcon icon;

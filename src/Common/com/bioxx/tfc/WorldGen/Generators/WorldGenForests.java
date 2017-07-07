@@ -17,6 +17,7 @@ import com.bioxx.tfc.WorldGen.Generators.Trees.WorldGenKapokTrees;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumTree;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenForests implements IWorldGenerator
 {
 	/** The number of blocks to generate. */
@@ -65,9 +66,9 @@ public class WorldGenForests implements IWorldGenerator
 
 	private void generateForest(Random random, int chunkX, int chunkZ, World world)
 	{
-		int xCoord = chunkX;
-		int yCoord = Global.SEALEVEL+1;
-		int zCoord = chunkZ;
+		int xCoord;
+		int yCoord;
+		int zCoord;
 
 		int numTreesBase = 8;
 		if (random.nextInt(10) == 0)
@@ -133,7 +134,7 @@ public class WorldGenForests implements IWorldGenerator
 					gen2.generate(world, random, xCoord, yCoord, zCoord);
 				}
 			}
-			catch(IndexOutOfBoundsException e)
+			catch(IndexOutOfBoundsException ignored)
 			{
 			}
 		}
@@ -165,9 +166,9 @@ public class WorldGenForests implements IWorldGenerator
 	public boolean generateJungle(Random random, int chunkX, int chunkZ, World world) 
 	{
 		boolean completed = false;
-		int xCoord = chunkX;
-		int yCoord = Global.SEALEVEL+1;
-		int zCoord = chunkZ;
+		int xCoord;
+		int yCoord;
+		int zCoord;
 		/*int numTreesBase = 5;
 
 		if (random.nextInt(10) == 0)

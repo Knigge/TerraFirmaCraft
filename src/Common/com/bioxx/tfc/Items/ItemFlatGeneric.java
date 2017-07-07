@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.Reference;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemFlatGeneric extends ItemTerra
 {
 	public IIcon[] icons;

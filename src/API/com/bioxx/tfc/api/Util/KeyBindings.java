@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.client.settings.KeyBinding;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class KeyBindings
 {
 	public static List<KeyBinding> keyBindingsList;
@@ -40,7 +41,7 @@ public class KeyBindings
 	{
 		boolean[] isRepeating = new boolean[isRepeatingList.size()];
 		for (int x = 0; x < isRepeating.length; x++)
-			isRepeating[x] = isRepeatingList.get(x).booleanValue();
+			isRepeating[x] = isRepeatingList.get(x);
 		return isRepeating;
 	}
 }

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerLiquidVessel;
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiVesselLiquid extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_vessel_liquid.png");

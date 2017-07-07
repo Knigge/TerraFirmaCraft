@@ -19,6 +19,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityFishTFC;
 import com.bioxx.tfc.Entities.Mobs.EntityOcelotTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public final class SpawnerAnimalsTFC
 {
 	/**
@@ -50,6 +51,7 @@ public final class SpawnerAnimalsTFC
 	/**
 	 * Called during chunk generation to spawn initial creatures.
 	 */
+	@SuppressWarnings("unchecked")
 	public static void performWorldGenSpawning(World world, TFCBiome biome, int par2, int par3, int par4, int par5, Random par6Random)
 	{
 		List list = TFCChunkProviderGenerate.getCreatureSpawnsByChunk(world, biome, par2, par3);//par1BiomeGenBase.getSpawnableList(EnumCreatureType.creature);
@@ -76,7 +78,7 @@ public final class SpawnerAnimalsTFC
 							EntityLiving entityliving;
 							try
 							{
-								entityliving = (EntityLiving)spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(new Object[] {world});
+								entityliving = (EntityLiving)spawnlistentry.entityClass.getConstructor(new Class[] {World.class}).newInstance(world);
 							}
 							catch (Exception exception)
 							{
@@ -90,9 +92,8 @@ public final class SpawnerAnimalsTFC
 							}
 
 							float f = j1 + 0.5F;
-							float f1 = l2;
 							float f2 = k1 + 0.5F;
-							entityliving.setLocationAndAngles(f, f1, f2, par6Random.nextFloat() * 360.0F, 0.0F);
+							entityliving.setLocationAndAngles(f, (float) l2, f2, par6Random.nextFloat() * 360.0F, 0.0F);
 							if(entityliving instanceof EntityOcelotTFC){
 								if(entityliving.getCanSpawnHere()){
 									world.spawnEntityInWorld(entityliving);

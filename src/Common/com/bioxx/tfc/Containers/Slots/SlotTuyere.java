@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.Items.ItemTuyere;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotTuyere extends Slot
 {
 	public SlotTuyere(IInventory iinventory, int i, int j, int k)

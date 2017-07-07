@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.item.ItemStack;
 
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FloraIndex
 {
 	public String type;

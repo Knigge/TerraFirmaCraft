@@ -8,6 +8,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @Cancelable
 public class AnvilCraftEvent extends EntityEvent 
 {	

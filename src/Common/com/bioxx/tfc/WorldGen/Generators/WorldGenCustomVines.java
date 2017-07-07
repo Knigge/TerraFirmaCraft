@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenCustomVines extends WorldGenerator
 {
 	@Override
@@ -40,7 +41,7 @@ public class WorldGenCustomVines extends WorldGenerator
 		return true;
 	}
 
-	public boolean generate2(World world, Random random, int x, int y, int z)
+	public void generate2(World world, Random random, int x, int y, int z)
 	{
 		int oldX = x;
 
@@ -63,7 +64,5 @@ public class WorldGenCustomVines extends WorldGenerator
 				z = i1 + random.nextInt(4) - random.nextInt(4);
 			}
 		}
-
-		return true;
 	}
 }

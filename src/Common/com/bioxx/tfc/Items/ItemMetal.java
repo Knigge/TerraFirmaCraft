@@ -9,6 +9,7 @@ import com.bioxx.tfc.api.Metal;
 import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemMetal extends ItemOreSmall implements ISmeltable
 {
     private short metalAmount;

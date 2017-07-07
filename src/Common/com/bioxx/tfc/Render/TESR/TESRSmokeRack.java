@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TESmokeRack;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRSmokeRack extends TESRBase
 {
 

@@ -19,6 +19,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class ItemTerraBlock extends ItemBlock implements ISize
 {
 	public String[] metaNames;
@@ -32,6 +33,7 @@ public class ItemTerraBlock extends ItemBlock implements ISize
 		this.folder = "";
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public ItemTerraBlock setFolder(String f)
 	{
 		folder = f;
@@ -58,6 +60,7 @@ public class ItemTerraBlock extends ItemBlock implements ISize
 	 * This is called by inventories in the world to tick things such as temperature and food decay. Override this and 
 	 * return true if you want the item to be handled differently than the standard code. True will stop he standard TFC code from running.
 	 */
+	@SuppressWarnings("SameReturnValue")
 	public boolean onUpdate(ItemStack is, World world, int x, int y, int z)
 	{
 		return false;

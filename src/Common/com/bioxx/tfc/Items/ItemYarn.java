@@ -11,6 +11,7 @@ import com.bioxx.tfc.Blocks.BlockWoodSupport;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemYarn extends ItemTerra
 {
 	protected final int[][] sidesMap = new int[][]{{0,-1,0},{0,1,0},{0,0,-1},{0,0,1},{-1,0,0},{1,0,0}};

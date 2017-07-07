@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
+@SuppressWarnings("SameParameterValue")
 public class ItemShears extends ItemTerraTool
 {
 
@@ -40,10 +41,16 @@ public class ItemShears extends ItemTerraTool
 		return EnumWeight.LIGHT;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	public boolean onBlockDestroyed(ItemStack is, World world, Block block, int x, int y, int z, EntityLivingBase entity)
 	{
-		if (block.getMaterial() != Material.leaves && block != Blocks.web && block != Blocks.tallgrass && block != Blocks.vine && block != Blocks.tripwire && !(block instanceof IShearable))
+		if (block.getMaterial() != Material.leaves
+				&& block != Blocks.web
+				&& block != Blocks.tallgrass
+				&& block != Blocks.vine
+				&& block != Blocks.tripwire
+				&& !(block instanceof IShearable))
 		{
 			return super.onBlockDestroyed(is, world, block, x, y, z, entity);
 		}

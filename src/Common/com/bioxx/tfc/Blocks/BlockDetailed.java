@@ -36,6 +36,7 @@ import com.bioxx.tfc.TileEntities.TEWoodConstruct;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockDetailed extends BlockPartial
 {
 	public static int lockX;
@@ -168,7 +169,8 @@ public class BlockDetailed extends BlockPartial
 		return false;
 	}
 
-	public boolean onBlockActivatedServer(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) 
+	@SuppressWarnings("UnusedReturnValue")
+	public boolean onBlockActivatedServer(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
 		int mode = 0;
 		PlayerInfo pi = PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player);
@@ -190,7 +192,8 @@ public class BlockDetailed extends BlockPartial
 
 		if(mode == 1)
 		{
-			int index = -10;
+			//int index = -10;
+			int index;
 
 			if( xSelected < 4 && ySelected < 4 && zSelected < 4 )
 				for(int subX = 0; subX < 4; subX++) for(int subZ = 0; subZ < 4; subZ++) for(int subY = 0; subY < 4; subY++) {
@@ -471,25 +474,31 @@ public class BlockDetailed extends BlockPartial
 		return new Object[] { tracedBound, side, player.distanceTo(tracedBound) };
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean isVecInsideYZBounds(AxisAlignedBB bound, Vec3 vec3) {
-		if (vec3 == null)
-			return false;
-		else
-			return vec3.yCoord >= bound.minY && vec3.yCoord <= bound.maxY && vec3.zCoord >= bound.minZ && vec3.zCoord <= bound.maxZ;
+		return vec3 != null
+				&& vec3.yCoord >= bound.minY
+				&& vec3.yCoord <= bound.maxY
+				&& vec3.zCoord >= bound.minZ
+				&& vec3.zCoord <= bound.maxZ;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean isVecInsideXZBounds(AxisAlignedBB bound, Vec3 vec3) {
-		if (vec3 == null)
-			return false;
-		else
-			return vec3.xCoord >= bound.minX && vec3.xCoord <= bound.maxX && vec3.zCoord >= bound.minZ && vec3.zCoord <= bound.maxZ;
+		return vec3 != null
+				&& vec3.xCoord >= bound.minX
+				&& vec3.xCoord <= bound.maxX
+				&& vec3.zCoord >= bound.minZ
+				&& vec3.zCoord <= bound.maxZ;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean isVecInsideXYBounds(AxisAlignedBB bound, Vec3 vec3) {
-		if (vec3 == null)
-			return false;
-		else
-			return vec3.xCoord >= bound.minX && vec3.xCoord <= bound.maxX && vec3.yCoord >= bound.minY && vec3.yCoord <= bound.maxY;
+		return vec3 != null
+				&& vec3.xCoord >= bound.minX
+				&& vec3.xCoord <= bound.maxX
+				&& vec3.yCoord >= bound.minY
+				&& vec3.yCoord <= bound.maxY;
 	}
 
 	@Override

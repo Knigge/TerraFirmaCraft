@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class PlayerInteractHandler
 {
 	private Map<UUID, Long> lastDrink = new HashMap<UUID, Long>();

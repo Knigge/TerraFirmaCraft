@@ -12,7 +12,8 @@ import com.bioxx.tfc.api.Crafting.AnvilManager;
 import com.bioxx.tfc.api.Crafting.PlanRecipe;
 import com.bioxx.tfc.api.Enums.RuleEnum;
 
-public class GuiAnvilButton extends GuiButton 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
+public class GuiAnvilButton extends GuiButton
 {
 	//private static ResourceLocation texture = new ResourceLocation(Reference.ModID, Reference.AssetPathGui + "anvilicons.png");
 	public IIcon icon;

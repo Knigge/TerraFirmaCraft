@@ -39,6 +39,7 @@ public interface IFood
 
 	int getTasteSavory(ItemStack is);
 
+	@SuppressWarnings("SameReturnValue")
 	boolean renderDecay();
 
 	boolean renderWeight();

@@ -6,6 +6,7 @@ import net.minecraft.world.gen.layer.IntCache;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerBiomeEdge extends GenLayerTFC
 {
 	public GenLayerBiomeEdge(long par1, GenLayer par3GenLayer)

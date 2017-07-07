@@ -230,6 +230,7 @@ public class ItemPotteryJug extends ItemPotteryBase
 		this.waterIcon = registerer.registerIcon(Reference.MOD_ID + ":" + textureFolder + "Water Jug");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

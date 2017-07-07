@@ -17,6 +17,7 @@ import com.bioxx.tfc.api.Tools.ChiselMode;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class ChiselMode_Slab extends ChiselMode {
 
 	//private static String name;
@@ -181,9 +182,7 @@ public class ChiselMode_Slab extends ChiselMode {
                 }
             } else if (side == 4) {
                 long e = extraX + 1;
-				long new1 = extraX;
-				long new2 = e;
-                long old2 = new2 | (te.extraData - new1);
+	            long old2 = e | (te.extraData - extraX);
 
                 if (e + BlockSlab.getEastChiselLevel(te.extraData) >= 8) {
                     world.setBlockToAir(x, y, z);

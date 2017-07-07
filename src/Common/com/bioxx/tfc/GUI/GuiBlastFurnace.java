@@ -10,6 +10,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEBlastFurnace;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiBlastFurnace extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_blastfurnace.png");
@@ -31,7 +32,7 @@ public class GuiBlastFurnace extends GuiContainerTFC
 	@Override
 	protected void drawForeground(int guiLeft, int guiTop)
 	{
-		int scale = 0;
+		int scale;
 
 		scale = blastFurnaceTE.getTemperatureScaled(49);
 		drawTexturedModalRect(guiLeft + 8, guiTop + 65 - scale, 185, 31, 15, 6);

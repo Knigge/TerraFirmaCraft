@@ -8,6 +8,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerFirepit;
 import com.bioxx.tfc.TileEntities.TEFirepit;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiFirepit extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_firepit.png");

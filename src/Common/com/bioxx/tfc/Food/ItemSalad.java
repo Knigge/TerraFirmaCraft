@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemSalad extends ItemMeal
 {
 
@@ -25,6 +26,7 @@ public class ItemSalad extends ItemMeal
 		this.setFolder("food/");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{

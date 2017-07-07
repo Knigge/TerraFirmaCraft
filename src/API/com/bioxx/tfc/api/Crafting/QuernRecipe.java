@@ -2,6 +2,7 @@ package com.bioxx.tfc.api.Crafting;
 
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings("CanBeFinal")
 public class QuernRecipe
 {
 	private ItemStack inItemStack;

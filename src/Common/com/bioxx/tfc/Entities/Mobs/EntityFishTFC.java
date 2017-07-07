@@ -15,6 +15,7 @@ import com.bioxx.tfc.Entities.EntityFishHookTFC;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityFishTFC extends EntitySquid
 {
 	private float randomMotionVecX;
@@ -28,8 +29,6 @@ public class EntityFishTFC extends EntitySquid
 	private float yawMult;
 
 	//private float prevDirection;
-
-	private List<EntityPlayer> nearbyPlayers;
 
 	private boolean hooked;
 	private int energy = 200;
@@ -73,13 +72,13 @@ public class EntityFishTFC extends EntitySquid
 	@Override
 	protected void entityInit(){
 		super.entityInit();
-		this.dataWatcher.addObject(21, new Float(1));
-		this.dataWatcher.addObject(22, new Float(1));
-		this.dataWatcher.addObject(23, new Float(1));
+		this.dataWatcher.addObject(21, 1f);
+		this.dataWatcher.addObject(22, 1f);
+		this.dataWatcher.addObject(23, 1f);
 
-		this.dataWatcher.addObject(26, new Float(1));
-		this.dataWatcher.addObject(27, new Float(1));
-		this.dataWatcher.addObject(28, new Float(1));
+		this.dataWatcher.addObject(26, 1f);
+		this.dataWatcher.addObject(27, 1f);
+		this.dataWatcher.addObject(28, 1f);
 	}
 
 	@Override
@@ -113,7 +112,7 @@ public class EntityFishTFC extends EntitySquid
 				hooked = false;
 			}
 
-			if(hooked && this.riddenByEntity instanceof EntityFishHookTFC && !this.worldObj.isRemote && this.isInWater()){
+			if(hooked && this.riddenByEntity instanceof EntityFishHookTFC && this.isInWater()){
 				EntityFishHookTFC fh = ((EntityFishHookTFC)(this.riddenByEntity));
 				if(Vec3.createVectorHelper(fh.pullX, fh.pullY, fh.pullZ).lengthVector() != 0){
 					Vec3 dirVec = Vec3.createVectorHelper(fh.pullX, fh.pullY, fh.pullZ).normalize();
@@ -240,9 +239,11 @@ public class EntityFishTFC extends EntitySquid
 				}
 
 				f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+				//noinspection SuspiciousNameCombination
 				this.renderYawOffset += (-((float)Math.atan2(this.motionX, this.motionZ)) * 180.0F / (float)Math.PI - this.renderYawOffset) * 0.1F;
 				this.rotationYaw = this.renderYawOffset;
 				this.squidYaw += (float)Math.PI * this.yawMult * 1.5F;
+				//noinspection SuspiciousNameCombination
 				this.squidPitch += (-((float) Math.atan2(f, this.motionY)) * 180.0F / (float) Math.PI - this.squidPitch) * 0.1F;
 			}
 			else
@@ -379,11 +380,12 @@ public class EntityFishTFC extends EntitySquid
 
 	//Given the entities current position, find a new location for it to move towards. Allows us to define
 	//locations that the entity doesn't want to be in.
+	@SuppressWarnings("unchecked")
 	private int[] getRandomDestination(double x, double y, double z){
 		int destX,destY,destZ;
 		destX = (int)currentDestX;destY = (int)currentDestY; destZ = (int)currentDestZ;
 		int numAttempts = 0;
-		nearbyPlayers = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.boundingBox.expand(16, 8, 16));
+		List<EntityPlayer> nearbyPlayers = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, this.boundingBox.expand(16, 8, 16));
 		boolean tooCloseToPlayer = false;
 		for(EntityPlayer p : nearbyPlayers){
 			if (p.getDistance(destX, destY, destZ) < 8)

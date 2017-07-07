@@ -9,6 +9,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Enums.EnumTree;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenSaplings
 {
 	public void generate(World world, Random random, int xCoord, int yCoord, int zCoord)
@@ -47,19 +48,19 @@ public class WorldGenSaplings
 			if(treeType2 < 0 || treeType2 > 15)
 				treeType2 = TFC_Climate.getTreeLayer(world, xCoord, yCoord, zCoord, 1);
 
-			/**
-			 * If the block is near a water source then we want rainfall to count for twice as much 
-			 * and evt to count for half so as to make tree growth far more likely
-			 * */
+			/*
+			  If the block is near a water source then we want rainfall to count for twice as much
+			  and evt to count for half so as to make tree growth far more likely
+			  */
 			if(getNearWater(world, xCoord, yCoord, zCoord))
 			{
 				rainfall *= 2;
 				evt /= 2;
 			}
 
-			/**
-			 * If the location is near the arctic circle then we want pine trees to definitely show up.
-			 * */
+			/*
+			  If the location is near the arctic circle then we want pine trees to definitely show up.
+			  */
 			if(zCoord > 14500 || zCoord < -14500)
 				treeType2 = 8;
 
@@ -98,8 +99,10 @@ public class WorldGenSaplings
 				float tree1TempMax = EnumTree.values()[treeType1].maxTemp;
 
 				canSpawnTemp1 = temperature >= tree1TempMin && temperature <= tree1TempMax;
-				canSpawnRain0 = rainfall >= tree1RainMin && rainfall <= tree1RainMax;
-				canSpawnEVT0 = evt >= tree1EVTMin && evt <= tree1EVTMax;
+				// copy-paste bug? canSpawnRain0 & canSpawnEVT0
+				//!TODO: check
+				canSpawnRain1 = rainfall >= tree1RainMin && rainfall <= tree1RainMax;
+				canSpawnEVT1 = evt >= tree1EVTMin && evt <= tree1EVTMax;
 			}
 
 			if (treeType2 != -1)
@@ -112,8 +115,10 @@ public class WorldGenSaplings
 				float tree2TempMax = EnumTree.values()[treeType2].maxTemp;
 
 				canSpawnTemp2 = temperature >= tree2TempMin && temperature <= tree2TempMax;
-				canSpawnRain0 = rainfall >= tree2RainMin && rainfall <= tree2RainMax;
-				canSpawnEVT0 = evt >= tree2EVTMin && evt <= tree2EVTMax;
+				// copy-paste bug? canSpawnRain0 & canSpawnEVT0
+				//!TODO: check
+				canSpawnRain2 = rainfall >= tree2RainMin && rainfall <= tree2RainMax;
+				canSpawnEVT2 = evt >= tree2EVTMin && evt <= tree2EVTMax;
 			}
 
 			//if at least one of the trees is within the temperature zone otherewise no trees

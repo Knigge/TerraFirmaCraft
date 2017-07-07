@@ -23,6 +23,7 @@ import com.bioxx.tfc.Entities.EntityStand;
 import com.bioxx.tfc.Render.Models.ModelStand;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"CanBeFinal", "FieldCanBeLocal"})
 @SideOnly(Side.CLIENT)
 public class RenderEntityStand extends RenderBiped
 {
@@ -111,12 +112,6 @@ public class RenderEntityStand extends RenderBiped
 	}
 
 	@Override
-	protected void rotateCorpse(EntityLivingBase par1EntityLivingBase, float par2, float par3, float par4)
-	{
-		super.rotateCorpse(par1EntityLivingBase, par2, par3, par4);
-	}
-
-	@Override
 	protected void preRenderCallback(EntityLivingBase entity, float par2)
 	{
 		GL11.glScalef(1f, 0.95f, 1f);
@@ -128,6 +123,7 @@ public class RenderEntityStand extends RenderBiped
 		standBlockRenderer.render(entity, new ItemStack(TFCBlocks.armorStand,1,l));
 	}
 
+	@SuppressWarnings("WeakerAccess")
 	protected int setArmorModelTFC(EntityStand stand, int par2, float par3)
 	{
 		ItemStack itemstack = stand.getArmorInSlot(3 - par2);

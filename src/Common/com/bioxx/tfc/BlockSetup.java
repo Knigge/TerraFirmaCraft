@@ -18,6 +18,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCFluids;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockSetup extends TFCBlocks
 {
 	public static void registerBlocks()
@@ -207,7 +208,7 @@ public class BlockSetup extends TFCBlocks
 
 	public static void loadBlocks()
 	{
-		TerraFirmaCraft.LOG.info(new StringBuilder().append("Loading Blocks").toString());
+		TerraFirmaCraft.LOG.info("Loading Blocks");
 
 		// Remove Items from Creative Tabs
 		Blocks.double_wooden_slab.setCreativeTab(null);

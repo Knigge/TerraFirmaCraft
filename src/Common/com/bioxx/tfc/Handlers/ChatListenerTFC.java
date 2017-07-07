@@ -16,7 +16,7 @@ public class ChatListenerTFC
 	@SubscribeEvent
 	public void onServerChatEvent(ServerChatEvent event)
 	{
-		String msg = event.message;
+		StringBuilder msg = new StringBuilder(event.message);
 		long soberTime = TFC_Core.getPlayerFoodStats(event.player).soberTime;
 		if(soberTime > TFC_Time.getTotalTicks())
 		{
@@ -32,21 +32,21 @@ public class ChatListenerTFC
 				if(event.message.charAt(0) != '/')
 				{
 					int chance = Math.max(1, 11 - (int) (soberTime / 1000)); // Can't run rand.nextInt on a negative number.
-					if (s.indexOf(s2) != -1 && rand.nextInt(chance) == 0)
+					if (s.contains(s2) && rand.nextInt(chance) == 0)
 					{
 						int n = rand.nextInt(2);
 						int m = 0;
-						msg = start + s2;
+						msg = new StringBuilder(start + s2);
 						for(int j = 0; j < n; j++)
 						{
-							msg = msg + (end.substring(0, 1).toUpperCase().equals(end.substring(0, 1)) ? s2 : s2.toLowerCase());
+							msg.append(end.substring(0, 1).toUpperCase().equals(end.substring(0, 1)) ? s2 : s2.toLowerCase());
 						}
 						if (("S".equals(s2) || "s".equals(s2)) && !"S".equals(end.substring(0, 1)) && !"s".equals(end.substring(0, 1)))
 						{
-							msg += (s2.toUpperCase().equals(s2) ? (end.substring(0, 1).toUpperCase().equals(end.substring(0, 1)) ? "H" : "h".toLowerCase()) : "h");
+							msg.append(s2.toUpperCase().equals(s2) ? (end.substring(0, 1).toUpperCase().equals(end.substring(0, 1)) ? "H" : "h".toLowerCase()) : "h");
 							m++;
 						}
-						msg = msg + end;
+						msg.append(end);
 						i+=m;
 					}
 				}

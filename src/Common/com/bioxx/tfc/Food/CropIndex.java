@@ -13,6 +13,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class CropIndex
 {
 	public int growthTime;
@@ -192,5 +193,4 @@ public class CropIndex
 	{
 		return cycleType;
 	}
-	public void onCropGrow(float stage){}
 }

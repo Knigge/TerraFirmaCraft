@@ -4,9 +4,9 @@ import com.bioxx.tfc.Core.Player.PlayerInfo;
 import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
 import com.bioxx.tfc.Entities.Mobs.EntityHorseTFC;
 import com.bioxx.tfc.GUI.*;
-import com.bioxx.tfc.ModSupport.ShipsMod;
+//import com.bioxx.tfc.ModSupport.ShipsMod;
 import com.bioxx.tfc.TileEntities.*;
-import cpw.mods.fml.common.Loader;
+//import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
@@ -25,12 +25,14 @@ public class GuiHandler extends com.bioxx.tfc.Handlers.GuiHandler
 		try
 		{
 			te= world.getTileEntity(x, y, z);
+			/*
 			if (te == null && Loader.isModLoaded("cuchaz.ships"))
 			{
 				com.bioxx.tfc.ModSupport.ShipsMod shipsMod = new ShipsMod();
 				world = shipsMod.getShipsWorld(world, player.inventory);
 				te = world.getTileEntity(x, y, z);
 			}
+			*/
 
 		}
 		catch(Exception e)
@@ -124,6 +126,7 @@ public class GuiHandler extends com.bioxx.tfc.Handlers.GuiHandler
 	@SubscribeEvent
 	public void openGuiHandler(GuiOpenEvent event)
 	{
+		//noinspection ConstantConditions
 		if(event.gui instanceof GuiInventory && !(event.gui instanceof GuiInventoryTFC))
 			event.gui = new GuiInventoryTFC(Minecraft.getMinecraft().thePlayer);
 	}

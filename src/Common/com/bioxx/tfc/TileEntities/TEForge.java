@@ -21,6 +21,7 @@ import com.bioxx.tfc.api.Enums.EnumFuelMaterial;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings("WeakerAccess")
 public class TEForge extends TEFireEntity implements IInventory
 {
 	public boolean isSmokeStackValid;
@@ -38,6 +39,7 @@ public class TEForge extends TEFireEntity implements IInventory
 		maxFireTempScale = 2500;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	private boolean validateSmokeStack()
 	{
 		if (directChimney(worldObj.getPrecipitationHeight(xCoord, zCoord) - 1))

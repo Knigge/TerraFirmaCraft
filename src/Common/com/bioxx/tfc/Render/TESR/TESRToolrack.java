@@ -8,6 +8,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TEToolRack;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRToolrack extends TESRBase
 {
 	public TESRToolrack()

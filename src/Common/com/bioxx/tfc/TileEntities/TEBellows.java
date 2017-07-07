@@ -11,6 +11,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings("WeakerAccess")
 public class TEBellows extends NetworkTileEntity
 {
 	private static final int BLOCK_MAP[][] = { { 0, 1 }, { -1, 0 }, { 0, -1 }, { 1, 0 } };
@@ -111,18 +112,6 @@ public class TEBellows extends NetworkTileEntity
 	@Override
 	public void handleInitPacket(NBTTagCompound nbt) {
 		shouldBlow = nbt.getBoolean("shouldBlow");
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

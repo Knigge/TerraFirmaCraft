@@ -1,11 +1,12 @@
 package com.bioxx.tfc.Handlers;
 
+@SuppressWarnings("WeakerAccess")
 public class PacketHandler// implements IPacketHandler, IConnectionHandler
 {
-	/**
-	 * Packets that are affixed with _Server are processed server side and 
-	 * _Client is processed on the client side. Therefore when the client wishes 
-	 * to request something from the server, _Server packets should be sent from the client.
+	/*
+	  Packets that are affixed with _Server are processed server side and
+	  _Client is processed on the client side. Therefore when the client wishes
+	  to request something from the server, _Server packets should be sent from the client.
 	 */
 //	public static final byte Packet_Init_Block_Client = 0;
 //	public static final byte Packet_Init_Block_Server = 1;

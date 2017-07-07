@@ -15,6 +15,7 @@ import com.bioxx.tfc.api.Tools.ChiselMode;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class ChiselMode_Stair extends ChiselMode {
 
 	//private static String name;
@@ -91,7 +92,7 @@ public class ChiselMode_Stair extends ChiselMode {
 
         if( hasChisel >= 0 ){
             int hit = 0;
-            TEPartial te = null;
+            TEPartial te;
             if(id != TFCBlocks.stoneStairs)
             {
                 world.setBlock(x, y, z, TFCBlocks.stoneStairs, 0, 0x3);

@@ -15,6 +15,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.Core.Player.*;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class InitClientWorldPacket extends AbstractPacket
 {
 	private long seed;

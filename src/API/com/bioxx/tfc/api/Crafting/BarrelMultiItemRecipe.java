@@ -10,6 +10,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BarrelMultiItemRecipe extends BarrelRecipe
 {
 	public boolean keepstacksize = true;
@@ -78,15 +79,11 @@ public class BarrelMultiItemRecipe extends BarrelRecipe
 	@Override
 	public Boolean matches(ItemStack inIS, FluidStack inFS)
 	{
-		if (inIS != null && inFS != null && inIS.getItem() instanceof IFood)
-		{
+		if (inIS != null && inFS != null && inIS.getItem() instanceof IFood) {
 			float w = Food.getWeight(inIS);
-			if (inFS.isFluidEqual(recipeFluid) && w * recipeOutFluid.amount <= inFS.amount)
-			{
-				return OreDictionary.itemMatches(recipeIS, inIS, false);
-			}
-			else
-				return false;
+			return inFS.isFluidEqual(recipeFluid)
+					&& (w * recipeOutFluid.amount) <= inFS.amount
+					&& OreDictionary.itemMatches(recipeIS, inIS, false);
 		}
 		return super.matches(inIS, inFS);
 	}

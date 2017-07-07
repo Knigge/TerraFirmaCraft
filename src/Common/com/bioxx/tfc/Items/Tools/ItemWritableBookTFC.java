@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.Items.ItemTerra;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemWritableBookTFC extends ItemTerra
 {
 	public ItemWritableBookTFC()
@@ -54,7 +55,7 @@ public class ItemWritableBookTFC extends ItemTerra
 		else
 		{
 			String var1 = par0NBTTagCompound.getString("title");
-			return var1 != null && var1.length() <= 16 ? par0NBTTagCompound.hasKey("author") : false;
+			return (var1 != null && var1.length() <= 16) && par0NBTTagCompound.hasKey("author");
 		}
 	}
 
@@ -83,6 +84,7 @@ public class ItemWritableBookTFC extends ItemTerra
 
 		return super.getItemStackDisplayName(par1ItemStack);
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
@@ -93,7 +95,7 @@ public class ItemWritableBookTFC extends ItemTerra
 
 			if (var6 != null)
 			{
-				par3List.add("\u00a77" + String.format(StatCollector.translateToLocalFormatted("book.byAuthor", new Object[] {var6.func_150285_a_()}), new Object[0]));
+				par3List.add("\u00a77" + StatCollector.translateToLocalFormatted("book.byAuthor", var6.func_150285_a_()));
 			}
 		}
 		super.addInformation(par1ItemStack, par2EntityPlayer, par3List, par4);

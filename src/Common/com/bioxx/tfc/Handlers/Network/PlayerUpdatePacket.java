@@ -17,6 +17,7 @@ import com.bioxx.tfc.Core.Player.FoodStatsTFC;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.Core.Player.SkillStats;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal", "Convert2Diamond"})
 public class PlayerUpdatePacket extends AbstractPacket
 {
 	private byte flag;

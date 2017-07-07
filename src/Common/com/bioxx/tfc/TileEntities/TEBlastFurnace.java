@@ -32,6 +32,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class TEBlastFurnace extends TEFireEntity implements IInventory
 {
 	public boolean isValid;
@@ -102,9 +103,7 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 	private Boolean checkValidity()
 	{
 		int y = yCoord + 1;
-		if(this.isStackValid(xCoord, y, zCoord))
-			return true;
-		return false;
+		return this.isStackValid(xCoord, y, zCoord);
 	}
 
 	@Override
@@ -131,7 +130,7 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 
 			if (index != null && TFC_ItemHeat.getTemp(cookingItemStack) >= index.meltTemp)
 			{
-				int output = 0;
+				int output;
 				Item cookingItem = cookingItemStack.getItem();
 
 				if (cookingItem instanceof ISmeltable)
@@ -365,12 +364,13 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 			itemstack.stackSize = getInventoryStackLimit();
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	public void createTuyereBlock()
 	{
-		/**
-		 * Create a tuyere block if the tuyere slot is not empty. REMOVED: Code
-		 * remains for a potential revisit later. For now the tuyere will not be
-		 * a rendered block.
+		/*
+		  Create a tuyere block if the tuyere slot is not empty. REMOVED: Code
+		  remains for a potential revisit later. For now the tuyere will not be
+		  a rendered block.
 		 */
 		/*
 		 * if(input[1] != null) { //get the direction that the bloomery is
@@ -454,9 +454,8 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 				 * Iterate through the list and check for charcoal, coke, and
 				 * ore
 				 */
-				for (Iterator iterator = list.iterator(); iterator.hasNext();)
-				{
-					EntityItem entity = (EntityItem) iterator.next();
+				for (Object aList : list) {
+					EntityItem entity = (EntityItem) aList;
 					ItemStack itemstack = entity.getEntityItem();
 					Item item = itemstack.getItem();
 					boolean isOre = TFC_Core.isOreIron(itemstack);
@@ -465,12 +464,9 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 
 					if (item == TFCItems.coal &&
 							(itemstack.getItemDamage() == 1 ||
-							itemstack.getItemDamage() == 2))
-					{
-						for (int c = 0; c < itemstack.stackSize; c++)
-						{
-							if (getTotalCount() < 40 && charcoalCount < (this.maxValidStackSize*4))
-							{
+									itemstack.getItemDamage() == 2)) {
+						for (int c = 0; c < itemstack.stackSize; c++) {
+							if (getTotalCount() < 40 && charcoalCount < (this.maxValidStackSize * 4)) {
 								charcoalCount++;
 								itemstack.stackSize--;
 							}
@@ -485,30 +481,24 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 					 * of items in the fire.
 					 */
 					else if (TFC_ItemHeat.isCookable(itemstack) != -1 && isOre ||
-								!isOre && item instanceof ISmeltable && ((ISmeltable) item).getMetalType(itemstack) == Global.PIGIRON &&
-								index != null)
-					{
+							!isOre && item instanceof ISmeltable && ((ISmeltable) item).getMetalType(itemstack) == Global.PIGIRON &&
+									index != null) {
 						int c = itemstack.stackSize;
 						int nonConsumedOre = 0;
-						for (; c > 0; c--)
-						{
-							if (getTotalCount() < 40 && oreCount < (this.maxValidStackSize*4))
-							{
+						for (; c > 0; c--) {
+							if (getTotalCount() < 40 && oreCount < (this.maxValidStackSize * 4)) {
 								if (foundFlux(moltenCount) && addOreToFire(new ItemStack(item, 1, itemstack.getItemDamage())))
-									oreCount+=1;
+									oreCount += 1;
 								else
 									nonConsumedOre++;
-							}
-							else
-							{
+							} else {
 								nonConsumedOre++;
 							}
 						}
 
 						if (c + nonConsumedOre == 0)
 							entity.setDead();
-						else
-						{
+						else {
 							itemstack.stackSize = c + nonConsumedOre;
 							entity.setEntityItemStack(itemstack);
 						}
@@ -746,7 +736,7 @@ public class TEBlastFurnace extends TEFireEntity implements IInventory
 		
 		GuiScreen gui = FMLClientHandler.instance().getClient().currentScreen;
 		if (gui instanceof GuiBlastFurnace)
-			((GuiBlastFurnace)gui).updateScreen();
+			gui.updateScreen();
 	}
 
 	public void updateGui()

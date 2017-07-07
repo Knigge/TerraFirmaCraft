@@ -23,6 +23,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Tools.IToolChisel;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class BlockPlanks extends BlockTerra
 {
 	protected String[] woodNames;
@@ -37,10 +38,11 @@ public class BlockPlanks extends BlockTerra
 		icons = new IIcon[woodNames.length];
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

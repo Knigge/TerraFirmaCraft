@@ -25,6 +25,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.TFCProvider;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class BlockCustomIce extends BlockIce
 {
 	private IIcon seaIce;
@@ -49,6 +50,7 @@ public class BlockCustomIce extends BlockIce
 			par1World.setBlock(par3, par4, par5, getBlockMelt(par1World, par3, par4, par5, true), 0, 2);*/
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
@@ -56,39 +58,18 @@ public class BlockCustomIce extends BlockIce
 	}
 
 	@Override
-	public void breakBlock(World world, int i, int j, int k, Block id, int l)
-	{
-		/*
-		if(id == this.blockID){
-			if(world.getBlockId(i,j,k)==Block.waterStill.blockID && l != 0){
-				world.setBlock(i,j,k,TFCBlocks.FreshWaterStill.blockID);
-			}
-			else if( world.getBlockId(i,j,k)==Block.waterMoving.blockID && l != 0){
-				world.setBlock(i,j,k,TFCBlocks.FreshWaterFlowing.blockID);
-			}
-			else if(world.getBlockId(i,j,k)==TFCBlocks.FreshWaterStill.blockID && l != 1){
-				world.setBlock(i,j,k,Block.waterStill.blockID);
-			}
-			else if( world.getBlockId(i,j,k)==TFCBlocks.FreshWaterFlowing.blockID && l != 1){
-				world.setBlock(i,j,k,Block.waterMoving.blockID);
-			}
-		}*/
-		super.breakBlock(world, i, j, k, id, l);
-	}
+	/*
+	  Determines if this block can support the passed in plant, allowing it to be planted and grow.
+	  Some examples:
+	    Reeds check if its a reed, or if its sand/dirt/grass and adjacent to water
+	    Cacti checks if its a cacti, or if its sand
+	    Nether types check for soul sand
+	    Crops check for tilled soil
+	    Caves check if it's a colid surface
+	    Plains check if its grass or dirt
+	    Water check if its still water
 
-	@Override
-	/**
-	 * Determines if this block can support the passed in plant, allowing it to be planted and grow.
-	 * Some examples:
-	 *   Reeds check if its a reed, or if its sand/dirt/grass and adjacent to water
-	 *   Cacti checks if its a cacti, or if its sand
-	 *   Nether types check for soul sand
-	 *   Crops check for tilled soil
-	 *   Caves check if it's a colid surface
-	 *   Plains check if its grass or dirt
-	 *   Water check if its still water
-	 *
-	 * @param world The current world
+	  @param world The current world
 	 * @param x X Position
 	 * @param y Y Position
 	 * @param z Z position
@@ -188,7 +169,7 @@ public class BlockCustomIce extends BlockIce
 					world.setBlockMetadataWithNotify(i, j, k, 0, 2);
 				}
 			}*/
-			((TFCProvider)(world.provider)).canBlockFreeze(i, j, k, false);
+			world.provider.canBlockFreeze(i, j, k, false);
 		}
 	}
 

@@ -11,7 +11,8 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.Core.WeatherManager;
 
-public class FogHandler 
+@SuppressWarnings("WeakerAccess")
+public class FogHandler
 {
 	private double lerpTime = 14f;
 	private double lerpTimer;
@@ -116,7 +117,7 @@ public class FogHandler
 				fogEndFinish = event.farPlaneDistance*(0.2f+(0.1f*snowStrength));
 				fogDensityFinish = 0.3f;
 			}
-			else if(snowLast && WeatherManager.getInstance().getSnowStrength() != snowStrength)  
+			else if(WeatherManager.getInstance().getSnowStrength() != snowStrength)
 			{
 				startLerp(300); 
 				snowStrength = WeatherManager.getInstance().getSnowStrength();

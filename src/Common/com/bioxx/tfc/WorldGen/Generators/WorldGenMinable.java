@@ -17,6 +17,7 @@ import com.bioxx.tfc.TileEntities.TEOre;
 // Referenced classes of package net.minecraft.src:
 //                      WorldGenerator, MathHelper, World, Block
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class WorldGenMinable extends WorldGenerator
 {
 	//==========================================mp mod
@@ -25,23 +26,17 @@ public class WorldGenMinable extends WorldGenerator
 	private static List oreList = new ArrayList();
 	public static int mPChunkX;
 	public static int mPChunkZ;
-	private int xChunk;
-	private int zChunk;
 	public Block mPBlock;
 	private final int minableBlockMeta;
 	public static int mPPrevX;
 	public static int mPPrevZ;
 	public static Block mPPrevBlock;
 	public static int mPPrevMeta;
-	//public static int MPPrevID3;
-	//public static int MPPrevID4;
-	private static boolean genBeforeCheck;
 	public static int mineCount;
 	public static int mineCountM;
 
 	//private static Random randomOut;
 	private static Random rand;
-	private static World worldObj;
 
 	//private static WorldChunkManager worldChunkManager;
 	//private static WorldChunkManagerHell worldChunkManagerHell;
@@ -63,7 +58,6 @@ public class WorldGenMinable extends WorldGenerator
 
 	//==========================================mp mod
 	private final Block minableBlock;
-	private int numberOfBlocks;
 
 	public WorldGenMinable(Block block, int j, Block layerBlock, int layerMeta, int rarity, int veinSize,
 			int veinAmount, int height, int diameter, int vDensity, int hDensity, boolean vein, int oreGrade)
@@ -86,15 +80,16 @@ public class WorldGenMinable extends WorldGenerator
 		grade = oreGrade;
 	}
 
+	@SuppressWarnings("unchecked")
 	public boolean generateBeforeCheck() // takes a set of current global variables and checks to see if this ore has spawned before in this chunk
 	{
-		genBeforeCheck = false;
-		genBeforeCheck = oreList.contains(Arrays.asList(mPBlock, minableBlockMeta));
+		boolean genBeforeCheck = oreList.contains(Arrays.asList(mPBlock, minableBlockMeta));
 		if(!genBeforeCheck)
 			oreList.add(Arrays.asList(mPBlock, minableBlockMeta));
 		return genBeforeCheck;
 	}
 
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	private void createMine(World worldObj, Random rand, int x, int z)
 	{
 		for(int loopCount = 0; loopCount < veinAm; loopCount++)
@@ -118,12 +113,11 @@ public class WorldGenMinable extends WorldGenerator
 			createMine(worldObj, rand, x, z);
 	}*/
 
-	public boolean generate(World world, Random random, int x, int z, int min, int max)//obsorb default system
+	public void generate(World world, Random random, int x, int z, int min, int max)//obsorb default system
 	{
 		mPChunkX = x;// set output chunk x // snap to grid
 		mPChunkZ = z;// set output chunk z    
 		rand = random;
-		worldObj = world; // set world
 		mineCount = 0; // this is a new chunk, so list gets set to the beginning
 		oreList.clear(); // clear the list of ores, this is a new chunk   
 		mPBlock = minableBlock;// set output block
@@ -134,29 +128,25 @@ public class WorldGenMinable extends WorldGenerator
 			{
 				mPPrevX = mPChunkX;
 				mPPrevZ = mPChunkZ;
-				xChunk = mPChunkX;
-				zChunk = mPChunkZ;
+				int xChunk = mPChunkX;
+				int zChunk = mPChunkZ;
 				mPPrevBlock = mPBlock;
 				mPPrevMeta = minableBlockMeta;
 				mineHeight = min + rand.nextInt(max-min);
 				if (rarity == 1 || rarity > 0 && rand.nextInt(rarity) == 0)
-					createMine(worldObj, rand, xChunk, zChunk);
+					createMine(world, rand, xChunk, zChunk);
 			}
 		}
-		return true;
 	}
 
 	public int mPCalculateDensity(int oreDistance, float oreDensity) // returns the density value
 	{
-		int loopCount = 0;
-		int densityValuePassInner = 0;
-		int densityValuePass = 0;
 		oreDensity = oreDensity * .01F;
 		oreDensity = oreDensity * (oreDistance >> 1) + 1F;// establishes number of times to loop
-		loopCount = (int)(oreDensity); //stores number of times to loop
-		densityValuePassInner = oreDistance / loopCount; // distance devided by number of times it will loop, establishes the number for randomization
+		int loopCount = (int)(oreDensity); //stores number of times to loop
+		int densityValuePassInner = oreDistance / loopCount; // distance devided by number of times it will loop, establishes the number for randomization
 		densityValuePassInner += (oreDistance - (densityValuePassInner * loopCount)) / loopCount;
-		densityValuePass = 0;
+		int densityValuePass = 0;
 		while (loopCount > 0) // loops to acumulate random values
 		{
 			densityValuePass = densityValuePass + rand.nextInt(densityValuePassInner); // acumulate randoms
@@ -165,7 +155,7 @@ public class WorldGenMinable extends WorldGenerator
 		return densityValuePass; // return proccesed random value
 	}
 
-	public boolean bODgenerateVein(World world, Random rand, int parX, int parY, int parZ, int xyz)
+	public void bODgenerateVein(World world, Random rand, int parX, int parY, int parZ, int xyz)
 	{
 		//==========================================mp mod
 		int posX = parX;
@@ -177,23 +167,22 @@ public class WorldGenMinable extends WorldGenerator
 		int posX2 = 0;
 		int posY2 = 0;
 		int posZ2 = 0;
-		int directionX = 0;
-		int directionY = 0;
-		int directionZ = 0;
-		int directionX2 = 0;
-		int directionY2 = 0;
-		int directionZ2 = 0;
+		int directionX;
+		int directionY;
+		int directionZ;
+		int directionX2;
+		int directionY2;
+		int directionZ2;
 		/*int directionX3 = 0;
 		int directionY3 = 0;
 		int directionZ3 = 0;*/
-		int directionChange = 0;
-		int directionChange2 = 0;
-		int blocksToUse = xyz;//input number of blocks per vein
-		int blocksToUse2 = 0;
+		int directionChange;
+		int directionChange2;
+		int blocksToUse2;
 
-		for(int blocksMade = 0; blocksMade <= blocksToUse;) // make veins
+		for(int blocksMade = 0; blocksMade <= xyz;) // make veins
 		{
-			blocksToUse2 = 1 + (blocksToUse / 30);
+			blocksToUse2 = 1 + (xyz / 30);
 			directionChange = rand.nextInt(6);
 			directionX = rand.nextInt(2);
 			directionY = rand.nextInt(2);
@@ -259,7 +248,9 @@ public class WorldGenMinable extends WorldGenerator
 						if(directionZ2 == 1 && directionChange2 != 2)
 							posZ2 = posZ2 - rand.nextInt(2);
 
+						//noinspection UnusedAssignment
 						boolean isCorrectRockType = false;
+						//noinspection UnusedAssignment
 						boolean isCorrectMeta = false;
 						int localX = posX & 15;
 						int localZ = posZ & 15;
@@ -327,31 +318,29 @@ public class WorldGenMinable extends WorldGenerator
 			posY = parY;
 			posZ = parZ;
 		}
-		return true;
 	}
 
-	public boolean bODgenerate(World world, Random rand, int par3, int par4, int par5, int xyz)
+	public void bODgenerate(World world, Random rand, int par3, int par4, int par5, int xyz)
 	{
 		//==========================================mp mod
-		numberOfBlocks = xyz; //input number of blocks per vein
 
 		//==========================================mp mod
 		float var6 = rand.nextFloat() * (float)Math.PI;
-		double var7 = par3 + 8 + MathHelper.sin(var6) * numberOfBlocks / 8.0F;
-		double var9 = par3 + 8 - MathHelper.sin(var6) * numberOfBlocks / 8.0F;
-		double var11 = par5 + 8 + MathHelper.cos(var6) * numberOfBlocks / 8.0F;
-		double var13 = par5 + 8 - MathHelper.cos(var6) * numberOfBlocks / 8.0F;
+		double var7 = par3 + 8 + MathHelper.sin(var6) * xyz / 8.0F;
+		double var9 = par3 + 8 - MathHelper.sin(var6) * xyz / 8.0F;
+		double var11 = par5 + 8 + MathHelper.cos(var6) * xyz / 8.0F;
+		double var13 = par5 + 8 - MathHelper.cos(var6) * xyz / 8.0F;
 		double var15 = par4 + rand.nextInt(3) - 2;
 		double var17 = par4 + rand.nextInt(3) - 2;
 
-		for (int var19 = 0; var19 <= numberOfBlocks; ++var19)
+		for (int var19 = 0; var19 <= xyz; ++var19)
 		{
-			double var20 = var7 + (var9 - var7) * var19 / numberOfBlocks;
-			double var22 = var15 + (var17 - var15) * var19 / numberOfBlocks;
-			double var24 = var11 + (var13 - var11) * var19 / numberOfBlocks;
-			double var26 = rand.nextDouble() * this.numberOfBlocks / 16.0D;
-			double var28 = (MathHelper.sin(var19 * (float)Math.PI / numberOfBlocks) + 1.0F) * var26 + 1.0D;
-			double var30 = (MathHelper.sin(var19 * (float)Math.PI / numberOfBlocks) + 1.0F) * var26 + 1.0D;
+			double var20 = var7 + (var9 - var7) * var19 / xyz;
+			double var22 = var15 + (var17 - var15) * var19 / xyz;
+			double var24 = var11 + (var13 - var11) * var19 / xyz;
+			double var26 = rand.nextDouble() * xyz / 16.0D;
+			double var28 = (MathHelper.sin(var19 * (float)Math.PI / xyz) + 1.0F) * var26 + 1.0D;
+			double var30 = (MathHelper.sin(var19 * (float)Math.PI / xyz) + 1.0F) * var26 + 1.0D;
 			int var32 = MathHelper.floor_double(var20 - var28 / 2.0D);
 			int var33 = MathHelper.floor_double(var22 - var30 / 2.0D);
 			int var34 = MathHelper.floor_double(var24 - var28 / 2.0D);
@@ -406,7 +395,6 @@ public class WorldGenMinable extends WorldGenerator
 			}
 		}
 		//TerraFirmaCraft.log.info("a vein was placed " + minableBlockId + "." + minableBlockMeta+ " at " + par3 +" "+par4+" "+par5); /// for debugging
-		return true;
 	}
 
 	@Override

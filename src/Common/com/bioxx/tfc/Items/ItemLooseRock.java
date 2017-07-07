@@ -19,6 +19,7 @@ import com.bioxx.tfc.Core.Player.PlayerInfo;
 import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemLooseRock extends ItemTerra
 {
 	protected IIcon[] icons;
@@ -127,6 +128,7 @@ public class ItemLooseRock extends ItemTerra
 			icons[i] = registerer.registerIcon(Reference.MOD_ID + ":" + "rocks/" + metaNames[i] + " Rock");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{

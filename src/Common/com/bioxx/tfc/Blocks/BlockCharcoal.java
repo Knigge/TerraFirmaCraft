@@ -19,6 +19,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Items.Tools.ItemCustomShovel;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockCharcoal extends BlockTerra
 {
 	public BlockCharcoal()
@@ -117,12 +118,10 @@ public class BlockCharcoal extends BlockTerra
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
-	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
-	{
-		if(world.getBlockMetadata(x, y, z) > 0)
-			return false;
-		return world.setBlockToAir(x, y, z); // super.removedByPlayer is deprecated, and causes a loop.
+	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z) {
+		return world.getBlockMetadata(x, y, z) <= 0 && world.setBlockToAir(x, y, z);
 	}
 
 	public void combineCharcoalDown(World world, int x, int y, int z)
@@ -252,6 +251,7 @@ public class BlockCharcoal extends BlockTerra
 	{
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

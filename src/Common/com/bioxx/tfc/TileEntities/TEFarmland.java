@@ -12,6 +12,7 @@ import com.bioxx.tfc.Food.CropIndex;
 import com.bioxx.tfc.Food.CropManager;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEFarmland extends NetworkTileEntity
 {
 	public long nutrientTimer = -1;
@@ -39,7 +40,7 @@ public class TEFarmland extends NetworkTileEntity
 
 			if(nutrientTimer < TFC_Time.getTotalHours())
 			{
-				CropIndex crop = null;
+				CropIndex crop;
 				int soilMax = getSoilMax();
 				int restoreAmount = 139;
 
@@ -154,6 +155,7 @@ public class TEFarmland extends NetworkTileEntity
 			nutrients[type] = 0;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean fertilize(ItemStack is, boolean isOrganic)
 	{
 		nutrients[3] = getSoilMax();

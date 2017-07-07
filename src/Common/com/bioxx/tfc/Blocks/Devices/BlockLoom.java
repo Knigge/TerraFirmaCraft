@@ -2,6 +2,7 @@ package com.bioxx.tfc.Blocks.Devices;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -34,6 +35,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockLoom extends BlockTerraContainer
 {
 	private String[] woodNames;
@@ -80,6 +82,7 @@ public class BlockLoom extends BlockTerraContainer
 			return blockIcon;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) 
@@ -112,28 +115,9 @@ public class BlockLoom extends BlockTerraContainer
 		return TFCBlocks.loomRenderId;
 	}
 
-	/**
-	 * Called whenever the block is added into the world. Args: world, x, y, z
-	 */
-	@Override
-	public void onBlockAdded(World par1World, int par2, int par3, int par4)
-	{
-		super.onBlockAdded(par1World, par2, par3, par4);
-	}
-
 	@Override
 	public void onBlockDestroyedByExplosion(World par1World, int par2, int par3, int par4, Explosion par5Explosion)
 	{
-	}
-
-	/**
-	 * Called when the block is placed in the world.
-	 */
-	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase player, ItemStack is)
-	{
-		super.onBlockPlacedBy(world, i, j, k, player, is);
-		
 	}
 
 	/**
@@ -151,7 +135,7 @@ public class BlockLoom extends BlockTerraContainer
 		int j = 0;
 		String s = this.getUnlocalizedName();
 		for(int i = 0; i < woodNames.length;i++)
-			j = s.substring(s.indexOf('l', s.length())) == ((ItemBarrels) (TFCItems.loom)).metaNames[i] ? i : 0;
+			j = Objects.equals(s.substring(s.indexOf('l', s.length())), ((ItemBarrels) (TFCItems.loom)).metaNames[i]) ? i : 0;
 		return new ItemStack(TFCItems.loom, 1, j);
 	}
 

@@ -29,6 +29,7 @@ import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockSapling extends BlockTerraContainer
 {
 	protected IIcon[] icons;
@@ -46,6 +47,7 @@ public class BlockSapling extends BlockTerraContainer
 		this.icons = new IIcon[woodNames.length];
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)

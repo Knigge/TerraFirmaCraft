@@ -6,6 +6,7 @@ import net.minecraft.util.IIcon;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockWoodSupport2 extends BlockWoodSupport
 {
 	public BlockWoodSupport2(Material material)

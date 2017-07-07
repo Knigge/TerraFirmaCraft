@@ -22,6 +22,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class WCrucible implements IWailaDataProvider
 {
 	private Map<String, MetalPair> metals = new HashMap<String, MetalPair>();
@@ -120,6 +121,7 @@ public class WCrucible implements IWailaDataProvider
 		reg.registerNBTProvider(new WCrucible(), TECrucible.class);
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean addMetal(Metal m, float amt)
 	{
 		if (getTotalMetal() + amt <= 3000 && !"Unknown".equals(m.name))

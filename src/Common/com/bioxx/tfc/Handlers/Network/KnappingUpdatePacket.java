@@ -42,7 +42,7 @@ public class KnappingUpdatePacket extends AbstractPacket
 		if(player.openContainer != null && player.openContainer instanceof ContainerSpecialCrafting)
 		{
 			((ContainerSpecialCrafting)player.openContainer).craftMatrix.setInventorySlotContents(index, PlayerManagerTFC.getInstance().getPlayerInfoFromPlayer(player).specialCraftingTypeAlternate);
-			((ContainerSpecialCrafting)player.openContainer).onCraftMatrixChanged(((ContainerSpecialCrafting)player.openContainer).craftMatrix);
+			player.openContainer.onCraftMatrixChanged(((ContainerSpecialCrafting)player.openContainer).craftMatrix);
 		}
 	}
 

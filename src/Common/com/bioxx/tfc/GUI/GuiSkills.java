@@ -16,6 +16,7 @@ import com.bioxx.tfc.Core.Player.SkillStats;
 import com.bioxx.tfc.api.SkillsManager;
 import com.bioxx.tfc.api.SkillsManager.Skill;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiSkills extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_skills.png");
@@ -102,17 +103,12 @@ public class GuiSkills extends GuiContainerTFC
 	public void updateScreen()
 	{
 		super.updateScreen();
-		if (skillsPage == 0)
-			((GuiButton) buttonList.get(4)).enabled = false;
-		else
-			((GuiButton) buttonList.get(4)).enabled = true;
-
-		if (9 + (skillsPage * SKILLS_PER_PAGE) < SkillsManager.instance.getSkillsArray().size())
-			((GuiButton) buttonList.get(5)).enabled = true;
-		else
-			((GuiButton) buttonList.get(5)).enabled = false;
+		((GuiButton) buttonList.get(4)).enabled = skillsPage != 0;
+		((GuiButton) buttonList.get(5)).enabled =
+				(9 + (skillsPage * SKILLS_PER_PAGE)) < SkillsManager.instance.getSkillsArray().size();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void createButtons()
 	{
 		this.guiLeft = (this.width - this.xSize) / 2;
@@ -126,6 +122,7 @@ public class GuiSkills extends GuiContainerTFC
 		buttonList.add(new GuiButtonPage(5, guiLeft + 142, guiTop + 144, 30, 15, 0, 192));
 	}
 
+	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 	public class GuiButtonPage extends GuiButton
 	{
 		private int u, v;

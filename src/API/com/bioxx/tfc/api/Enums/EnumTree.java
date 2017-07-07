@@ -53,7 +53,7 @@ public enum EnumTree
 		OAK,ASPEN,BIRCH,CHESTNUT,DOUGLASFIR,HICKORY,KOA,ASH,MAPLE,PINE,REDWOOD,SPRUCE,
 		SYCAMORE,UTACACIA,WHITECEDAR,WHITEELM,WILLOW,KAPOK};
 
-	private EnumTree(String s, float i, float j, float mintemp, float maxtemp, float minevt, float maxevt, boolean e)
+	EnumTree(String s, float i, float j, float mintemp, float maxtemp, float minevt, float maxevt, boolean e)
 	{
 		minRain = i;
 		maxRain = j;

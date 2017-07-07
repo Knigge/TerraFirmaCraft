@@ -11,6 +11,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityWolfTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderWolfTFC extends RenderWolf
 {
 	public RenderWolfTFC(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)

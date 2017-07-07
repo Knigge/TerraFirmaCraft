@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.Blocks.Flora.BlockFlower;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenFlowers
 {
 	public static void generate(World world, Random random, int chunkX, int chunkZ, int flowersPerChunk)
@@ -28,12 +29,11 @@ public class WorldGenFlowers
 		{
 			int xx = xCoord-4 + random.nextInt(8);
 			int zz = zCoord-4 + random.nextInt(8);
-			int yy = yCoord;
 
-			if (world.isAirBlock(xx, yy, zz) && plantBlock.canBlockStay(world, xx, yy, zz))
+			if (world.isAirBlock(xx, yCoord, zz) && plantBlock.canBlockStay(world, xx, yCoord, zz))
 			{
-				if(plantBlock.canGrowConditions(world, xx, yy, zz, flowerType))
-					world.setBlock(xx, yy, zz, plantBlock, flowerType, 0x2);
+				if(plantBlock.canGrowConditions(world, xx, yCoord, zz, flowerType))
+					world.setBlock(xx, yCoord, zz, plantBlock, flowerType, 0x2);
 			}
 		}
 	}

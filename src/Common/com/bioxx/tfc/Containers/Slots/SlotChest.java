@@ -15,6 +15,7 @@ import com.bioxx.tfc.Items.Tools.ItemWeapon;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class SlotChest extends Slot
 {
 	private EnumSize size = EnumSize.LARGE;

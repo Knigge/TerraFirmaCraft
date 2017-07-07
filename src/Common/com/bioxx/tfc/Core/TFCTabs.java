@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings("WeakerAccess")
 public class TFCTabs extends CreativeTabs
 {
 	public static final CreativeTabs TFC_BUILDING = new TFCTabs("TFCBuilding");

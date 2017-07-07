@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemGoldPan extends ItemTerra
 {
 	public static String[] metaNames = {"", "Sand", "Gravel", "Clay", "Dirt"};
@@ -47,6 +48,7 @@ public class ItemGoldPan extends ItemTerra
 		return EnumSize.SMALL;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

@@ -13,13 +13,15 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.TileEntities.TEFenceGate;
 import com.bioxx.tfc.api.Interfaces.IMultipleBlock;
 
-public class RenderFenceGate  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings({"WeakerAccess", "UnusedAssignment"})
+public class RenderFenceGate  implements ISimpleBlockRenderingHandler
 {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;
 	private static float pixel12 = 12f / 16f;
 	private static float pixel14 = 14f / 16f;*/
 
+	@SuppressWarnings("UnusedAssignment")
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int par2, int par3, int par4, Block block, int modelId, RenderBlocks renderer)
 	{
@@ -236,6 +238,7 @@ public class RenderFenceGate  implements ISimpleBlockRenderingHandler
 
 		renderer.uvRotateTop = 0;
 		renderer.setRenderBounds(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
+		//noinspection ConstantConditions
 		return flag;
 	}
 

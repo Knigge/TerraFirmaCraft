@@ -6,9 +6,9 @@ public interface IEquipable
 {
 	EquipType getEquipType(ItemStack is);
 
-	static enum EquipType
+	enum EquipType
 	{
-		BACK, NULL;
+		BACK, NULL
 	}
 
 	void onEquippedRender();

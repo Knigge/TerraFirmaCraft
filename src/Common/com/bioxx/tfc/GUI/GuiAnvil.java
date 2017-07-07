@@ -2,6 +2,7 @@ package com.bioxx.tfc.GUI;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
@@ -27,6 +28,7 @@ import com.bioxx.tfc.api.Crafting.AnvilManager;
 import com.bioxx.tfc.api.Crafting.PlanRecipe;
 import com.bioxx.tfc.api.Enums.RuleEnum;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class GuiAnvil extends GuiContainerTFC
 {
 	public TEAnvil anvilTE;
@@ -47,6 +49,7 @@ public class GuiAnvil extends GuiContainerTFC
 		this.z = z;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -78,7 +81,7 @@ public class GuiAnvil extends GuiContainerTFC
 			ItemStack stack1 = this.anvilTE.anvilItemStacks[TEAnvil.INPUT1_SLOT];
 			ItemStack stack2 = this.anvilTE.anvilItemStacks[TEAnvil.INPUT2_SLOT];
 
-			if (craftingPlan != null && craftingPlan != plan || 
+			if (craftingPlan != null && !Objects.equals(craftingPlan, plan) ||
 					stack1 != null && stack1 != input || 
 					stack2 != null && stack2 != input2) // Fixes NPE
 			{
@@ -282,10 +285,10 @@ public class GuiAnvil extends GuiContainerTFC
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(drawX + 0, drawY + drawHeight, this.zLevel, (u + 0) * f, (v + height) * f1);
+		tessellator.addVertexWithUV(drawX, drawY + drawHeight, this.zLevel, (u) * f, (v + height) * f1);
 		tessellator.addVertexWithUV(drawX + drawWidth, drawY + drawHeight, this.zLevel, (u + width) * f, (v + height) * f1);
-		tessellator.addVertexWithUV(drawX + drawWidth, drawY + 0, this.zLevel, (u + width) * f, (v + 0) * f1);
-		tessellator.addVertexWithUV(drawX + 0, drawY + 0, this.zLevel, (u + 0) * f, (v + 0) * f1);
+		tessellator.addVertexWithUV(drawX + drawWidth, drawY, this.zLevel, (u + width) * f, (v) * f1);
+		tessellator.addVertexWithUV(drawX, drawY, this.zLevel, (u) * f, (v) * f1);
 		tessellator.draw();
 	}
 
@@ -294,10 +297,10 @@ public class GuiAnvil extends GuiContainerTFC
 	{
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0, y + height, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
+		tessellator.addVertexWithUV(x, y + height, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());
 		tessellator.addVertexWithUV(x + width, y + height, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());
-		tessellator.addVertexWithUV(x + width, y + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
-		tessellator.addVertexWithUV(x + 0, y + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV());
+		tessellator.addVertexWithUV(x + width, y, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());
+		tessellator.addVertexWithUV(x, y, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV());
 		tessellator.draw();
 	}
 }

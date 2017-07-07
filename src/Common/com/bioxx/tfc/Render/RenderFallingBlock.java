@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Entities.EntityFallingBlockTFC;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderFallingBlock extends Render
 {
 	private final RenderBlocks field_147920_a = new RenderBlocks();
@@ -53,6 +54,7 @@ public class RenderFallingBlock extends Render
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
+	@SuppressWarnings("SameReturnValue")
 	protected ResourceLocation getEntityTexture(EntityFallingBlockTFC entity)
 	{
 		return TextureMap.locationBlocksTexture;

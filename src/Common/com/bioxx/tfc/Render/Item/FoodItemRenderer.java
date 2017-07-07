@@ -13,6 +13,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class FoodItemRenderer implements IItemRenderer
 {
 
@@ -96,6 +97,7 @@ public class FoodItemRenderer implements IItemRenderer
 						renderQuad(1, 14, 13, 1, 0);
 						float weightTop = weightPerc * 13.0F;
 
+						//noinspection SuspiciousNameCombination
 						renderQuad(1, 14, weightTop, 1, 0xffffff);
 					}
 				}
@@ -115,10 +117,10 @@ public class FoodItemRenderer implements IItemRenderer
 	{
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(x + 0, y + sizeY, 0, icon.getMinU(), icon.getMaxV());
+		tessellator.addVertexWithUV(x, y + sizeY, 0, icon.getMinU(), icon.getMaxV());
 		tessellator.addVertexWithUV(x + sizeX, y + sizeY, 0, icon.getMaxU(), icon.getMaxV());
-		tessellator.addVertexWithUV(x + sizeX, y + 0, 0, icon.getMaxU(), icon.getMinV());
-		tessellator.addVertexWithUV(x + 0, y + 0, 0, icon.getMinU(), icon.getMinV());
+		tessellator.addVertexWithUV(x + sizeX, y, 0, icon.getMaxU(), icon.getMinV());
+		tessellator.addVertexWithUV(x, y, 0, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
 	}
 

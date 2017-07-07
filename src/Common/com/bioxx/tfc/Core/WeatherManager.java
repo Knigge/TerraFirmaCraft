@@ -3,15 +3,15 @@ package com.bioxx.tfc.Core;
 
 import java.util.Random;
 
-import cpw.mods.fml.common.Loader;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class WeatherManager
 {
 	protected static final WeatherManager INSTANCE = new WeatherManager();
 	private Random rand = new Random();
 	private Random clientRand = new Random();
-	public static final WeatherManager getInstance()
+	public static WeatherManager getInstance()
 	{
 		return INSTANCE;
 	}
@@ -86,19 +86,18 @@ public class WeatherManager
 		clientRand.setSeed(TFC_Time.getTotalDays()+hour);
 		return clientRand.nextFloat();
 	}
-	public static boolean isRainingOnCoord(World worldObj, int xCoord, int yCoord, int zCoord)
-	{
+	public static boolean isRainingOnCoord(World worldObj, int xCoord, int yCoord, int zCoord) {
 
-		if (worldObj.getBlock(xCoord, yCoord, zCoord) != null && worldObj.canBlockSeeTheSky(xCoord, yCoord, zCoord))
-		{
+		/*
 			if (Loader.isModLoaded("weather2") && !worldObj.isRemote)
 			{
 				com.bioxx.tfc.ModSupport.Weather2 weather2 = new com.bioxx.tfc.ModSupport.Weather2();
 				return weather2.isRainingOnCoord(worldObj, xCoord, yCoord, zCoord);
 			}
-			return TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord);
-		}
-		return false;
-		
+			*/
+		return worldObj.getBlock(xCoord, yCoord, zCoord) != null
+				&& worldObj.canBlockSeeTheSky(xCoord, yCoord, zCoord)
+				&& TFC_Core.isExposedToRain(worldObj, xCoord, yCoord, zCoord);
+
 	}
 }

@@ -17,6 +17,7 @@ import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Interfaces.IItemFoodBlock;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class SlotSizeSmallVessel extends Slot
 {
 	private EnumSize size = EnumSize.SMALL;

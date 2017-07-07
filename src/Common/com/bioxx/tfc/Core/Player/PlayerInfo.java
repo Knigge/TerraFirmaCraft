@@ -12,6 +12,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Tools.ChiselManager;
 
+@SuppressWarnings("CanBeFinal")
 public class PlayerInfo
 {
 	public String playerName;
@@ -71,6 +72,7 @@ public class PlayerInfo
 			}
 			
 			hoeMode = hoeMode == 3 ? 0 : ++hoeMode;
+			//noinspection ConstantConditions
 			if (hoeMode == MODE_NUTRIENT && (!isMetalHoe || isMetalHoe && agRank != SkillRank.Expert && agRank != SkillRank.Master))
 				hoeMode++;
 

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.Core.Player.FoodStatsTFC;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiHealth extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_health.png");
@@ -71,6 +72,7 @@ public class GuiHealth extends GuiContainerTFC
 		drawTexturedModalRect(guiLeft + 55, guiTop + 54, 0, 106, (int) (food.nutrDairy * 24), 6);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{

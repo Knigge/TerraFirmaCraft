@@ -141,6 +141,7 @@ public class ItemCustomHoe extends ItemHoe implements ISize
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{
@@ -148,6 +149,7 @@ public class ItemCustomHoe extends ItemHoe implements ISize
 		ItemTerraTool.addSmithingBonusInformation(is, arraylist);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

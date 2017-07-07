@@ -7,10 +7,11 @@ import net.minecraft.item.Item;
 
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 
-public class FoodRegistry 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
+public class FoodRegistry
 {
 	private static final FoodRegistry INSTANCE = new FoodRegistry();
-	public static final FoodRegistry getInstance()
+	public static FoodRegistry getInstance()
 	{
 		return INSTANCE;
 	}

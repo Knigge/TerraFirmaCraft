@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class MapGenRavineTFC extends MapGenBaseTFC
 {
 	private float[] multipliers = new float[1024];

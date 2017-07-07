@@ -10,7 +10,8 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCItems;
 
-public class GuiAnvilPlanButton extends GuiButton 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
+public class GuiAnvilPlanButton extends GuiButton
 {
 	private GuiAnvil screen;
 	protected static final RenderItem ITEM_RENDERER = new RenderItem();

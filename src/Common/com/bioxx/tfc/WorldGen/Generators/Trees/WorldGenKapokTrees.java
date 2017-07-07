@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class WorldGenKapokTrees extends WorldGenerator
 {
 	/**
@@ -153,9 +154,9 @@ public class WorldGenKapokTrees extends WorldGenerator
 
 	private void generateBranchPoints()
 	{
-		double branchSlope = 0;			//starts out horizontal and becomes more vertical. should be 0.2-1.5, trying out constant 0.5
+		double branchSlope;			//starts out horizontal and becomes more vertical. should be 0.2-1.5, trying out constant 0.5
 		int branchRange = height/3;			
-		int branchLength = 0;			//length of the branch in XZ
+		int branchLength;			//length of the branch in XZ
 		double x,z,y;
 		for(int j1 = basePos[1]+height-branchRange; j1 < basePos[1]+height;j1++)
 		{			
@@ -271,8 +272,8 @@ public class WorldGenKapokTrees extends WorldGenerator
 		System.arraycopy(var2, 0, this.leafNodes, 0, var4);
 	}
 
-	/**
-	 * Generates the leaf portion of the tree as specified by the leafNodes list.
+	/*
+	  Generates the leaf portion of the tree as specified by the leafNodes list.
 	 */
 	/*void generateLeaves()
 	{
@@ -330,7 +331,7 @@ public class WorldGenKapokTrees extends WorldGenerator
 		int[] var10 = new int[] {par1, par2, par3};
 		int[] var11 = new int[] {0, 0, 0};
 		int var12 = -var7;
-		int var13 = -var7;
+		int var13;
 
 		for (var11[par5] = var10[par5]; var12 <= var7; ++var12)
 		{

@@ -11,6 +11,7 @@ import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.DataLayer;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class WorldGenCustomSand extends WorldGenerator
 {
 	/** Stores Block for WorldGenSand */

@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Blocks.Devices.BlockAnvil;
 import com.bioxx.tfc.TileEntities.TEAnvil;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRAnvil extends TESRBase
 {
 	public TESRAnvil()

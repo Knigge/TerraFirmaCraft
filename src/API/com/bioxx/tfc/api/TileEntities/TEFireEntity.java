@@ -8,6 +8,7 @@ import com.bioxx.tfc.api.HeatIndex;
 import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEFireEntity extends NetworkTileEntity
 {
 	public int airFromBellows;
@@ -135,29 +136,5 @@ public class TEFireEntity extends NetworkTileEntity
 		fuelBurnTemp = nbt.getInteger("fuelTemp");
 		airFromBellows = nbt.getInteger("airBellows");
 		fuelTasteProfile = nbt.getInteger("fuelTasteProfile");
-	}
-
-	@Override
-	public void handleInitPacket(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void createInitNBT(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
 	}
 }

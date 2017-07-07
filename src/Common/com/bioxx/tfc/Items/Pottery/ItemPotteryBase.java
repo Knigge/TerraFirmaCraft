@@ -26,6 +26,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class ItemPotteryBase extends ItemTerra implements ISize
 {
 	public IIcon clayIcon;
@@ -49,6 +50,7 @@ public class ItemPotteryBase extends ItemTerra implements ISize
 		this.ceramicIcon = registerer.registerIcon(Reference.MOD_ID + ":" + textureFolder + metaNames[1]);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

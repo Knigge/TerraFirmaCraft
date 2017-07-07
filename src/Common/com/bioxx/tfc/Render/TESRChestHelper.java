@@ -9,6 +9,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.TileEntities.TEChest;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class TESRChestHelper
 {

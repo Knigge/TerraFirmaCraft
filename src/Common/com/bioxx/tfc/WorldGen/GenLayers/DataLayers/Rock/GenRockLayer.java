@@ -11,6 +11,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.*;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenRockLayer extends GenLayerTFC
 {
 

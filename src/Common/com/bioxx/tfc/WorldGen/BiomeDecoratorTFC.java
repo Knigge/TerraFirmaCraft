@@ -14,6 +14,7 @@ import com.bioxx.tfc.Food.CropManager;
 import com.bioxx.tfc.WorldGen.Generators.*;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BiomeDecoratorTFC extends BiomeDecorator
 {
 	/** The amount of tall grass to generate per chunk. */
@@ -84,7 +85,7 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 			int num = 2 + randomGenerator.nextInt(8);
 			xCoord = this.chunk_X + this.randomGenerator.nextInt(16) + 8;
 			zCoord = this.chunk_Z + this.randomGenerator.nextInt(16) + 8;
-			yCoord = this.currentWorld.getHeightValue(xCoord, zCoord) + 1;
+			//yCoord = this.currentWorld.getHeightValue(xCoord, zCoord) + 1;
 			for (int count = 0; count < num; ++count)
 			{
 				cropGen.generate(currentWorld, randomGenerator, xCoord, zCoord, 1);
@@ -140,7 +141,7 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 		}
 	}
 
-	public boolean generateLilyPads(World world, Random random, int x, int y, int z)
+	public void generateLilyPads(World world, Random random, int x, int y, int z)
 	{
 		for (int l = 0; l < 10; ++l)
 		{
@@ -154,8 +155,6 @@ public class BiomeDecoratorTFC extends BiomeDecorator
 				world.setBlock(i1, j1, k1, TFCBlocks.lilyPad, 0, 2);
 			}
 		}
-
-		return true;
 	}
 
 	/**

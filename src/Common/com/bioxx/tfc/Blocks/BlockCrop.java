@@ -32,6 +32,7 @@ import com.bioxx.tfc.TileEntities.TECrop;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockCrop extends BlockContainer
 {
 	private IIcon[] iconsCarrots = new IIcon[5];
@@ -294,6 +295,7 @@ public class BlockCrop extends BlockContainer
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

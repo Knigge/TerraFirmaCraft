@@ -7,6 +7,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiCoalPile extends GuiContainerTFC {
     public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_coalpile.png");
 

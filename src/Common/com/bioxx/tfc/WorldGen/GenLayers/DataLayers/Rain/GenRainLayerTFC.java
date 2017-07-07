@@ -13,6 +13,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.*;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenRainLayerTFC extends GenLayerTFC
 {
 	public static final int WET = DataLayer.RAIN_4000.layerID;

@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import net.minecraftforge.oredict.OreDictionary;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class LoomRecipe
 {
 	public ItemStack inItemStack;
@@ -67,7 +68,6 @@ public class LoomRecipe
 		if(outItemStack != null)
 		{
 			is = outItemStack.copy();
-			return is;
 		}
 		return is;
 	}

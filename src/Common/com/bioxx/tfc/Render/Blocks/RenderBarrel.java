@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.TileEntities.TEBarrel;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderBarrel implements ISimpleBlockRenderingHandler
 {
 	private static final float MIN = 0.1F;

@@ -75,9 +75,10 @@ public class ItemTorch extends ItemTerraBlock
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-	{
-		int xCoord = x; int yCoord = y; int zCoord = z;
+	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		int xCoord = x;
+		int yCoord = y;
+		int zCoord = z;
 		if (side == 0) --yCoord;
 		if (side == 1) ++yCoord;
 		if (side == 2) --zCoord;
@@ -85,9 +86,9 @@ public class ItemTorch extends ItemTerraBlock
 		if (side == 4) --xCoord;
 		if (side == 5) ++xCoord;
 		Block block = world.getBlock(xCoord, yCoord, zCoord);
-		if (block != TFCBlocks.torch && block != TFCBlocks.torchOff)
-			return super.onItemUse(is, player, world, x, y, z, side, hitX, hitY, hitZ);
+		return block != TFCBlocks.torch
+				&& block != TFCBlocks.torchOff
+				&& super.onItemUse(is, player, world, x, y, z, side, hitX, hitY, hitZ);
 
-		return false;
 	}
 }

@@ -44,6 +44,7 @@ public class ColorizerGrassTFC
 		return grassBuffer[var5 << 8 | var4];
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getGrassDead()
 	{
 		return 5198608;

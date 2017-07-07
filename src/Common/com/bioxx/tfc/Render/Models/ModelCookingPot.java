@@ -2,9 +2,11 @@ package com.bioxx.tfc.Render.Models;
 
 import net.minecraft.client.model.ModelBase;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ModelCookingPot extends ModelBase
 {
 	public ModelRendererTFC renderer;
+	@SuppressWarnings("unchecked")
 	public ModelCookingPot(){
 		renderer = new ModelRendererTFC(this,0,0);
 		float x = 8;

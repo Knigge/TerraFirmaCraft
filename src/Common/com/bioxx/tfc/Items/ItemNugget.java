@@ -11,6 +11,7 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemNugget extends ItemMetal
 {
     private short metalAmount;
@@ -24,6 +25,7 @@ public class ItemNugget extends ItemMetal
 
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list) {
         for (int i = 0; i < metaNames.length; i++)

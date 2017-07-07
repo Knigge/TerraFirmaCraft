@@ -9,6 +9,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import com.bioxx.tfc.TileEntities.TEToolRack;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderToolRack implements ISimpleBlockRenderingHandler
 {
 

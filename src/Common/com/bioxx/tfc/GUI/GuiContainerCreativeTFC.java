@@ -39,6 +39,7 @@ import org.lwjgl.opengl.GL12;
 
 import com.bioxx.tfc.Containers.ContainerCreativeTFC;
 
+@SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 {
@@ -83,8 +84,8 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 	}
 
 	@Override
-	/**
-	 * Called from the main game loop to update the screen.
+	/*
+	  Called from the main game loop to update the screen.
 	 */
 	public void updateScreen()
 	{
@@ -111,7 +112,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 				{
 					this.mc.thePlayer.entityDropItem(inventoryplayer.getItemStack(), 1.5F);
 					this.mc.playerController.sendPacketDropItem/*func_78752_a*/(inventoryplayer.getItemStack());
-					inventoryplayer.setItemStack((ItemStack)null);
+					inventoryplayer.setItemStack(null);
 				}
 
 				if (par3 == 1)
@@ -121,7 +122,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 					this.mc.playerController.sendPacketDropItem/*func_78752_a*/(itemstack);
 
 					if (inventoryplayer.getItemStack().stackSize == 0)
-						inventoryplayer.setItemStack((ItemStack)null);
+						inventoryplayer.setItemStack(null);
 				}
 			}
 		}
@@ -133,7 +134,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 			{
 				for (l = 0; l < this.mc.thePlayer.inventoryContainer.getInventory().size(); ++l)
 				{
-					this.mc.playerController.sendSlotPacket((ItemStack)null, l);
+					this.mc.playerController.sendSlotPacket(null, l);
 				}
 			}
 			else
@@ -144,7 +145,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 				{
 					if (par1Slot == this.zeroSlot)
 					{
-						this.mc.thePlayer.inventory.setItemStack((ItemStack)null);
+						this.mc.thePlayer.inventory.setItemStack(null);
 					}
 					else if (par4 == 4 && par1Slot != null && par1Slot.getHasStack())
 					{
@@ -156,7 +157,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 					{
 						this.mc.thePlayer.entityDropItem(this.mc.thePlayer.inventory.getItemStack(), 1.5F);
 						this.mc.playerController.sendPacketDropItem/*func_78752_a*/(this.mc.thePlayer.inventory.getItemStack());
-						this.mc.thePlayer.inventory.setItemStack((ItemStack)null);
+						this.mc.thePlayer.inventory.setItemStack(null);
 					}
 					else
 					{
@@ -220,7 +221,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 						}
 						else if (itemstack.stackSize <= 1)
 						{
-							inventoryplayer.setItemStack((ItemStack)null);
+							inventoryplayer.setItemStack(null);
 						}
 						else
 						{
@@ -237,7 +238,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 					}
 					else
 					{
-						inventoryplayer.setItemStack((ItemStack)null);
+						inventoryplayer.setItemStack(null);
 					}
 				}
 				else
@@ -352,19 +353,15 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 			return;
 		}
 
-		Iterator iItems = Item.itemRegistry.iterator();
-		while(iItems.hasNext())
-		{
-			Item item = (Item)iItems.next();
+		for (Object anItemRegistry : Item.itemRegistry) {
+			Item item = (Item) anItemRegistry;
 			if (item != null && item.getCreativeTab() != null)
-				item.getSubItems(item, (CreativeTabs)null, containercreative.itemList);
+				item.getSubItems(item, null, containercreative.itemList);
 		}
 
 		Enchantment[] aenchantment = Enchantment.enchantmentsList;
 		int i = aenchantment.length;
-		for (int j = 0; j < i; ++j)
-		{
-			Enchantment enchantment = aenchantment[j];
+		for (Enchantment enchantment : aenchantment) {
 			if (enchantment != null && enchantment.type != null)
 				Items.enchanted_book.func_92113_a(enchantment, containercreative.itemList);
 		}
@@ -428,9 +425,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 			CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
 			int j1 = acreativetabs.length;
 
-			for (int k1 = 0; k1 < j1; ++k1)
-			{
-				CreativeTabs creativetabs = acreativetabs[k1];
+			for (CreativeTabs creativetabs : acreativetabs) {
 				if (this.switchTab(creativetabs, l, i1))
 					return;
 			}
@@ -452,11 +447,8 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 			CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
 			int j1 = acreativetabs.length;
 
-			for (int k1 = 0; k1 < j1; ++k1)
-			{
-				CreativeTabs creativetabs = acreativetabs[k1];
-				if (creativetabs != null && switchTab(creativetabs, l, i1))
-				{
+			for (CreativeTabs creativetabs : acreativetabs) {
+				if (creativetabs != null && switchTab(creativetabs, l, i1)) {
 					this.setCurrentCreativeTab(creativetabs);
 					return;
 				}
@@ -469,10 +461,11 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 	/**
 	 * returns (if you are not on the inventoryTab) and (the flag isn't set) and( you have more than 1 page of items)
 	 */
-	private boolean needsScrollBars()
-	{
-		if (CreativeTabs.creativeTabArray[selectedTabIndex] == null) return false;
-		return selectedTabIndex != CreativeTabs.tabInventory.getTabIndex() && CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory() && ((ContainerCreativeTFC)this.inventorySlots).hasMoreThan1PageOfItemsInList();
+	private boolean needsScrollBars() {
+		return CreativeTabs.creativeTabArray[selectedTabIndex] != null
+				&& selectedTabIndex != CreativeTabs.tabInventory.getTabIndex()
+				&& CreativeTabs.creativeTabArray[selectedTabIndex].shouldHidePlayerInventory()
+				&& ((ContainerCreativeTFC) this.inventorySlots).hasMoreThan1PageOfItemsInList();
 	}
 
 	private void setCurrentCreativeTab(CreativeTabs par1CreativeTabs)
@@ -690,15 +683,12 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 
 				if (map.size() == 1)
 				{
-					Enchantment enchantment = Enchantment.enchantmentsList[((Integer)map.keySet().iterator().next()).intValue()];
+					Enchantment enchantment = Enchantment.enchantmentsList[(Integer) map.keySet().iterator().next()];
 					CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
 					int k = acreativetabs.length;
 
-					for (int l = 0; l < k; ++l)
-					{
-						CreativeTabs creativetabs1 = acreativetabs[l];
-						if (creativetabs1.func_111226_a(enchantment.type))
-						{
+					for (CreativeTabs creativetabs1 : acreativetabs) {
+						if (creativetabs1.func_111226_a(enchantment.type)) {
 							creativetabs = creativetabs1;
 							break;
 						}
@@ -712,7 +702,7 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 			for (int i1 = 0; i1 < list.size(); ++i1)
 			{
 				if (i1 == 0)
-					list.set(i1, par1ItemStack.getRarity().rarityColor + (String)list.get(i1));
+					list.set(0, par1ItemStack.getRarity().rarityColor + (String)list.get(0));
 				else
 					list.set(i1, EnumChatFormatting.GRAY + (String)list.get(i1));
 			}
@@ -735,14 +725,12 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
 		CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-		int k = acreativetabs.length;
-		int l;
 
 		int start = tabPage * 10;
-		k = Math.min(acreativetabs.length, ((tabPage + 1) * 10 + 2));
+		int k = Math.min(acreativetabs.length, ((tabPage + 1) * 10 + 2));
 		if (tabPage != 0) start += 2;
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		for (l = start; l < k; ++l)
+		for (int l = start; l < k; ++l)
 		{
 			CreativeTabs creativetabs1 = acreativetabs[l];
 			this.mc.getTextureManager().bindTexture(TEXTURE);

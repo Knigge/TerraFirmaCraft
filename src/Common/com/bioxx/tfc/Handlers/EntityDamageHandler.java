@@ -13,7 +13,6 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EntityDamageSourceIndirect;
 import net.minecraft.util.MathHelper;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -33,6 +32,7 @@ import com.bioxx.tfc.api.Events.EntityArmorCalcEvent;
 import com.bioxx.tfc.api.Interfaces.ICausesDamage;
 import com.bioxx.tfc.api.Interfaces.IInnateArmor;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityDamageHandler
 {
 	@SubscribeEvent
@@ -41,13 +41,13 @@ public class EntityDamageHandler
 		EntityLivingBase entity = event.entityLiving;
 		if(entity instanceof EntityPlayer)
 		{
-			float curMaxHealth = (float)((EntityPlayer)entity).getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
+			float curMaxHealth = (float) entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).getAttributeValue();
 			float newMaxHealth = FoodStatsTFC.getMaxHealth((EntityPlayer)entity);
-			float h = ((EntityPlayer)entity).getHealth();
+			float h = entity.getHealth();
 			if(newMaxHealth != curMaxHealth)
-				((EntityPlayer)entity).getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(newMaxHealth);
+				entity.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(newMaxHealth);
 			if(newMaxHealth < h)
-				((EntityPlayer)entity).setHealth(newMaxHealth);
+				entity.setHealth(newMaxHealth);
 		}
 
 		if(event.source == DamageSource.onFire)
@@ -93,7 +93,7 @@ public class EntityDamageHandler
 			event.ammount = applyArmorCalculations(entity, event.source, event.ammount);
 			if ("arrow".equals(event.source.damageType))
 			{
-				Entity e = ((EntityDamageSourceIndirect)event.source).getSourceOfDamage();
+				Entity e = event.source.getSourceOfDamage();
 				if(e instanceof EntityJavelin)
 				{
 					((EntityJavelin)e).setDamageTaken((short) (((EntityJavelin) e).damageTaken+10));
@@ -177,7 +177,7 @@ public class EntityDamageHandler
 			entity.setHealth(entity.getHealth()-eventPost.incomingDamage);
 			entity.func_110142_aN().func_94547_a(source, hasHealth, eventPost.incomingDamage);
 		}
-		return 0;
+		return Math.round(damage); //!TODO: check if this should be a damage, not 0
 	}
 
 	private float processDamageSource(DamageSource source, float damage,

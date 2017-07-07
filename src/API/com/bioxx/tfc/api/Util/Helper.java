@@ -13,6 +13,7 @@ import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class Helper {
 
 	public static MovingObjectPosition getMouseOverObject(EntityLivingBase player, World world )
@@ -99,7 +100,7 @@ public class Helper {
 
 	public static int getInteger(Object obj, String srgName, String obfName, String deobfName, boolean useDeobf)
 	{
-		Field f = null;
+		Field f;
 		try 
 		{
 			if(!useDeobf)
@@ -110,13 +111,7 @@ public class Helper {
 				f = obj.getClass().getDeclaredField(obfName);
 			f.setAccessible(true);
 			return (Integer) f.get(obj);
-		} catch (NoSuchFieldException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (SecurityException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalArgumentException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException | SecurityException | IllegalAccessException | IllegalArgumentException e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 		return 0; 		
@@ -124,7 +119,7 @@ public class Helper {
 
 	public static boolean getBoolean(Object obj, String srgName, String obfName, String deobfName, boolean useDeobf)
 	{
-		Field f = null;
+		Field f;
 		try 
 		{
 			if(!useDeobf)
@@ -135,13 +130,7 @@ public class Helper {
 				f = obj.getClass().getDeclaredField(obfName);
 			f.setAccessible(true);
 			return (Boolean) f.get(obj);
-		} catch (NoSuchFieldException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (SecurityException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalArgumentException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 		return false; 		
@@ -149,7 +138,7 @@ public class Helper {
 
 	public static Object getObject(Object obj, String srgName, String obfName, String deobfName, boolean useDeobf)
 	{
-		Field f = null;
+		Field f;
 		try 
 		{
 			if(!useDeobf)
@@ -160,13 +149,7 @@ public class Helper {
 				f = obj.getClass().getDeclaredField(obfName);
 			f.setAccessible(true);
 			return f.get(obj);
-		} catch (NoSuchFieldException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (SecurityException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalArgumentException e) {
-			TerraFirmaCraft.LOG.catching(e);
-		} catch (IllegalAccessException e) {
+		} catch (NoSuchFieldException | IllegalAccessException | IllegalArgumentException | SecurityException e) {
 			TerraFirmaCraft.LOG.catching(e);
 		}
 		return null; 		

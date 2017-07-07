@@ -72,6 +72,7 @@ public class BlockWorldItem extends BlockTerraContainer
 		return null;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{
@@ -79,11 +80,8 @@ public class BlockWorldItem extends BlockTerraContainer
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ)
-	{
-		if(!world.isRemote)
-			return world.setBlockToAir(x, y, z);
-		return false;
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityplayer, int side, float hitX, float hitY, float hitZ) {
+		return !world.isRemote && world.setBlockToAir(x, y, z);
 	}
 
 	@Override
@@ -95,15 +93,9 @@ public class BlockWorldItem extends BlockTerraContainer
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
-		if (world.isAirBlock(x, y - 1, z))
+		if (world.isAirBlock(x, y - 1, z) || !world.getBlock(x, y - 1, z).isSideSolid(world, x, y - 1, z, ForgeDirection.UP))
 		{
 			world.setBlockToAir(x, y, z);
-			return;
-		}
-		if (!world.getBlock(x, y - 1, z).isSideSolid(world, x, y - 1, z, ForgeDirection.UP))
-		{
-			world.setBlockToAir(x, y, z);
-			return;
 		}
 	}
 

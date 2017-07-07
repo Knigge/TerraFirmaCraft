@@ -27,7 +27,7 @@ public class WorldGenGrowCrops implements IWorldGenerator
 
 	public void generate(World world, Random rand, int x, int z, int numToGen)
 	{
-		int i = x, j = 150, k = z;
+		int i, j, k;
 		CropIndex crop;
 		TECrop te;
 
@@ -56,8 +56,7 @@ public class WorldGenGrowCrops implements IWorldGenerator
 								te.cropId = cropBlockId;
 								float gt = Math.max(crop.growthTime / TFC_Time.daysInMonth, 0.01f);
 								float mg = Math.min(month / gt, 1.0f) * (0.75f + (rand.nextFloat() * 0.25f));
-								float growth = Math.min(crop.numGrowthStages * mg, crop.numGrowthStages);
-								te.growth = growth;
+								te.growth = Math.min(crop.numGrowthStages * mg, crop.numGrowthStages);
 							}
 						}
 					}

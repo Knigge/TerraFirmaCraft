@@ -25,6 +25,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Interfaces.IMultipleBlock;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockStand2 extends BlockStand implements IMultipleBlock, IEquipable
 {
 	private String[] woodNames;
@@ -52,6 +53,7 @@ public class BlockStand2 extends BlockStand implements IMultipleBlock, IEquipabl
 			return this.blockIcon;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
@@ -100,15 +102,6 @@ public class BlockStand2 extends BlockStand implements IMultipleBlock, IEquipabl
 	public int getRenderType()
 	{
 		return TFCBlocks.standRenderId;
-	}
-
-	/**
-	 * Called whenever the block is added into the world. Args: world, x, y, z
-	 */
-	@Override
-	public void onBlockAdded(World par1World, int par2, int par3, int par4)
-	{
-		super.onBlockAdded(par1World, par2, par3, par4);
 	}
 
 

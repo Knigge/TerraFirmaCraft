@@ -8,6 +8,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerLogPile;
 import com.bioxx.tfc.TileEntities.TELogPile;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiLogPile extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_logpile.png");

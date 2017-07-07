@@ -20,6 +20,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Handlers.Network.AbstractPacket;
 import com.bioxx.tfc.Handlers.Network.ItemRenamePacket;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiCustomNametag extends GuiScreen
 {
 	private GuiTextField theGuiTextField;
@@ -65,6 +66,7 @@ public class GuiCustomNametag extends GuiScreen
 		Keyboard.enableRepeatEvents(false);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{

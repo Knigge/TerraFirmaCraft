@@ -12,6 +12,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemWoodDoor extends ItemTerra
 {
 	private int woodType;

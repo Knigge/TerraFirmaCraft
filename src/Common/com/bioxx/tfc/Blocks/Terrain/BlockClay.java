@@ -19,6 +19,7 @@ import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockClay extends BlockTerra
 {
 	protected IIcon[] dirtTexture;
@@ -31,21 +32,19 @@ public class BlockClay extends BlockTerra
 		textureOffset = texOff;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
 		// Change to false if this block should not be added to the creative tab
-		Boolean addToCreative = true;
+		//Boolean addToCreative = true;
 
-		if(addToCreative)
-		{
-			int count;
-			if(textureOffset == 0) count = 16;
-			else count = Global.STONE_ALL.length - 16;
-	
-			for(int i = 0; i < count; i++)
-				list.add(new ItemStack(item, 1, i));
-		}
+		int count;
+		if(textureOffset == 0) count = 16;
+		else count = Global.STONE_ALL.length - 16;
+
+		for(int i = 0; i < count; i++)
+			list.add(new ItemStack(item, 1, i));
 	}
 
 	@Override

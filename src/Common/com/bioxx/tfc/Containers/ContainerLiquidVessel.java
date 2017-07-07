@@ -20,7 +20,8 @@ import com.bioxx.tfc.api.Metal;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
-public class ContainerLiquidVessel extends ContainerTFC 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class ContainerLiquidVessel extends ContainerTFC
 {
 	private World world;
 	//private int posX;
@@ -103,6 +104,7 @@ public class ContainerLiquidVessel extends ContainerTFC
 			Metal m = MetalRegistry.instance.getMetalFromString(nbt.getString("MetalType"));
 			metalAmount = nbt.getInteger("MetalAmount");
 
+			//noinspection ConstantConditions
 			if (!world.isRemote && m != null && stack != null)
 			{
 				if (input != null && input.getItem() == TFCItems.ceramicMold && input.getItemDamage() == 1 && input.stackSize == 1 && metalAmount > 0)

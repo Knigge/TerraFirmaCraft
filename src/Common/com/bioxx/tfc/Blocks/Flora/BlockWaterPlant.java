@@ -29,17 +29,13 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockWaterPlant extends BlockSand implements ITileEntityProvider
 {
 	@SideOnly(Side.CLIENT)
 	private IIcon pondWeed;
 	private IIcon seaWeed;
 	private IIcon catTails;
-
-	private static String seaweed = Reference.MOD_ID + ":" + "plants/seaweed";
-	private static String pondweed = Reference.MOD_ID + ":" + "plants/pondweed";
-	private static String cattails = Reference.MOD_ID + ":" + "plants/Cat Tails";
-
 
 	public BlockWaterPlant(int texOff)
 	{
@@ -118,6 +114,7 @@ public class BlockWaterPlant extends BlockSand implements ITileEntityProvider
 		return ItemFoodTFC.createTag(new ItemStack(TFCItems.seaWeed, 1, 0), Helper.roundNumber(2 + r.nextFloat() * 5, 10));
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	protected boolean canThisPlantGrowUnderThisBlock(Block par1)
 	{
 		return true;//TFC_Core.isSaltWater(par1)|| TFC_Core.isFreshWater(par1);
@@ -161,8 +158,11 @@ public class BlockWaterPlant extends BlockSand implements ITileEntityProvider
 	@Override
 	public void registerBlockIcons(IIconRegister registerer)
 	{
+		String seaweed = Reference.MOD_ID + ":" + "plants/seaweed";
 		seaWeed = registerer.registerIcon(seaweed);//registerer.registerIcon(Reference.ModID + ":" + "plants/Sea Grass");
+		String pondweed = Reference.MOD_ID + ":" + "plants/pondweed";
 		pondWeed = registerer.registerIcon(pondweed);//registerer.registerIcon(Reference.ModID + ":" + "plants/Pond Grass");
+		String cattails = Reference.MOD_ID + ":" + "plants/Cat Tails";
 		catTails = registerer.registerIcon(cattails);
 	}
 

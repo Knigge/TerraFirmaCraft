@@ -15,6 +15,7 @@ import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiCalendar extends GuiScreen
 {
 	private World world;
@@ -51,6 +52,7 @@ public class GuiCalendar extends GuiScreen
 		super.onGuiClosed();
 	}*/
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -133,9 +135,8 @@ public class GuiCalendar extends GuiScreen
 		//int rain = (int) TFC_Climate.getRainfall((int) player.posX,(int) player.posY, (int) player.posZ);
 		//drawCenteredString(fontRenderer,"Rain : " + rain, l + 87, i1+86, 0x000000);
 
-		for (int var6 = 0; var6 < this.buttonList.size(); ++var6)
-		{
-			GuiButton var7 = (GuiButton)this.buttonList.get(var6);
+		for (Object aButtonList : this.buttonList) {
+			GuiButton var7 = (GuiButton) aButtonList;
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			var7.drawButton(this.mc, par1, par2);
 		}

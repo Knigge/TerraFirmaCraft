@@ -5,6 +5,7 @@ import net.minecraft.util.IIcon;
 
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockIgInCobble extends BlockCobble
 {
 	public BlockIgInCobble(Material material)

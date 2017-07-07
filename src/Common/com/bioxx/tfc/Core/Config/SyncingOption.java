@@ -19,6 +19,7 @@ import static com.bioxx.tfc.Core.Config.TFC_ConfigFiles.SYNCING_OPTION_MAP;
  * Also keeps the static values from the class passed in the constructor in sync with the actual status of things.
  * @author Dries007
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class SyncingOption
 {
 	public final String name;

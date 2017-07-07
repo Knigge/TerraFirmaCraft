@@ -8,6 +8,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerForge;
 import com.bioxx.tfc.TileEntities.TEForge;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiForge extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_forge.png");

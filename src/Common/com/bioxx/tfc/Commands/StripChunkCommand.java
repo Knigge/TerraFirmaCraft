@@ -1,7 +1,5 @@
 package com.bioxx.tfc.Commands;
 
-import java.util.Iterator;
-
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -13,7 +11,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 
 import com.bioxx.tfc.Core.TFC_Core;
-import com.bioxx.tfc.WorldGen.Generators.OreSpawnData;
 import com.bioxx.tfc.WorldGen.Generators.WorldGenOre;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
@@ -59,12 +56,8 @@ public class StripChunkCommand extends CommandBase
 							else
 							{
 								Boolean isOre = false;
-								Iterator iter = WorldGenOre.oreList.values().iterator();
-								while (iter.hasNext())
-								{
-									OreSpawnData osd = (OreSpawnData) iter.next();
-									if (osd != null && id == osd.block)
-									{
+								for (Object osd : WorldGenOre.oreList.values()) {
+									if (osd != null && id == osd.block) {
 										isOre = true;
 										break;
 									}
@@ -107,12 +100,8 @@ public class StripChunkCommand extends CommandBase
 									else
 									{
 										Boolean isOre = false;
-										Iterator iter = WorldGenOre.oreList.values().iterator();
-										while (iter.hasNext())
-										{
-											OreSpawnData osd = (OreSpawnData) iter.next();
-											if (osd != null && id == osd.block)
-											{
+										for (Object osd : WorldGenOre.oreList.values()) {
+											if (osd != null && id == osd.block) {
 												isOre = true;
 												break;
 											}

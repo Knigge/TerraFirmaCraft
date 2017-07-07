@@ -5,10 +5,11 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class KilnCraftingManager
 {
 	private static final KilnCraftingManager INSTANCE = new KilnCraftingManager();
-	public static final KilnCraftingManager getInstance()
+	public static KilnCraftingManager getInstance()
 	{
 		return INSTANCE;
 	}
@@ -27,11 +28,8 @@ public class KilnCraftingManager
 
 	public KilnRecipe findMatchingRecipe(KilnRecipe recipe)
 	{
-		for (int k = 0; k < recipes.size(); k++)
-		{
-			KilnRecipe irecipe = recipes.get(k);
-			if (irecipe.matches(recipe))
-			{
+		for (KilnRecipe irecipe : recipes) {
+			if (irecipe.matches(recipe)) {
 				return irecipe;
 			}
 		}
@@ -41,13 +39,10 @@ public class KilnCraftingManager
 
 	public ItemStack findCompleteRecipe(KilnRecipe recipe)
 	{
-		for (int k = 0; k < recipes.size(); k++)
-		{
-			KilnRecipe irecipe = recipes.get(k);
-			if (irecipe.isComplete(recipe))
-			{
+		for (KilnRecipe irecipe : recipes) {
+			if (irecipe.isComplete(recipe)) {
 				ItemStack out = irecipe.getCraftingResult();
-				if(irecipe.getInheritsTag())
+				if (irecipe.getInheritsTag())
 					out.setTagCompound(recipe.input1.getTagCompound());
 				return out;
 			}

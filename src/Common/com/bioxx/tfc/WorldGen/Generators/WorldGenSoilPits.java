@@ -14,6 +14,7 @@ import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class WorldGenSoilPits implements IWorldGenerator
 {
 	private static WorldGenBerryBush cranberryGen = new WorldGenBerryBush(false, 6, 15, 1, 6, TFCBlocks.peatGrass);
@@ -86,6 +87,7 @@ public class WorldGenSoilPits implements IWorldGenerator
 		return flag;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean generateClay(World world, Random rand, int i, int j, int k)
 	{
 		int radius = rand.nextInt(14) + 2;

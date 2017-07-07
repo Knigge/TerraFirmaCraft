@@ -23,14 +23,13 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FoodStatsTFC
 {
 	private boolean updateStats = !TFCOptions.enableDebugMode; // Replace with true to allow stat depleting with debug mode enabled
 
 	/** The player's food level. This measures how much food the player can handle.*/
 	public float stomachLevel = 24;
-	private float stomachMax = 24.0f;
-	private float prevFoodLevel = 24;
 
 	private ResourceLocation drunkBlur = new ResourceLocation("shaders/post/blur.json");
 	private ResourceLocation wastedBlur = new ResourceLocation("shaders/post/blur.json");//new ResourceLocation("shaders/post/blurPhosphor.json");
@@ -181,14 +180,15 @@ public class FoodStatsTFC
 			{
 				for(;waterTimer < TFC_Time.getTotalTicks();  waterTimer++)
 				{
-					/**Reduce the player's water for normal living*/
+					/*Reduce the player's water for normal living*/
 					waterLevel -= 1+(tempWaterMod/2);
 					if(waterLevel < 0)
 						waterLevel = 0;
 					if(!TFC_Core.isPlayerInDebugMode(player) && waterLevel == 0 && temp > 35)
 					{
-						boolean heatstroke = true;
+						boolean heatstroke = true; // ??!
 
+						//noinspection ConstantConditions
 						if (heatstroke && player.worldObj.canBlockSeeTheSky(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ)))
 							{
 								        player.addPotionEffect(new PotionEffect(TFCPotion.heatstroke.id, 20, 0, false));
@@ -238,9 +238,10 @@ public class FoodStatsTFC
 		return TFC_Time.DAY_LENGTH * 2 + 200 * player.experienceLevel;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public float getMaxStomach(EntityPlayer player)
 	{
-		return this.stomachMax;
+		return 24.0f;
 	}
 
 	/**
@@ -254,7 +255,7 @@ public class FoodStatsTFC
 	@SideOnly(Side.CLIENT)
 	public float getPrevFoodLevel()
 	{
-		return this.prevFoodLevel ;
+		return (float) 24;
 	}
 
 	/**
@@ -354,20 +355,27 @@ public class FoodStatsTFC
 	public void setSatisfaction(float par1, int[] fg)
 	{
 		this.satisfaction = Math.min(par1, 10);
-		for(int i = 0; i < fg.length; i++)
-		{
-			if(fg[i] != -1)
-			{
-				EnumFoodGroup efg = FoodRegistry.getInstance().getFoodGroup(fg[i]);
-				switch(efg)
-				{
-				case Protein:satProtein = true;break;
-				case Grain:satGrain = true;break;
-				case Fruit:satFruit = true;break;
-				case Vegetable:satVeg = true;break;
-				case Dairy:satDairy = true;break;
-				default:
-					break;
+		for (int aFg : fg) {
+			if (aFg != -1) {
+				EnumFoodGroup efg = FoodRegistry.getInstance().getFoodGroup(aFg);
+				switch (efg) {
+					case Protein:
+						satProtein = true;
+						break;
+					case Grain:
+						satGrain = true;
+						break;
+					case Fruit:
+						satFruit = true;
+						break;
+					case Vegetable:
+						satVeg = true;
+						break;
+					case Dairy:
+						satDairy = true;
+						break;
+					default:
+						break;
 				}
 			}
 		}

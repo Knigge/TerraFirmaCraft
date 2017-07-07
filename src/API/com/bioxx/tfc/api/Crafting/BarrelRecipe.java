@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BarrelRecipe
 {
 	public ItemStack recipeIS;
@@ -61,8 +62,8 @@ public class BarrelRecipe
 
 	public Boolean matches(ItemStack item, FluidStack fluid)
 	{
-		boolean iStack = removesLiquid ? true : recipeIS != null && item != null && fluid != null && recipeFluid != null && item.stackSize >= (int)Math.ceil(fluid.amount/recipeFluid.amount);
-		boolean fStack = !removesLiquid ? true : recipeFluid != null && item != null && fluid != null && recipeOutFluid != null && fluid.amount >= item.stackSize*recipeOutFluid.amount;
+		boolean iStack = removesLiquid || recipeIS != null && item != null && fluid != null && recipeFluid != null && item.stackSize >= (int) Math.ceil(fluid.amount / recipeFluid.amount);
+		boolean fStack = !removesLiquid || recipeFluid != null && item != null && fluid != null && recipeOutFluid != null && fluid.amount >= item.stackSize * recipeOutFluid.amount;
 
 		boolean anyStack = !removesLiquid && !sealedRecipe && this.recipeOutIS == null && allowAnyStack;
 		boolean itemsEqual = item == null && recipeIS == null || OreDictionary.itemMatches(recipeIS, item, false);
@@ -149,7 +150,7 @@ public class BarrelRecipe
 
 	public Stack<ItemStack> getResult(ItemStack inIS, FluidStack inFS, int sealedTime)
 	{
-		Stack<ItemStack> stackList = new Stack();
+		Stack<ItemStack> stackList = new Stack<ItemStack>();
 		ItemStack outStack = null;
 
 		if (recipeOutIS != null)
@@ -186,7 +187,7 @@ public class BarrelRecipe
 		if (outStack == null)
 		{
 			stackList.clear();
-			stackList.push(outStack);
+			stackList.push(null);
 		}
 		return stackList;
 	}
@@ -195,7 +196,7 @@ public class BarrelRecipe
 	{
 		if(recipeOutFluid != null)
 		{
-			FluidStack fs = null;
+			FluidStack fs;
 			// The FluidStack .copy() method does not make a copy of the NBT tag, which may have been the cause of the quantum entanglement
 			if (recipeOutFluid.tag != null)
 			{

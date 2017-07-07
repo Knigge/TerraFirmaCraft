@@ -8,6 +8,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenLiquidsTFC extends WorldGenerator
 {
 	private final Block liquidBlock;

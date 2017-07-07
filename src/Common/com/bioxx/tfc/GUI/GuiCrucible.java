@@ -14,6 +14,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TECrucible;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiCrucible extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_crucible.png");
@@ -35,7 +36,7 @@ public class GuiCrucible extends GuiContainerTFC
 	@Override
 	protected void drawForeground(int guiLeft, int guiTop)
 	{
-		int scale = 0;
+		int scale;
 
 		scale = crucibleTE.getTemperatureScaled(49);
 		drawTexturedModalRect(guiLeft + 153, guiTop + 80 - scale, 185, 0, 15, 6);

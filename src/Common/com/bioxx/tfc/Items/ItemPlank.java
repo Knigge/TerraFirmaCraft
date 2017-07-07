@@ -20,6 +20,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemPlank extends ItemTerra
 {
 	public ItemPlank() 
@@ -227,6 +228,7 @@ public class ItemPlank extends ItemTerra
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

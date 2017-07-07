@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import org.lwjgl.opengl.GL11;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class ModelBarrel extends ModelBase
 {
@@ -32,9 +33,9 @@ public class ModelBarrel extends ModelBase
 	public ModelBarrel(int type)
 	{
 
-		this.barrel = new ModelRenderer(this,0+(type*56),0).setTextureSize(952,76);
-		this.barrel2 = new ModelRenderer(this,0+(type*56),44).setTextureSize(952,76);
-		this.barrel3 = new ModelRenderer(this,0+(type*56),44).setTextureSize(952,76);
+		this.barrel = new ModelRenderer(this, (type * 56),0).setTextureSize(952,76);
+		this.barrel2 = new ModelRenderer(this, (type * 56),44).setTextureSize(952,76);
+		this.barrel3 = new ModelRenderer(this, (type * 56),44).setTextureSize(952,76);
 
 		this.barrel.setRotationPoint(16,16,0);
 		this.barrel2.setRotationPoint(0,0,0);

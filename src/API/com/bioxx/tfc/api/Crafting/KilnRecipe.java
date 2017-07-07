@@ -2,6 +2,7 @@ package com.bioxx.tfc.api.Crafting;
 
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class KilnRecipe
 {
 	public ItemStack result;
@@ -50,10 +51,8 @@ public class KilnRecipe
 			if (is1.getItemDamage() != -1 && is1.getItemDamage() != is2.getItemDamage())
 				return false;
 		}
-		else if (is1 == null && is2 != null || is1 != null && is2 == null) // XOR, if both are null return true
-			return false;
 
-		return true;
+		return !(is1 == null && is2 != null || is1 != null && is2 == null);
 	}
 
 	/**

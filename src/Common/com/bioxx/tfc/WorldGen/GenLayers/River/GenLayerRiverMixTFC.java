@@ -6,11 +6,13 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("CanBeFinal")
 public class GenLayerRiverMixTFC extends GenLayerTFC
 {
 	private GenLayer biomePatternGeneratorChain;
 	private GenLayer riverPatternGeneratorChain;
 	private int[] layerBiomes;
+	@SuppressWarnings("FieldCanBeLocal")
 	private int[] layerRivers;
 	private int[] layerOut;
 	private int xn;
@@ -18,6 +20,7 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 	private int zn;
 	private int zp;
 
+	@SuppressWarnings("SameParameterValue")
 	public GenLayerRiverMixTFC(long par1, GenLayer par3GenLayer, GenLayer par4GenLayer)
 	{
 		super(par1);
@@ -98,6 +101,7 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 		return layerOut.clone();
 	}
 
+	@SuppressWarnings("WeakerAccess")
 	public void removeRiver(int index, int biomeToReplaceWith)
 	{		
 		if(layerOut[index] == TFCBiome.RIVER.biomeID)
@@ -121,6 +125,7 @@ public class GenLayerRiverMixTFC extends GenLayerTFC
 		}
 	}
 
+	@SuppressWarnings("WeakerAccess")
 	public boolean inBounds(int index, int[] array)
 	{
 		return index < array.length && index >= 0;

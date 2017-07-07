@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.SlotCrafting;
 
+@SuppressWarnings("WeakerAccess")
 public class SlotCraftingTFC extends SlotCrafting
 {
 	public SlotCraftingTFC(EntityPlayer par1EntityPlayer,

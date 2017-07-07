@@ -26,6 +26,7 @@ import com.bioxx.tfc.api.Crafting.QuernManager;
 import com.bioxx.tfc.api.Crafting.QuernRecipe;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEQuern extends NetworkTileEntity implements IInventory
 {
 	public ItemStack[] storage = new ItemStack[3];
@@ -354,18 +355,6 @@ public class TEQuern extends NetworkTileEntity implements IInventory
 	{
 		this.hasQuern = nbt.getBoolean("hasQuern");
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
 	}
 
 	@Override

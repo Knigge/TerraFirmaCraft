@@ -22,6 +22,7 @@ import com.bioxx.tfc.TileEntities.TEMetalSheet;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockBlastFurnace extends BlockTerraContainer
 {
 	private IIcon[] textureSide;
@@ -159,7 +160,7 @@ public class BlockBlastFurnace extends BlockTerraContainer
 	public IIcon getIcon(int i, int j)
 	{
 		int lit = (j & 4) == 4 ? 1 : 0;
-		j = j & 3;
+		//j = j & 3;
 
 		if(i == 0 || i == 1)
 		{
@@ -206,6 +207,7 @@ public class BlockBlastFurnace extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int i, int j, int k) 
 	{

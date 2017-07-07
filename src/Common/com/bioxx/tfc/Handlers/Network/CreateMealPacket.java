@@ -9,6 +9,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEFoodPrep;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class CreateMealPacket extends AbstractPacket
 {
 	private byte flag; //this flag is for future use, if we need other options

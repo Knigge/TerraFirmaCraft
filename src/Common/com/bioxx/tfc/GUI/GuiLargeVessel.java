@@ -36,6 +36,7 @@ import com.bioxx.tfc.api.Crafting.BarrelPreservativeRecipe;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class GuiLargeVessel extends GuiContainerTFC
 {
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_largevessel.png");
@@ -107,6 +108,7 @@ public class GuiLargeVessel extends GuiContainerTFC
 		createButtons();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void createButtons()
 	{
 		buttonList.clear();
@@ -188,6 +190,7 @@ public class GuiLargeVessel extends GuiContainerTFC
 		}
 	}
 
+	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 	public class GuiBarrelTabButton extends GuiButton
 	{
 		private GuiLargeVessel screen;
@@ -294,68 +297,57 @@ public class GuiLargeVessel extends GuiContainerTFC
 		{
 			drawTexturedModalRect(w, h, 0, 0, xSize, this.getShiftedYSize());
 
-			int scale = 0;
-			if (vesselTE != null && vesselTE.fluid != null)
-			{
-				scale = vesselTE.getLiquidScaled(50);
-				//drawTexturedModalRect(w + 8, h + 65 - scale, 185, 31, 15, 6);
-				IIcon liquidIcon = vesselTE.fluid.getFluid().getIcon(vesselTE.fluid);
-				TFC_Core.bindTexture(TextureMap.locationBlocksTexture);
-				int color = vesselTE.fluid.getFluid().getColor(vesselTE.fluid);
-				GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) ((0xaa) & 255));
-				int div = (int) Math.floor(scale / 8);
-				int rem = scale - (div * 8);
-				this.drawTexturedModelRectFromIcon(w + 12, h + 65 - scale, liquidIcon, 8, div > 0 ? 8 : rem);
-				for (int c = 0; div > 0 && c < div; c++)
-				{
-					this.drawTexturedModelRectFromIcon(w + 12, h + 65 - (8 + (c * 8)), liquidIcon, 8, 8);
-				}
-				GL11.glColor3f(0, 0, 0);
-			}
-			ItemStack inStack = vesselTE.getStackInSlot(0);
-
-			// Draw Fluid Name
-			if (vesselTE.getFluidStack() != null)
-				drawCenteredString(this.fontRendererObj, vesselTE.fluid.getFluid().getLocalizedName(vesselTE.getFluidStack()), guiLeft + 88, guiTop + 7, 0x555555);
-
-			// Draw Seal Date
-			if (vesselTE.sealtime != 0)
-			{
-				drawCenteredString(this.fontRendererObj, TFC_Time.getDateStringFromHours(vesselTE.sealtime), guiLeft + 88, guiTop + 17, 0x555555);
-			}
-
-			// Draw Output
-			if (vesselTE.recipe != null)
-			{
-				if (!(vesselTE.recipe instanceof BarrelBriningRecipe))
-				{
-					drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.Output") + ": " + vesselTE.recipe.getRecipeName(), guiLeft + 88, guiTop + 72, 0x555555);
-				}
-				else if (vesselTE.getSealed() && vesselTE.getFluidStack() != null && vesselTE.getFluidStack().getFluid() == TFCFluids.BRINE)
-				{
-					if (inStack != null && inStack.getItem() instanceof IFood && (((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit ||
-							((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein ||
-							((IFood) inStack.getItem()) == TFCItems.cheese) && !Food.isBrined(inStack))
-					{
-						drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.barrel.brining"), guiLeft + 88, guiTop + 72, 0x555555);
+			int scale;
+			if (vesselTE != null) {
+				if (vesselTE.fluid != null) {
+					scale = vesselTE.getLiquidScaled(50);
+					//drawTexturedModalRect(w + 8, h + 65 - scale, 185, 31, 15, 6);
+					IIcon liquidIcon = vesselTE.fluid.getFluid().getIcon(vesselTE.fluid);
+					TFC_Core.bindTexture(TextureMap.locationBlocksTexture);
+					int color = vesselTE.fluid.getFluid().getColor(vesselTE.fluid);
+					GL11.glColor4ub((byte) ((color >> 16) & 255), (byte) ((color >> 8) & 255), (byte) (color & 255), (byte) ((0xaa) & 255));
+					int div = (int) Math.floor(scale / 8);
+					int rem = scale - (div * 8);
+					this.drawTexturedModelRectFromIcon(w + 12, h + 65 - scale, liquidIcon, 8, div > 0 ? 8 : rem);
+					for (int c = 0; div > 0 && c < div; c++) {
+						this.drawTexturedModelRectFromIcon(w + 12, h + 65 - (8 + (c * 8)), liquidIcon, 8, 8);
 					}
+					GL11.glColor3f(0, 0, 0);
 				}
-			}
-			else if (vesselTE.recipe == null && vesselTE.getSealed() && vesselTE.getFluidStack() != null && inStack != null && inStack.getItem() instanceof IFood &&
-					vesselTE.getFluidStack().getFluid() == TFCFluids.VINEGAR && !Food.isPickled(inStack) && Food.getWeight(inStack) / vesselTE.getFluidStack().amount <= Global.FOOD_MAX_WEIGHT / vesselTE.getMaxLiquid())
-			{
-				if ((((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable ||
-						((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || ((IFood) inStack.getItem()) == TFCItems.cheese) &&
-						Food.isBrined(inStack))
-				{
-					drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.barrel.pickling"), guiLeft + 88, guiTop + 72, 0x555555);
+				ItemStack inStack = vesselTE.getStackInSlot(0);
+
+				// Draw Fluid Name
+				if (vesselTE.getFluidStack() != null)
+					drawCenteredString(this.fontRendererObj, vesselTE.fluid.getFluid().getLocalizedName(vesselTE.getFluidStack()), guiLeft + 88, guiTop + 7, 0x555555);
+
+				// Draw Seal Date
+				if (vesselTE.sealtime != 0) {
+					drawCenteredString(this.fontRendererObj, TFC_Time.getDateStringFromHours(vesselTE.sealtime), guiLeft + 88, guiTop + 17, 0x555555);
 				}
-			}
-			else
-			{
-				BarrelPreservativeRecipe preservative = BarrelManager.getInstance().findMatchingPreservativeRepice(vesselTE, inStack, vesselTE.getFluidStack(), vesselTE.getSealed());
-				if(preservative!=null){
-					drawCenteredString(this.fontRendererObj, TFC_Core.translate(preservative.getPreservingString()), guiLeft+88, guiTop+72, 0x555555);
+
+				// Draw Output
+				if (vesselTE.recipe != null) {
+					if (!(vesselTE.recipe instanceof BarrelBriningRecipe)) {
+						drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.Output") + ": " + vesselTE.recipe.getRecipeName(), guiLeft + 88, guiTop + 72, 0x555555);
+					} else if (vesselTE.getSealed() && vesselTE.getFluidStack() != null && vesselTE.getFluidStack().getFluid() == TFCFluids.BRINE) {
+						if (inStack != null && inStack.getItem() instanceof IFood && (((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit ||
+								((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein ||
+								inStack.getItem() == TFCItems.cheese) && !Food.isBrined(inStack)) {
+							drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.barrel.brining"), guiLeft + 88, guiTop + 72, 0x555555);
+						}
+					}
+				} else if (vesselTE.getSealed() && vesselTE.getFluidStack() != null && inStack != null && inStack.getItem() instanceof IFood &&
+						vesselTE.getFluidStack().getFluid() == TFCFluids.VINEGAR && !Food.isPickled(inStack) && Food.getWeight(inStack) / vesselTE.getFluidStack().amount <= Global.FOOD_MAX_WEIGHT / vesselTE.getMaxLiquid()) {
+					if ((((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable ||
+							((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || inStack.getItem() == TFCItems.cheese) &&
+							Food.isBrined(inStack)) {
+						drawCenteredString(this.fontRendererObj, TFC_Core.translate("gui.barrel.pickling"), guiLeft + 88, guiTop + 72, 0x555555);
+					}
+				} else {
+					BarrelPreservativeRecipe preservative = BarrelManager.getInstance().findMatchingPreservativeRepice(vesselTE, inStack, vesselTE.getFluidStack(), vesselTE.getSealed());
+					if (preservative != null) {
+						drawCenteredString(this.fontRendererObj, TFC_Core.translate(preservative.getPreservingString()), guiLeft + 88, guiTop + 72, 0x555555);
+					}
 				}
 			}
 		}

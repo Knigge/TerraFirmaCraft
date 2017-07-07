@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityWolfTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ModelWolfTFC extends ModelBase
 {
 	/** main box for the wolf head */
@@ -84,6 +85,7 @@ public class ModelWolfTFC extends ModelBase
 		float ageScale = 2.0F-percent;
 		//float offset = 1.4f - percent;
 
+		//noinspection ConstantConditions
 		if(entity instanceof IAnimal)
 		{
 			GL11.glPushMatrix();

@@ -30,6 +30,7 @@ import com.bioxx.tfc.TileEntities.TEToolRack;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockToolRack extends BlockTerraContainer
 {
 	protected String[] woodNames;
@@ -158,6 +159,7 @@ public class BlockToolRack extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
@@ -296,10 +298,11 @@ public class BlockToolRack extends BlockTerraContainer
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
+	/*
+	  returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{

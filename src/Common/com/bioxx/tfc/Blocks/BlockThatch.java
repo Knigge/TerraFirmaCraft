@@ -77,6 +77,7 @@ public class BlockThatch extends BlockTerra
 		return null;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)

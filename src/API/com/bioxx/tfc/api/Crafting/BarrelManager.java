@@ -9,10 +9,11 @@ import net.minecraftforge.fluids.FluidStack;
 
 import com.bioxx.tfc.TileEntities.TEBarrel;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class BarrelManager
 {
 	private static final BarrelManager INSTANCE = new BarrelManager();
-	public static final BarrelManager getInstance()
+	public static BarrelManager getInstance()
 	{
 		return INSTANCE;
 	}

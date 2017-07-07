@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL12;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Entities.EntityJavelin;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderTerraJavelin extends Render
 {
 	public void render(EntityJavelin entity, double x, double y, double z, float par8, float par9)
@@ -25,7 +26,7 @@ public class RenderTerraJavelin extends Render
 		byte var11 = 0;
 		float f2 = 0.0F;
 		float f3 = 0.5F;
-		float f4 = (0 + var11 * 10) / 32.0F;
+		float f4 = (var11 * 10) / 32.0F;
 		float f5 = (5 + var11 * 10) / 32.0F;
 		//float f6 = 0.0F;
 		//float f7 = 0.15625F;

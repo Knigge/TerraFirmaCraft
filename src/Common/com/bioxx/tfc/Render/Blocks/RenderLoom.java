@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.TileEntities.TELoom;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderLoom implements ISimpleBlockRenderingHandler
 {
 	private static final float MIN_X = 0F;

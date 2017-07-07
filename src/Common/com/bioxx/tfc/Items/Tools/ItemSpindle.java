@@ -65,6 +65,7 @@ public class ItemSpindle extends ItemTerra
 		return EnumItemReach.SHORT;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

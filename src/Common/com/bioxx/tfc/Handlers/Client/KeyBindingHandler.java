@@ -19,6 +19,7 @@ import com.bioxx.tfc.Handlers.Network.KeyPressPacket;
 import com.bioxx.tfc.Items.Tools.ItemChisel;
 import com.bioxx.tfc.Items.Tools.ItemCustomHoe;
 
+@SuppressWarnings("CanBeFinal")
 public class KeyBindingHandler
 {
 	//public static KeyBinding Key_Calendar = new KeyBinding("key.Calendar", Keyboard.KEY_N/*49*/, Reference.ModName);

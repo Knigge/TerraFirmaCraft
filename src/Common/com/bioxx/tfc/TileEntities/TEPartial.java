@@ -3,6 +3,7 @@ package com.bioxx.tfc.TileEntities;
 import net.minecraft.block.material.Material;
 import net.minecraft.nbt.NBTTagCompound;
 
+@SuppressWarnings("WeakerAccess")
 public class TEPartial extends NetworkTileEntity
 {
 	public short typeID = -1;

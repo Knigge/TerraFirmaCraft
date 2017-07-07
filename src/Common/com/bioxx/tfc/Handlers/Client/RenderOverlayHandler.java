@@ -46,10 +46,10 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Tools.ChiselManager;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class RenderOverlayHandler
 {
 	public static ResourceLocation tfcicons = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "icons.png");
-	private FontRenderer fontrenderer;
 	public int recordTimer;
 	private final Field _recordPlayingUpFor = ReflectionHelper.findField(GuiIngame.class, "recordPlayingUpFor", "field_73845_h");
 	private final Field _recordPlaying = ReflectionHelper.findField(GuiIngame.class, "recordPlaying", "field_73838_g");
@@ -97,7 +97,7 @@ public class RenderOverlayHandler
 			if (currentItem instanceof ItemCustomHoe)
 			{
 				int mode = playerInfo.hoeMode;
-				this.drawTexturedModalRect(mid + 95, sr.getScaledHeight() - 21, 0 + (20 * mode), 38, 20, 20);
+				this.drawTexturedModalRect(mid + 95, sr.getScaledHeight() - 21, (20 * mode), 38, 20, 20);
 			}
 			else if (currentItem instanceof ItemChisel)
 			{
@@ -124,6 +124,7 @@ public class RenderOverlayHandler
 		//Render Arrow and Javelin for Quiver
 		ItemStack quiverStack = getQuiver();
 		Item quiver = quiverStack != null ? quiverStack.getItem() : null;
+		FontRenderer fontrenderer;
 		if (quiver instanceof ItemQuiver)
 		{
 			fontrenderer = mc.fontRenderer;
@@ -231,8 +232,7 @@ public class RenderOverlayHandler
 			//Draw experience bar when not riding anything, riding a non-living entity such as a boat/minecart, or riding a pig.
 			if (!(player.ridingEntity instanceof EntityLiving) || player.ridingEntity instanceof EntityPigTFC)
 			{
-				int cap = 0;
-				cap = player.xpBarCap();
+				int cap = player.xpBarCap();
 				int left = mid - 91;
 
 				if (cap > 0)
@@ -249,7 +249,7 @@ public class RenderOverlayHandler
 				{
 					fontrenderer = mc.fontRenderer;
 					boolean flag1 = false;
-					int color = flag1 ? 16777215 : 8453920;
+					@SuppressWarnings("ConstantConditions") int color = flag1 ? 16777215 : 8453920;
 					String text = Integer.toString(player.experienceLevel);
 					int x = (sr.getScaledWidth() - fontrenderer.getStringWidth(text)) / 2;
 					int y = sr.getScaledHeight() - 30;
@@ -361,11 +361,11 @@ public class RenderOverlayHandler
 			int yCoord = (int)player.posY;
 			int zCoord = (int)player.posZ;
 			DataLayer evt = TFC_Climate.getCacheManager(mc.theWorld).getEVTLayerAt(xCoord, zCoord);
-			event.left.add(String.format("rain: %.0f, temp: %.2f, average bio temp: %.2f, evt: %.3f", new Object[] {
-					TFC_Climate.getRainfall(mc.theWorld, xCoord, yCoord, zCoord), 
+			event.left.add(String.format("rain: %.0f, temp: %.2f, average bio temp: %.2f, evt: %.3f",
+					TFC_Climate.getRainfall(mc.theWorld, xCoord, yCoord, zCoord),
 					TFC_Climate.getHeightAdjustedTemp(mc.theWorld, xCoord, yCoord, zCoord),
 					TFC_Climate.getBioTemperatureHeight(mc.theWorld, xCoord, yCoord, zCoord),
-					evt.floatdata1}));
+					evt.floatdata1));
 
 			if(TFCOptions.enableDebugMode)
 			{
@@ -409,10 +409,10 @@ public class RenderOverlayHandler
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(par1 + 0, par2 + par6, 0.0, (par3 + 0) * f, (par4 + par6) * f1);
+		tessellator.addVertexWithUV(par1, par2 + par6, 0.0, (par3) * f, (par4 + par6) * f1);
 		tessellator.addVertexWithUV(par1 + par5, par2 + par6, 0.0, (par3 + par5) * f, (par4 + par6) * f1);
-		tessellator.addVertexWithUV(par1 + par5, par2 + 0, 0.0, (par3 + par5) * f, (par4 + 0) * f1);
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, 0.0, (par3 + 0) * f, (par4 + 0) * f1);
+		tessellator.addVertexWithUV(par1 + par5, par2, 0.0, (par3 + par5) * f, (par4) * f1);
+		tessellator.addVertexWithUV(par1, par2, 0.0, (par3) * f, (par4) * f1);
 		tessellator.draw();
 	}
 }

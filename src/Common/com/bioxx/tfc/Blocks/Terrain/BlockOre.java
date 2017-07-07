@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockOre extends BlockCollapsible
 {
 	public String[] blockNames = Global.ORE_METAL;
@@ -110,6 +111,7 @@ public class BlockOre extends BlockCollapsible
 		return TFCBlocks.oreRenderId;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
@@ -230,6 +232,7 @@ public class BlockOre extends BlockCollapsible
 		return ore;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

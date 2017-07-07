@@ -55,6 +55,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFC_Core
 {
 	private static Map<Integer, ChunkDataManager> cdmMap = new HashMap<Integer, ChunkDataManager>();
@@ -66,6 +67,7 @@ public class TFC_Core
 		return cdmMap.get(key);
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static ChunkDataManager addCDM(World world)
 	{
 		int key = world.isRemote ? 128 | world.provider.dimensionId : world.provider.dimensionId;
@@ -74,6 +76,7 @@ public class TFC_Core
 		else return cdmMap.get(key);
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static ChunkDataManager removeCDM(World world)
 	{
 		int key = world.isRemote ? 128 | world.provider.dimensionId : world.provider.dimensionId;
@@ -86,9 +89,8 @@ public class TFC_Core
 		ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth,
 				Minecraft.getMinecraft().displayHeight);
 		int i = scaledresolution.getScaledWidth();
-		int k = Mouse.getX() * i / Minecraft.getMinecraft().displayWidth;
 
-		return k;
+		return Mouse.getX() * i / Minecraft.getMinecraft().displayWidth;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -97,18 +99,16 @@ public class TFC_Core
 		ScaledResolution scaledresolution = new ScaledResolution(Minecraft.getMinecraft(), Minecraft.getMinecraft().displayWidth,
 				Minecraft.getMinecraft().displayHeight);
 		int j = scaledresolution.getScaledHeight();
-		int l = j - Mouse.getY() * j / Minecraft.getMinecraft().displayHeight - 1;
 
-		return l;
+		return j - Mouse.getY() * j / Minecraft.getMinecraft().displayHeight - 1;
 	}
 
 	public static Boolean isBlockAboveSolid(IBlockAccess blockAccess, int i, int j, int k)
 	{
-		if(TerraFirmaCraft.proxy.getCurrentWorld().getBlock(i, j + 1, k).isOpaqueCube())
-			return true;
-		return false;
+		return TerraFirmaCraft.proxy.getCurrentWorld().getBlock(i, j + 1, k).isOpaqueCube();
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getExtraEquipInventorySize(){
 		//Just the back
 		return 1;
@@ -116,10 +116,9 @@ public class TFC_Core
 
 	public static InventoryPlayer getNewInventory(EntityPlayer player)
 	{
-		InventoryPlayer ip = player.inventory;
 		NBTTagList nbt = new NBTTagList();
 		nbt = player.inventory.writeToNBT(nbt);
-		ip = new InventoryPlayerTFC(player);
+		InventoryPlayer ip = new InventoryPlayerTFC(player);
 		ip.readFromNBT(nbt);
 		return ip;
 	}
@@ -254,7 +253,7 @@ public class TFC_Core
 			ReflectionHelper.setPrivateValue(WorldInfo.class, w.getWorldInfo(), seed, 0);
 			setupWorld(w);
 		}
-		catch (Exception ex)
+		catch (Exception ignored)
 		{
 		}
 	}
@@ -549,7 +548,7 @@ public class TFC_Core
 		else
 		{
 			if (inMeta == 0)
-				return inMeta + 15;
+				return 15;
 			return inMeta-1;
 		}
 	}
@@ -721,6 +720,7 @@ public class TFC_Core
 		return 0;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static boolean convertGrassToDirt(World world, int i, int j, int k)
 	{
 		Block block = world.getBlock(i, j, k);
@@ -1023,11 +1023,18 @@ public class TFC_Core
 				else if (is.getItem() instanceof ItemTerraBlock && ((ItemTerraBlock) is.getItem()).onUpdate(is, world, x, y, z))
 					continue;
 				is = tickDecay(is, world, x, y, z, environmentalDecayFactor, 1f);
-				if(is != null && (iinv instanceof InventoryPlayer || iinv instanceof TEBarrel || iinv instanceof TEAnvil || iinv instanceof TEForge || iinv instanceof TEFirepit
-				|| iinv instanceof TEVessel || iinv instanceof TEFoodPrep))
-					TFC_ItemHeat.handleItemHeat(is);
-				else
-					TFC_ItemHeat.handleItemHeatStorage(is);
+				if(is != null &&
+						(iinv instanceof InventoryPlayer
+							|| iinv instanceof TEBarrel
+							|| iinv instanceof TEAnvil
+							|| iinv instanceof TEForge
+							|| iinv instanceof TEFirepit
+							|| iinv instanceof TEFoodPrep
+						)
+					) {
+						TFC_ItemHeat.handleItemHeat(is);
+					} else
+						TFC_ItemHeat.handleItemHeatStorage(is);
 				iinv.setInventorySlotContents(i, is);
 			}
 
@@ -1102,12 +1109,6 @@ public class TFC_Core
 	}
 
 
-
-	/**
-	 * @param is
-	 * @param baseDecayMod
-	// * @param nbt
-	 */
 	public static ItemStack tickDecay(ItemStack is, World world, int x, int y, int z, float environmentalDecayFactor, float baseDecayMod)
 	{
 		NBTTagCompound nbt = is.getTagCompound();
@@ -1135,7 +1136,7 @@ public class TFC_Core
 			}
 
 			float decay = Food.getDecay(is);
-			float thisDecayRate = 1.0f;
+			float thisDecayRate;
 			if (is.getItem() instanceof IFood && Food.getWeight(is) > Global.FOOD_MAX_WEIGHT)
 				thisDecayRate = 100f;
 				// Get the base food decay rate
@@ -1257,12 +1258,13 @@ public class TFC_Core
 		return id == TFCBiome.BEACH.biomeID || id == TFCBiome.GRAVEL_BEACH.biomeID;
 	}
 
+	@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "SimplifiableIfStatement"})
 	public static boolean isValidCharcoalPitCover(Block block)
 	{
 		Boolean pile = false;
 		if(block == TFCBlocks.logPile || block == TFCBlocks.coalPile)
 		{ pile = true; }
-		if(Blocks.fire.getFlammability(block) > 0 && pile == false)
+		if(Blocks.fire.getFlammability(block) > 0 && !pile)
 			return false;
 
 		return block == TFCBlocks.logPile
@@ -1338,6 +1340,7 @@ public class TFC_Core
 		}
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public static boolean areItemsEqual(ItemStack is1, ItemStack is2)
 	{
 		Item i1 = null; int d1 = 0;
@@ -1369,6 +1372,7 @@ public class TFC_Core
 	/**
 	 * This is a wrapper method for the vanilla world method with no MCP mapping
 	 */
+	@SuppressWarnings("UnusedReturnValue")
 	public static boolean setBlockToAirWithDrops(World world, int x, int y, int z)
 	{
 		return world.func_147480_a(x, y, z, true);

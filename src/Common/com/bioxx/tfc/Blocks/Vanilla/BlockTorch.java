@@ -33,6 +33,7 @@ import com.bioxx.tfc.api.TFCOptions;
 
 import static net.minecraftforge.common.util.ForgeDirection.*;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockTorch extends BlockTerraContainer
 {
 	protected IIcon offIcon;
@@ -318,6 +319,7 @@ public class BlockTorch extends BlockTerraContainer
 		return true;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	protected boolean checkValidity(World world, int x, int y, int z, Block b)
 	{
 		if (this.tryPlace(world, x, y, z))

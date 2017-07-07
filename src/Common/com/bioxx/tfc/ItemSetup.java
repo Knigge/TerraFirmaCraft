@@ -36,6 +36,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 
 import static net.minecraft.init.Items.glass_bottle;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class ItemSetup extends TFCItems {
 
 	public static void setup()
@@ -62,7 +63,7 @@ public class ItemSetup extends TFCItems {
 		blueSteelToolMaterial = EnumHelper.addToolMaterial("BlueSteel", 		3,	blueSteelUses, 		blueSteelEff, 		240, 	22);
 		redSteelToolMaterial = EnumHelper.addToolMaterial("RedSteel", 			3,	redSteelUses, 		redSteelEff, 		240, 	22);
 
-		TerraFirmaCraft.LOG.info(new StringBuilder().append("Loading Items").toString());
+		TerraFirmaCraft.LOG.info("Loading Items");
 
 		fishingRod = new ItemCustomFishingRod().setUnlocalizedName("fishingRod").setTextureName("tools/fishing_rod");
 		coal = new ItemCoal().setUnlocalizedName("coal");
@@ -465,9 +466,9 @@ public class ItemSetup extends TFCItems {
 		redSteelProPickHead = new ItemMiscToolHead().setUnlocalizedName("Red Steel ProPick Head");
 		steelProPickHead = new ItemMiscToolHead().setUnlocalizedName("Steel ProPick Head");
 
-		/**
-		 * Scythe
-		 * */
+		/*
+		  Scythe
+		  */
 		bismuthBronzeScythe = new ItemCustomScythe(bismuthBronzeToolMaterial).setUnlocalizedName("Bismuth Bronze Scythe").setMaxDamage(bismuthBronzeUses);
 		blackBronzeScythe = new ItemCustomScythe(blackBronzeToolMaterial).setUnlocalizedName("Black Bronze Scythe").setMaxDamage(blackBronzeUses);
 		blackSteelScythe = new ItemCustomScythe(blackSteelToolMaterial).setUnlocalizedName("Black Steel Scythe").setMaxDamage(blackSteelUses);
@@ -672,7 +673,7 @@ public class ItemSetup extends TFCItems {
 
 		fertilizer = new ItemFertilizer().setUnlocalizedName("Fertilizer").setCreativeTab(TFCTabs.TFC_MATERIALS);
 
-		/**Armor Crafting related items*/
+		/*Armor Crafting related items*/
 		setupArmor();
 
 		Recipes.doors = new Item[]{doorOak, doorAspen, doorBirch, doorChestnut, doorDouglasFir, 
@@ -771,7 +772,7 @@ public class ItemSetup extends TFCItems {
 		registerItems();
 		registerMetals();
 
-		TerraFirmaCraft.LOG.info(new StringBuilder().append("Finished Loading Items").toString());
+		TerraFirmaCraft.LOG.info("Finished Loading Items");
 	}
 
 	/**
@@ -1011,8 +1012,8 @@ public class ItemSetup extends TFCItems {
 		MetalRegistry.instance.addMetal(Global.HCBLUESTEEL, Alloy.EnumTier.TierV);
 		MetalRegistry.instance.addMetal(Global.UNKNOWN, Alloy.EnumTier.TierI);
 
-		/**
-		 * Added the +-0.01 tolerance to hopefully negate most rounding errors
+		/*
+		  Added the +-0.01 tolerance to hopefully negate most rounding errors
 		 */
 		Alloy bronze = new Alloy(Global.BRONZE, Alloy.EnumTier.TierI);
 		bronze.addIngred(Global.COPPER, 87.99f, 92.01f);
@@ -1083,7 +1084,7 @@ public class ItemSetup extends TFCItems {
 		String[] names = {"Bismuth Bronze", "Black Bronze", "Black Steel", "Blue Steel", "Bronze", "Copper", "Wrought Iron", "Red Steel", "Steel"};
 		String[] namesNSO = {"Brass", "Gold", "Lead", "Nickel", "Pig Iron", "Platinum", "Silver", "Sterling Silver"};
 		CommonProxy proxy = TerraFirmaCraft.proxy;
-		int i = 0;
+		int i;
 
 		bismuthSheet = 			((ItemMetalSheet) new ItemMetalSheet(0).setUnlocalizedName("Bismuth Sheet")).setMetal("Bismuth", 200);
 		bismuthBronzeSheet = 	((ItemMetalSheet) new ItemMetalSheet(1).setUnlocalizedName("Bismuth Bronze Sheet")).setMetal("Bismuth Bronze", 200);
@@ -1131,6 +1132,7 @@ public class ItemSetup extends TFCItems {
 		pigIronSheet = 			new ItemMetalSheet(12).setMetal("Pig Iron", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
 		platinumSheet = 		new ItemMetalSheet(13).setMetal("Platinum", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
 		silverSheet = 			new ItemMetalSheet(16).setMetal("Silver", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
+		//noinspection UnusedAssignment
 		sterlingSilverSheet = 	new ItemMetalSheet(18).setMetal("Sterling Silver", 200).setUnlocalizedName(namesNSO[i++]+" Sheet");
 
 		i = 0;
@@ -1141,6 +1143,7 @@ public class ItemSetup extends TFCItems {
 		pigIronSheet2x = 		new ItemMetalSheet2x(12).setMetal("Pig Iron", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
 		platinumSheet2x = 		new ItemMetalSheet2x(13).setMetal("Platinum", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
 		silverSheet2x = 		new ItemMetalSheet2x(16).setMetal("Silver", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
+		//noinspection UnusedAssignment
 		sterlingSilverSheet2x = new ItemMetalSheet2x(18).setMetal("Sterling Silver", 400).setUnlocalizedName(namesNSO[i++]+" Double Sheet");
 
 		i = 0;

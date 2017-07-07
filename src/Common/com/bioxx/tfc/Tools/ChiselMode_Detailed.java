@@ -18,6 +18,7 @@ import com.bioxx.tfc.api.Tools.ChiselMode;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class ChiselMode_Detailed extends ChiselMode {
 
 	//private static String name;

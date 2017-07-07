@@ -17,7 +17,8 @@ public interface ISmeltable
 	
 	EnumTier getSmeltTier(ItemStack is);
 	
-	public enum EnumTier
+	@SuppressWarnings("CanBeFinal")
+	enum EnumTier
 	{
 		TierI(1),TierII(2),TierIII(3),TierIV(4), TierV(5), TierVI(6), TierVII(7), TierVIII(8), TierIX(9), TierX(10);
 		

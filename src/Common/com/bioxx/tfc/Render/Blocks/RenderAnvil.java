@@ -12,8 +12,10 @@ import com.bioxx.tfc.TileEntities.TEAnvil;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Crafting.AnvilReq;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderAnvil implements ISimpleBlockRenderingHandler
 {
+	@SuppressWarnings("SameReturnValue")
 	public static boolean renderAnvil(Block block, int i, int j, int k, RenderBlocks renderblocks)
 	{
 		IBlockAccess blockAccess = renderblocks.blockAccess;
@@ -102,11 +104,8 @@ public class RenderAnvil implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-	{
-		if(modelId == TFCBlocks.anvilRenderId)
-			return renderAnvil(block,x,y,z,renderer);
-		return false;
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		return modelId == TFCBlocks.anvilRenderId && renderAnvil(block, x, y, z, renderer);
 	}
 
 	@Override

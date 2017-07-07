@@ -11,7 +11,8 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFC_Core;
 
-public class GuiInventoryButton extends GuiButton 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
+public class GuiInventoryButton extends GuiButton
 {
 	private static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID+":textures/gui/inventory.png");
 	public IIcon icon;

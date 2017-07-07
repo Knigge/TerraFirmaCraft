@@ -18,6 +18,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 import com.bioxx.tfc.api.Crafting.CraftingManagerTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ContainerMold extends ContainerTFC
 {
 	private World world;
@@ -161,9 +162,8 @@ public class ContainerMold extends ContainerTFC
 				}
 			}
 
-			for (int i = 0; i < this.crafters.size(); ++i)
-			{
-				ICrafting player = (ICrafting)this.crafters.get(i);
+			for (Object crafter : this.crafters) {
+				ICrafting player = (ICrafting) crafter;
 				if (pi.moldTransferTimer != oldTransferTimer)
 					player.sendProgressBarUpdate(this, 0, pi.moldTransferTimer);
 			}

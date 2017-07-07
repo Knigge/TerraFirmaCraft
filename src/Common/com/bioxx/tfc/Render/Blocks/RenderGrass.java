@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("SameReturnValue")
 public class RenderGrass
 {
 	public static boolean render(Block block, int x, int y, int z, RenderBlocks renderer)

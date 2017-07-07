@@ -82,6 +82,7 @@ public class ContainerGrill extends ContainerTFC
 		return origStack;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void detectAndSendChanges()
 	{
@@ -96,17 +97,15 @@ public class ContainerGrill extends ContainerTFC
 				var3 = var2 == null ? null : var2.copy();
 				this.inventoryItemStacks.set(var1, var3);
 
-				for (int var4 = 0; var4 < this.crafters.size(); ++var4)
-					((ICrafting)this.crafters.get(var4)).sendSlotContents(this, var1, var3);
+				for (Object crafter : this.crafters) ((ICrafting) crafter).sendSlotContents(this, var1, var3);
 			}
 		}
 
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			if (this.fire != null && this.firetemp != this.fire.fireTemp)
-				var2.sendProgressBarUpdate(this, 0, (int)this.fire.fireTemp);
+				var2.sendProgressBarUpdate(this, 0, (int) this.fire.fireTemp);
 		}
 
 		if(this.fire != null)

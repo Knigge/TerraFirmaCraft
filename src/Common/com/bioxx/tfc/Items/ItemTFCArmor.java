@@ -28,6 +28,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IClothing;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ItemTFCArmor extends ItemArmor implements ISize, IClothing
 {
 	private static final String[] LEATHER_NAMES = new String[] {"leather_helmet_overlay", "leather_chestplate_overlay", "leather_leggings_overlay", "leather_boots_overlay"};
@@ -55,6 +56,7 @@ public class ItemTFCArmor extends ItemArmor implements ISize, IClothing
 		this.setMaxDamage(armorTypeTFC.getDurability(armorSlot));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{
@@ -67,8 +69,8 @@ public class ItemTFCArmor extends ItemArmor implements ISize, IClothing
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Gets an icon index based on an item's damage value and the given render pass
+	/*
+	  Gets an icon index based on an item's damage value and the given render pass
 	 */
 	public IIcon getIconFromDamageForRenderPass(int par1, int par2)
 	{
@@ -94,8 +96,8 @@ public class ItemTFCArmor extends ItemArmor implements ISize, IClothing
 	}
 
 	@Override
-	/**
-	 * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
+	/*
+	  Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
 	 */
 	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
 	{
@@ -117,6 +119,7 @@ public class ItemTFCArmor extends ItemArmor implements ISize, IClothing
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

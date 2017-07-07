@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotQuern extends Slot
 {
 	public SlotQuern(IInventory iinventory, int i, int j, int k)

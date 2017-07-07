@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Items.ItemPlank;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class PlankHighlightHandler{
 
 	@SubscribeEvent

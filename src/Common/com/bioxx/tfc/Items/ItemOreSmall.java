@@ -24,6 +24,7 @@ public class ItemOreSmall extends ItemOre
 		metaNames = Global.ORE_METAL_ALL;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{

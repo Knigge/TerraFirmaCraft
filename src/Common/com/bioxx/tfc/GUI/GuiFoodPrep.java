@@ -18,6 +18,7 @@ import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TEFoodPrep;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("CanBeFinal")
 public class GuiFoodPrep extends GuiContainerTFC
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_foodprep.png");
@@ -52,6 +53,7 @@ public class GuiFoodPrep extends GuiContainerTFC
 		PlayerInventory.drawInventory(this, width, height, this.getShiftedYSize());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -95,6 +97,7 @@ public class GuiFoodPrep extends GuiContainerTFC
 
 	}
 
+	@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 	public class GuiFoodPrepTabButton extends GuiButton
 	{
 		private GuiFoodPrep screen;

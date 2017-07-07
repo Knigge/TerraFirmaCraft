@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class SlotSizeSmall extends Slot
 {
 	private EnumSize size = EnumSize.SMALL;

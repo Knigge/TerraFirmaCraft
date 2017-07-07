@@ -9,6 +9,7 @@ import net.minecraft.util.IIcon;
 
 import net.minecraftforge.common.util.ForgeDirection;
 
+@SuppressWarnings("CanBeFinal")
 public class RenderBlocksLightCache extends RenderBlocksFixUV
 {
 	private EnumSet<ForgeDirection> facesToDraw = EnumSet.allOf( ForgeDirection.class );
@@ -19,8 +20,9 @@ public class RenderBlocksLightCache extends RenderBlocksFixUV
 	{
 		private int brightness;
 		private float r, g, b;
-	};
-	
+	}
+
+	@SuppressWarnings("CanBeFinal")
 	private static class RenderFaceData
 	{
 		
@@ -99,8 +101,8 @@ public class RenderBlocksLightCache extends RenderBlocksFixUV
 			return o;
 		}
 	
-	};
-	
+	}
+
 	public RenderBlocksLightCache(RenderBlocks old)
 	{
 		super( old );
@@ -232,26 +234,30 @@ public class RenderBlocksLightCache extends RenderBlocksFixUV
 		brightnessBottomLeft	= rpd.brightness;
 		
 		renderFaceXPos(block, i, j, k, myTexture);
-		
-		
+
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.WEST.ordinal() ].getCachedValue( renderMaxY, renderMaxZ );
 		colorRedTopLeft 	= rpd.r;
 		colorGreenTopLeft	= rpd.g;
 		colorBlueTopLeft	= rpd.b;
 		brightnessTopLeft	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.WEST.ordinal() ].getCachedValue( renderMaxY, renderMinZ );
 		colorRedBottomLeft		= rpd.r;
 		colorGreenBottomLeft	= rpd.g;
 		colorBlueBottomLeft		= rpd.b;
 		brightnessBottomLeft	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.WEST.ordinal() ].getCachedValue( renderMinY, renderMinZ );
 		colorRedBottomRight		= rpd.r;
 		colorGreenBottomRight	= rpd.g;
 		colorBlueBottomRight	= rpd.b;
 		brightnessBottomRight	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.WEST.ordinal() ].getCachedValue( renderMinY, renderMaxZ );
 		colorRedTopRight	= rpd.r;
 		colorGreenTopRight	= rpd.g;
@@ -286,26 +292,30 @@ public class RenderBlocksLightCache extends RenderBlocksFixUV
 		brightnessTopRight	= rpd.brightness;
 		
 		renderFaceZPos(block, i, j, k, myTexture);
-		
-		
+
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.NORTH.ordinal() ].getCachedValue( renderMaxY, 1.0d - renderMinX );
 		colorRedTopLeft 	= rpd.r;
 		colorGreenTopLeft	= rpd.g;
 		colorBlueTopLeft	= rpd.b;
 		brightnessTopLeft	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.NORTH.ordinal() ].getCachedValue( renderMaxY, 1.0d - renderMaxX );
 		colorRedTopRight	= rpd.r;
 		colorGreenTopRight	= rpd.g;
 		colorBlueTopRight	= rpd.b;
 		brightnessTopRight	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.NORTH.ordinal() ].getCachedValue( renderMinY, 1.0d - renderMaxX );
 		colorRedBottomRight		= rpd.r;
 		colorGreenBottomRight	= rpd.g;
 		colorBlueBottomRight	= rpd.b;
 		brightnessBottomRight	= rpd.brightness;
-		
+
+		//noinspection SuspiciousNameCombination
 		rpd = sides[ ForgeDirection.NORTH.ordinal() ].getCachedValue( renderMinY, 1.0d - renderMinX );
 		colorRedBottomLeft		= rpd.r;
 		colorGreenBottomLeft	= rpd.g;

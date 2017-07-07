@@ -6,6 +6,7 @@ import net.minecraft.util.IIcon;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockIgIn extends BlockStone
 {
 	public BlockIgIn(Material material)

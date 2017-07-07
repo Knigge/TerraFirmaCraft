@@ -5,7 +5,8 @@ import net.minecraft.block.BlockFence;
 
 import com.bioxx.tfc.api.Constant.Global;
 
-public class TFCBlocks 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class TFCBlocks
 {
 	public static int clayGrassRenderId;
 	public static int peatGrassRenderId;

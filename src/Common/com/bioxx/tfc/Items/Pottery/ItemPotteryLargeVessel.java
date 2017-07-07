@@ -3,6 +3,7 @@ package com.bioxx.tfc.Items.Pottery;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemPotteryLargeVessel extends ItemPotteryBase
 {
 

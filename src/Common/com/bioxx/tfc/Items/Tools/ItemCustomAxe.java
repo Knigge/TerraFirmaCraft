@@ -34,6 +34,7 @@ import com.bioxx.tfc.api.Interfaces.ISize;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+@SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
 public class ItemCustomAxe extends ItemAxe implements ISize, ICausesDamage
 {
 	private float toolDamage;
@@ -76,6 +77,7 @@ public class ItemCustomAxe extends ItemAxe implements ISize, ICausesDamage
 		ItemTerraTool.addSmithingBonusInformation(is, arraylist);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{
@@ -182,11 +184,10 @@ public class ItemCustomAxe extends ItemAxe implements ISize, ICausesDamage
     	boolean placed = false;
         int toolSlot = player.inventory.currentItem;
         int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
-        ItemStack nextSlotStack = null;
 
         if (toolSlot < 8)
         {
-            nextSlotStack = player.inventory.getStackInSlot(nextSlot);
+	        ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
             if (nextSlotStack != null)
             {
                 Item item = nextSlotStack.getItem();
@@ -222,17 +223,14 @@ public class ItemCustomAxe extends ItemAxe implements ISize, ICausesDamage
                     AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
                     AxisAlignedBB playerBounds = player.boundingBox;
 
-                    if(item instanceof ItemBlock)
-                    {
-                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
-                        if(blockToPlace.getMaterial().blocksMovement())
-                        {
-                            if (playerBounds.intersectsWith(blockBounds))
-                                return false;
-                        }
-                    }
+	                Block blockToPlace = ((ItemBlock) item).field_150939_a;
+	                if(blockToPlace.getMaterial().blocksMovement())
+	                {
+	                    if (playerBounds.intersectsWith(blockBounds))
+	                        return false;
+	                }
 
-                    int dmg = nextSlotStack.getItemDamage();
+	                int dmg = nextSlotStack.getItemDamage();
                     int count = nextSlotStack.stackSize;
 
                 	placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
@@ -244,7 +242,6 @@ public class ItemCustomAxe extends ItemAxe implements ISize, ICausesDamage
                     }
                     if (nextSlotStack.stackSize < 1)
                     {
-                    	nextSlotStack = null;
                         player.inventory.setInventorySlotContents(nextSlot, null);
                     }
                 }

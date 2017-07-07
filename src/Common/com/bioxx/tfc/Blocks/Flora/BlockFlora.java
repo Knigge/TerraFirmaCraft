@@ -18,7 +18,8 @@ import com.bioxx.tfc.Blocks.BlockTerra;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Core.TFC_Core;
 
-public class BlockFlora extends BlockTerra 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class BlockFlora extends BlockTerra
 {
 	private IIcon[] icons;
 	private String[] metaNames;

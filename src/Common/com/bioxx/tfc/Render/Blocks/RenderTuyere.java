@@ -7,7 +7,8 @@ import net.minecraft.world.IBlockAccess;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
-public class RenderTuyere  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings("WeakerAccess")
+public class RenderTuyere  implements ISimpleBlockRenderingHandler
 {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderblocks)

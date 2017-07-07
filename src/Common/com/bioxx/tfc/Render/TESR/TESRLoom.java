@@ -9,6 +9,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.Render.Models.ModelLoom;
 import com.bioxx.tfc.TileEntities.TELoom;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRLoom extends TESRBase
 {
 	/**

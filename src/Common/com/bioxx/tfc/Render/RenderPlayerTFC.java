@@ -21,6 +21,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Entities.EntityStand;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "FieldCanBeLocal"})
 @SideOnly(Side.CLIENT)
 public class RenderPlayerTFC extends RenderPlayer
 {
@@ -153,13 +154,13 @@ public class RenderPlayerTFC extends RenderPlayer
 		return -1;
 	}
 
-	/**
-	 * Should be the same as the one in RenderLivingEntity, but that was private.
-	 * 
-	 * 
-	 * Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
-	 * to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
-	 * Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
+	/*
+	  Should be the same as the one in RenderLivingEntity, but that was private.
+
+
+	  Returns a rotation angle that is inbetween two other rotation angles. par1 and par2 are the angles between which
+	  to interpolate, par3 is probably a float between 0.0 and 1.0 that tells us where "between" the two angles we are.
+	  Example: par1 = 30, par2 = 50, par3 = 0.5, then return = 40
 	 */
 	/*private float interpolateRotation(float par1, float par2, float par3)
 	{

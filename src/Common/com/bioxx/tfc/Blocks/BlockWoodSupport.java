@@ -26,6 +26,7 @@ import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockWoodSupport extends BlockTerra
 {
 	protected String[] woodNames;
@@ -40,6 +41,7 @@ public class BlockWoodSupport extends BlockTerra
 		icons = new IIcon[woodNames.length];
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
@@ -280,6 +282,7 @@ public class BlockWoodSupport extends BlockTerra
 		return getCollisionBoundingBoxFromPoolIBlockAccess(world, x, y, z).getOffsetBoundingBox(x, y, z);
 	}
 
+	@SuppressWarnings("UnusedAssignment")
 	private AxisAlignedBB getCollisionBoundingBoxFromPoolIBlockAccess(IBlockAccess blockAccess, int x, int y, int z)
 	{
 		Boolean isHorizontal = TFCBlocks.isBlockHSupport(blockAccess.getBlock(x, y, z));
@@ -336,6 +339,7 @@ public class BlockWoodSupport extends BlockTerra
 			return TFCBlocks.woodSupportRenderIdH;
 	}
 
+	@SuppressWarnings("UnusedAssignment")
 	@Override
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
 	{
@@ -412,14 +416,6 @@ public class BlockWoodSupport extends BlockTerra
 	public boolean shouldSideBeRendered(IBlockAccess par1iBlockAccess, int par2, int par3, int par4, int par5)
 	{
 		return true;
-	}
-
-	@Override
-	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase entity, ItemStack is)
-	{
-		super.onBlockPlacedBy(world, i, j, k, entity, is);
-		//if(!world.isRemote)
-		//	onNeighborBlockChange(world, i, j, k, world.getBlock(i, j, k));
 	}
 
 	@Override

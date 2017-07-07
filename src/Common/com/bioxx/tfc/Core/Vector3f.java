@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Core;
 
-public class Vector3f 
+@SuppressWarnings("CanBeFinal")
+public class Vector3f
 {
 	public float x;
 	public float y;

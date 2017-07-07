@@ -12,6 +12,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import com.bioxx.tfc.TileEntities.TEOre;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderOre implements ISimpleBlockRenderingHandler
 {
 	@Override

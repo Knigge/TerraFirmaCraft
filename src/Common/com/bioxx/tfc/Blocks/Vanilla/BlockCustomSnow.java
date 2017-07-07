@@ -31,6 +31,7 @@ public class BlockCustomSnow extends BlockTerra
 		this.setTickRandomly(true);
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	public boolean canPlaceBlockAt(World world, int i, int j, int k)
 	{
@@ -196,6 +197,7 @@ public class BlockCustomSnow extends BlockTerra
 		this.blockIcon = registerer.registerIcon(Reference.MOD_ID + ":snow");
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	private boolean canAddSnowCheckNeighbors(World world, int x, int y, int z, int meta)
 	{
  		Block block = world.getBlock(x, y, z);
@@ -210,6 +212,7 @@ public class BlockCustomSnow extends BlockTerra
 			return false;
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	private boolean canAddSnow(World world, int x, int y, int z, int meta)
 	{
 		if (!canAddSnowCheckNeighbors(world, x + 1, y, z, meta))

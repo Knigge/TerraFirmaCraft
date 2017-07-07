@@ -22,6 +22,7 @@ import com.bioxx.tfc.api.SkillsManager.Skill;
 import com.bioxx.tfc.api.Events.GetSkillMultiplierEvent;
 import com.bioxx.tfc.api.Events.PlayerSkillEvent;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class SkillStats
 {
 	private Map<Skill, Integer> skillsMap;
@@ -193,12 +194,13 @@ public class SkillStats
 		}
 	}
 
+	@SuppressWarnings("CanBeFinal")
 	public enum SkillRank
 	{
 		Novice("gui.skill.novice"), Adept("gui.skill.adept"), Expert("gui.skill.expert"), Master("gui.skill.master");
 
 		String name;
-		private SkillRank(String local)
+		SkillRank(String local)
 		{
 			name = local;
 		}

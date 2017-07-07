@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockIgExCobble extends BlockCobble
 {
 	public BlockIgExCobble(Material material)

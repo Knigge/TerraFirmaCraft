@@ -68,18 +68,6 @@ public class TEOre extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
-
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt)
-	{
-
-	}
-
-	@Override
 	public void createInitNBT(NBTTagCompound nbt)
 	{
 		nbt.setInteger("id", baseBlockID);

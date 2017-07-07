@@ -15,9 +15,13 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.TileEntities.TEStand;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class ArmourStandHighlightHandler
 {
 	private AxisAlignedBB boxToRender;
+
+	// Something is wrong with this unused method..
+	@SuppressWarnings("UnusedAssignment")
 	@SubscribeEvent
 	public void drawBlockHighlightEvent(DrawBlockHighlightEvent evt)
 	{
@@ -121,6 +125,7 @@ public class ArmourStandHighlightHandler
 		}
 	}
 
+	@SuppressWarnings("ParameterCanBeLocal")
 	public boolean isVecInsideBox(AxisAlignedBB aabb, EntityPlayer player, Vec3 unit, double xOffset, double yOffset, double zOffset)
 	{
 		unit = player.getLookVec();

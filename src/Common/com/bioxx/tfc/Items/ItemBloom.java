@@ -40,6 +40,7 @@ public class ItemBloom extends ItemTerra implements ISmeltable
 		arraylist.add(TFC_Core.translate("gui.units") + ": " + is.getItemDamage());
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{

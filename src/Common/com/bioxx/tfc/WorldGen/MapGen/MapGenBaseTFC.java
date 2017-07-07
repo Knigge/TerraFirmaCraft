@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class MapGenBaseTFC
 {
 	/** The number of Chunks to gen-check in any given direction. */

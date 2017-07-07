@@ -5,13 +5,14 @@ import java.util.List;
 
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class CropManager
 {
 	public List<CropIndex> crops;
 
 	protected static final CropManager INSTANCE = new CropManager();
 
-	public static final CropManager getInstance()
+	public static CropManager getInstance()
 	{
 		return INSTANCE;
 	}

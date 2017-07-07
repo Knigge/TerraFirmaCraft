@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderBlocksFixUV extends RenderBlocks
 {
 	

@@ -36,6 +36,7 @@ import com.bioxx.tfc.api.Interfaces.ICausesDamage;
 import com.bioxx.tfc.api.Interfaces.IInnateArmor;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal, IInnateArmor
 {
 	private static final float GESTATION_PERIOD = 7.0f;
@@ -282,10 +283,10 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 	{
 		super.entityInit ();
 		dataWatcher.addObject (18, getHealth());
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, empty slot
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, pregnant, empty slot
 		this.dataWatcher.addObject(24, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 	}
 
@@ -762,7 +763,7 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 	@Override
 	public void setAge(int par1)
 	{
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 	}
 
 	@Override
@@ -802,7 +803,7 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 	public void setGrowingAge(int par1)
 	{
 		if(!TFC_Core.preventEntityDataUpdate)
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 	}
 
 	@Override
@@ -876,7 +877,7 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 		{
 			if(!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = {
 						TFC_Core.getByteFromSmallFloat(sizeMod),
@@ -914,7 +915,7 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(24));
-				} catch (NumberFormatException e){}
+				} catch (NumberFormatException ignored){}
 			}
 		}
 	}

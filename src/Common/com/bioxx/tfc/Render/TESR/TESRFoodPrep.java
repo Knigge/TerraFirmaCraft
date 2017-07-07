@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEFoodPrep;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRFoodPrep extends TESRBase
 {
 

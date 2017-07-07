@@ -1,5 +1,5 @@
 package com.bioxx.tfc.Commands;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.command.CommandBase;
@@ -20,7 +20,7 @@ public class CommandTransferTamed extends CommandBase
 	@Override
 	public List getCommandAliases()
 	{
-		return Arrays.asList(new String[] {"transfer"});
+		return Collections.singletonList("transfer");
 	}
 
 	@Override
@@ -50,6 +50,7 @@ public class CommandTransferTamed extends CommandBase
 		return "commands.transferTamed.usage";
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void processCommand(ICommandSender sender, String[] chars)
 	{
@@ -60,7 +61,13 @@ public class CommandTransferTamed extends CommandBase
 			}
 
 			EntityTameable tamedEntity = null;
-			List<EntityTameable> entitiesInRange =	((EntityPlayer)sender).worldObj.getEntitiesWithinAABB(EntityTameable.class, ((EntityPlayer)sender).boundingBox.expand(3, 1, 3));
+			List<EntityTameable> entitiesInRange =
+					((EntityPlayer)sender).
+					worldObj.
+					getEntitiesWithinAABB(
+						EntityTameable.class,
+						((EntityPlayer)sender).boundingBox.expand(3, 1, 3)
+					);
 
 			if (entitiesInRange.isEmpty())
 			{
@@ -88,14 +95,14 @@ public class CommandTransferTamed extends CommandBase
 			}
 			else if (entityplayermp == sender)
 			{
-				throw new PlayerNotFoundException("commands.transferTamed.sameTarget", new Object[0]);
+				throw new PlayerNotFoundException("commands.transferTamed.sameTarget");
 			}
 			else if (tamedEntity != null)
 			{
 				tamedEntity.func_152115_b(entityplayermp.getUniqueID().toString());
 
-				ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.transferTamed.display.incoming", new Object[] {sender.func_145748_c_()});
-				ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("commands.transferTamed.display.outgoing", new Object[] {entityplayermp.func_145748_c_()});
+				ChatComponentTranslation chatcomponenttranslation = new ChatComponentTranslation("commands.transferTamed.display.incoming", sender.func_145748_c_());
+				ChatComponentTranslation chatcomponenttranslation1 = new ChatComponentTranslation("commands.transferTamed.display.outgoing", entityplayermp.func_145748_c_());
 				chatcomponenttranslation.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.TRUE);
 				chatcomponenttranslation1.getChatStyle().setColor(EnumChatFormatting.GRAY).setItalic(Boolean.TRUE);
 				TFC_Core.sendInfoMessage(entityplayermp, chatcomponenttranslation);
@@ -113,9 +120,9 @@ public class CommandTransferTamed extends CommandBase
 	@Override
 	public List addTabCompletionOptions(ICommandSender sender, String[] string)
 	{
-		/**
-		 * Returns a List of strings (chosen from the given strings) which the last word in the given string array is a
-		 * beginning-match for. (Tab completion).
+		/*
+		  Returns a List of strings (chosen from the given strings) which the last word in the given string array is a
+		  beginning-match for. (Tab completion).
 		 */
 		return getListOfStringsMatchingLastWord(string, MinecraftServer.getServer().getAllUsernames());
 	}

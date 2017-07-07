@@ -16,6 +16,7 @@ import com.bioxx.tfc.Food.FloraManager;
 import com.bioxx.tfc.TileEntities.TEBerryBush;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class WorldGenBerryBush extends WorldGenerator
 {
 	private int meta;

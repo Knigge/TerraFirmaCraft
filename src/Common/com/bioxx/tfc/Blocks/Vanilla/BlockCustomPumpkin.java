@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.Core.TFCTabs;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockCustomPumpkin extends BlockPumpkin
 {
 	private boolean isLit;

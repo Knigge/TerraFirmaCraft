@@ -1,5 +1,5 @@
-/**
- * Copyright (c) Scott Killen and MisterFiber, 2012
+/*
+  Copyright (c) Scott Killen and MisterFiber, 2012
  */
 package com.bioxx.tfc.WorldGen.Generators.Trees;
 
@@ -12,6 +12,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("SameParameterValue")
 public class WorldGenRedwoodXL extends WorldGenerator
 {
 	private final Block blockLeaf, blockWood;
@@ -47,7 +48,7 @@ public class WorldGenRedwoodXL extends WorldGenerator
 		final int j = 5 + rand.nextInt(12);
 		for (int y1 = y; y1 <= y + 1 + height; y1++)
 		{
-			int k1 = 1;
+			int k1;
 
 			if (y1 - y < j)
 				k1 = 0;
@@ -73,8 +74,8 @@ public class WorldGenRedwoodXL extends WorldGenerator
 		}
 
 		Block block = world.getBlock(x, y - 1, z);
-		Block soil = null;
-		int soilMeta = 0;
+		Block soil;
+		int soilMeta;
 
 		if (TFC_Core.isGrass(block))
 		{

@@ -9,9 +9,10 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEFirepit;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRFirepit extends TESRBase
 {
-	/** The normal small chest model. */
+	/* The normal small chest model. */
 	//private final ModelCookingPot potModel = new ModelCookingPot();
 	/**
 	 * Renders the TileEntity for the chest at a position.

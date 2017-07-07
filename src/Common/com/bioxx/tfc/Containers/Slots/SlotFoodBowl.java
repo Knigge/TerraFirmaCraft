@@ -5,6 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings("WeakerAccess")
 public class SlotFoodBowl extends Slot
 {
 	public SlotFoodBowl(IInventory par1iInventory, int par2, int par3, int par4)

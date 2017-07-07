@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Items;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemTuyere extends ItemTerra
 {
 	public int blockMeta;

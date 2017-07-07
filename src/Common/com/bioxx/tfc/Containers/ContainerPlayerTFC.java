@@ -18,6 +18,7 @@ import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Interfaces.IEquipable.EquipType;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess"})
 public class ContainerPlayerTFC extends ContainerPlayer
 {
 	private final EntityPlayer thePlayer;
@@ -104,7 +105,7 @@ public class ContainerPlayerTFC extends ContainerPlayer
 					player.dropPlayerItemWithRandomChoice(itemstack, false);
 			}
 
-			this.craftResult.setInventorySlotContents(0, (ItemStack)null);
+			this.craftResult.setInventorySlotContents(0, null);
 		}
 	}
 
@@ -277,6 +278,7 @@ public class ContainerPlayerTFC extends ContainerPlayer
 		return this.thePlayer;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	protected boolean mergeItemStack(ItemStack is, int slotStart, int slotFinish, boolean reverseOrder, boolean craftingOutput)
 	{
 		boolean merged = false;

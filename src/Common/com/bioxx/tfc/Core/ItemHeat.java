@@ -13,9 +13,9 @@ public class ItemHeat
 	public static void setupItemHeat()
 	{
 		HeatRegistry manager = HeatRegistry.getInstance();
-		/**
-		 * Heat now increases at a base rate of 1C per tick. Specific heat is now just a multiplier on this rate. 
-		 * This means that a metlTemp of 100C will be reached in 5 seconds with a Specific Heat of 1.0 and 10 seconds at 2.0
+		/*
+		  Heat now increases at a base rate of 1C per tick. Specific heat is now just a multiplier on this rate.
+		  This means that a metlTemp of 100C will be reached in 5 seconds with a Specific Heat of 1.0 and 10 seconds at 2.0
 		 */
 
 		final int WILDCARD_VALUE = OreDictionary.WILDCARD_VALUE;

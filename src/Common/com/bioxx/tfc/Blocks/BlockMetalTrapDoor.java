@@ -28,6 +28,7 @@ import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.TileEntities.TEMetalTrapDoor;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockMetalTrapDoor extends BlockTerraContainer
 {
 	public IIcon[] icons;
@@ -50,10 +51,11 @@ public class BlockMetalTrapDoor extends BlockTerraContainer
 		return TFCBlocks.metalTrapDoorRenderId;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{
@@ -99,8 +101,8 @@ public class BlockMetalTrapDoor extends BlockTerraContainer
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns the bounding box of the wired rectangular prism to render.
+	/*
+	  Returns the bounding box of the wired rectangular prism to render.
 	 */
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
 	{

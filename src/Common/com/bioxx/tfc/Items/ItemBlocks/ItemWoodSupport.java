@@ -13,6 +13,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemWoodSupport extends ItemTerraBlock
 {
 	public ItemWoodSupport(Block par1) 
@@ -83,7 +84,8 @@ public class ItemWoodSupport extends ItemTerraBlock
 		else if(y < 255 && y > 0 && side == 0)
 		{
 			boolean shouldGen = false;
-			int dist = 0;
+			int dist;
+			//noinspection ConstantConditions
 			for(dist = 1; dist <= 20 && !shouldGen; dist++)
 			{
 				if(!world.getBlock(x, y-dist, z).isReplaceable(world, x, y-dist, z))
@@ -93,12 +95,8 @@ public class ItemWoodSupport extends ItemTerraBlock
 					if (world.getBlock(x, y - dist, z).isSideSolid(world, x, y - dist, z, ForgeDirection.UP))
 					{
 						shouldGen = true;
-						break;
 					}
-					else
-					{
-						break;
-					}
+					break;
 				}
 			}
 			if (itemstack.stackSize >= dist - 1)

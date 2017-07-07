@@ -22,9 +22,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Core.WeatherManager;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 @SideOnly(Side.CLIENT)
 public class ClientOverrides 
 {
+	@SuppressWarnings({"unchecked", "ConstantConditions"})
 	public static void loadRenderers()
 	{
 		RenderGlobal renderG = Minecraft.getMinecraft().renderGlobal;

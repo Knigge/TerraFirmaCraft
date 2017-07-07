@@ -14,6 +14,7 @@ import com.bioxx.tfc.Entities.Mobs.EntityCowTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderCowTFC extends RenderCow
 {
 	private static final ResourceLocation COW_TEXTURE = new ResourceLocation("textures/entity/cow/cow.png");

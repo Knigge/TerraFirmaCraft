@@ -52,6 +52,7 @@ public class ItemCustomPickaxe extends ItemPickaxe implements ISize
 			return getIconFromDamageForRenderPass(stack.getItemDamage(), pass);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{
@@ -71,6 +72,7 @@ public class ItemCustomPickaxe extends ItemPickaxe implements ISize
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{
@@ -118,11 +120,10 @@ public class ItemCustomPickaxe extends ItemPickaxe implements ISize
     	boolean placed = false;
         int toolSlot = player.inventory.currentItem;
         int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
-        ItemStack nextSlotStack = null;
 
         if (toolSlot < 8)
         {
-            nextSlotStack = player.inventory.getStackInSlot(nextSlot);
+	        ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
             if (nextSlotStack != null)
             {
                 Item item = nextSlotStack.getItem();
@@ -158,17 +159,14 @@ public class ItemCustomPickaxe extends ItemPickaxe implements ISize
                     AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
                     AxisAlignedBB playerBounds = player.boundingBox;
 
-                    if(item instanceof ItemBlock)
-                    {
-                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
-                        if(blockToPlace.getMaterial().blocksMovement())
-                        {
-                            if (playerBounds.intersectsWith(blockBounds))
-                                return false;
-                        }
-                    }
+	                Block blockToPlace = ((ItemBlock) item).field_150939_a;
+	                if(blockToPlace.getMaterial().blocksMovement())
+	                {
+	                    if (playerBounds.intersectsWith(blockBounds))
+	                        return false;
+	                }
 
-                    int dmg = nextSlotStack.getItemDamage();
+	                int dmg = nextSlotStack.getItemDamage();
                     int count = nextSlotStack.stackSize;
 
                 	placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
@@ -180,8 +178,7 @@ public class ItemCustomPickaxe extends ItemPickaxe implements ISize
                     }
                     if (nextSlotStack.stackSize < 1)
                     {
-                    	nextSlotStack = null;
-                        player.inventory.setInventorySlotContents(nextSlot, null);
+	                    player.inventory.setInventorySlotContents(nextSlot, null);
                     }
                 }
             }

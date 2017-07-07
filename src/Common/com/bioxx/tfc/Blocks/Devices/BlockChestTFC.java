@@ -33,6 +33,7 @@ import com.bioxx.tfc.api.Constant.Global;
 
 import static net.minecraftforge.common.util.ForgeDirection.DOWN;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class BlockChestTFC extends BlockTerraContainer
 {
 	private String[] woodNames;
@@ -230,16 +231,12 @@ public class BlockChestTFC extends BlockTerraContainer
 		}
 	}
 
-	@Override
-	public void onBlockAdded(World world, int x, int y, int z)
-	{
-		super.onBlockAdded(world, x, y, z);
-	}
-
+	/*
 	public void unifyAdjacentChests(World world, int x, int y, int z)
 	{
 		//Doesn't do anything?
 	}
+*/
 	private boolean isChestOfType( IBlockAccess world, int x, int y, int z, int type )
 	{
 		if (world.getBlock(x, y, z) == this)

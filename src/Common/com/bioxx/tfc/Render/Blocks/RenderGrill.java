@@ -11,7 +11,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Blocks.Devices.BlockGrill;
 
-public class RenderGrill  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings("WeakerAccess")
+public class RenderGrill  implements ISimpleBlockRenderingHandler
 {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;

@@ -1,6 +1,5 @@
 package com.bioxx.tfc.Items.Tools;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -25,6 +24,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemFirestarter extends ItemTerra
 {
 	private boolean canBeUsed;
@@ -110,20 +110,18 @@ public class ItemFirestarter extends ItemTerra
 
 					if (list != null && !list.isEmpty())
 					{
-						for (Iterator iterator = list.iterator(); iterator.hasNext();)
-						{
-							EntityItem entity = (EntityItem)iterator.next();
-							if(entity.getEntityItem().getItem() == TFCItems.straw)
+						for (Object aList1 : list) {
+							EntityItem entity = (EntityItem) aList1;
+							if (entity.getEntityItem().getItem() == TFCItems.straw)
 								hasStraw = 40;
-							else if(entity.getEntityItem().getItem() == TFCItems.stick)
-								numsticks+=entity.getEntityItem().stackSize;
+							else if (entity.getEntityItem().getItem() == TFCItems.stick)
+								numsticks += entity.getEntityItem().stackSize;
 						}
 
 						if (chance > 70 - hasStraw && numsticks >= 3)
 						{
-							for (Iterator iterator = list.iterator(); iterator.hasNext();)
-							{
-								EntityItem entity = (EntityItem) iterator.next();
+							for (Object aList : list) {
+								EntityItem entity = (EntityItem) aList;
 								if (entity.getEntityItem().getItem() == TFCItems.stick || entity.getEntityItem().getItem() == TFCItems.straw)
 									entity.setDead();
 							}

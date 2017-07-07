@@ -3,6 +3,7 @@ package com.bioxx.tfc.WorldGen.GenLayers.DataLayers.Tree;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class GenLayerTreeInit extends GenLayerTFC
 {
 	private DataLayer[] layerTrees;

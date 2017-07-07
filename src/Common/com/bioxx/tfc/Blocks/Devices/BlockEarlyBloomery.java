@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class BlockEarlyBloomery extends BlockTerraContainer implements ICustomCollision
 {
 	private IIcon textureOn;
@@ -64,7 +65,7 @@ public class BlockEarlyBloomery extends BlockTerraContainer implements ICustomCo
 			world.setBlockToAir(x, y, z);
 			world.spawnEntityInWorld(new EntityItem(world, x, y, z, new ItemStack(this, 1)));
 		}
-		else if ((TEBloomery) world.getTileEntity(x, y, z) != null)
+		else if (world.getTileEntity(x, y, z) != null)
 		{
 			TEBloomery te = (TEBloomery) world.getTileEntity(x, y, z);
 			ItemStack is = entityplayer.getCurrentEquippedItem();
@@ -363,6 +364,7 @@ public class BlockEarlyBloomery extends BlockTerraContainer implements ICustomCo
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{

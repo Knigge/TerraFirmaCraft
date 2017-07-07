@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockLogHoriz2 extends BlockLogHoriz
 {
 	public BlockLogHoriz2(int off)

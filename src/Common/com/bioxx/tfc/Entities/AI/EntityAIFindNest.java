@@ -17,6 +17,7 @@ import com.bioxx.tfc.TileEntities.TENestBox;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class EntityAIFindNest extends EntityAIBase
 {
 	private EntityCreature theCreature;
@@ -85,17 +86,15 @@ public class EntityAIFindNest extends EntityAIBase
 	}
 
 	@Override
-	public boolean continueExecuting()
-	{
+	public boolean continueExecuting() {
 		if (this.theCreature.getDistanceSq(sitableBlockX + 0.5, sitableBlockY, sitableBlockZ + 0.5) < 0.2)
 			this.theCreature.getNavigator().clearPathEntity();
 
-		if(this.end)
-		{
-			this.end = false;
-			return end;
-		}
-		return this.currentTick <= this.maxSittingTicks && this.movement <= 60 && this.isSittableBlock(this.theCreature.worldObj, this.sitableBlockX, this.sitableBlockY, this.sitableBlockZ);
+		//this.end = false;
+		return !this.end
+				&& this.currentTick <= this.maxSittingTicks
+				&& this.movement <= 60
+				&& this.isSittableBlock(this.theCreature.worldObj, this.sitableBlockX, this.sitableBlockY, this.sitableBlockZ);
 	}
 
 	protected boolean getNearbySitableBlockDistance()
@@ -141,6 +140,7 @@ public class EntityAIFindNest extends EntityAIBase
 		this.maxSittingTicks = this.theCreature.getRNG().nextInt(this.theCreature.getRNG().nextInt(1200) + 1200) + 1200;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void updateTask()
 	{
@@ -161,6 +161,7 @@ public class EntityAIFindNest extends EntityAIBase
 					}
 				}
 				crowd.removeAll(invalid);
+				//noinspection SuspiciousMethodCalls
 				crowd.remove(theCreature);
 				if(this.compoundDistance < 0.5 || crowd.size() >= 10)
 				{
@@ -190,7 +191,8 @@ public class EntityAIFindNest extends EntityAIBase
 			if(time > TFC_Time.getTotalTicks())
 				return false;
 			else
-				failureDepressionMap.remove(new int[]{x, y, z});
+				// new int[] ?!
+				failureDepressionMap.remove((x + "," + y + "," + z)/*new int[]{x, y, z}*/);
 		}
 
 		Block block = world.getBlock(x, y, z);

@@ -47,6 +47,7 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
+@SuppressWarnings("WeakerAccess")
 public class WAILAData implements IWailaDataProvider
 {
 	@Override
@@ -476,7 +477,7 @@ public class WAILAData implements IWailaDataProvider
 	{
 		int meta = accessor.getMetadata();
 		TEOre te = (TEOre) accessor.getTileEntity();
-		ItemStack itemstack = null;
+		ItemStack itemstack;
 
 		if (accessor.getBlock() == TFCBlocks.ore) // Metals & Coal
 		{
@@ -686,7 +687,7 @@ public class WAILAData implements IWailaDataProvider
 			}
 			else if (sealed && fluid != null && fluid.getFluid() == TFCFluids.BRINE)
 			{
-				if (inStack != null && inStack.getItem() instanceof IFood && (((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || ((IFood) inStack.getItem()) == TFCItems.cheese) && !Food.isBrined(inStack))
+				if (inStack != null && inStack.getItem() instanceof IFood && (((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || inStack.getItem() == TFCItems.cheese) && !Food.isBrined(inStack))
 				{
 					currenttip.add(TFC_Core.translate("gui.barrel.brining"));
 				}
@@ -696,7 +697,7 @@ public class WAILAData implements IWailaDataProvider
 		{
 			if (!Food.isPickled(inStack) && Food.getWeight(inStack) / fluid.amount <= Global.FOOD_MAX_WEIGHT / te.getMaxLiquid())
 			{
-				if ((((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || ((IFood) inStack.getItem()) == TFCItems.cheese) && Food.isBrined(inStack))
+				if ((((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Fruit || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Vegetable || ((IFood) inStack.getItem()).getFoodGroup() == EnumFoodGroup.Protein || inStack.getItem() == TFCItems.cheese) && Food.isBrined(inStack))
 				{
 					currenttip.add(TFC_Core.translate("gui.barrel.pickling"));
 				}
@@ -917,10 +918,10 @@ public class WAILAData implements IWailaDataProvider
 			ItemStack storage[] = getStorage(tag, accessor.getTileEntity());
 			boolean counted[] = new boolean[] {false, false, false, false}; // Used to keep track of which slots have already been combined into others.
 
-			/**
-			 * Rather than just display the number of logs in each slot, I wanted to display the total number of each type of log in the pile.
-			 * There's very likely a much better way to do this, but it's all I could come up with for now.
-			 * Optimization PRs welcome. :) Kitty
+			/*
+			  Rather than just display the number of logs in each slot, I wanted to display the total number of each type of log in the pile.
+			  There's very likely a much better way to do this, but it's all I could come up with for now.
+			  Optimization PRs welcome. :) Kitty
 			 */
 			for (int j = 0; j < storage.length; j++) // Loop through the 4 storage slots
 			{
@@ -961,10 +962,10 @@ public class WAILAData implements IWailaDataProvider
 			ItemStack storage[] = getStorage(tag, accessor.getTileEntity());
 			boolean counted[] = new boolean[] {false, false, false, false}; // Used to keep track of which slots have already been combined into others.
 
-			/**
-			 * Rather than just display the number of logs in each slot, I wanted to display the total number of each type of log in the pile.
-			 * There's very likely a much better way to do this, but it's all I could come up with for now.
-			 * Optimization PRs welcome. :) Kitty
+			/*
+			  Rather than just display the number of logs in each slot, I wanted to display the total number of each type of log in the pile.
+			  There's very likely a much better way to do this, but it's all I could come up with for now.
+			  Optimization PRs welcome. :) Kitty
 			 */
 			for (int j = 0; j < storage.length; j++) // Loop through the 4 storage slots
 			{
@@ -1313,28 +1314,21 @@ public class WAILAData implements IWailaDataProvider
 		NBTTagCompound tag = accessor.getNBTData();
 		ItemStack storage[] = getStorage(tag, accessor.getTileEntity());
 
-		for (int i = 0; i < storage.length; i++)
-		{
-			ItemStack is = storage[i];
-			if (is != null)
-			{
+		for (ItemStack is : storage) {
+			if (is != null) {
 				int dryHours = Food.DRYHOURS - Food.getDried(is);
 				int smokeHours = Food.SMOKEHOURS - Food.getSmokeCounter(is);
 
-				if (smokeHours < Food.SMOKEHOURS && !Food.isSmoked(is))
-				{
+				if (smokeHours < Food.SMOKEHOURS && !Food.isSmoked(is)) {
 					smokeHours++; // Display timer off by one
 					float percent = Helper.roundNumber(100 - (100f * smokeHours) / Food.SMOKEHOURS, 10);
 					currenttip.add(TFC_Core.translate("word.smoking") + " " + is.getDisplayName());
 					currenttip.add("\u00B7 " + smokeHours + " " + TFC_Core.translate("gui.hoursRemaining") + " (" + percent + "%)");
-				}
-				else if (dryHours < Food.DRYHOURS && !Food.isDried(is))
-				{
+				} else if (dryHours < Food.DRYHOURS && !Food.isDried(is)) {
 					float percent = Helper.roundNumber(100 - (100f * dryHours) / Food.DRYHOURS, 10);
 					currenttip.add(TFC_Core.translate("word.drying") + " " + is.getDisplayName());
 					currenttip.add("\u00B7 " + dryHours + " " + TFC_Core.translate("gui.hoursRemaining") + " (" + percent + "%)");
-				}
-				else
+				} else
 					currenttip.add(is.getDisplayName());
 			}
 		}

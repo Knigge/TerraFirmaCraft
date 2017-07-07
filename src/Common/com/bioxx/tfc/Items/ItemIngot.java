@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class ItemIngot extends ItemTerra implements ISmeltable
 {
 	private EnumSize size = EnumSize.SMALL;
@@ -100,7 +101,7 @@ public class ItemIngot extends ItemTerra implements ISmeltable
 
 		boolean fullStack = true;
 
-		TEIngotPile te = null;
+		TEIngotPile te;
 
 		if (world.getTileEntity(x, y, z) instanceof TEIngotPile && world.getBlock(x,y,z) == TFCBlocks.ingotPile)
 		{
@@ -196,7 +197,7 @@ public class ItemIngot extends ItemTerra implements ISmeltable
 	{
 		NBTTagCompound stackTagCompound = itemstack.getTagCompound();
 
-		if (entityplayer.isSneaking() &&stackTagCompound == null && itemstack.getItem().getUnlocalizedName().indexOf("Double") == -1 &&
+		if (entityplayer.isSneaking() &&stackTagCompound == null && !itemstack.getItem().getUnlocalizedName().contains("Double") &&
 			this.isPlaceable(itemstack))
 		{
 			int dir = MathHelper.floor_double(entityplayer.rotationYaw * 4F / 360F + 0.5D) & 3;

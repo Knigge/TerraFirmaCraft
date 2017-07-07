@@ -13,6 +13,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityChickenTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderChickenTFC extends RenderChicken
 {
 	private static final ResourceLocation CHICKEN_TEXTURE = new ResourceLocation("textures/entity/chicken.png");

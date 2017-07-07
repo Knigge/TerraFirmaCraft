@@ -20,6 +20,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 public class TENestBox extends TileEntity implements IInventory
 {
 	public ItemStack[] inventory = new ItemStack[4];

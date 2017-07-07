@@ -9,6 +9,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.Stack;
 
+@SuppressWarnings({"SameParameterValue", "Convert2Diamond"})
 public class BarrelAlcoholRecipe extends BarrelRecipe
 {
 

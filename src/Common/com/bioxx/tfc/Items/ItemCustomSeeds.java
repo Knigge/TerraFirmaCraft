@@ -21,6 +21,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemCustomSeeds extends ItemTerra
 {
 	/**
@@ -81,6 +82,7 @@ public class ItemCustomSeeds extends ItemTerra
 			return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

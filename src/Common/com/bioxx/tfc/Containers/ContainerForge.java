@@ -13,6 +13,7 @@ import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TEForge;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerForge extends ContainerTFC
 {
 	private TEForge forge;
@@ -124,11 +125,10 @@ public class ContainerForge extends ContainerTFC
 	{
 		super.detectAndSendChanges();
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			if (this.firetemp != this.forge.fireTemp)
-				var2.sendProgressBarUpdate(this, 0, (int)this.forge.fireTemp);
+				var2.sendProgressBarUpdate(this, 0, (int) this.forge.fireTemp);
 		}
 
 		firetemp = this.forge.fireTemp;

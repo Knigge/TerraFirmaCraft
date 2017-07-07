@@ -11,6 +11,7 @@ import net.minecraft.world.chunk.IChunkProvider;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class MapGenRiverRavine extends MapGenBaseTFC
 {
 	private float[] multipliers = new float[1024];
@@ -121,7 +122,7 @@ public class MapGenRiverRavine extends MapGenBaseTFC
 						{
 							for (int var43 = var37 + 1; !var58 && var43 >= var55 - 1; --var43)
 							{
-								z = (x * 16 + var42) * 256 + var43;
+								//z = (x * 16 + var42) * 256 + var43;
 								if (var43 >= 0 && var43 < 256)
 								{
 									if (var43 != var55 - 1 && x != var56 && x != var35 - 1 && var42 != var57 && var42 != var39 - 1)

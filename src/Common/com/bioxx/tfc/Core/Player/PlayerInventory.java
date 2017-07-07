@@ -19,17 +19,17 @@ import com.bioxx.tfc.Containers.Slots.SlotForShowOnly;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class PlayerInventory
 {
 	public static int invXSize = 176;
 	public static int invYSize = 87;
 	private static ResourceLocation invTexture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_inventory_lower.png");
 	public static InventoryCrafting containerInv;
-	private static int index;
 
 	public static void buildInventoryLayout(Container container, InventoryPlayer inventory, int x, int y, boolean freezeSlot, boolean toolBarAfterMainInv)
 	{
-		index = 0;
+		int index;
 		if(!toolBarAfterMainInv)
 			addToolbarSlots(container, inventory, x, y, freezeSlot);
 
@@ -105,11 +105,12 @@ public class PlayerInventory
 		buildInventoryLayout(container, inventory, x, y, false);
 	}
 
+	@SuppressWarnings({"unchecked", "UnusedReturnValue"})
 	protected static Slot addSlotToContainer(Container container, Slot par1Slot)
 	{
 		par1Slot.slotNumber = container.inventorySlots.size();
 		container.inventorySlots.add(par1Slot);
-		container.inventoryItemStacks.add((Object)null);
+		container.inventoryItemStacks.add(null);
 		return par1Slot;
 	}
 
@@ -146,9 +147,10 @@ public class PlayerInventory
 		}
 	}
 
-
+/*
 	public static ItemStack transferStackInSlot(EntityPlayer player, ItemStack stackToXfer)
 	{
 		return null;
 	}
+*/
 }

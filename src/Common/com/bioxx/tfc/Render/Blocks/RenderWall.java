@@ -12,9 +12,11 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderWall  implements ISimpleBlockRenderingHandler
 {
 
+	@SuppressWarnings("SameReturnValue")
 	public static boolean renderBlockWall(BlockWall wallBlock, int x, int y, int z, RenderBlocks renderblocks)
 	{
 		boolean flag0 = wallBlock.canConnectWallTo(renderblocks.blockAccess, x - 1, y, z);
@@ -158,10 +160,9 @@ public class RenderWall  implements ISimpleBlockRenderingHandler
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z,
 			Block block, int modelId, RenderBlocks renderer) {
-		if(modelId == TFCBlocks.wallRenderId && block instanceof BlockWall){
-			return renderBlockWall((BlockWall)block,x,y,z,renderer);
-		}
-		return false;
+		return modelId == TFCBlocks.wallRenderId
+				&& block instanceof BlockWall
+				&& renderBlockWall((BlockWall) block, x, y, z, renderer);
 	}
 
 	public static void renderInvBlock(Block block, int m, RenderBlocks renderer)

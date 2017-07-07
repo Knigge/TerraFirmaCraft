@@ -5,6 +5,7 @@ import net.minecraft.world.gen.layer.GenLayer;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerRiverInitTFC extends GenLayerTFC
 {
 	public GenLayerRiverInitTFC(long par1, GenLayer par3GenLayer)

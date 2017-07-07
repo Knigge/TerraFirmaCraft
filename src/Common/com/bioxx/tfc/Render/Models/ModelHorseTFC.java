@@ -15,6 +15,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityHorseTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings("CanBeFinal")
 @SideOnly(Side.CLIENT)
 public class ModelHorseTFC extends ModelBase
 {
@@ -359,9 +360,10 @@ public class ModelHorseTFC extends ModelBase
     {
         float f3;
 
-        for (f3 = yOffset - xOffset; f3 < -180.0F; f3 += 360.0F)
+        // i don't understand :(
+	    //noinspection StatementWithEmptyBody
+	    for (f3 = yOffset - xOffset; f3 < -180.0F; f3 += 360.0F)
         {
-            ;
         }
 
         while (f3 >= 180.0F)
@@ -464,7 +466,8 @@ public class ModelHorseTFC extends ModelBase
         this.mane.rotateAngleY = this.head.rotateAngleY;
         this.muleLeftChest.rotateAngleX = f14 / 5.0F;
         this.muleRightChest.rotateAngleX = -f14 / 5.0F;
-		float f15 = (float) Math.PI / 2F;
+	    //noinspection UnusedAssignment
+	    float f15 = (float) Math.PI / 2F;
 		//float f16 = ((float)Math.PI * 3F / 2F);
 		//float f17 = -1.0471976F;
         float f18 = 0.2617994F * f9;

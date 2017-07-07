@@ -18,6 +18,7 @@ import mcp.mobius.waila.api.IWailaEntityAccessor;
 import mcp.mobius.waila.api.IWailaEntityProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 
+@SuppressWarnings("WeakerAccess")
 public class WMobs implements IWailaEntityProvider
 {
 

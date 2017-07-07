@@ -10,6 +10,7 @@ import net.minecraft.util.IIcon;
 
 import com.bioxx.tfc.Reference;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemGem extends ItemTerra
 {
 	private IIcon[] icons = new IIcon[5];
@@ -21,6 +22,7 @@ public class ItemGem extends ItemTerra
 		this.metaNames = new String[]{"Chipped", "Flawed", "Normal", "Flawless", "Exquisite"};
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

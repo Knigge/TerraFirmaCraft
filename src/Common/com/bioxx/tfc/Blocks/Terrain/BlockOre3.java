@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockOre3 extends BlockOre
 {
 	public BlockOre3(Material mat)

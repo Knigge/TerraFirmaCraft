@@ -14,6 +14,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntitySheepTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderSheepTFC extends RenderSheep
 {
 	private static final ResourceLocation SHEEP_FUR_TEXTURE = new ResourceLocation("textures/entity/sheep/sheep_fur.png");

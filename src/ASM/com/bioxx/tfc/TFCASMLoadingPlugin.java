@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.IFMLLoadingPlugin.TransformerExclusions;
 
 import com.bioxx.tfc.ASM.Transform.*;
 
+@SuppressWarnings("WeakerAccess")
 @TransformerExclusions({ "com.bioxx.tfc.ASM" })
 public class TFCASMLoadingPlugin implements IFMLLoadingPlugin
 {

@@ -8,6 +8,7 @@ import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.TFCWorldType;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class GenLayerBiomeTFC extends GenLayerTFC
 {
 	/** this sets all the biomes that are allowed to appear in the overworld */

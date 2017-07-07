@@ -28,6 +28,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TESluice extends TileEntity implements IInventory
 {
 	public int soilAmount;
@@ -84,11 +85,6 @@ public class TESluice extends TileEntity implements IInventory
 						stackInSlot.stackSize += is.stackSize;
 					}
 					return;
-				}
-				else
-				{
-					// not the same item, try the next slot
-					continue;
 				}
 			}
 		}
@@ -181,11 +177,9 @@ public class TESluice extends TileEntity implements IInventory
 	}
 
 	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		if(worldObj.getTileEntity(xCoord, yCoord, zCoord) != this)
-			return false;
-		return entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
+	public boolean isUseableByPlayer(EntityPlayer entityplayer) {
+		return worldObj.getTileEntity(xCoord, yCoord, zCoord) == this
+				&& entityplayer.getDistanceSq(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D) <= 64D;
 	}
 
 	@Override
@@ -209,9 +203,9 @@ public class TESluice extends TileEntity implements IInventory
 		if (isFoot || soilAmount == -1)
 			return;
 
-		/*********************************************************
-		 ********************* Server Only Begin
-		 *********************************************************/
+		/******************************************************
+		 Server Only Begin
+		 */
 		if(!worldObj.isRemote)
 		{
 			if(!initialized)
@@ -245,22 +239,19 @@ public class TESluice extends TileEntity implements IInventory
 					xCoord, yCoord, zCoord,
 					xCoord + 1, yCoord + 1.1f, zCoord + 1));
 
-			for (Iterator iterator = list.iterator(); iterator.hasNext();)
-			{
-				EntityItem entity = (EntityItem)iterator.next();
+			for (Object aList : list) {
+				EntityItem entity = (EntityItem) aList;
 				Item item = entity.getEntityItem().getItem();
-				if(item == Item.getItemFromBlock(TFCBlocks.gravel)|| item == Item.getItemFromBlock(TFCBlocks.gravel2) || 
-						item == Item.getItemFromBlock(TFCBlocks.sand) || item == Item.getItemFromBlock(TFCBlocks.sand2))
-				{
+				if (item == Item.getItemFromBlock(TFCBlocks.gravel) || item == Item.getItemFromBlock(TFCBlocks.gravel2) ||
+						item == Item.getItemFromBlock(TFCBlocks.sand) || item == Item.getItemFromBlock(TFCBlocks.sand2)) {
 					int stackSize = entity.getEntityItem().stackSize;
 					int accept = (50 + 19 - soilAmount) / 20;
-					if (stackSize <= accept)
-					{
+					if (stackSize <= accept) {
 						soilAmount += 20 * stackSize;
 						entity.setDead();
-						if(soilAmount > 50)
+						if (soilAmount > 50)
 							soilAmount = 50;
-						if(item == Item.getItemFromBlock(TFCBlocks.gravel)|| item == Item.getItemFromBlock(TFCBlocks.gravel2))
+						if (item == Item.getItemFromBlock(TFCBlocks.gravel) || item == Item.getItemFromBlock(TFCBlocks.gravel2))
 							soilType = 2;
 						else
 							soilType = 1;
@@ -410,9 +401,9 @@ public class TESluice extends TileEntity implements IInventory
 			if(soilAmount == 0)
 				processTimeRemaining = 0;
 		}
-		/*********************************************************
-		 ********************* Server Only End
-		 *********************************************************/
+		/******************************************************
+		 Server Only End
+		 */
 		//Here we make sure that the water flags are checked
 		if((meta & 3 )== 0)
 		{

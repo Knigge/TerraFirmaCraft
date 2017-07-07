@@ -25,6 +25,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockFruitWood extends BlockTerraContainer
 {
 	private IIcon[] icons = new IIcon[Global.FRUIT_META_NAMES.length];
@@ -80,9 +81,7 @@ public class BlockFruitWood extends BlockTerraContainer
 		}
 		if(isAxeorSaw)
 		{
-			int x = i;
 			int y = 0;
-			int z = k;
 			//int count = 0;
 
 			if(world.getBlock(i, j+1, k) == this || world.getBlock(i, j-1, k) == this)
@@ -95,7 +94,7 @@ public class BlockFruitWood extends BlockTerraContainer
 					boolean reachedTop = false;
 					while(!reachedTop)
 					{
-						if (world.isAirBlock(x, j+y+1, z))
+						if (world.isAirBlock(i, j+y+1, k))
 						{
 							reachedTop = true;
 						}
@@ -110,7 +109,7 @@ public class BlockFruitWood extends BlockTerraContainer
 					world.getBlock(i, j, k - 1) == this)
 			{
 				Random r = new Random();
-				if(r.nextInt(100) > 50 && isAxeorSaw)
+				if(r.nextInt(100) > 50/* && isAxeorSaw*/)
 				{
 					if(l < 8 && (
 							world.getBlock(i + 1, j, k) == TFCBlocks.fruitTreeLeaves2 ||
@@ -162,15 +161,12 @@ public class BlockFruitWood extends BlockTerraContainer
 		if(y >= 0)
 		{
 			checkArray[x][y][z] = true;
-			int offsetX = 0;
-			int offsetY = 0;
-			int offsetZ = 0;
 
-			for (offsetY = 0; offsetY <= 1; offsetY++)
+			for (int offsetY = 0; offsetY <= 1; offsetY++)
 			{
-				for (offsetX = -1; offsetX <= 1; offsetX++)
+				for (int offsetX = -1; offsetX <= 1; offsetX++)
 				{
-					for (offsetZ = -1; offsetZ <= 1; offsetZ++)
+					for (int offsetZ = -1; offsetZ <= 1; offsetZ++)
 					{
 						if(x + offsetX < 11 && x + offsetX >= 0 && z + offsetZ < 11 && z + offsetZ >= 0 && y + offsetY < 50 && y + offsetY >= 0)
 						{
@@ -403,6 +399,7 @@ public class BlockFruitWood extends BlockTerraContainer
 		super.breakBlock(world, x, y, z, block, metadata);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

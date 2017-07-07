@@ -12,6 +12,7 @@ import com.bioxx.tfc.Blocks.BlockTerraContainer;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.TileEntities.TESpawnMeter;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockSpawnMeter extends BlockTerraContainer
 {
 	private IIcon iconTop;

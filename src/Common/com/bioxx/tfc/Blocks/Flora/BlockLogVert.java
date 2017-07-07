@@ -23,6 +23,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockLogVert extends BlockTerra
 {
 	protected String[] woodNames;
@@ -93,10 +94,11 @@ public class BlockLogVert extends BlockTerra
 		return TFCBlocks.logNatural.getIcon(side, meta);
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{

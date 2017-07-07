@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class WorldGenAcaciaKoaTrees extends WorldGenerator
 {
 	/**
@@ -32,8 +33,8 @@ public class WorldGenAcaciaKoaTrees extends WorldGenerator
 	private double scaleWidth = 3.0D;
 	private double leafDensity = 1.0D;
 
-	/**
-	 * Currently always 1, can be set to 2 in the class constructor to generate a double-sized tree trunk for big trees.
+	/*
+	  Currently always 1, can be set to 2 in the class constructor to generate a double-sized tree trunk for big trees.
 	 */
 	//private static final int trunkSize = 1;
 
@@ -302,7 +303,7 @@ public class WorldGenAcaciaKoaTrees extends WorldGenerator
 		int[] var10 = new int[] {par1, par2, par3};
 		int[] var11 = new int[] {0, 0, 0};
 		int var12 = -var7;
-		int var13 = -var7;
+		int var13;
 
 		for (var11[par5] = var10[par5]; var12 <= var7; ++var12)
 		{

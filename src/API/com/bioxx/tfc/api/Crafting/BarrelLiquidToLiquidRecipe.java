@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BarrelLiquidToLiquidRecipe extends BarrelRecipe
 {
 	public FluidStack inputfluid;
@@ -17,18 +18,14 @@ public class BarrelLiquidToLiquidRecipe extends BarrelRecipe
 	}
 
 	@Override
-	public Boolean matches(ItemStack item, FluidStack fluid)
-	{
+	public Boolean matches(ItemStack item, FluidStack fluid) {
 		FluidStack itemLiquid = FluidContainerRegistry.getFluidForFilledItem(item);
-		if(recipeFluid != null && recipeFluid.isFluidEqual(fluid) && itemLiquid != null && itemLiquid.isFluidEqual(inputfluid))
-		{
-			//Make sure that when we combine the liquids that there is enough room in the barrel for the new liquid to fit
-			if(10000-fluid.amount < itemLiquid.amount)
-				return false;
-
-			return true;
-		}
-		return false;
+		//Make sure that when we combine the liquids that there is enough room in the barrel for the new liquid to fit
+		return recipeFluid != null 
+				&& recipeFluid.isFluidEqual(fluid)
+				&& itemLiquid != null
+				&& itemLiquid.isFluidEqual(inputfluid)
+				&& 10000 - fluid.amount >= itemLiquid.amount;
 	}
 
 	@Override

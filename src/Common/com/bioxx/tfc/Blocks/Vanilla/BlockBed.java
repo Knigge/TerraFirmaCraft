@@ -1,14 +1,12 @@
 package com.bioxx.tfc.Blocks.Vanilla;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayer.EnumStatus;
@@ -31,6 +29,7 @@ import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockBed extends BlockDirectional
 {
 	/** Maps the foot-of-bed block to the head-of-bed block. */
@@ -80,18 +79,14 @@ public class BlockBed extends BlockDirectional
 				if (isBedOccupied(i1))
 				{
 					EntityPlayer entityplayer1 = null;
-					Iterator iterator = world.playerEntities.iterator();
 
-					while (iterator.hasNext())
-					{
-						EntityPlayer entityplayer2 = (EntityPlayer)iterator.next();
+					for (Object playerEntity : world.playerEntities) {
+						EntityPlayer entityplayer2 = (EntityPlayer) playerEntity;
 
-						if (entityplayer2.isPlayerSleeping())
-						{
+						if (entityplayer2.isPlayerSleeping()) {
 							ChunkCoordinates chunkcoordinates = entityplayer2.playerLocation;
 
-							if (chunkcoordinates.posX == x && chunkcoordinates.posY == y && chunkcoordinates.posZ == z)
-							{
+							if (chunkcoordinates.posX == x && chunkcoordinates.posY == y && chunkcoordinates.posZ == z) {
 								entityplayer1 = entityplayer2;
 							}
 						}
@@ -126,9 +121,11 @@ public class BlockBed extends BlockDirectional
 			}
 			else
 			{
+				/* unused?
 				double d0 = x + 0.5D;
 				double d1 = y + 0.5D;
 				double d2 = z + 0.5D;
+				*/
 				world.setBlockToAir(x, y, z);
 				int k1 = getDirection(i1);
 				x += FOOT_HEAD_BLOCKMAP[k1][0];
@@ -137,12 +134,14 @@ public class BlockBed extends BlockDirectional
 				if (world.getBlock(x, y, z) == this)
 				{
 					world.setBlockToAir(x, y, z);
+					/*
 					d0 = (d0 + x + 0.5D) / 2.0D;
 					d1 = (d1 + y + 0.5D) / 2.0D;
 					d2 = (d2 + z + 0.5D) / 2.0D;
+					*/
 				}
 
-				world.newExplosion((Entity)null, x + 0.5F, y + 0.5F, z + 0.5F, 5.0F, true, true);
+				world.newExplosion(null, x + 0.5F, y + 0.5F, z + 0.5F, 5.0F, true, true);
 				return true;
 			}
 		}
@@ -162,14 +161,14 @@ public class BlockBed extends BlockDirectional
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
+	/*
+	  From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
 	 */
 	public IIcon getIcon(int par1, int par2)
 	{
 		if (par1 == 0)
 		{
-			return TFCBlocks.planks.getBlockTextureFromSide(par1);
+			return TFCBlocks.planks.getBlockTextureFromSide(0);
 		}
 		else
 		{
@@ -183,9 +182,9 @@ public class BlockBed extends BlockDirectional
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * When this method is called, your block should register all the icons it needs with the given IconRegister. This
-	 * is the only chance you get to register icons.
+	/*
+	  When this method is called, your block should register all the icons it needs with the given IconRegister. This
+	  is the only chance you get to register icons.
 	 */
 	public void registerBlockIcons(IIconRegister par1IconRegister)
 	{

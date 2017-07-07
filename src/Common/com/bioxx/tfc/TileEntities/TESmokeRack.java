@@ -14,6 +14,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.Core.WeatherManager;
 import com.bioxx.tfc.api.Food;
 
+@SuppressWarnings("WeakerAccess")
 public class TESmokeRack extends NetworkTileEntity implements IInventory
 {
 	public ItemStack[] storage = new ItemStack[2];

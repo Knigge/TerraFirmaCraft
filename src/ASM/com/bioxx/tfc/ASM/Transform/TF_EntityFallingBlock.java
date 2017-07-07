@@ -1,10 +1,10 @@
 package com.bioxx.tfc.ASM.Transform;
 
-/**
- * 
- * We don't actually use this file anymore, however it is being left here to demonstrate how to 
- * replace instructions that replace fields in an init method.
- * 
+/*
+
+  We don't actually use this file anymore, however it is being left here to demonstrate how to
+  replace instructions that replace fields in an init method.
+
  */
 
 import java.util.ArrayList;
@@ -15,6 +15,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.IntInsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class TF_EntityFallingBlock extends ClassTransformer
 {
 

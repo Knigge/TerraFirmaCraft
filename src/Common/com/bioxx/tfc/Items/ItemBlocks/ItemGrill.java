@@ -14,6 +14,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemGrill extends ItemTerraBlock
 {
 	public ItemGrill(Block par1)
@@ -29,8 +30,8 @@ public class ItemGrill extends ItemTerraBlock
 		{
 			if(side == 1 && world.isAirBlock(x, y+1, z))
 			{
-				int out = side;
-				int hinge = 0;
+				int out = 1;
+				int hinge;
 
 				if (hitX < 0.2)
 					hinge = 0;

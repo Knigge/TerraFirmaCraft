@@ -5,10 +5,11 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class QuernManager
 {
 	private static final QuernManager INSTANCE = new QuernManager();
-	public static final QuernManager getInstance()
+	public static QuernManager getInstance()
 	{
 		return INSTANCE;
 	}

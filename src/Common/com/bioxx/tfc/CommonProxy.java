@@ -315,14 +315,6 @@ public class CommonProxy
 		TFCItems.steelHammer.setHarvestLevel("hammer", 4);
 	}
 
-	public void onClientLogin()
-	{
-	}
-
-	public void registerSkyProvider(TFCProvider p)
-	{
-	}
-
 	public boolean isRemote()
 	{
 		return false;

@@ -10,6 +10,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Time;
 
+@SuppressWarnings("WeakerAccess")
 public class EnteringChunkHandler
 {
 	@SubscribeEvent
@@ -21,6 +22,7 @@ public class EnteringChunkHandler
 			if(!player.worldObj.isRemote)
 			{
 				NBTTagCompound nbt = player.getEntityData();
+				//noinspection UnusedAssignment
 				long spawnProtectionTimer = nbt.hasKey("spawnProtectionTimer") ? nbt.getLong("spawnProtectionTimer") : TFC_Time.getTotalTicks() + TFC_Time.HOUR_LENGTH;
 
 

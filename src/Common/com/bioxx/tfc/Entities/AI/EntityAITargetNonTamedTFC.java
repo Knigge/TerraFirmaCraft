@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.InteractionEnum;
 
+@SuppressWarnings("CanBeFinal")
 public class EntityAITargetNonTamedTFC extends EntityAITargetNonTamed
 {
 	private EntityTameable entityTameable;

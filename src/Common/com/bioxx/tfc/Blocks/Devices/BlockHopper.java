@@ -30,6 +30,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEHopper;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockHopper extends BlockTerraContainer
 {
 	private final Random random = new Random();

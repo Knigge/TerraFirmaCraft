@@ -232,7 +232,8 @@ public class ItemOre extends ItemTerra implements ISmeltable
 			case 12: return true;
 			case 13: return true;
 			case 14: return true;
-			case 15: if(TFCOptions.enableAluminumSmelting) { return true; } else { return false; }
+			case 15:
+				return TFCOptions.enableAluminumSmelting;
 			case 16: return true;
 			case 17: return true;
 			case 18: return true;
@@ -250,7 +251,8 @@ public class ItemOre extends ItemTerra implements ISmeltable
 			case 30: return true;
 			case 31: return true;
 			case 32: return true;
-			case 33: if(TFCOptions.enableAluminumSmelting) { return true; } else { return false; }
+			case 33:
+				return TFCOptions.enableAluminumSmelting;
 			case 34: return true;
 			case 35: return true;
 			case 36: return true;
@@ -268,7 +270,8 @@ public class ItemOre extends ItemTerra implements ISmeltable
 			case 48: return true;
 			case 49: return true;
 			case 50: return true;
-			case 51: if(TFCOptions.enableAluminumSmelting) { return true; } else { return false; }
+			case 51:
+				return TFCOptions.enableAluminumSmelting;
 			case 52: return true;
 			case 53: return true;
 		default:

@@ -12,21 +12,12 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TELoom;
 
+@SuppressWarnings("CanBeFinal")
 public class ModelLoom extends ModelBase {
 
 	private ModelRenderer loomPole1;
 	private ModelRenderer loomPole2;
 	//private ModelRenderer loomPoleBase;
-
-	private TexturedQuad[] initialString;
-	private TexturedQuad[] finalString;
-
-	private TexturedQuad clothRender;
-
-	private PositionTextureVertex vert0;
-	private PositionTextureVertex vert1;
-	private PositionTextureVertex vert2;
-	private PositionTextureVertex vert3;
 
 	//private float[] stringLength = new float[16];
 
@@ -63,6 +54,7 @@ public class ModelLoom extends ModelBase {
 	 * @param y The y angle
 	 * @param z The z angle
 	 */
+	@SuppressWarnings("WeakerAccess")
 	protected void setRotationRadians(ModelRenderer model, float x, float y, float z) {
 		model.rotateAngleX = x;
 		model.rotateAngleY = y;
@@ -80,12 +72,13 @@ public class ModelLoom extends ModelBase {
 		this.setRotationRadians(model, (float) Math.toRadians(x), (float) Math.toRadians(y), (float) Math.toRadians(z));
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	public void render(int numStrings, int numMaxStrings, int tick, boolean shouldClothIncrease, int tickMod, ResourceLocation stringTex, boolean isWeaving, boolean stillWeaving, TELoom te) {
 		float renderOffsetPole2 = 9f;
 		float renderOffsetPole1 = 9f;
-		
-		initialString = new TexturedQuad[numMaxStrings];
-		finalString = new TexturedQuad[numMaxStrings];
+
+		TexturedQuad[] initialString = new TexturedQuad[numMaxStrings];
+		TexturedQuad[] finalString = new TexturedQuad[numMaxStrings];
 
 		float string1Z,string2Z;
 
@@ -153,7 +146,11 @@ public class ModelLoom extends ModelBase {
 
 		float string1FinalLength = (float)Math.sqrt(Math.pow(stringStartZ - string1Z, 2) + Math.pow(pole1Height, 1));
 		float string2FinalLength = (float)Math.sqrt(Math.pow(stringStartZ - string2Z, 2) + Math.pow(pole2Height, 1));
-		
+
+		PositionTextureVertex vert3;
+		PositionTextureVertex vert2;
+		PositionTextureVertex vert1;
+		PositionTextureVertex vert0;
 		for(int i = 0; i < numStrings; i+=2){
 
 			//pole2 strings
@@ -282,7 +279,7 @@ public class ModelLoom extends ModelBase {
 				stringStartZ,
 				8,8);
 
-		clothRender = new TexturedQuad(new PositionTextureVertex[] {vert0, vert1, vert3, vert2}, 
+		TexturedQuad clothRender = new TexturedQuad(new PositionTextureVertex[]{vert0, vert1, vert3, vert2},
 				0, 0, 16, cloth, 16, 16);
 		GL11.glPushMatrix();
 		GL11.glDisable(GL11.GL_CULL_FACE);
@@ -300,6 +297,7 @@ public class ModelLoom extends ModelBase {
 		cloth = newCloth;
 	}
 	
+	@SuppressWarnings("WeakerAccess")
 	public void resetCloth(TELoom te){
 		
 		te.finishCloth();

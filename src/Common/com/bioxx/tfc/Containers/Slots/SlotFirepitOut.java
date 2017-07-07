@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotFirepitOut extends Slot
 {
 	private int slotMax;

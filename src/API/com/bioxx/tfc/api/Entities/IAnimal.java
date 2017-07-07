@@ -7,15 +7,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Vec3;
 
+@SuppressWarnings("SameParameterValue")
 public interface IAnimal
 {
-	public enum GenderEnum
+	enum GenderEnum
 	{
 		MALE,FEMALE;
 		public static final GenderEnum[] GENDERS = {MALE, FEMALE};
 	}
 	
-	public enum InteractionEnum
+	enum InteractionEnum
 	{
 		MOUNT,SHEAR,MILK,BREED, NAME, TOLERATEPLAYER;
 		public static final InteractionEnum[] INTERACTIONS = {MOUNT,SHEAR,MILK,BREED, NAME, TOLERATEPLAYER};
@@ -30,8 +31,7 @@ public interface IAnimal
 	EntityAgeable createChildTFC(EntityAgeable entityageable);
 
 	/**
-	 * Represents interaction with the animal that makes the animal happy, thus increasing it's familiarization
-	 * @param ep
+	  Represents interaction with the animal that makes the animal happy, thus increasing it's familiarization
 	 */
 	void familiarize(EntityPlayer ep);
 

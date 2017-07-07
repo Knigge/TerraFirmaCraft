@@ -11,17 +11,17 @@ import com.bioxx.tfc.Containers.Slots.SlotSluice;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TESluice;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerSluice extends ContainerTFC
 {
 	private TESluice sluice;
-	private EntityPlayer player;
 	private int soilamt;
 	private int progress;
 
 	public ContainerSluice(InventoryPlayer inventoryplayer, TESluice tileentitysluice, World world, int x, int y, int z)
 	{
 		sluice = tileentitysluice;
-		player = inventoryplayer.player;
+		EntityPlayer player = inventoryplayer.player;
 		addSlotToContainer(new SlotSluice(player, sluice, 0, 116, 16));
 		addSlotToContainer(new SlotSluice(player, sluice, 1, 134, 16));
 		addSlotToContainer(new SlotSluice(player, sluice, 2, 152, 16));
@@ -72,6 +72,7 @@ public class ContainerSluice extends ContainerTFC
 		return origStack;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void detectAndSendChanges()
 	{
@@ -86,13 +87,11 @@ public class ContainerSluice extends ContainerTFC
 				var3 = var2 == null ? null : var2.copy();
 				this.inventoryItemStacks.set(var1, var3);
 
-				for (int var4 = 0; var4 < this.crafters.size(); ++var4)
-					((ICrafting)this.crafters.get(var4)).sendSlotContents(this, var1, var3);
+				for (Object crafter : this.crafters) ((ICrafting) crafter).sendSlotContents(this, var1, var3);
 			}
 		}
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			if (this.soilamt != this.sluice.soilAmount)
 				var2.sendProgressBarUpdate(this, 0, this.sluice.soilAmount);
 			if (this.progress != this.sluice.processTimeRemaining)

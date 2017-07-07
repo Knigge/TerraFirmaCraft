@@ -26,6 +26,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.TileEntities.TEIngotPile;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockIngotPile extends BlockTerraContainer
 {
 	private Random random = new Random();
@@ -50,7 +51,7 @@ public class BlockIngotPile extends BlockTerraContainer
 		}
 		else
 		{
-			if((TEIngotPile)world.getTileEntity(x, y, z) != null)
+			if(world.getTileEntity(x, y, z) != null)
 			{
 				TEIngotPile tileentityingotpile;
 				tileentityingotpile = (TEIngotPile)world.getTileEntity(x, y, z);
@@ -365,39 +366,30 @@ public class BlockIngotPile extends BlockTerraContainer
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
-		if(!world.isRemote)
-		{
-			if ( !world.isSideSolid(x, y - 1, z, ForgeDirection.UP) && world.getTileEntity(x, y, z) instanceof TEIngotPile)
-			{
-				TEIngotPile ingotPile = (TEIngotPile) world.getTileEntity(x, y, z);
-				Item ingot = ingotPile.storage[0] != null ? ingotPile.storage[0].getItem() : null;
+		if (!world.isRemote && !world.isSideSolid(x, y - 1, z, ForgeDirection.UP) && world.getTileEntity(x, y, z) instanceof TEIngotPile) {
+			TEIngotPile ingotPile = (TEIngotPile) world.getTileEntity(x, y, z);
+			Item ingot = ingotPile.storage[0] != null ? ingotPile.storage[0].getItem() : null;
 
-				if (world.getBlock(x, y - 1, z) == this && world.getTileEntity(x, y - 1, z) instanceof TEIngotPile)
-				{
-					TEIngotPile lowerPile = (TEIngotPile) world.getTileEntity(x, y - 1, z);
-					Item lowerIngot = lowerPile.storage[0] != null ? lowerPile.storage[0].getItem() : null;
+			if (world.getBlock(x, y - 1, z) == this && world.getTileEntity(x, y - 1, z) instanceof TEIngotPile) {
+				TEIngotPile lowerPile = (TEIngotPile) world.getTileEntity(x, y - 1, z);
+				Item lowerIngot = lowerPile.storage[0] != null ? lowerPile.storage[0].getItem() : null;
 
-					if (ingot == lowerIngot)
-						combineIngotsDown(world, x, y, z);
-				}
-				else if (world.getBlock(x, y + 1, z) == this && world.getTileEntity(x, y + 1, z) instanceof TEIngotPile)
-				{
-					TEIngotPile upperPile = (TEIngotPile) world.getTileEntity(x, y + 1, z);
-					Item upperIngot = upperPile.storage[0] != null ? upperPile.storage[0].getItem() : null;
+				if (ingot == lowerIngot)
+					combineIngotsDown(world, x, y, z);
+			} else if (world.getBlock(x, y + 1, z) == this && world.getTileEntity(x, y + 1, z) instanceof TEIngotPile) {
+				TEIngotPile upperPile = (TEIngotPile) world.getTileEntity(x, y + 1, z);
+				Item upperIngot = upperPile.storage[0] != null ? upperPile.storage[0].getItem() : null;
 
-					if (ingot == upperIngot)
-						combineIngotsUp(world, x, y, z);
-				}
-				else
-				{
-					ingotPile.ejectContents();
-					world.setBlockToAir(x, y, z);
-					return;
-				}
+				if (ingot == upperIngot)
+					combineIngotsUp(world, x, y, z);
+			} else {
+				ingotPile.ejectContents();
+				world.setBlockToAir(x, y, z);
 			}
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "Convert2Diamond"})
 public class CollisionRayTraceStandard
 {
 
@@ -157,39 +158,30 @@ public class CollisionRayTraceStandard
 		return returns;
 	}
 
-	private static boolean isVecInsideYZBounds(AxisAlignedBB bound, Vec3 vec3)
-	{
-		if (vec3 == null)
-		{
-			return false;
-		}
-		else
-		{
-			return vec3.yCoord >= bound.minY && vec3.yCoord <= bound.maxY && vec3.zCoord >= bound.minZ && vec3.zCoord <= bound.maxZ;
-		}
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private static boolean isVecInsideYZBounds(AxisAlignedBB bound, Vec3 vec3) {
+		return vec3 != null
+				&& vec3.yCoord >= bound.minY
+				&& vec3.yCoord <= bound.maxY
+				&& vec3.zCoord >= bound.minZ
+				&& vec3.zCoord <= bound.maxZ;
 	}
 
-	private static boolean isVecInsideXZBounds(AxisAlignedBB bound, Vec3 vec3)
-	{
-		if (vec3 == null)
-		{
-			return false;
-		}
-		else
-		{
-			return vec3.xCoord >= bound.minX && vec3.xCoord <= bound.maxX && vec3.zCoord >= bound.minZ && vec3.zCoord <= bound.maxZ;
-		}
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private static boolean isVecInsideXZBounds(AxisAlignedBB bound, Vec3 vec3) {
+		return vec3 != null
+				&& vec3.xCoord >= bound.minX
+				&& vec3.xCoord <= bound.maxX
+				&& vec3.zCoord >= bound.minZ
+				&& vec3.zCoord <= bound.maxZ;
 	}
 
-	private static boolean isVecInsideXYBounds(AxisAlignedBB bound, Vec3 vec3)
-	{
-		if (vec3 == null)
-		{
-			return false;
-		}
-		else
-		{
-			return vec3.xCoord >= bound.minX && vec3.xCoord <= bound.maxX && vec3.yCoord >= bound.minY && vec3.yCoord <= bound.maxY;
-		}
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private static boolean isVecInsideXYBounds(AxisAlignedBB bound, Vec3 vec3) {
+		return vec3 != null
+				&& vec3.xCoord >= bound.minX
+				&& vec3.xCoord <= bound.maxX
+				&& vec3.yCoord >= bound.minY
+				&& vec3.yCoord <= bound.maxY;
 	}
 }

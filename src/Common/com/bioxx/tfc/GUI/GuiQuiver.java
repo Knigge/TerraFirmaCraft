@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerQuiver;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiQuiver extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_quiver.png");

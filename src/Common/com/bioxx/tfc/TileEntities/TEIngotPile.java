@@ -17,6 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEIngotPile extends NetworkTileEntity implements IInventory
 {
 	public ItemStack[] storage;
@@ -266,14 +267,6 @@ public class TEIngotPile extends NetworkTileEntity implements IInventory
 		storage[0] = ItemStack.loadItemStackFromNBT(nbt);
 		updateNeighbours();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
 	}
 
 	@Override

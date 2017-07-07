@@ -12,6 +12,7 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 
+@SuppressWarnings("Convert2Diamond")
 public class TF_EntityLeashKnot extends ClassTransformer
 {
 

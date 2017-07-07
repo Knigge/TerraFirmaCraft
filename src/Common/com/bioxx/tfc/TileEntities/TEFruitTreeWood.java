@@ -18,6 +18,7 @@ import com.bioxx.tfc.Food.FloraIndex;
 import com.bioxx.tfc.Food.FloraManager;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEFruitTreeWood extends TileEntity implements IInventory
 {
 	public boolean isTrunk;

@@ -27,6 +27,7 @@ import com.bioxx.tfc.Blocks.BlockTerra;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockLogNatural extends BlockTerra
 {
 	protected String[] woodNames;
@@ -74,10 +75,11 @@ public class BlockLogNatural extends BlockTerra
 		return world.blockExists(x, y, z) && world.getBlock(x, y, z) != this;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{
@@ -122,6 +124,7 @@ public class BlockLogNatural extends BlockTerra
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void harvestBlock(World world, EntityPlayer entityplayer, int x, int y, int z, int meta)
 	{		
@@ -209,6 +212,7 @@ public class BlockLogNatural extends BlockTerra
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onBlockDestroyedByExplosion(World world, int x, int y, int z, Explosion ex)
 	{
@@ -221,6 +225,7 @@ public class BlockLogNatural extends BlockTerra
 		//any memory issues and should take shortcuts to find the top of the tree and search down
 	}*/
 
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	@Deprecated
 	private void processTree(World world, int x, int y, int z, int meta, ItemStack is)
 	{
@@ -262,14 +267,14 @@ public class BlockLogNatural extends BlockTerra
 	{
 		if(y >= 0 && j + y < 256)
 		{
-			int offsetX = 0;int offsetY = 0;int offsetZ = 0;
+			//int offsetX = 0;int offsetY = 0;int offsetZ = 0;
 			checkArray[x + searchDist][y][z + searchDist] = true;
 
-			for (offsetX = -3; offsetX <= 3; offsetX++)
+			for (int offsetX = -3; offsetX <= 3; offsetX++)
 			{
-				for (offsetZ = -3; offsetZ <= 3; offsetZ++)
+				for (int offsetZ = -3; offsetZ <= 3; offsetZ++)
 				{
-					for (offsetY = 0; offsetY <= 2; offsetY++)
+					for (int offsetY = 0; offsetY <= 2; offsetY++)
 					{
 						if(Math.abs(x + offsetX) <= searchDist && j + y + offsetY < 256 && Math.abs(z + offsetZ) <= searchDist)
 						{

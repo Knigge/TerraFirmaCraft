@@ -5,7 +5,6 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.monster.EntityZombie;
@@ -52,17 +51,13 @@ public class EntityZombieTFC extends EntityZombie implements ICausesDamage, IInn
 	}
 
 	@Override
-	public boolean getCanSpawnHere()
-	{
+	public boolean getCanSpawnHere() {
 		int x = MathHelper.floor_double(this.posX);
 		int y = MathHelper.floor_double(this.boundingBox.minY);
 		int z = MathHelper.floor_double(this.posZ);
 		Block b = this.worldObj.getBlock(x, y, z);
 
-		if(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch)
-			return false;
-
-		return super.getCanSpawnHere();
+		return !(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch) && super.getCanSpawnHere();
 	}
 
 	/**
@@ -292,11 +287,7 @@ public class EntityZombieTFC extends EntityZombie implements ICausesDamage, IInn
 
 		SummonAidEvent summonAid = ForgeEventFactory.fireZombieSummonAid(this, worldObj, i, j, k, entitylivingbase, this.getEntityAttribute(field_110186_bp).getAttributeValue());
 
-		if (summonAid.getResult() == Result.DENY)
-		{
-			return;
-		}
-		else if (summonAid.getResult() == Result.ALLOW || entitylivingbase != null && this.worldObj.difficultySetting == EnumDifficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(field_110186_bp).getAttributeValue())
+		if (summonAid.getResult() != Result.DENY && (summonAid.getResult() == Result.ALLOW || entitylivingbase != null && this.worldObj.difficultySetting == EnumDifficulty.HARD && this.rand.nextFloat() < this.getEntityAttribute(field_110186_bp).getAttributeValue()))
 		{
 			EntityZombie entityzombie;
 			if (summonAid.customSummonedAid != null && summonAid.getResult() == Result.ALLOW)
@@ -322,7 +313,7 @@ public class EntityZombieTFC extends EntityZombie implements ICausesDamage, IInn
 					{
 						this.worldObj.spawnEntityInWorld(entityzombie);
 						if (entitylivingbase != null) entityzombie.setAttackTarget(entitylivingbase);
-						entityzombie.onSpawnWithEgg((IEntityLivingData)null);
+						entityzombie.onSpawnWithEgg(null);
 						this.getEntityAttribute(field_110186_bp).applyModifier(new AttributeModifier("Zombie reinforcement caller charge", -0.05000000074505806D, 0));
 						entityzombie.getEntityAttribute(field_110186_bp).applyModifier(new AttributeModifier("Zombie reinforcement callee charge", -0.05000000074505806D, 0));
 						break;

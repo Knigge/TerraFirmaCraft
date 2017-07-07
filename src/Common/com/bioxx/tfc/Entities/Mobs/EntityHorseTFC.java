@@ -2,7 +2,6 @@ package com.bioxx.tfc.Entities.Mobs;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.command.IEntitySelector;
@@ -42,6 +41,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 {
 	private static final IEntitySelector HORSE_BREEDING_SELECTOR = new EntityHorseBredSelector();
@@ -372,11 +372,11 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 	protected void entityInit()
 	{
 		super.entityInit();	
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
 		// EntityHorse uses object 22
-		this.dataWatcher.addObject(26, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(24, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, empty slot
+		this.dataWatcher.addObject(26, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(24, 0); //familiarity, familiarizedToday, pregnant, empty slot
 		this.dataWatcher.addObject(25, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 
 	}
@@ -437,20 +437,17 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 				!this.func_110222_cv()/*Not a Mule, Zombie or Skeleton*/&& this.getHealth() >= this.getMaxHealth();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected EntityHorseTFC getClosestHorse(Entity entity, double range)
 	{
 		double maxDistance = Double.MAX_VALUE;
 		EntityHorseTFC closestHorse = null;
 		List<EntityHorseTFC> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(entity, entity.boundingBox.addCoord(range, range, range), HORSE_BREEDING_SELECTOR);
-		Iterator<EntityHorseTFC> iterator = list.iterator();
 
-		while (iterator.hasNext())
-		{
-			EntityHorseTFC nearbyHorse = iterator.next();
+		for (EntityHorseTFC nearbyHorse : list) {
 			double distance = nearbyHorse.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-			if (distance < maxDistance)
-			{
+			if (distance < maxDistance) {
 				closestHorse = nearbyHorse;
 				maxDistance = distance;
 			}
@@ -517,6 +514,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 	}
 
 	//We use this to catch the EntityLiving check, so that other interactions can be performed on leashed animals
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	public boolean getLeashed()
 	{
@@ -716,7 +714,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 				{
 					if (!player.capabilities.isCreativeMode && --itemstack.stackSize == 0)
 					{
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 					}
 
 					return true;
@@ -849,9 +847,9 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 			}
 		}
 
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		super.onLivingUpdate();
 		TFC_Core.preventEntityDataUpdate = false;
@@ -887,7 +885,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 				EntityPlayerMP playerMP = (EntityPlayerMP) player;
 				playerMP.playerNetServerHandler.sendPacket(new S1BPacketEntityAttach(0, playerMP, this)); // Sets ridingEntity to this for playerMP
 				openHorseContainer(player);
-				playerMP.playerNetServerHandler.sendPacket(new S1BPacketEntityAttach(0, playerMP, temp)); // Resets ridingEntity for playerMP
+				playerMP.playerNetServerHandler.sendPacket(new S1BPacketEntityAttach(0, playerMP, null)); // Resets ridingEntity for playerMP
 			}
 			else
 			{
@@ -917,32 +915,31 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 	public void readEntityFromNBT(NBTTagCompound nbttc)
 	{
 		super.readEntityFromNBT(nbttc);
-		NBTTagCompound nbt = nbttc;
-		animalID = nbt.getLong ("Animal ID");
-		sex = nbt.getInteger ("Sex");
-		sizeMod = nbt.getFloat ("Size Modifier");
+		animalID = nbttc.getLong ("Animal ID");
+		sex = nbttc.getInteger ("Sex");
+		sizeMod = nbttc.getFloat ("Size Modifier");
 
-		familiarity = nbt.getInteger("Familiarity");
-		lastFamiliarityUpdate = nbt.getLong("lastFamUpdate");
-		familiarizedToday = nbt.getBoolean("Familiarized Today");
+		familiarity = nbttc.getInteger("Familiarity");
+		lastFamiliarityUpdate = nbttc.getLong("lastFamUpdate");
+		familiarizedToday = nbttc.getBoolean("Familiarized Today");
 
-		strengthMod = nbt.getFloat ("Strength Modifier");
-		aggressionMod = nbt.getFloat ("Aggression Modifier");
-		obedienceMod = nbt.getFloat ("Obedience Modifier");
+		strengthMod = nbttc.getFloat ("Strength Modifier");
+		aggressionMod = nbttc.getFloat ("Aggression Modifier");
+		obedienceMod = nbttc.getFloat ("Obedience Modifier");
 
-		hunger = nbt.getInteger ("Hunger");
-		pregnant = nbt.getBoolean("Pregnant");
-		mateSizeMod = nbt.getFloat("MateSize");
-		mateStrengthMod = nbt.getFloat("MateStrength");
-		mateAggroMod = nbt.getFloat("MateAggro");
-		mateObedMod = nbt.getFloat("MateObed");
-		mateType = nbt.getInteger("MateType");
-		mateVariant = nbt.getInteger("MateVariant");
-		mateMaxHealth = nbt.getDouble("MateHealth");
-		mateJumpStrength = nbt.getDouble("MateJump");
-		mateMoveSpeed = nbt.getDouble("MateSpeed");
-		timeOfConception = nbt.getLong("ConceptionTime");
-		this.setAge(nbt.getInteger ("Age"));
+		hunger = nbttc.getInteger ("Hunger");
+		pregnant = nbttc.getBoolean("Pregnant");
+		mateSizeMod = nbttc.getFloat("MateSize");
+		mateStrengthMod = nbttc.getFloat("MateStrength");
+		mateAggroMod = nbttc.getFloat("MateAggro");
+		mateObedMod = nbttc.getFloat("MateObed");
+		mateType = nbttc.getInteger("MateType");
+		mateVariant = nbttc.getInteger("MateVariant");
+		mateMaxHealth = nbttc.getDouble("MateHealth");
+		mateJumpStrength = nbttc.getDouble("MateJump");
+		mateMoveSpeed = nbttc.getDouble("MateSpeed");
+		timeOfConception = nbttc.getLong("ConceptionTime");
+		this.setAge(nbttc.getInteger ("Age"));
 
 		if (this.isChested())
 		{
@@ -993,7 +990,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 	public void setAge(int par1)
 	{
 		//if(!TFC_Core.PreventEntityDataUpdate) {
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 		//}
 	}
 
@@ -1037,7 +1034,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 	{
 		if(!TFC_Core.preventEntityDataUpdate)
 		{
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 		}
 	}
 
@@ -1107,7 +1104,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 		{
 			if(!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = {
 						TFC_Core.getByteFromSmallFloat(sizeMod),
@@ -1145,7 +1142,7 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(25));
-				} catch (NumberFormatException e){}
+				} catch (NumberFormatException ignored){}
 			}
 		}
 	}
@@ -1176,7 +1173,6 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 				if (itemstack != null)
 					this.horseChest.setInventorySlotContents(j, itemstack.copy());
 			}
-			animalchest = null;
 		}
 
 		this.horseChest.func_110134_a(this);
@@ -1208,10 +1204,9 @@ public class EntityHorseTFC extends EntityHorse implements IInvBasic, IAnimal
 		nbttc.setLong("lastFamUpdate", lastFamiliarityUpdate);
 		nbttc.setBoolean("Familiarized Today", familiarizedToday);
 
-		NBTTagCompound nbt = nbttc;
-		nbt.setFloat ("Strength Modifier", strengthMod);
-		nbt.setFloat ("Aggression Modifier", aggressionMod);
-		nbt.setFloat ("Obedience Modifier", obedienceMod);
+		nbttc.setFloat ("Strength Modifier", strengthMod);
+		nbttc.setFloat ("Aggression Modifier", aggressionMod);
+		nbttc.setFloat ("Obedience Modifier", obedienceMod);
 
 		nbttc.setInteger ("Hunger", hunger);
 		nbttc.setBoolean("Pregnant", pregnant);

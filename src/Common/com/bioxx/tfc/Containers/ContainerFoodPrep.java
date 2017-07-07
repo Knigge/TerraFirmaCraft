@@ -15,6 +15,7 @@ import com.bioxx.tfc.TileEntities.TEFoodPrep;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Enums.EnumSize;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ContainerFoodPrep extends ContainerTFC
 {
 	//private World world;

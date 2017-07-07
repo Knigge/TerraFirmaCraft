@@ -5,6 +5,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.TFCOptions;
 
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class TFC_Time
 {
 	public static final String[] SEASONS =
@@ -126,9 +127,7 @@ public class TFC_Time
 		String m = TFC_Time.MONTHS[month];
 		int y = 1000 + year;
 
-		String date = d + " " + m + ", " + y;
-
-		return date;
+		return d + " " + m + ", " + y;
 	}
 
 	public static int getHoursInMonth()

@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Effects.GasFX;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockHotWaterStatic extends BlockLiquidStatic
 {
 	public BlockHotWaterStatic(Fluid fluid, Material m, Block f)

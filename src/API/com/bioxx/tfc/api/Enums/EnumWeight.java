@@ -13,7 +13,7 @@ public enum EnumWeight
 	private static final EnumWeight WEIGHTS[] = new EnumWeight[] {
 		LIGHT, MEDIUM, HEAVY};
 
-	private EnumWeight(String s, int i)
+	EnumWeight(String s, int i)
 	{
 		name = s;
 		multiplier = i;

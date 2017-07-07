@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderStand  implements ISimpleBlockRenderingHandler
 {
 	/*private static float pixel3 = 3f / 16f;

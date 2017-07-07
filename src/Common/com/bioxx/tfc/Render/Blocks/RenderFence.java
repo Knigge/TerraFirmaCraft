@@ -11,7 +11,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Blocks.Vanilla.BlockTFCFence;
 
-public class RenderFence  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings("WeakerAccess")
+public class RenderFence  implements ISimpleBlockRenderingHandler
 {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;
@@ -27,7 +28,7 @@ public class RenderFence  implements ISimpleBlockRenderingHandler
 		float f1 = 0.625F;
 		renderblocks.setRenderBounds(f, 0.0D, f, f1, 1.0D, f1);
 		renderblocks.renderStandardBlock(par1BlockFence, x, y, z);
-		flag = true;
+		//flag = true;
 		boolean flag1 = false;
 		boolean flag2 = false;
 
@@ -100,6 +101,7 @@ public class RenderFence  implements ISimpleBlockRenderingHandler
 		}
 
 		par1BlockFence.setBlockBoundsBasedOnState(renderblocks.blockAccess, x, y, z);
+		//noinspection ConstantConditions
 		return flag;
 	}
 

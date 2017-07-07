@@ -14,6 +14,7 @@ import cpw.mods.fml.client.config.IConfigElement;
 
 import com.bioxx.tfc.Reference;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class TFC_ConfigGUI extends GuiConfig
 {
 	public TFC_ConfigGUI(GuiScreen parent)

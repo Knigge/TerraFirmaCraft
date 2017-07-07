@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Containers.Slots;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.inventory.IInventory;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class SlotSize extends Slot
 {
 	protected EnumSize size = EnumSize.MEDIUM;
@@ -42,15 +44,13 @@ public class SlotSize extends Slot
 
 	public SlotSize addItemException(Item... ex)
 	{
-		for(int i = 0; i < ex.length; i++)
-			excpetions.add(ex[i]);
+		Collections.addAll(excpetions, ex);
 		return this;
 	}
 
 	public SlotSize addItemInclusion(Item... ex)
 	{
-		for(int i = 0; i < ex.length; i++)
-			inclusions.add(ex[i]);
+		Collections.addAll(inclusions, ex);
 		return this;
 	}
 }

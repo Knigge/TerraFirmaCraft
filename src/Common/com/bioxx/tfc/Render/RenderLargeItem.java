@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderLargeItem {
 
 	//private ModelQuiver quiver = new ModelQuiver();

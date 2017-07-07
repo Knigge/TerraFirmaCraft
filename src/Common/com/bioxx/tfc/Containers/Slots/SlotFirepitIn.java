@@ -9,6 +9,7 @@ import com.bioxx.tfc.Items.ItemOre;
 import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotFirepitIn extends Slot
 {
 	public SlotFirepitIn(EntityPlayer entityplayer, IInventory iinventory, int i, int j, int k)

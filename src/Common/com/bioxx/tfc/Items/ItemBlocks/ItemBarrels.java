@@ -32,6 +32,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class ItemBarrels extends ItemTerraBlock implements IEquipable
 {
 	private static final int MAX_LIQUID = 10000;
@@ -144,7 +145,7 @@ public class ItemBarrels extends ItemTerraBlock implements IEquipable
 
 				Fluid fluid = ((IFluidBlock) world.getBlock(i, j, k)).getFluid();
 				int temp = fluid.getTemperature();
-				int volume = 0;
+				int volume;
 				if (temp < Global.HOT_LIQUID_TEMP && fluid != TFCFluids.HOTWATER)
 				{
 					world.setBlockToAir(i, j, k);
@@ -228,6 +229,7 @@ public class ItemBarrels extends ItemTerraBlock implements IEquipable
 		return is.hasTagCompound() && is.getTagCompound().hasKey("Sealed");
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static ItemStack fillItemBarrel(ItemStack is, FluidStack fs, int maxFluid)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();

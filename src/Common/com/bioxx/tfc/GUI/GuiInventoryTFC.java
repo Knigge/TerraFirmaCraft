@@ -36,6 +36,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Tools.IKnife;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiInventoryTFC extends InventoryEffectRenderer
 {
 	private float xSizeLow;
@@ -82,10 +83,10 @@ public class GuiInventoryTFC extends InventoryEffectRenderer
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glEnable(GL11.GL_DEPTH_TEST);
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(i + 0, j + h, this.zLevel, icon.getMinU(), icon.getMaxV());
+		tessellator.addVertexWithUV(i, j + h, this.zLevel, icon.getMinU(), icon.getMaxV());
 		tessellator.addVertexWithUV(i + w, j + h, this.zLevel, icon.getMaxU(), icon.getMaxV());
-		tessellator.addVertexWithUV(i + w, j + 0, this.zLevel, icon.getMaxU(), icon.getMinV());
-		tessellator.addVertexWithUV(i + 0, j + 0, this.zLevel, icon.getMinU(), icon.getMinV());
+		tessellator.addVertexWithUV(i + w, j, this.zLevel, icon.getMaxU(), icon.getMinV());
+		tessellator.addVertexWithUV(i, j, this.zLevel, icon.getMinU(), icon.getMinV());
 		tessellator.draw();
 		GL11.glDisable(GL11.GL_BLEND);
 	}
@@ -134,8 +135,8 @@ public class GuiInventoryTFC extends InventoryEffectRenderer
 	}
 
 	@Override
-	/**
-	 * Called from the main game loop to update the screen.
+	/*
+	  Called from the main game loop to update the screen.
 	 */
 	public void updateScreen()
 	{
@@ -143,6 +144,7 @@ public class GuiInventoryTFC extends InventoryEffectRenderer
 			this.mc.displayGuiScreen(new GuiContainerCreativeTFC(player));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -236,7 +238,7 @@ public class GuiInventoryTFC extends InventoryEffectRenderer
 						if (var9.hasStatusIcon())
 						{
 							int var10 = var9.getStatusIconIndex();
-							this.drawTexturedModalRect(var1 + 6, var2 + 7, 0 + var10 % 8 * 18, 198 + var10 / 8 * 18, 18, 18);
+							this.drawTexturedModalRect(var1 + 6, var2 + 7, var10 % 8 * 18, 198 + var10 / 8 * 18, 18, 18);
 						}
 
 						String var12 = TFC_Core.translate(var9.getName());

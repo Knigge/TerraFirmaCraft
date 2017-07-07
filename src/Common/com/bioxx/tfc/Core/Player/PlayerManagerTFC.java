@@ -2,15 +2,17 @@ package com.bioxx.tfc.Core.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.minecraft.entity.player.EntityPlayer;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class PlayerManagerTFC
 {
 	public List<PlayerInfo> players;
 	private static final PlayerManagerTFC INSTANCE = new PlayerManagerTFC();
 
-	public static final PlayerManagerTFC getInstance()
+	public static PlayerManagerTFC getInstance()
 	{
 		return INSTANCE;
 	}
@@ -44,7 +46,9 @@ public class PlayerManagerTFC
 	{
 		for(PlayerInfo pi : players)
 		{
-			if(pi.playerUUID.equals(uuid))
+			// UUID == String? Bug?
+			//!TODO: check
+			if(pi.playerUUID.equals(UUID.fromString(uuid)))
 				return pi;
 		}
 		return null;

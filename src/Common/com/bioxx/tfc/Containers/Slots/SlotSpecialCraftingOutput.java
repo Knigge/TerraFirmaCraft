@@ -11,6 +11,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Containers.ContainerSpecialCrafting;
 import com.bioxx.tfc.GUI.GuiKnapping;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class SlotSpecialCraftingOutput extends Slot
 {
 	private final IInventory craftMatrix;

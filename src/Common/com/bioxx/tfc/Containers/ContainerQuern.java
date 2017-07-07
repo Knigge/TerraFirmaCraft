@@ -13,6 +13,7 @@ import com.bioxx.tfc.Containers.Slots.SlotQuernGrain;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TEQuern;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ContainerQuern extends ContainerTFC
 {
 	private World world;

@@ -7,6 +7,7 @@ import net.minecraftforge.common.config.Property;
 
 import com.bioxx.tfc.TerraFirmaCraft;
 
+@SuppressWarnings("WeakerAccess")
 public class TFC_Configuration extends Configuration
 {
 

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.DataLayer;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenLargeRock implements IWorldGenerator
 {
 	private int xWidth;
@@ -24,7 +25,7 @@ public class WorldGenLargeRock implements IWorldGenerator
 	{
 	}
 
-	public boolean generate(World world, Random rand, int i, int j, int k)
+	public void generate(World world, Random rand, int i, int j, int k)
 	{
 		int yOffset = 0;
 		boolean isFlatEnough = false;
@@ -48,7 +49,6 @@ public class WorldGenLargeRock implements IWorldGenerator
 			genFromPoint(world,rand,i,j,k,yOffset);
 			genFromPoint(world,rand,i2,j2,k2,yOffset);
 		}
-		return true;
 	}
 
 	public void genFromPoint(World world, Random rand, int i, int j, int k,int yOffset)
@@ -91,8 +91,8 @@ public class WorldGenLargeRock implements IWorldGenerator
 	{
 		chunkX *= 16;
 		chunkZ *= 16;
-		int xCoord = 0;
-		int zCoord = 0;
+		int xCoord;
+		int zCoord;
 
 		for (int count = 0; count < 1; ++count)
 		{

@@ -6,7 +6,8 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 
-public class SlotExtraEquipable extends Slot 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+public class SlotExtraEquipable extends Slot
 {
 	public final IEquipable.EquipType armorType;
 	public SlotExtraEquipable(IInventory inv, int index, int x, int y, IEquipable.EquipType armortype) 

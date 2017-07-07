@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 import org.lwjgl.opengl.GL11;
 
+@SuppressWarnings("CanBeFinal")
 public class ModelPigTFC extends ModelPig
 {
 	public ModelPigTFC()
@@ -18,6 +19,7 @@ public class ModelPigTFC extends ModelPig
 
 	private ModelRenderer tusk1;
 	private ModelRenderer tusk2;
+	@SuppressWarnings("FieldCanBeLocal")
 	private ModelRenderer snout;
 
 	public ModelPigTFC(float par1)
@@ -39,6 +41,7 @@ public class ModelPigTFC extends ModelPig
 		snout.addChild(tusk2);
 		this.head.addChild(snout);
 	}
+	@SuppressWarnings("ConstantConditions")
 	@Override
 	public void render(Entity entity, float par2, float par3, float par4, float par5, float par6, float par7)
 	{

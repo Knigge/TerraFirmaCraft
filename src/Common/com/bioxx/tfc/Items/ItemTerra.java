@@ -28,6 +28,7 @@ import com.bioxx.tfc.api.Interfaces.ISize;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class ItemTerra extends Item implements ISize
 {
 	protected boolean stackable = true;
@@ -250,7 +251,7 @@ public class ItemTerra extends Item implements ISize
 	{
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "deprecation"})
 	@Override
 	public Multimap getItemAttributeModifiers()
 	{

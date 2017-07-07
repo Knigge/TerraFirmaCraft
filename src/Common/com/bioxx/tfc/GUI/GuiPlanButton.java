@@ -9,7 +9,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Core.TFC_Core;
 
-public class GuiPlanButton extends GuiButton 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
+public class GuiPlanButton extends GuiButton
 {
 	public ItemStack item;
 	private GuiPlanSelection screen;

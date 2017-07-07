@@ -19,6 +19,7 @@ import java.util.List;
 /**
  * @author Dries007
  */
+@SuppressWarnings("WeakerAccess")
 public class NEIIntegration
 {
 	public static void hideNEIItems()

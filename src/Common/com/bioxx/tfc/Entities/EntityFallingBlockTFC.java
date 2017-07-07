@@ -1,7 +1,6 @@
 package com.bioxx.tfc.Entities;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import io.netty.buffer.ByteBuf;
 
@@ -33,6 +32,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSpawnData
 {
 	private Block block;
@@ -162,7 +162,7 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 						this.setDead();
 
 
-						if (canPlaceEntityOnSide(worldObj, this.block, i, j, k, true, 1, (Entity) null, (ItemStack) null) && !BlockFalling.func_149831_e(this.worldObj, i, j - 1, k))
+						if (canPlaceEntityOnSide(worldObj, this.block, i, j, k, true, 1, null, null) && !BlockFalling.func_149831_e(this.worldObj, i, j - 1, k))
 						{
 
 							if (this.tileEntityData != null && this.block instanceof ITileEntityProvider)
@@ -173,15 +173,12 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 								{
 									NBTTagCompound nbttagcompound = new NBTTagCompound();
 									tileentity.writeToNBT(nbttagcompound);
-									Iterator iterator = this.tileEntityData.func_150296_c().iterator();
 
-									while (iterator.hasNext())
-									{
-										String s = (String)iterator.next();
+									for (Object o : this.tileEntityData.func_150296_c()) {
+										String s = (String) o;
 										NBTBase nbtbase = this.tileEntityData.getTag(s);
 
-										if (!"x".equals(s) && !"y".equals(s) && !"z".equals(s))
-										{
+										if (!"x".equals(s) && !"y".equals(s) && !"z".equals(s)) {
 											nbttagcompound.setTag(s, nbtbase.copy());
 										}
 									}
@@ -212,16 +209,15 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 
 	public boolean canPlaceEntityOnSide(World world, Block fallingBlock, int x, int y, int z, boolean skipEntityCheck, int side, Entity thisEntity, ItemStack is)
 	{
-		AxisAlignedBB axisalignedbb = null;
 		if(!skipEntityCheck)
 		{
-			axisalignedbb = fallingBlock.getCollisionBoundingBoxFromPool(world, x, y, z);
+			AxisAlignedBB axisalignedbb = fallingBlock.getCollisionBoundingBoxFromPool(world, x, y, z);
 			if(!world.checkNoEntityCollision(axisalignedbb, thisEntity))//If we found an entity that blocks us
 				return false;
 		}
 
 		Block block1 = world.getBlock(x, y, z);
-		return (block1.getMaterial() == Material.circuits ? true : canReplace(world, x, y, z));
+		return (block1.getMaterial() == Material.circuits || canReplace(world, x, y, z));
 	}
 
 	public boolean canReplace(World world, int x, int y, int z)
@@ -243,6 +239,7 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 	/**
 	 * Called when the mob is falling. Calculates and applies fall damage.
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void fall(float fallDistance)
 	{
@@ -254,11 +251,9 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 			{
 				ArrayList arraylist = new ArrayList(this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox));
 				DamageSource damagesource = new DamageSource("caveIn").setDamageBypassesArmor().setDamageIsAbsolute();
-				Iterator iterator = arraylist.iterator();
 
-				while (iterator.hasNext())
-				{
-					Entity entity = (Entity)iterator.next();
+				for (Object anArraylist : arraylist) {
+					Entity entity = (Entity) anArraylist;
 					entity.attackEntityFrom(damagesource, Math.min(MathHelper.floor_float(height * this.damage), this.maxDamage));
 				}
 			}
@@ -340,8 +335,8 @@ public class EntityFallingBlockTFC extends Entity implements IEntityAdditionalSp
 	public void addEntityCrashInfo(CrashReportCategory category)
 	{
 		super.addEntityCrashInfo(category);
-		category.addCrashSection("Immitating block ID", Integer.valueOf(Block.getIdFromBlock(this.block)));
-		category.addCrashSection("Immitating block data", Integer.valueOf(this.blockMeta));
+		category.addCrashSection("Immitating block ID", Block.getIdFromBlock(this.block));
+		category.addCrashSection("Immitating block data", this.blockMeta);
 	}
 
 	@Override

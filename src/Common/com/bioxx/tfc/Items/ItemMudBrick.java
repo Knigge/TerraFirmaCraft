@@ -16,6 +16,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("unchecked")
 public class ItemMudBrick extends ItemTerra
 {
 	private IIcon overlayIcon;

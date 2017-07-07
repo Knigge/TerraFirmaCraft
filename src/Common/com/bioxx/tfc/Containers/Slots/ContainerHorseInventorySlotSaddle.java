@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.Containers.ContainerHorseInventoryTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class ContainerHorseInventorySlotSaddle extends Slot
 {
 	//private final ContainerHorseInventoryTFC field_111239_a;

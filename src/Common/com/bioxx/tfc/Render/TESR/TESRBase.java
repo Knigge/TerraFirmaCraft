@@ -9,12 +9,13 @@ import net.minecraft.tileentity.TileEntity;
 
 import com.google.common.primitives.SignedBytes;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TESRBase extends TileEntitySpecialRenderer
 {
 	protected static RenderBlocks renderBlocks = new RenderBlocks();
 	protected static RenderItem itemRenderer;
 
-	{
+	static {
 		itemRenderer = new RenderItem()
 		{
 			@Override

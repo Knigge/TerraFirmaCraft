@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TEWorldItem;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TESRWorldItem extends TESRBase
 {
 	public static Random rand = new Random();

@@ -1,5 +1,6 @@
 package com.bioxx.tfc.api.Util;
 
+@SuppressWarnings("WeakerAccess")
 public class StopWatch {
 
 	private long startTime;

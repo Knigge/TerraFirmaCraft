@@ -5,6 +5,7 @@ import com.bioxx.tfc.api.TFCItems;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockOre2 extends BlockOre
 {
 	public BlockOre2(Material mat)

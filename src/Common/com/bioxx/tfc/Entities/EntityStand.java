@@ -16,6 +16,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Items.ItemTFCArmor;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class EntityStand extends EntityLiving
 {
 	private static int defaultArmorLength = 4;
@@ -74,8 +75,8 @@ public class EntityStand extends EntityLiving
 		for(int i = 0; i < defaultEquipableLength;i++){
 			this.dataWatcher.addObjectByDataType(start+i+defaultArmorLength,5);
 		}
-		this.dataWatcher.addObject(start + EntityStand.defaultEquipableLength + EntityStand.defaultArmorLength, new Float(1));
-		this.dataWatcher.addObject(start + EntityStand.defaultEquipableLength + EntityStand.defaultArmorLength + 1, Integer.valueOf(0));
+		this.dataWatcher.addObject(start + EntityStand.defaultEquipableLength + EntityStand.defaultArmorLength, 1f);
+		this.dataWatcher.addObject(start + EntityStand.defaultEquipableLength + EntityStand.defaultArmorLength + 1, 0);
 	}
 
 	@Override
@@ -165,15 +166,15 @@ public class EntityStand extends EntityLiving
 	protected void dropFewItems(boolean par1, int par2)
 	{
 		if(!worldObj.isRemote){
-			for(int i = 0; i < armor.length; i++){
-				if(armor[i]!=null){
-					ItemStack is = new ItemStack(armor[i].getItem(), 1, armor[i].getItemDamage());
+			for (ItemStack anArmor : armor) {
+				if (anArmor != null) {
+					ItemStack is = new ItemStack(anArmor.getItem(), 1, anArmor.getItemDamage());
 					this.entityDropItem(is, 0);
 				}
 			}
-			for(int i = 0; i < equipable.length; i++){
-				if(equipable[i]!=null){
-					ItemStack is = new ItemStack(equipable[i].getItem(), 1, equipable[i].getItemDamage());
+			for (ItemStack anEquipable : equipable) {
+				if (anEquipable != null) {
+					ItemStack is = new ItemStack(anEquipable.getItem(), 1, anEquipable.getItemDamage());
 					this.entityDropItem(is, 0);
 				}
 			}

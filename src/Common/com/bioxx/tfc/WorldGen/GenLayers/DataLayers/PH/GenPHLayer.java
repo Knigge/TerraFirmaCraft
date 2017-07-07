@@ -16,6 +16,7 @@ import com.bioxx.tfc.WorldGen.GenLayers.GenLayerSmoothTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerZoomTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenPHLayer extends GenLayerTFC
 {
 	public static final int MIN = DataLayer.PH_ACID_HIGH.layerID;
@@ -31,8 +32,8 @@ public abstract class GenPHLayer extends GenLayerTFC
 		{
 			if(zoomLevel == 0)
 			{
-				continent = new GenLayerPHMix(1000 + zoomLevel, continent);
-				drawImage(512,continent , "PH 2-" + zoomLevel +" Mix");
+				continent = new GenLayerPHMix(1000, continent);
+				drawImage(512,continent , "PH 2-0 Mix");
 			}
 			continent = new GenLayerZoomTFC(1000 + zoomLevel, continent);
 			drawImage(512,continent , "PH 2-" + zoomLevel +" Smoothed");

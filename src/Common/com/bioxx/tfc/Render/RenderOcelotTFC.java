@@ -16,6 +16,7 @@ import com.bioxx.tfc.Entities.Mobs.EntityOcelotTFC;
 import com.bioxx.tfc.Reference;
 
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @SideOnly(Side.CLIENT)
 public class RenderOcelotTFC extends RenderLiving
 {
@@ -45,7 +46,7 @@ public class RenderOcelotTFC extends RenderLiving
      */
     public void doRender(EntityOcelotTFC p_76986_1_, double p_76986_2_, double p_76986_4_, double p_76986_6_, float p_76986_8_, float p_76986_9_)
     {
-        super.doRender((EntityLiving)p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
+        super.doRender(p_76986_1_, p_76986_2_, p_76986_4_, p_76986_6_, p_76986_8_, p_76986_9_);
     }
 
     /**

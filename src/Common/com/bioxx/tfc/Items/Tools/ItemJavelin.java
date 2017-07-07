@@ -32,6 +32,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 
+@SuppressWarnings({"unchecked", "SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ItemJavelin extends ItemTerraTool implements ICausesDamage, IProjectile, IQuiverAmmo
 {
 	public float weaponDamage;
@@ -39,7 +40,7 @@ public class ItemJavelin extends ItemTerraTool implements ICausesDamage, IProjec
 
 	public ItemJavelin(ToolMaterial par2EnumToolMaterial, float damage)
 	{
-		super(10F, par2EnumToolMaterial, Sets.newHashSet(new Block[] {Blocks.air}));
+		super(10F, par2EnumToolMaterial, Sets.newHashSet(Blocks.air));
 		this.maxStackSize = 1;
 		this.weaponDamage = damage;
 		this.weaponRangeDamage = damage;

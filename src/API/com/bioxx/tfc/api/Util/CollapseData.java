@@ -2,6 +2,7 @@ package com.bioxx.tfc.api.Util;
 
 import com.bioxx.tfc.api.Enums.TFCDirection;
 
+@SuppressWarnings("CanBeFinal")
 public class CollapseData
 {
 	public ByteCoord coords;

@@ -9,6 +9,7 @@ import net.minecraft.util.IIcon;
 
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings({"WeakerAccess", "SameReturnValue"})
 public class RenderFlora
 {
 	public static boolean render(Block block, int x, int y, int z, RenderBlocks renderer)
@@ -35,6 +36,7 @@ public class RenderFlora
 		return true;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static boolean renderShortWaterPlant(Block block, int x, int y, int z, RenderBlocks renderer, int plantType)
 	{
 		Tessellator tessellator = Tessellator.instance;

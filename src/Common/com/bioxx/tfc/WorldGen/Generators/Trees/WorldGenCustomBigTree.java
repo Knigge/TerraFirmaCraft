@@ -10,6 +10,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class WorldGenCustomBigTree extends WorldGenerator
 {
 	/**
@@ -30,8 +31,8 @@ public class WorldGenCustomBigTree extends WorldGenerator
 	private double scaleWidth = 1.0D;
 	private double leafDensity = 1.0D;
 
-	/**
-	 * Currently always 1, can be set to 2 in the class constructor to generate a double-sized tree trunk for big trees.
+	/*
+	  Currently always 1, can be set to 2 in the class constructor to generate a double-sized tree trunk for big trees.
 	 */
 	//private static final int trunkSize = 1;
 
@@ -245,11 +246,10 @@ public class WorldGenCustomBigTree extends WorldGenerator
 	 */
 	private void generateLeaves()
 	{
-		for (int i = 0; i < this.leafNodes.length; ++i)
-		{
-			int x = this.leafNodes[i][0];
-			int y = this.leafNodes[i][1];
-			int z = this.leafNodes[i][2];
+		for (int[] leafNode : this.leafNodes) {
+			int x = leafNode[0];
+			int y = leafNode[1];
+			int z = leafNode[2];
 			this.generateLeafNode(x, y, z);
 		}
 	}
@@ -290,7 +290,7 @@ public class WorldGenCustomBigTree extends WorldGenerator
 		int[] startCoords = new int[] { x, y, z };
 		int[] coords = new int[] { 0, 0, 0 };
 		int width1 = -range;
-		int width2 = -range;
+		int width2;
 
 		for (coords[axis] = startCoords[axis]; width1 <= range; ++width1)
 		{

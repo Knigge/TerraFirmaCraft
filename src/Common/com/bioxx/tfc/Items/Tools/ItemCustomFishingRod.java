@@ -25,6 +25,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 {
 	@SideOnly(Side.CLIENT)
@@ -43,8 +44,8 @@ public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Returns True is the item is renderer in full 3D when hold.
+	/*
+	  Returns True is the item is renderer in full 3D when hold.
 	 */
 	public boolean isFull3D()
 	{
@@ -54,9 +55,9 @@ public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Returns true if this item should be rotated by 180 degrees around the Y axis when being held in an entities
-	 * hands.
+	/*
+	  Returns true if this item should be rotated by 180 degrees around the Y axis when being held in an entities
+	  hands.
 	 */
 	public boolean shouldRotateAroundWhenRendering()
 	{
@@ -198,7 +199,7 @@ public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 				is.setTagCompound(new NBTTagCompound());
 			}
 			is.stackTagCompound.setInteger("usedUses", this.getMaxItemUseDuration(is) - useRemaining);
-			return getItemIconForUseDuration(Math.min(j,uncastIconArray.length -1),cast);
+			return getItemIconForUseDuration(Math.min(j,uncastIconArray.length -1), false);
 		}
 		else{
 			int tension = 0;
@@ -207,7 +208,7 @@ public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 			}
 			int originalTex = tension / 100;
 			int texShift = (tension % 100 + 1) % 31;
-			return getItemIconForUseDuration(Math.min(originalTex + (texShift == 10?1:0),castIconArray.length-1),cast);
+			return getItemIconForUseDuration(Math.min(originalTex + (texShift == 10?1:0),castIconArray.length-1), true);
 		}
 	}
 
@@ -220,6 +221,7 @@ public class ItemCustomFishingRod extends ItemFishingRod implements ISize
 		return uncastIconArray[0];
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

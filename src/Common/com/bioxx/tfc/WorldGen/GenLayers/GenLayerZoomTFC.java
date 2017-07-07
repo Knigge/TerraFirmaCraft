@@ -1,6 +1,7 @@
 package com.bioxx.tfc.WorldGen.GenLayers;
 
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerZoomTFC extends GenLayerTFC
 {
 	public GenLayerZoomTFC(long seed, GenLayerTFC par3GenLayer)
@@ -30,12 +31,12 @@ public class GenLayerZoomTFC extends GenLayerTFC
 		{
 			l2 = (z << 1) * i2;
 			int i3 = 0;
-			int thisID = parentCache[i3 + 0 + (z + 0) * newXSize];
+			int thisID = parentCache[i3 + (z) * newXSize];
 
-			for (int x = parentCache[i3 + 0 + (z + 1) * newXSize]; i3 < newXSize - 1; ++i3)
+			for (int x = parentCache[i3 + (z + 1) * newXSize]; i3 < newXSize - 1; ++i3)
 			{
 				this.initChunkSeed(i3 + xCoord << 1, z + zCoord << 1);
-				int rightID = parentCache[i3 + 1 + (z + 0) * newXSize];
+				int rightID = parentCache[i3 + 1 + (z) * newXSize];
 				int upRightID = parentCache[i3 + 1 + (z + 1) * newXSize];
 				out[l2] = thisID;
 				out[l2++ + i2] = this.selectRandom(thisID, x);
@@ -65,8 +66,13 @@ public class GenLayerZoomTFC extends GenLayerTFC
 		return this.nextInt(2) == 0 ? par1 : par2;
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	protected int choose4(int id0, int id1, int id2, int id3)
 	{
+		/*
+			What the hell is this?! // bSun0000
+			ConstantConditions, 11 warnings..
+		 */
 		if (id1 == id2 && id2 == id3)
 			return id1;
 		else if (id0 == id1 && id0 == id2)

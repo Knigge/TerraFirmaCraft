@@ -10,6 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderPolarBear extends RenderLiving
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/PolarBear.png");

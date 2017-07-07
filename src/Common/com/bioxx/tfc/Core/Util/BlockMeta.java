@@ -2,6 +2,7 @@ package com.bioxx.tfc.Core.Util;
 
 import net.minecraft.block.Block;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockMeta
 {
 	public Block block;

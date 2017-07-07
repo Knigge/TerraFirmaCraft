@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class ItemCustomPotion extends ItemPotion
@@ -38,11 +37,9 @@ public class ItemCustomPotion extends ItemPotion
 
 			if (var4 != null)
 			{
-				Iterator var5 = var4.iterator();
 
-				while (var5.hasNext())
-				{
-					PotionEffect var6 = (PotionEffect)var5.next();
+				for (Object aVar4 : var4) {
+					PotionEffect var6 = (PotionEffect) aVar4;
 					player.addPotionEffect(new PotionEffect(var6));
 				}
 			}

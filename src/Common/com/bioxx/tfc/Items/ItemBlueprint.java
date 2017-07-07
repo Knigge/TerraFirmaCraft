@@ -136,8 +136,10 @@ public class ItemBlueprint extends ItemTerra
 				{
 					stack.stackSize--;
 
+					/* ???
 					if (stack.stackSize <= 0)
 						stack = null;
+					*/
 				}
 			}
 		}

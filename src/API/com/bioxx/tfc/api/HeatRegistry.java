@@ -6,10 +6,11 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class HeatRegistry
 {
 	private static final HeatRegistry INSTANCE = new HeatRegistry();
-	public static final HeatRegistry getInstance()
+	public static HeatRegistry getInstance()
 	{
 		return INSTANCE;
 	}
@@ -33,11 +34,8 @@ public class HeatRegistry
 
 	public HeatIndex findMatchingIndex(ItemStack input)
 	{
-		for (int k = 0; k < heatList.size(); k++)
-		{
-			HeatIndex tempIndex = heatList.get(k);
-			if (tempIndex.matches(input))
-			{
+		for (HeatIndex tempIndex : heatList) {
+			if (tempIndex.matches(input)) {
 				return tempIndex;
 			}
 		}

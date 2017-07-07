@@ -1,6 +1,5 @@
 package com.bioxx.tfc.WorldGen.Generators;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -16,6 +15,7 @@ import com.bioxx.tfc.Core.Util.CaseInsensitiveHashMap;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.TFCWorldChunkManager;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class WorldGenOre implements IWorldGenerator
 {
 	//private int Min;
@@ -41,26 +41,20 @@ public class WorldGenOre implements IWorldGenerator
 		worldObj = world;
 		random = rand;
 
-		Iterator iter = oreList.values().iterator();
-		while(iter.hasNext())
-		{
-			OreSpawnData osd = (OreSpawnData) iter.next();
-			if(osd.type == 0)
-			{
-				if(osd.size == 0)
+		for (Object osd : oreList.values()) {
+			if (osd.type == 0) {
+				if (osd.size == 0)
 					oreSmall(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
-				else if(osd.size == 1)
+				else if (osd.size == 1)
 					oreMedium(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
-				else if(osd.size == 2)
+				else if (osd.size == 2)
 					oreLarge(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
-			}
-			else if(osd.type == 1)
-			{
-				if(osd.size == 0)
+			} else if (osd.type == 1) {
+				if (osd.size == 0)
 					oreSmallVein(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
-				else if(osd.size == 1)
+				else if (osd.size == 1)
 					oreMediumVein(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
-				else if(osd.size == 2)
+				else if (osd.size == 2)
 					oreLargeVein(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);
 			}
 		}

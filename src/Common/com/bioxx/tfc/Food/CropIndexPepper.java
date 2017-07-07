@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.TileEntities.TECrop;
 
+@SuppressWarnings("SameParameterValue")
 public class CropIndexPepper extends CropIndex
 {
 	public CropIndexPepper(int id, String name, int type, int growth, int stages, float minGTemp, float minATemp, Item seed)

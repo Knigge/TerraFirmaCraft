@@ -12,10 +12,10 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
+@SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
 public abstract class ItemMetalBlock extends ItemTerraBlock implements ISmeltable
 {
-    private boolean smeltable = true;
-    protected short metalAmount;
+	protected short metalAmount;
 
     public ItemMetalBlock(Block b)
     {
@@ -34,6 +34,7 @@ public abstract class ItemMetalBlock extends ItemTerraBlock implements ISmeltabl
         return metalAmount;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
     {
@@ -76,7 +77,7 @@ public abstract class ItemMetalBlock extends ItemTerraBlock implements ISmeltabl
     @Override
     public boolean isSmeltable(ItemStack is) {
         // TODO Auto-generated method stub
-        return smeltable;
+        return true;
     }
 
     @Override

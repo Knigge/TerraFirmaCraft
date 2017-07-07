@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenCustomHugeTrees extends WorldGenerator
 {
 	private final int field_48195_a;

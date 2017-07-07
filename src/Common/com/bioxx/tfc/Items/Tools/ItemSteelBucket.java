@@ -24,6 +24,7 @@ import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemSteelBucket extends ItemTerra
 {
 	protected Block bucketContents;

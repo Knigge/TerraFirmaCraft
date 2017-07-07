@@ -18,6 +18,7 @@ import com.bioxx.tfc.Items.Tools.ItemChisel;
 import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.api.Tools.ChiselManager;
 
+@SuppressWarnings("WeakerAccess")
 public class ChiselHighlightHandler
 {
 	@SubscribeEvent

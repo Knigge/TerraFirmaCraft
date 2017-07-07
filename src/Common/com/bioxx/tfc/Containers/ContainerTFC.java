@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
+@SuppressWarnings("WeakerAccess")
 public class ContainerTFC extends Container
 {
 	public int bagsSlotNum;
@@ -31,8 +32,7 @@ public class ContainerTFC extends Container
 	}
 
 	/**
-	 * Used by containers that represent items and need to load an item from nbt
-	 * @return 
+	  Used by containers that represent items and need to load an item from nbt
 	 */
 	public ItemStack loadContents(int slot) 
 	{
@@ -160,6 +160,7 @@ public class ContainerTFC extends Container
 			return j;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void detectAndSendChanges()
 	{
@@ -186,12 +187,11 @@ public class ContainerTFC extends Container
 					int slotNum = bagsSlotNum + (inventoryItemStacks.size()-36);
 					this.saveContents((ItemStack)inventoryItemStacks.get(slotNum));
 					player.inventory.setInventorySlotContents(bagsSlotNum, (ItemStack)inventoryItemStacks.get(slotNum));
-					for (int j = 0; j < this.crafters.size(); ++j)
-						((ICrafting)this.crafters.get(j)).sendSlotContents(this, slotNum, (ItemStack)inventoryItemStacks.get(slotNum));
+					for (Object crafter : this.crafters)
+						((ICrafting) crafter).sendSlotContents(this, slotNum, (ItemStack) inventoryItemStacks.get(slotNum));
 				}
 
-				for (int j = 0; j < this.crafters.size(); ++j)
-					((ICrafting)this.crafters.get(j)).sendSlotContents(this, i, itemstack1);
+				for (Object crafter : this.crafters) ((ICrafting) crafter).sendSlotContents(this, i, itemstack1);
 			}
 		}
 
@@ -222,16 +222,12 @@ public class ContainerTFC extends Container
 
 	public static boolean areItemStacksEqual(ItemStack is1, ItemStack is2)
 	{
-		return is1 == null && is2 == null ? true : is1 != null && is2 != null ? isItemStackEqual(is1, is2) : false;
+		return is1 == null && is2 == null || (is1 != null && is2 != null) && isItemStackEqual(is1, is2);
 	}
 
 	public static boolean isItemStackEqual(ItemStack is1, ItemStack is2)
 	{
-		return is1.stackSize != is2.stackSize ? false :
-			is1.getItem() != is2.getItem() ? false :
-				is1.getItemDamage() != is2.getItemDamage() ? false :
-					is1.stackTagCompound == null && is2.stackTagCompound != null ? false :
-						is1.stackTagCompound == null || areCompoundsEqual(is1, is2);
+		return is1.stackSize == is2.stackSize && (is1.getItem() == is2.getItem() && (is1.getItemDamage() == is2.getItemDamage() && (!(is1.stackTagCompound == null && is2.stackTagCompound != null) && (is1.stackTagCompound == null || areCompoundsEqual(is1, is2)))));
 	}
 
 	public static boolean areCompoundsEqual(ItemStack is1, ItemStack is2)

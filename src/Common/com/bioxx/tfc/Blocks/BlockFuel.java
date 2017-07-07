@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 
+@SuppressWarnings("Convert2Diamond")
 public class BlockFuel extends BlockTerra {
 
     public BlockFuel() {

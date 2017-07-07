@@ -31,6 +31,7 @@ import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "ConstantConditions"})
 public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IFluidBlock
 {
 	protected Fluid fluidType;
@@ -51,15 +52,10 @@ public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IF
 
 
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
-	{
+	public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side) {
 		Block block = world.getBlock(x, y, z);
-		if(block.getMaterial() == this.getMaterial())
-		{
-			return false;
-		}
+		return block.getMaterial() != this.getMaterial() && super.shouldSideBeRendered(world, x, y, z, side);
 
-		return super.shouldSideBeRendered(world, x, y, z, side);
 	}
 
 	@Override
@@ -76,9 +72,9 @@ public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IF
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
-	 * when first determining what to render.
+	/*
+	  Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
+	  when first determining what to render.
 	 */
 	public int colorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
@@ -153,18 +149,18 @@ public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IF
 	}
 
 	@Override
-	/**
-	 * Determines if this block can support the passed in plant, allowing it to be planted and grow.
-	 * Some examples:
-	 *   Reeds check if its a reed, or if its sand/dirt/grass and adjacent to water
-	 *   Cacti checks if its a cacti, or if its sand
-	 *   Nether types check for soul sand
-	 *   Crops check for tilled soil
-	 *   Caves check if it's a colid surface
-	 *   Plains check if its grass or dirt
-	 *   Water check if its still water
-	 *
-	 * @param world The current world
+	/*
+	  Determines if this block can support the passed in plant, allowing it to be planted and grow.
+	  Some examples:
+	    Reeds check if its a reed, or if its sand/dirt/grass and adjacent to water
+	    Cacti checks if its a cacti, or if its sand
+	    Nether types check for soul sand
+	    Crops check for tilled soil
+	    Caves check if it's a colid surface
+	    Plains check if its grass or dirt
+	    Water check if its still water
+
+	  @param world The current world
 	 * @param x X Position
 	 * @param y Y Position
 	 * @param z Z position
@@ -296,14 +292,16 @@ public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IF
 		return 1;
 	}
 
-	public boolean canStay(World world, int x, int y, int z)
-	{
+	public boolean canStay(World world, int x, int y, int z) {
 		Block block = world.getBlock(x, y, z);
-		if(block == TFCBlocks.thatch || block == TFCBlocks.barrel || block == TFCBlocks.vessel || block == TFCBlocks.berryBush || 
-				block == TFCBlocks.smokeRack || block instanceof BlockCustomDoor || block == TFCBlocks.ingotPile)
-			return false;
-		else
-			return super.func_149807_p(world, x, y, z);
+		return !(block == TFCBlocks.thatch
+				|| block == TFCBlocks.barrel
+				|| block == TFCBlocks.vessel
+				|| block == TFCBlocks.berryBush
+				|| block == TFCBlocks.smokeRack
+				|| block instanceof BlockCustomDoor
+				|| block == TFCBlocks.ingotPile)
+				&& super.func_149807_p(world, x, y, z);
 	}
 
 	protected int getLiquidHeight(World world, int x, int y, int z, int count)
@@ -489,13 +487,11 @@ public abstract class BlockCustomLiquid extends BlockDynamicLiquid implements IF
 		}
 	}
 
-	private boolean canReplace(World world, int x, int y, int z)
-	{
+	private boolean canReplace(World world, int x, int y, int z) {
 		Material material = world.getBlock(x, y, z).getMaterial();
-		if (material == this.blockMaterial || material == Material.lava)
-			return false;
-		else
-			return !this.canStay(world, x, y, z);
+		return (!(material == this.blockMaterial
+				|| material == Material.lava))
+				&& !this.canStay(world, x, y, z);
 	}
 
 	private boolean[] getFlowDirections(World world, int x, int y, int z)

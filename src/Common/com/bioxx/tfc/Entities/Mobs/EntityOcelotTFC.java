@@ -47,13 +47,13 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.pathfinding.PathEntity;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateArmor, ICausesDamage
 {
 
@@ -198,6 +198,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
         }
     }
 	
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	protected boolean canDespawn()
 	{
@@ -259,9 +260,8 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 			data.add(eAgeable.getEntityData().getFloat("MateStrength"));
 			data.add(eAgeable.getEntityData().getFloat("MateAggro"));
 			data.add(eAgeable.getEntityData().getFloat("MateObed"));
-			EntityOcelotTFC baby = new EntityOcelotTFC(worldObj, this, data);
-			
-			return baby;
+
+			return new EntityOcelotTFC(worldObj, this, data);
 	}
 
 	@Override
@@ -275,12 +275,12 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 	protected void entityInit()
 	{
 		super.entityInit();
-        this.dataWatcher.addObject(26, Integer.valueOf(0));  //set skin
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
+        this.dataWatcher.addObject(26, 0);  //set skin
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
 		
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, empty slot
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, pregnant, empty slot
 		this.dataWatcher.addObject(24, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 	}
 	
@@ -590,9 +590,9 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 	                this.aiSit.setSitting(!this.isSitting());
 
 	                this.isJumping = false;
-	                this.setPathToEntity((PathEntity)null);
-	                this.setTarget((Entity)null);
-	                this.setAttackTarget((EntityLivingBase)null);
+	                this.setPathToEntity(null);
+	                this.setTarget(null);
+	                this.setAttackTarget(null);
 	                return true;
 	            }
 	        }
@@ -754,9 +754,9 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 			this.setInLove(false);
 		}
 		
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		super.onLivingUpdate();
 		TFC_Core.preventEntityDataUpdate = false;
@@ -823,7 +823,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 	@Override
 	public void setAge(int par1)
 	{
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 	}
 	
 	@Override
@@ -863,7 +863,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 	public void setGrowingAge(int par1)
 	{
 		if(!TFC_Core.preventEntityDataUpdate)
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 	}
 
     @Override
@@ -890,7 +890,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 	}
 	@Override
 	public void setObedienceMod(float obedience) {
-		this.obedienceMod = obedienceMod;
+		this.obedienceMod = obedience; // fixed
 		
 	}		
     @Override
@@ -916,7 +916,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 		{
 			if (!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = { TFC_Core.getByteFromSmallFloat(sizeMod), TFC_Core.getByteFromSmallFloat(strengthMod), TFC_Core.getByteFromSmallFloat(aggressionMod), TFC_Core.getByteFromSmallFloat(obedienceMod), (byte) familiarity, (byte) (familiarizedToday
 						? 1 : 0), (byte) (pregnant ? 1 : 0), (byte) 0 // Empty
@@ -948,7 +948,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(24));
-				} catch (NumberFormatException e)
+				} catch (NumberFormatException ignored)
 				{
 				}
 			}
@@ -965,13 +965,7 @@ public class EntityOcelotTFC extends EntityTameable implements IAnimal, IInnateA
 		return false;
 	}
 
-    @Override
-	protected void updateAITasks()
-	{
-		super.updateAITasks();
-	}
-    
-    /**
+	/**
      * main AI tick function, replaces updateEntityActionState
      */
     public void updateAITick()

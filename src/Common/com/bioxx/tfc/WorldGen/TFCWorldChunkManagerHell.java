@@ -9,6 +9,7 @@ import net.minecraft.world.ChunkPosition;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal", "Convert2Diamond"})
 public class TFCWorldChunkManagerHell extends TFCWorldChunkManager
 {
 	/** The biome generator object. */

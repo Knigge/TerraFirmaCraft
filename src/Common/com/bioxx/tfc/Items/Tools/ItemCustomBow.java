@@ -31,6 +31,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemCustomBow extends ItemBow implements ISize
 {
 	private String[] bowPullIconNameArray = new String[] {"pulling_0", "pulling_1", "pulling_2", "pulling_3"};
@@ -135,7 +136,8 @@ public class ItemCustomBow extends ItemBow implements ISize
 				entityarrow.canBePickedUp = 2;
 			else if(hasAmmo)
 				player.inventory.consumeInventoryItem(TFCItems.arrow);
-			else if(hasAmmoInQuiver)
+			else //noinspection ConstantConditions
+				if(hasAmmoInQuiver)
 				consumeArrowInQuiver(player, true);
 
 			if (!world.isRemote)
@@ -159,6 +161,7 @@ public class ItemCustomBow extends ItemBow implements ISize
 		return speed;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) 
 	{

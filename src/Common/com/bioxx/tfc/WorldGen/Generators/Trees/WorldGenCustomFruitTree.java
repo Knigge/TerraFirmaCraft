@@ -10,6 +10,7 @@ import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.TileEntities.TEFruitTreeWood;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class WorldGenCustomFruitTree extends WorldGenerator
 {
 	private final Block leavesBlock;

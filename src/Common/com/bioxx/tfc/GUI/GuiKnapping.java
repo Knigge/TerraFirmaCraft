@@ -22,6 +22,7 @@ import com.bioxx.tfc.Handlers.Network.AbstractPacket;
 import com.bioxx.tfc.Handlers.Network.KnappingUpdatePacket;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiKnapping extends GuiContainerTFC
 {
 	private boolean previouslyLoaded;
@@ -40,6 +41,7 @@ public class GuiKnapping extends GuiContainerTFC
 		super.onGuiClosed();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{

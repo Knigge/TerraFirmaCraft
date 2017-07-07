@@ -23,6 +23,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.Entities.Mobs.EntityFishTFC;
 import com.bioxx.tfc.Items.Tools.ItemCustomFishingRod;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityFishHookTFC extends EntityFishHook
 {
 	/** The tile this entity is on, X position */
@@ -146,9 +147,9 @@ public class EntityFishHookTFC extends EntityFishHook
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
-	 * length * 64 * renderDistanceWeight Args: distance
+	/*
+	  Checks if the entity is in range to render by using the past in distance and comparing it to its average edge
+	  length * 64 * renderDistanceWeight Args: distance
 	 */
 	public boolean isInRangeToRenderDist(double par1)
 	{
@@ -182,9 +183,9 @@ public class EntityFishHookTFC extends EntityFishHook
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
-	 * posY, posZ, yaw, pitch
+	/*
+	  Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
+	  posY, posZ, yaw, pitch
 	 */
 	public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9)
 	{
@@ -202,8 +203,8 @@ public class EntityFishHookTFC extends EntityFishHook
 	@Override
 	@SideOnly(Side.CLIENT)
 
-	/**
-	 * Sets the velocity to the args. Args: x, y, z
+	/*
+	  Sets the velocity to the args. Args: x, y, z
 	 */
 	public void setVelocity(double par1, double par3, double par5)
 	{
@@ -310,19 +311,15 @@ public class EntityFishHookTFC extends EntityFishHook
 			double d4 = 0.0D;
 			double d5;
 
-			for (int j = 0; j < list.size(); ++j)
-			{
-				Entity entity1 = (Entity)list.get(j);
-				if (entity1.canBeCollidedWith() && (entity1 != this.field_146042_b || this.ticksInAir >= 5))
-				{
+			for (Object aList : list) {
+				Entity entity1 = (Entity) aList;
+				if (entity1.canBeCollidedWith() && (entity1 != this.field_146042_b || this.ticksInAir >= 5)) {
 					float f = 0.3F;
 					AxisAlignedBB axisalignedbb = entity1.boundingBox.expand(f, f, f);
 					MovingObjectPosition movingobjectposition1 = axisalignedbb.calculateIntercept(vec3, vec31);
-					if (movingobjectposition1 != null)
-					{
+					if (movingobjectposition1 != null) {
 						d5 = vec3.distanceTo(movingobjectposition1.hitVec);
-						if (d5 < d4 || d4 == 0.0D)
-						{
+						if (d5 < d4 || d4 == 0.0D) {
 							entity = entity1;
 							d4 = d5;
 						}
@@ -350,8 +347,11 @@ public class EntityFishHookTFC extends EntityFishHook
 			{
 				this.moveEntity(this.motionX, this.motionY, this.motionZ);
 				float f1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+				//noinspection SuspiciousNameCombination
 				this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
+				// indian magic?
+				//noinspection StatementWithEmptyBody
 				for (this.rotationPitch = (float)(Math.atan2(this.motionY, f1) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
 					;
 
@@ -376,7 +376,7 @@ public class EntityFishHookTFC extends EntityFishHook
 
 				for (int k = 0; k < b0; ++k)
 				{
-					double d7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (k + 0) / b0 - 0.125D + 0.125D;
+					double d7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (k) / b0 - 0.125D + 0.125D;
 					double d8 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (k + 1) / b0 - 0.125D + 0.125D;
 					AxisAlignedBB axisalignedbb1 = AxisAlignedBB.getBoundingBox(this.boundingBox.minX, d7, this.boundingBox.minZ, this.boundingBox.maxX, d8, this.boundingBox.maxZ);
 
@@ -462,10 +462,11 @@ public class EntityFishHookTFC extends EntityFishHook
 		double force = pullVec.distanceTo(entityForce);
 		Vec3 netForceVec = entityForce.addVector(pullX, pullY, pullZ);
 		double forceRatio = (force * 30) / netForceVec.lengthVector();
-
+/* ?!! +0d?
 		if(TFC_Time.getTotalTicks()%40 == 0){
 			force += 0d;
 		}
+		*/
 		lineTension += (forceRatio -31 > 1 ? Math.sqrt(forceRatio - 31) : forceRatio - 31);
 
 		lineTension = Math.max(lineTension, 0);
@@ -667,7 +668,7 @@ public class EntityFishHookTFC extends EntityFishHook
 	public void setDeadKill(){
 		if(this.ridingEntity!=null && this.ridingEntity instanceof EntityLiving){
 			((EntityLiving)(this.ridingEntity)).setHealth(1);
-			((EntityLiving)(this.ridingEntity)).attackEntityFrom(new EntityDamageSource("fishing", field_146042_b), 1);
+			this.ridingEntity.attackEntityFrom(new EntityDamageSource("fishing", field_146042_b), 1);
 			this.field_146042_b.addStat(StatList.fishCaughtStat, 1);
 		}
 		this.ridingEntity = null;

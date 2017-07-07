@@ -2,6 +2,7 @@ package com.bioxx.tfc.Blocks.Devices;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -47,6 +48,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockBarrel extends BlockTerraContainer
 {
 	private String[] woodNames;
@@ -191,7 +193,7 @@ public class BlockBarrel extends BlockTerraContainer
 	public void onBlockPlacedBy(World world, int i, int j, int k, EntityLivingBase player, ItemStack is)
 	{
 		super.onBlockPlacedBy(world, i, j, k, player, is);
-		TEBarrel teb = null;
+		TEBarrel teb;
 		TileEntity te = world.getTileEntity(i, j, k);
 		if (te != null && is.hasTagCompound() && te instanceof TEBarrel)
 		{
@@ -223,7 +225,7 @@ public class BlockBarrel extends BlockTerraContainer
 		int j = 0;
 		String s = this.getUnlocalizedName();
 		for(int i = 0; i < woodNames.length;i++)
-			j = s.substring(s.indexOf('l', s.length())) == ((ItemBarrels) (TFCItems.barrel)).metaNames[i] ? i : 0;
+			j = Objects.equals(s.substring(s.indexOf('l', s.length())), ((ItemBarrels) (TFCItems.barrel)).metaNames[i]) ? i : 0;
 		return new ItemStack(TFCItems.barrel, 1, j);
 	}
 
@@ -331,7 +333,8 @@ public class BlockBarrel extends BlockTerraContainer
 		return false;
 	}
 
-	protected boolean handleInteraction(EntityPlayer player, TEBarrel te) 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	protected boolean handleInteraction(EntityPlayer player, TEBarrel te)
 	{
 		if (!te.getSealed() && te.getInvCount() <= 1 && !te.getWorldObj().isRemote) 
 		{

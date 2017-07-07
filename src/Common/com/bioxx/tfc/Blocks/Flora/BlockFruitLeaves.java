@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockFruitLeaves extends BlockTerraContainer
 {
 	//private int adjacentTreeBlocks[];
@@ -302,6 +303,7 @@ public class BlockFruitLeaves extends BlockTerraContainer
 		return new TEFruitLeaves();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

@@ -8,10 +8,11 @@ import java.util.Map;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class LoomManager
 {
 	private static final LoomManager INSTANCE = new LoomManager();
-	public static final LoomManager getInstance()
+	public static LoomManager getInstance()
 	{
 		return INSTANCE;
 	}
@@ -77,9 +78,8 @@ public class LoomManager
 	}
 
 	public ResourceLocation findMatchingTexture(LoomRecipe recipe){
-		ResourceLocation rl = null;
 		if(recipe != null){
-			rl = textures.remove(recipe);
+			ResourceLocation rl = textures.remove(recipe);
 			if(rl!= null){
 				textures.put(recipe, rl);
 				return rl;

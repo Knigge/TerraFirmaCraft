@@ -6,6 +6,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 
+@SuppressWarnings("SameParameterValue")
 public class ItemFoodMeat extends ItemFoodTFC {
 
 	public ItemFoodMeat(EnumFoodGroup fg, int sw, int so, int sa, int bi,

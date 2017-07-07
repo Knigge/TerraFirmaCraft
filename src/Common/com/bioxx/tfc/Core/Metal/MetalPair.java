@@ -2,7 +2,8 @@ package com.bioxx.tfc.Core.Metal;
 
 import com.bioxx.tfc.api.Metal;
 
-public class MetalPair 
+@SuppressWarnings("CanBeFinal")
+public class MetalPair
 {
 	public Metal type;
 	public float amount;

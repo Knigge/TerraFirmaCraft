@@ -11,6 +11,7 @@ import com.google.common.collect.ImmutableList;
  * If this is not the case, you must remove them after initializing the object, but before the loadFromConfig is called. Otherwise you may end up with double entries in the recipe list.
  * @author Dries007
  */
+@SuppressWarnings("WeakerAccess")
 public class ConversionOption extends SyncingOption
 {
 	public final ImmutableList<IRecipe> recipes;

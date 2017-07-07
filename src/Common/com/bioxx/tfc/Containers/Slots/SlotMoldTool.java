@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.Items.ItemMeltedMetal;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotMoldTool extends Slot
 {
 	public SlotMoldTool(IInventory iinventory, int i, int j, int k)

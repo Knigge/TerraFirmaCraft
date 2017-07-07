@@ -17,6 +17,7 @@ import net.minecraft.util.AxisAlignedBB;
 
 import com.bioxx.tfc.Entities.EntityStand;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TEStand extends TileEntity implements IInventory
 {
 
@@ -245,6 +246,7 @@ public class TEStand extends TileEntity implements IInventory
 	}
 ///////////////////////////////////////////////////////////////////
 	//TODO Update packet
+	@SuppressWarnings("EmptyMethod")
 	public void updateGui()
 	{
 //		if(!worldObj.isRemote)

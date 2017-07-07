@@ -1,6 +1,5 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +25,7 @@ import com.bioxx.tfc.api.Events.ItemCookEvent;
 import com.bioxx.tfc.api.Interfaces.ICookableFood;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TEFirepit extends TEFireEntity implements IInventory
 {
 	public ItemStack fireItemStacks[];
@@ -403,21 +403,18 @@ public class TEFirepit extends TEFireEntity implements IInventory
 			if (list != null && !list.isEmpty() && fireItemStacks[0] == null) // Only go through the list if more fuel can fit.
 			{
 				// Iterate through the list and check for logs and peat
-				for (Iterator iterator = list.iterator(); iterator.hasNext();)
-				{
-					EntityItem entity = (EntityItem) iterator.next();
+				for (Object aList : list) {
+					EntityItem entity = (EntityItem) aList;
 					ItemStack is = entity.getEntityItem();
 					Item item = is.getItem();
 
-					if (item == TFCItems.logs || item == Item.getItemFromBlock(TFCBlocks.peat))
-					{
-						for (int c = 0; c < is.stackSize; c++)
-						{
+					if (item == TFCItems.logs || item == Item.getItemFromBlock(TFCBlocks.peat)) {
+						for (int c = 0; c < is.stackSize; c++) {
 							if (fireItemStacks[0] == null) // Secondary check for empty input slot.
 							{
-								/**
-								 * Place a copy of only one of the logs into the fuel slot, due to the stack limitation of the fuel slots.
-								 * Do not change to fireItemStacks[0] = is;
+								/*
+								  Place a copy of only one of the logs into the fuel slot, due to the stack limitation of the fuel slots.
+								  Do not change to fireItemStacks[0] = is;
 								 */
 								setInventorySlotContents(0, new ItemStack(item, 1, is.getItemDamage()));
 								is.stackSize--;
@@ -604,6 +601,7 @@ public class TEFirepit extends TEFireEntity implements IInventory
 		return false;
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	@SideOnly(Side.CLIENT)
 	public void generateSmoke()
 	{

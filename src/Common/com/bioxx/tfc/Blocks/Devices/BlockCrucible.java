@@ -1,7 +1,5 @@
 package com.bioxx.tfc.Blocks.Devices;
 
-import java.util.Iterator;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -23,11 +21,11 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Blocks.BlockTerraContainer;
 import com.bioxx.tfc.Core.TFCTabs;
-import com.bioxx.tfc.Core.Metal.MetalPair;
 import com.bioxx.tfc.TileEntities.TECrucible;
 import com.bioxx.tfc.api.TFCBlocks;
 
-public class BlockCrucible extends BlockTerraContainer 
+@SuppressWarnings("WeakerAccess")
+public class BlockCrucible extends BlockTerraContainer
 {
 	private IIcon[] icons;
 
@@ -41,7 +39,7 @@ public class BlockCrucible extends BlockTerraContainer
 	@Override
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
 	{
-		if(!world.isRemote && (TECrucible)world.getTileEntity(i, j, k) != null)
+		if(!world.isRemote && world.getTileEntity(i, j, k) != null)
 		{
 			//TECrucible te = (TECrucible)world.getTileEntity(i, j, k);
 			//ItemStack is = entityplayer.getCurrentEquippedItem();
@@ -101,12 +99,8 @@ public class BlockCrucible extends BlockTerraContainer
 		nbt.setInteger("temp", te.temperature);
 
 		NBTTagList nbttaglist = new NBTTagList();
-		Iterator iter = te.metals.values().iterator();
-		while(iter.hasNext())
-		{
-			MetalPair m = (MetalPair) iter.next();
-			if(m != null)
-			{
+		for (Object m : te.metals.values()) {
+			if (m != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setInteger("ID", Item.getIdFromItem(m.type.ingot));
 				nbttagcompound1.setFloat("AmountF", m.amount);

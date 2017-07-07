@@ -1,5 +1,6 @@
 package com.bioxx.tfc.api;
 
+@SuppressWarnings("CanBeFinal")
 public class HeatRaw
 {
 	public float specificHeat;

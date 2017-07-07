@@ -1,5 +1,6 @@
 package com.bioxx.tfc.api.Enums;
 
+@SuppressWarnings("WeakerAccess")
 public enum EnumFuelMaterial
 {
 	ASH("ASH", 696, 1250, 				new int[]{/*Sweet*/-15,/*Sour*/12,/*Salty*/0,/*Bitter*/0,/*Savory*/0}),
@@ -28,7 +29,7 @@ public enum EnumFuelMaterial
 	public final int burnTempMax;//degrees celcius
 	public final int[] tasteProfile;
 
-	private EnumFuelMaterial(String s, int i, int j, int[] taste)
+	EnumFuelMaterial(String s, int i, int j, int[] taste)
 	{
 		burnTempMax = i;
 		burnTimeMax = j;

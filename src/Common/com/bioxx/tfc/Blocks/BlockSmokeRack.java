@@ -28,6 +28,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class BlockSmokeRack extends BlockTerraContainer
 {
 	public BlockSmokeRack()
@@ -60,6 +61,7 @@ public class BlockSmokeRack extends BlockTerraContainer
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{
@@ -197,6 +199,7 @@ public class BlockSmokeRack extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean isValidNeighbor(World world, int x, int y, int z, ForgeDirection dir)
 	{
 		Block b = world.getBlock(x, y, z);

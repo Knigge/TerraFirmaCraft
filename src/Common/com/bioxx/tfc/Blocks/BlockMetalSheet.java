@@ -32,6 +32,7 @@ import com.bioxx.tfc.TileEntities.TEMetalSheet;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class BlockMetalSheet extends BlockTerraContainer implements ICustomCollision
 {
 	public IIcon[] icons;

@@ -20,6 +20,7 @@ import com.bioxx.tfc.Blocks.BlockTerra;
 import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.api.Tools.IToolChisel;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class BlockSmooth extends BlockTerra
 {
 	protected BlockSmooth(Material material)
@@ -30,10 +31,11 @@ public class BlockSmooth extends BlockTerra
 	protected String[] names;
 	protected IIcon[] icons;
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

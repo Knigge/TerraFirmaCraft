@@ -7,7 +7,8 @@ import net.minecraft.util.IIcon;
 import com.bioxx.tfc.Render.RenderBlocksLightCache;
 import com.bioxx.tfc.TileEntities.TEDetailed;
 
-public class RenderDetailed 
+@SuppressWarnings("WeakerAccess")
+public class RenderDetailed
 {
 	private static RenderBlocksLightCache renderer;
 
@@ -104,11 +105,8 @@ public class RenderDetailed
 		return te.data.get((x * 8 + z)*8 + y);
 	}
 	
-	public static boolean isTransparent(TEDetailed te, int x, int y, int z)
-	{
-		if ( x < 0 || x >= 8 || y < 0 || y >= 8 || z < 0 || z >= 8 )
-			return true;
-		
-		return ! te.data.get((x * 8 + z)*8 + y);
+	public static boolean isTransparent(TEDetailed te, int x, int y, int z) {
+		return x < 0 || x >= 8 || y < 0 || y >= 8 || z < 0 || z >= 8
+				|| !te.data.get((x * 8 + z) * 8 + y);
 	}
 }

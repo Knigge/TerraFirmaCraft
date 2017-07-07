@@ -36,8 +36,6 @@ public class BlockCustomLeaves2 extends BlockCustomLeaves
 	@Override
 	protected void dropRareSapling(World world, int x, int y, int z, int meta)
 	{
-		if (meta == 0)
-			return;
 	}
 
 

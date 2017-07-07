@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotAnvilFlux extends Slot
 {
 	public SlotAnvilFlux(IInventory iinventory, int i, int j, int k)

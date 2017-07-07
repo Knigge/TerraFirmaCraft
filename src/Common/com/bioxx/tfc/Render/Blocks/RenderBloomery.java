@@ -11,9 +11,11 @@ import com.bioxx.tfc.Blocks.Devices.BlockEarlyBloomery;
 import com.bioxx.tfc.TileEntities.TEBloomery;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderBloomery implements ISimpleBlockRenderingHandler
 {
 
+	@SuppressWarnings("SameReturnValue")
 	public static boolean render(Block block, int i, int j, int k, RenderBlocks renderblocks)
 	{
 		IBlockAccess blockAccess = renderblocks.blockAccess;
@@ -129,11 +131,8 @@ public class RenderBloomery implements ISimpleBlockRenderingHandler
 	}
 
 	@Override
-	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
-	{
-		if (modelId == TFCBlocks.bloomeryRenderId)
-			return render(block, x, y, z, renderer);
-		return false;
+	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		return modelId == TFCBlocks.bloomeryRenderId && render(block, x, y, z, renderer);
 	}
 
 	@Override

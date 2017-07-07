@@ -28,8 +28,10 @@ import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "SameReturnValue"})
 public class TFC_CoreRender
 {
+	@SuppressWarnings("ConstantConditions")
 	public static boolean renderBlockSlab(Block block, int x, int y, int z, RenderBlocks renderblocks)
 	{
 		TEPartial te = (TEPartial) renderblocks.blockAccess.getTileEntity(x, y, z);
@@ -61,6 +63,7 @@ public class TFC_CoreRender
 		//This is the old ore code that I experimented with
 		boolean breaking = renderblocks.overrideBlockTexture != null;
 		IIcon over = renderblocks.overrideBlockTexture;
+		//!TODO: check
 		if(!breaking && (b == TFCBlocks.ore || b == TFCBlocks.ore2 || b == TFCBlocks.ore3))
 		{
 			//TFCBiome biome = (TFCBiome) renderblocks.blockAccess.getBiomeGenForCoords(par2, par4);
@@ -264,6 +267,7 @@ public class TFC_CoreRender
 
 	public static Random renderRandom = new Random();
 
+	@SuppressWarnings("ConstantConditions")
 	public static boolean renderLooseRock(Block block, int i, int j, int k, RenderBlocks renderblocks)
 	{
 		boolean breaking = false;
@@ -495,12 +499,12 @@ public class TFC_CoreRender
 		return true;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static boolean renderBlockWithCustomColorMultiplier(Block block, RenderBlocks renderBlocks, int xCoord, int yCoord, int zCoord, int colorMultiplier)
 	{
-		int l = colorMultiplier;
-		float f = (l >> 16 & 255) / 255.0F;
-		float f1 = (l >> 8 & 255) / 255.0F;
-		float f2 = (l & 255) / 255.0F;
+		float f = (colorMultiplier >> 16 & 255) / 255.0F;
+		float f1 = (colorMultiplier >> 8 & 255) / 255.0F;
+		float f2 = (colorMultiplier & 255) / 255.0F;
 
 		if (EntityRenderer.anaglyphEnable)
 		{

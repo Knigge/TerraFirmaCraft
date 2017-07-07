@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TEWoodConstruct extends NetworkTileEntity
 {
 	public byte[] woodTypes = new byte[192];

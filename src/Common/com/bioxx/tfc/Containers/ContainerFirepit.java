@@ -16,6 +16,7 @@ import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerFirepit extends ContainerTFC
 {
 	private TEFirepit firepit;
@@ -112,6 +113,7 @@ public class ContainerFirepit extends ContainerTFC
 		return origStack;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void detectAndSendChanges()
 	{
@@ -126,16 +128,14 @@ public class ContainerFirepit extends ContainerTFC
 				var3 = var2 == null ? null : var2.copy();
 				this.inventoryItemStacks.set(var1, var3);
 
-				for (int var4 = 0; var4 < this.crafters.size(); ++var4)
-					((ICrafting)this.crafters.get(var4)).sendSlotContents(this, var1, var3);
+				for (Object crafter : this.crafters) ((ICrafting) crafter).sendSlotContents(this, var1, var3);
 			}
 		}
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			if (this.firetemp != this.firepit.fireTemp)
-				var2.sendProgressBarUpdate(this, 0, (int)this.firepit.fireTemp);
+				var2.sendProgressBarUpdate(this, 0, (int) this.firepit.fireTemp);
 		}
 
 		firetemp = this.firepit.fireTemp;

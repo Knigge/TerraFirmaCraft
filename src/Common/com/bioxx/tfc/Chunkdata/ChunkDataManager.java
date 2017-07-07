@@ -8,7 +8,8 @@ import net.minecraft.world.chunk.Chunk;
 import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCOptions;
 
-public class ChunkDataManager 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
+public class ChunkDataManager
 {
 	///private World world;
 
@@ -63,6 +64,7 @@ public class ChunkDataManager
 		return chunkmap.containsItem(key);
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean addProtection(int x, int z, int amount)
 	{
 		ChunkData d = getData(x,z);
@@ -107,6 +109,7 @@ public class ChunkDataManager
 		return false;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean setLastVisted(int x, int z)
 	{
 		ChunkData d = getData(x,z);

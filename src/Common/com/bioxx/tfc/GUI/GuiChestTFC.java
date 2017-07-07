@@ -14,6 +14,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TEChest;
 
+@SuppressWarnings("CanBeFinal")
 public class GuiChestTFC extends GuiContainer
 {
 	private IInventory upperChestInventory;

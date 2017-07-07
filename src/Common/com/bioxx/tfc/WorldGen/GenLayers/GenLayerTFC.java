@@ -17,6 +17,7 @@ import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverInitTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverMixTFC;
 import com.bioxx.tfc.WorldGen.GenLayers.River.GenLayerRiverTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenLayerTFC extends GenLayer
 {
 	protected long worldGenSeed;
@@ -208,6 +209,7 @@ public abstract class GenLayerTFC extends GenLayer
 	@Override
 	public abstract int[] getInts(int var1, int var2, int var3, int var4);
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static int validateInt(int[] array, int index)
 	{
 		/*if(TFCBiome.biomeList[array[index]] == null)

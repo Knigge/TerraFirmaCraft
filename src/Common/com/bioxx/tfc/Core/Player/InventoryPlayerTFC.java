@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings("WeakerAccess")
 public class InventoryPlayerTFC extends InventoryPlayer {
 
 	public ItemStack[] extraEquipInventory = new ItemStack[TFC_Core.getExtraEquipInventorySize()];
@@ -63,8 +64,8 @@ public class InventoryPlayerTFC extends InventoryPlayer {
 	}
 
 	@Override
-	/**
-	 * Returns the stack in slot i
+	/*
+	  Returns the stack in slot i
 	 */
 	public ItemStack getStackInSlot(int par1)
 	{

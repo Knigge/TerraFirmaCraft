@@ -25,6 +25,7 @@ import com.bioxx.tfc.Blocks.BlockTerraContainer;
 import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.TileEntities.TEFoodPrep;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockFoodPrep extends BlockTerraContainer
 {
 	public BlockFoodPrep()
@@ -101,14 +102,10 @@ public class BlockFoodPrep extends BlockTerraContainer
 	@Override
 	public void onNeighborBlockChange(World world, int i, int j, int k, Block block)
 	{
-		if(!world.isRemote)
+		if(!world.isRemote && !world.isSideSolid(i, j - 1, k, ForgeDirection.UP))
 		{
-			if(!world.isSideSolid(i, j - 1, k, ForgeDirection.UP))
-			{
-				((TEFoodPrep)world.getTileEntity(i, j, k)).ejectContents();
-				world.setBlockToAir(i, j, k);
-				return;
-			}
+			((TEFoodPrep)world.getTileEntity(i, j, k)).ejectContents();
+			world.setBlockToAir(i, j, k);
 		}
 	}
 
@@ -148,6 +145,7 @@ public class BlockFoodPrep extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

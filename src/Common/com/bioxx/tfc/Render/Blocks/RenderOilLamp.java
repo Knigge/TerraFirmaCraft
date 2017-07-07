@@ -10,6 +10,7 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import org.lwjgl.opengl.GL11;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderOilLamp implements ISimpleBlockRenderingHandler
 {
 	//private static float min = 0.1F;

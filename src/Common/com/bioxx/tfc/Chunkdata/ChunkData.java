@@ -8,7 +8,8 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCOptions;
 
-public class ChunkData 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class ChunkData
 {
 	public int chunkX;
 	public int chunkZ;
@@ -126,13 +127,19 @@ public class ChunkData
 		}
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public void infest()
 	{
+		// ?!!!
+		//!TODO: check
 		Math.min(cropInfestation++, 10);
 	}
 
+	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public void uninfest()
 	{
+		// ?!!!
+		//!TODO: check
 		Math.max(cropInfestation--, 0);
 	}
 

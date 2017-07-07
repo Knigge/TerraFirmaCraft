@@ -30,6 +30,7 @@ import com.bioxx.tfc.api.Interfaces.ICausesDamage;
 import com.bioxx.tfc.api.Interfaces.IInnateArmor;
 import com.bioxx.tfc.api.Interfaces.IProjectile;
 
+@SuppressWarnings("WeakerAccess")
 public class EntitySkeletonTFC extends EntityMob implements IRangedAttackMob, ICausesDamage, IInnateArmor
 {
 	private final EntityAIArrowAttack aiArrowAttack = new EntityAIArrowAttack(this, 1.0D, 20, 120, 15.0F);
@@ -152,7 +153,7 @@ public class EntitySkeletonTFC extends EntityMob implements IRangedAttackMob, IC
 	protected void entityInit()
 	{
 		super.entityInit();
-		this.dataWatcher.addObject(13, Byte.valueOf((byte) rand.nextInt(2)));
+		this.dataWatcher.addObject(13, (byte) rand.nextInt(2));
 	}
 
 	@Override
@@ -197,7 +198,7 @@ public class EntitySkeletonTFC extends EntityMob implements IRangedAttackMob, IC
 						if (itemstack.getItemDamageForDisplay() >= itemstack.getMaxDamage())
 						{
 							this.renderBrokenItemStack(itemstack);
-							this.setCurrentItemOrArmor(4, (ItemStack)null);
+							this.setCurrentItemOrArmor(4, null);
 						}
 					}
 					flag = false;
@@ -499,7 +500,7 @@ public class EntitySkeletonTFC extends EntityMob implements IRangedAttackMob, IC
 
 	public void setSkeletonType(int par1)
 	{
-		this.dataWatcher.updateObject(13, Byte.valueOf((byte)par1));
+		this.dataWatcher.updateObject(13, (byte) par1);
 		this.setSize(0.6F, 1.8F);
 	}
 
@@ -523,16 +524,12 @@ public class EntitySkeletonTFC extends EntityMob implements IRangedAttackMob, IC
 	}
 
 	@Override
-	public boolean getCanSpawnHere()
-	{
+	public boolean getCanSpawnHere() {
 		int x = MathHelper.floor_double(this.posX);
 		int y = MathHelper.floor_double(this.boundingBox.minY);
 		int z = MathHelper.floor_double(this.posZ);
 		Block b = this.worldObj.getBlock(x, y, z);
 
-		if(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch)
-			return false;
-
-		return super.getCanSpawnHere();
+		return !(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch) && super.getCanSpawnHere();
 	}
 }

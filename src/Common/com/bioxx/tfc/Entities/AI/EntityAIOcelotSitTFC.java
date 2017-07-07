@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 
+@SuppressWarnings("SameParameterValue")
 public class EntityAIOcelotSitTFC extends EntityAIBase {
 	
 	 	private final EntityOcelotTFC ocelot;

@@ -9,6 +9,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.HeatRegistry;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
+@SuppressWarnings("CanBeFinal")
 public class ShapedRecipesTFC implements IRecipe
 {
 	private int recipeWidth;

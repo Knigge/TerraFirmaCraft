@@ -21,6 +21,7 @@ import com.bioxx.tfc.api.Crafting.AnvilManager;
 import com.bioxx.tfc.api.Crafting.AnvilRecipe;
 import com.bioxx.tfc.api.Crafting.AnvilReq;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class GuiPlanSelection extends GuiContainerTFC
 {
 	private TEAnvil anvilTE;
@@ -42,6 +43,7 @@ public class GuiPlanSelection extends GuiContainerTFC
 		this.z = z;*/
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initGui()
 	{
@@ -95,7 +97,7 @@ public class GuiPlanSelection extends GuiContainerTFC
 	{
 		AnvilManager manager = AnvilManager.getInstance();
 		Object[] plans = manager.getPlans().keySet().toArray();
-		ArrayList planList = new ArrayList();
+		ArrayList<Object[]> planList = new ArrayList<Object[]>();
 		for (Object p : plans)
 		{
 			AnvilRecipe ar = manager.findMatchingRecipe(new AnvilRecipe(anvilTE.anvilItemStacks[TEAnvil.INPUT1_SLOT], anvilTE.anvilItemStacks[TEAnvil.INPUT2_SLOT], (String) p, AnvilReq.getReqFromInt(anvilTE.anvilTier), null));
@@ -103,7 +105,7 @@ public class GuiPlanSelection extends GuiContainerTFC
 			ar = handleMatchingRecipe(ar);
 			if (ar != null)
 				planList.add(new Object[]
-				{ (String) p, ar });
+				{p, ar });
 		}
 		return planList;
 

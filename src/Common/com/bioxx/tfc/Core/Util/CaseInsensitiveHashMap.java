@@ -13,7 +13,7 @@ import com.google.common.collect.ImmutableMap;
  *
  * @author Dries007
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings({"unchecked", "WeakerAccess"})
 public class CaseInsensitiveHashMap<V> extends HashMap<String, V>
 {
 	public CaseInsensitiveHashMap(int initialCapacity, float loadFactor)

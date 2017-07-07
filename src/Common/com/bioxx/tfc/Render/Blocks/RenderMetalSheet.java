@@ -9,8 +9,10 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import com.bioxx.tfc.TileEntities.TEMetalSheet;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderMetalSheet implements ISimpleBlockRenderingHandler
 {
+	@SuppressWarnings("SameReturnValue")
 	public static boolean render(Block block, int i, int j, int k, RenderBlocks renderblocks)
 	{
 		IBlockAccess access = renderblocks.blockAccess;

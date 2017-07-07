@@ -5,6 +5,7 @@ import net.minecraft.world.gen.layer.IntCache;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerDeepOcean extends GenLayerTFC
 {
 	public GenLayerDeepOcean(long seed, GenLayerTFC parent)

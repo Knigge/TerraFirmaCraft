@@ -11,6 +11,7 @@ import com.bioxx.tfc.Containers.Slots.SlotLogPile;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.TileEntities.TELogPile;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ContainerLogPile extends ContainerTFC
 {
 	private World world;

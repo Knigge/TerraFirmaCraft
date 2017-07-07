@@ -12,6 +12,7 @@ import net.minecraft.world.WorldServer;
 import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("WeakerAccess")
 public class CommandTime extends CommandBase
 {
 	@Override
@@ -46,17 +47,16 @@ public class CommandTime extends CommandBase
 
 				if (par2ArrayOfStr[0].equals("set"))
 				{
-					if (par2ArrayOfStr[1].equals("day"))
-					{
-						i = (int)(currentTime + (24000 - (currentTime%24000)));
-					}
-					else if (par2ArrayOfStr[1].equals("night"))
-					{
-						i = 12500 + (int)(currentTime + (24000 - (currentTime%24000)));
-					}
-					else
-					{
-						i = parseIntWithMin(par1ICommandSender, par2ArrayOfStr[1], 0);
+					switch (par2ArrayOfStr[1]) {
+						case "day":
+							i = (int) (currentTime + (24000 - (currentTime % 24000)));
+							break;
+						case "night":
+							i = 12500 + (int) (currentTime + (24000 - (currentTime % 24000)));
+							break;
+						default:
+							i = parseIntWithMin(par1ICommandSender, par2ArrayOfStr[1], 0);
+							break;
 					}
 					if(i < currentTime)
 					{
@@ -65,7 +65,7 @@ public class CommandTime extends CommandBase
 					else
 					{
 						this.setTime(par1ICommandSender, i);
-						func_152373_a(par1ICommandSender, this, "commands.time.set", new Object[] {Integer.valueOf(i)});//notifyAdmins
+						func_152373_a(par1ICommandSender, this, "commands.time.set", i);//notifyAdmins
 					}
 					return;
 				}
@@ -80,7 +80,7 @@ public class CommandTime extends CommandBase
 					else
 					{
 						this.addTime(par1ICommandSender, i);
-						func_152373_a(par1ICommandSender, this, "commands.time.added", new Object[] {Integer.valueOf(i)});
+						func_152373_a(par1ICommandSender, this, "commands.time.added", i);
 					}
 					return;
 				}
@@ -90,7 +90,7 @@ public class CommandTime extends CommandBase
 			(new net.minecraft.command.CommandTime()).processCommand(par1ICommandSender,par2ArrayOfStr);
 			return;
 		}
-		throw new WrongUsageException("commands.time.usage", new Object[0]);
+		throw new WrongUsageException("commands.time.usage");
 	}
 
 	/**
@@ -99,7 +99,7 @@ public class CommandTime extends CommandBase
 	@Override
 	public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr)
 	{
-		return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, new String[] {"set", "add"}): par2ArrayOfStr.length == 2 && par2ArrayOfStr[0].equals("set") ? getListOfStringsMatchingLastWord(par2ArrayOfStr, new String[] {"day", "night"}): null;
+		return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "set", "add"): par2ArrayOfStr.length == 2 && par2ArrayOfStr[0].equals("set") ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "day", "night"): null;
 	}
 
 	/**

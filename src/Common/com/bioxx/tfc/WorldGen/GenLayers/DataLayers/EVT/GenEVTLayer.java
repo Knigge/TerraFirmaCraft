@@ -13,6 +13,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.*;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenEVTLayer extends GenLayerTFC
 {
 	public static final int LOW = DataLayer.EVT_0_25.layerID;
@@ -29,8 +30,8 @@ public abstract class GenEVTLayer extends GenLayerTFC
 		{
 			if(zoomLevel == 0)
 			{
-				continent = new GenLayerEVTMix(1000 + zoomLevel, continent);
-				drawImage(512,continent , "EVT 2-" + zoomLevel +" Mix");
+				continent = new GenLayerEVTMix(1000, continent);
+				drawImage(512,continent , "EVT 2-0 Mix");
 			}
 			continent = new GenLayerZoomTFC(1000 + zoomLevel, continent);
 			drawImage(512,continent , "EVT 2-" + zoomLevel +" Smoothed");

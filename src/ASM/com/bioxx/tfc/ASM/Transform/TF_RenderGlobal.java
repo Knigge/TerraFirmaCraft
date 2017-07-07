@@ -14,9 +14,11 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LineNumberNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 
+@SuppressWarnings("Convert2Diamond")
 public class TF_RenderGlobal extends ClassTransformer
 {
 
+	@SuppressWarnings("deprecation")
 	public TF_RenderGlobal()
 	{
 		mcpClassName = "net.minecraft.client.renderer.RenderGlobal";

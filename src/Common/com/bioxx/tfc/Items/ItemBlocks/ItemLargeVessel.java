@@ -32,6 +32,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemLargeVessel extends ItemTerraBlock implements IEquipable
 {
 	private static final int MAX_LIQUID = 5000;
@@ -151,7 +152,7 @@ public class ItemLargeVessel extends ItemTerraBlock implements IEquipable
 
 				Fluid fluid = ((IFluidBlock) world.getBlock(i, j, k)).getFluid();
 				int temp = fluid.getTemperature();
-				int volume = 0;
+				int volume;
 
 				if (temp < Global.HOT_LIQUID_TEMP && fluid != TFCFluids.HOTWATER)
 				{

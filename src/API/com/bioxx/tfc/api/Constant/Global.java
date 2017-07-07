@@ -181,6 +181,7 @@ public class Global
 	/**
 	 * Switch to TFCOptions.foodDecayRate
 	 */
+	@SuppressWarnings("DeprecatedIsStillUsed")
 	@Deprecated
 	public static double foodDecayRate = TFCOptions.foodDecayRate;
 

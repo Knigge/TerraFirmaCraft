@@ -9,6 +9,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class BarrelPreservativeRecipe {
 	private boolean requiresBrined;
 	private boolean requiresPickled;
@@ -32,14 +33,7 @@ public class BarrelPreservativeRecipe {
 	private String preservingString;
 	
 	/***
-	 * Checks a barrel to see if it should be preserving. Allows Overriding this function in subclass
-	 * @param xCoord
-	 * @param yCoord
-	 * @param zCoord
-	 * @param fluid
-	 * @param itemStack
-	 * @param sealed
-	 * @return
+	  Checks a barrel to see if it should be preserving. Allows Overriding this function in subclass
 	 */
 	public boolean checkForPreservation(TEBarrel barrel, FluidStack fluid, ItemStack itemStack, boolean sealed){
 		if(itemStack == null || fluid == null)

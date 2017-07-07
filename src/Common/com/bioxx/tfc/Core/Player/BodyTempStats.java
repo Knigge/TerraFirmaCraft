@@ -15,17 +15,16 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Interfaces.IClothing;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BodyTempStats
 {
 	private int temperatureLevel;
-	private int prevTemperatureLevel;
 	private int extraFoodConsumed;
 	private int extraWaterConsumed;
 	private int heatStorage;
 	private long tempTimer;
 
 	private Random rand = new Random();
-	private ItemStack itemHead, itemChest, itemLegs, itemFeet;
 
 	public void onUpdate(EntityPlayer player)
 	{
@@ -45,7 +44,7 @@ public class BodyTempStats
 		FoodStatsTFC food = TFC_Core.getPlayerFoodStats(player);
 
 		//Player's basic body functions.
-		prevTemperatureLevel = temperatureLevel;
+		int prevTemperatureLevel = temperatureLevel;
 		if(rand.nextInt(2000-getBaseBodyTempMod(player))<100 && food.stomachLevel >= 500)
 			temperatureLevel++;
 		if((player.isSprinting() || player.swingProgress != 0) && rand.nextInt(1000 - (getBaseBodyTempMod(player)) / 2) < 100)
@@ -67,7 +66,7 @@ public class BodyTempStats
 		{
 			tellPlayerMessage(player);
 		}
-		prevTemperatureLevel = temperatureLevel;
+		//prevTemperatureLevel = temperatureLevel;
 		if(temperatureLevel >= -10 && temperatureLevel <= 10)
 		{
 			extraFoodConsumed = 0;
@@ -170,24 +169,26 @@ public class BodyTempStats
 
 	public int getBaseBodyTempMod(EntityPlayer player)
 	{
-		itemHead = player.inventory.armorItemInSlot(3);
-		itemChest = player.inventory.armorItemInSlot(2);
-		itemLegs = player.inventory.armorItemInSlot(1);
-		itemFeet = player.inventory.armorItemInSlot(0);
+		ItemStack itemHead = player.inventory.armorItemInSlot(3);
+		ItemStack itemChest = player.inventory.armorItemInSlot(2);
+		ItemStack itemLegs = player.inventory.armorItemInSlot(1);
+		ItemStack itemFeet = player.inventory.armorItemInSlot(0);
 		int returnAmount = 0;
 		if(itemHead != null && itemHead.getItem() instanceof IClothing)
-			returnAmount += ((IClothing)itemHead.getItem()).getThermal();
+			returnAmount += ((IClothing) itemHead.getItem()).getThermal();
 		if(itemChest != null && itemChest.getItem() instanceof IClothing)
-			returnAmount += ((IClothing)itemChest.getItem()).getThermal();
+			returnAmount += ((IClothing) itemChest.getItem()).getThermal();
 		if(itemLegs != null && itemLegs.getItem() instanceof IClothing)
-			returnAmount += ((IClothing)itemLegs.getItem()).getThermal();
+			returnAmount += ((IClothing) itemLegs.getItem()).getThermal();
 		if(itemFeet != null && itemFeet.getItem() instanceof IClothing)
-			returnAmount += ((IClothing)itemFeet.getItem()).getThermal();
+			returnAmount += ((IClothing) itemFeet.getItem()).getThermal();
 		return returnAmount;
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	private void tellPlayerMessage(EntityPlayer player)
 	{
+		//!TODO: add config options for this
 		/*		switch(temperatureLevel/10)
 		{
 		case -1:

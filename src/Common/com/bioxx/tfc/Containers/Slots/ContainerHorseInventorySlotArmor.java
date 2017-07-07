@@ -10,6 +10,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.Containers.ContainerHorseInventoryTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class ContainerHorseInventorySlotArmor extends Slot
 {
 	private final EntityHorse horse;

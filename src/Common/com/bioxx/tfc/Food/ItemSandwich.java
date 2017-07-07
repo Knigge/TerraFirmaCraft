@@ -10,6 +10,7 @@ import net.minecraft.util.IIcon;
 import com.bioxx.tfc.Core.Player.FoodStatsTFC;
 import com.bioxx.tfc.api.Food;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemSandwich extends ItemMeal
 {
 
@@ -72,6 +73,7 @@ public class ItemSandwich extends ItemMeal
 		return false;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{

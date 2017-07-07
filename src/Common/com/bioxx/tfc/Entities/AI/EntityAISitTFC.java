@@ -4,6 +4,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAISit;
 import net.minecraft.entity.passive.EntityTameable;
 
+@SuppressWarnings("CanBeFinal")
 public class EntityAISitTFC extends EntityAISit {
 	
 	private EntityTameable theEntity;
@@ -38,7 +39,7 @@ public class EntityAISitTFC extends EntityAISit {
         else
         {
             EntityLivingBase entitylivingbase = this.theEntity.getOwner();
-			return entitylivingbase == null ? true : this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getAITarget() != null ? this.isSitting && !this.theEntity.isTamed() : this.isSitting;
+			return entitylivingbase == null || (this.theEntity.getDistanceSqToEntity(entitylivingbase) < 144.0D && entitylivingbase.getAITarget() != null ? this.isSitting && !this.theEntity.isTamed() : this.isSitting);
         }
     }
     

@@ -26,6 +26,7 @@ import com.bioxx.tfc.TileEntities.TEWoodConstruct;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"unchecked", "Convert2Diamond"})
 public class BlockWoodConstruct extends BlockTerraContainer implements ICustomCollision
 {
 	public BlockWoodConstruct()
@@ -81,7 +82,7 @@ public class BlockWoodConstruct extends BlockTerraContainer implements ICustomCo
 	{
 		List<ItemStack> ret = new ArrayList<ItemStack>();
 
-		if(!world.isRemote && (TEWoodConstruct)world.getTileEntity(x, y, z)!=null)
+		if(!world.isRemote && world.getTileEntity(x, y, z) !=null)
 		{
 			TEWoodConstruct te = (TEWoodConstruct)world.getTileEntity(x, y, z);
 			ret = te.getDrops();

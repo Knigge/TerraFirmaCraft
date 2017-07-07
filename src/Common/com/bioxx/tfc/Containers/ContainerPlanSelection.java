@@ -5,6 +5,9 @@ import net.minecraft.world.World;
 
 import com.bioxx.tfc.TileEntities.TEAnvil;
 
+import java.util.Objects;
+
+@SuppressWarnings("CanBeFinal")
 public class ContainerPlanSelection extends ContainerTFC
 {
 	private TEAnvil anvil;
@@ -22,7 +25,7 @@ public class ContainerPlanSelection extends ContainerTFC
 	public void detectAndSendChanges()
 	{
 		super.detectAndSendChanges();
-		if(anvil.craftingPlan != plan)
+		if(!Objects.equals(anvil.craftingPlan, plan))
 			plan = anvil.craftingPlan;
 	}
 }

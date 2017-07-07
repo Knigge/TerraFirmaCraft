@@ -24,6 +24,7 @@ import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Tools.IToolChisel;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockCobble extends BlockTerra
 {
 	protected BlockCobble(Material material)
@@ -36,10 +37,11 @@ public class BlockCobble extends BlockTerra
 	protected IIcon[] icons;
 	protected int looseStart;
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

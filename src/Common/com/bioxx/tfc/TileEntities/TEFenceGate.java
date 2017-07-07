@@ -58,18 +58,6 @@ public class TEFenceGate extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void createInitNBT(NBTTagCompound nbt) {
 		nbt.setBoolean("open", open);
 		nbt.setByte("dir", direction);

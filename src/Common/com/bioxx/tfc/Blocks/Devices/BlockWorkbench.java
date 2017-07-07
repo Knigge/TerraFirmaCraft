@@ -31,7 +31,7 @@ public class BlockWorkbench extends BlockTerra
 		if (par1 == 1)
 			return this.topIcon;
 		else if (par1 == 0)
-			return TFCBlocks.planks.getBlockTextureFromSide(par1);
+			return TFCBlocks.planks.getBlockTextureFromSide(0);
 		else if (par1 != 2 && par1 != 4)
 			return this.blockIcon;
 		else

@@ -91,6 +91,7 @@ public class ItemPotteryMold extends ItemPotteryBase
 		return this.clayIcon;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tabs, List list)

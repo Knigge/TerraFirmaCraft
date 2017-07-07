@@ -22,6 +22,7 @@ import com.bioxx.tfc.api.Enums.EnumAmmo;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Interfaces.IQuiverAmmo;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class ItemQuiver extends ItemTerra implements IEquipable
 {
 	public ItemQuiver()
@@ -45,12 +46,6 @@ public class ItemQuiver extends ItemTerra implements IEquipable
 		return Reference.ModID+String.format(":textures/models/armor/%s_%d%s.png",
 				m, (slot == 2 ? 2 : 1), type == null ? "" : String.format("_%s", type));
 	}*/
-
-	@Override
-	public void onUpdate(ItemStack is, World world, Entity entity, int i, boolean isSelected) 
-	{
-		super.onUpdate(is, world, entity, i, isSelected);
-	}
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
@@ -112,6 +107,7 @@ public class ItemQuiver extends ItemTerra implements IEquipable
 		return pair;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{
@@ -252,6 +248,7 @@ public class ItemQuiver extends ItemTerra implements IEquipable
 		return false;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

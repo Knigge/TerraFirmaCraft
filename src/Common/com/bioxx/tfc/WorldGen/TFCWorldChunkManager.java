@@ -19,6 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Core.TFC_Climate;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFCWorldChunkManager extends WorldChunkManager
 {
 	protected World worldObj;
@@ -135,7 +136,7 @@ public class TFCWorldChunkManager extends WorldChunkManager
 		if (par6 && par4 == 16 && par5 == 16 && (par2 & 15) == 0 && (par3 & 15) == 0)
 		{
 			BiomeGenBase[] var9 = this.biomeCache.getCachedBiomes(par2, par3);
-			System.arraycopy(var9, 0, biome, 0, par4 * par5);
+			System.arraycopy(var9, 0, biome, 0, 256);
 			return biome;
 		}
 		else

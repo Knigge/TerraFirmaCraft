@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Containers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,6 +22,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class ContainerVessel extends ContainerTFC
 {
 	private World world;
@@ -33,10 +35,7 @@ public class ContainerVessel extends ContainerTFC
 		this.world = world;
 		bagsSlotNum = player.inventory.currentItem;
 		exceptions = new ArrayList<Item>();
-		for (Item ingot : TEIngotPile.getIngots())
-		{
-			exceptions.add(ingot);
-		}
+		Collections.addAll(exceptions, TEIngotPile.getIngots());
 		layoutContainer(playerinv, 0, 0);
 
 		if(!world.isRemote)

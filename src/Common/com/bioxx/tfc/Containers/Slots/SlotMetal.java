@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.Items.ItemMeltedMetal;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("WeakerAccess")
 public class SlotMetal extends Slot
 {
 	public SlotMetal(IInventory iinventory, int i, int j, int k)

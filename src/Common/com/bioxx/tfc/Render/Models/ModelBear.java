@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class ModelBear extends ModelBase
 {
 	//fields

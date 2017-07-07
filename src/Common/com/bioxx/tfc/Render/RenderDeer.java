@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Entities.Mobs.EntityDeer;
 import com.bioxx.tfc.api.Entities.IAnimal;
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderDeer extends RenderLiving
 {
 	private static final ResourceLocation DEER_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/deer.png");

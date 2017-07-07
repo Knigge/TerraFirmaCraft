@@ -21,15 +21,15 @@ import net.minecraft.tileentity.TileEntity;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class TECoalPile extends TileEntity implements IInventory
 {
     public ItemStack[] storage;
     private int coalPileOpeners;
     public boolean isOnFire;
     public int fireTimer;
-    private Queue<Vector3f> blocksToBeSetOnFire;
 
-    public TECoalPile()
+	public TECoalPile()
     {
         storage = new ItemStack[4];
         coalPileOpeners = 0;
@@ -266,7 +266,7 @@ public class TECoalPile extends TileEntity implements IInventory
         if(!isOnFire)
             return;
         Block block;
-        blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
+	    Queue<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
 
         block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
         if(!TFC_Core.isValidCharcoalPitCover(block))

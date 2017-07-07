@@ -12,6 +12,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityBear;
 import com.bioxx.tfc.api.Entities.IAnimal;
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderBear extends RenderLiving
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/Bear.png");

@@ -37,6 +37,7 @@ import com.bioxx.tfc.Items.ItemBlocks.ItemOilLamp;
 import com.bioxx.tfc.TileEntities.TEOilLamp;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockOilLamp extends BlockTerraContainer
 {
 	private IIcon[] icons;
@@ -57,6 +58,7 @@ public class BlockOilLamp extends BlockTerraContainer
 		return getLightValue();
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List list)
@@ -291,6 +293,7 @@ public class BlockOilLamp extends BlockTerraContainer
 		return true;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	protected boolean tryPlace(World world, int x, int y, int z)
 	{
 		if (!this.canPlaceBlockAt(world, x, y, z))

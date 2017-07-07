@@ -30,6 +30,7 @@ import com.bioxx.tfc.Items.Tools.ItemFirestarter;
 import com.bioxx.tfc.TileEntities.TEFirepit;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockFirepit extends BlockTerraContainer
 {
 	private IIcon textureOn;
@@ -52,7 +53,7 @@ public class BlockFirepit extends BlockTerraContainer
 				Item item = entityplayer.getCurrentEquippedItem().getItem();
 				if (item instanceof ItemFirestarter || item instanceof ItemFlintAndSteel)
 				{
-					if ((TEFirepit) world.getTileEntity(x, y, z) != null)
+					if (world.getTileEntity(x, y, z) != null)
 					{
 						TEFirepit te = (TEFirepit) world.getTileEntity(x, y, z);
 						if (te.fireTemp < 210 && te.fireItemStacks[5] != null)
@@ -71,7 +72,7 @@ public class BlockFirepit extends BlockTerraContainer
 				}
 			}
 
-			if ((TEFirepit) world.getTileEntity(x, y, z) != null)
+			if (world.getTileEntity(x, y, z) != null)
 				entityplayer.openGui(TerraFirmaCraft.instance, 20, world, x, y, z);
 		}
 
@@ -111,7 +112,6 @@ public class BlockFirepit extends BlockTerraContainer
 		{
 			((TEFirepit)world.getTileEntity(x, y, z)).ejectContents();
 			world.setBlockToAir(x, y, z);
-			return;
 		}
 	}
 
@@ -220,6 +220,7 @@ public class BlockFirepit extends BlockTerraContainer
 		textureOff = iconRegisterer.registerIcon(Reference.MOD_ID + ":" + "devices/Firepit Off");
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

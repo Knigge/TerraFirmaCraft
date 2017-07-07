@@ -11,7 +11,7 @@ import com.bioxx.tfc.Core.TFC_MobData;
 
 public class EntityPigZombieTFC extends EntityZombieTFC
 {
-	/** Above zero if this PigZombie is Angry. */
+	/* Above zero if this PigZombie is Angry. */
 	//private int angerLevel = 0;
 
 	/** A random delay until this PigZombie next makes a sound. */
@@ -22,8 +22,8 @@ public class EntityPigZombieTFC extends EntityZombieTFC
 		super(par1World);
 	}
 
-	/**
-	 * Causes this PigZombie to become angry at the supplied Entity (which will be a player).
+	/*
+	  Causes this PigZombie to become angry at the supplied Entity (which will be a player).
 	 */
 	/*private void becomeAngryAt(Entity par1Entity)
 	{

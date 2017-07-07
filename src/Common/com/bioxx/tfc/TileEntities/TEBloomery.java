@@ -1,6 +1,5 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -20,6 +19,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 
+@SuppressWarnings("WeakerAccess")
 public class TEBloomery extends NetworkTileEntity
 {
 	public boolean isFlipped;
@@ -47,12 +47,12 @@ public class TEBloomery extends NetworkTileEntity
 
 	public void swapFlipped()
 	{
-		if(isFlipped)isFlipped = false;
-		else isFlipped = true;
+		isFlipped = !isFlipped;
 		if(!worldObj.isRemote)
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	public boolean isStackValid(int i, int j, int k)
 	{
 		Block yNegBlock = worldObj.getBlock(i, j - 1, k);
@@ -242,9 +242,10 @@ public class TEBloomery extends NetworkTileEntity
 							worldObj.setBlockToAir(x, yCoord + 1, z);
 					}
 				}
-
+				/* ?? unused
 				if (moltenCount == 0)
 					moltenCount = 1;
+					*/
 
 				/*Create a list of all the items that are falling into the stack */
 				List list = worldObj.getEntitiesWithinAABB(EntityItem.class, AxisAlignedBB.getBoundingBox(x, yCoord, z, x + 1, yCoord + (maxCount / 8) + 1.1, z + 1));
@@ -256,16 +257,12 @@ public class TEBloomery extends NetworkTileEntity
 				if (list != null && !list.isEmpty() && !bloomeryLit && (playerList == null || playerList.isEmpty()))
 				{
 					/*Iterate through the list and check for charcoal, coke, and ore*/
-					for (Iterator iterator = list.iterator(); iterator.hasNext();)
-					{
-						EntityItem entity = (EntityItem) iterator.next();
+					for (Object aList : list) {
+						EntityItem entity = (EntityItem) aList;
 						if (entity.getEntityItem().getItem() == TFCItems.coal &&
-								(entity.getEntityItem().getItemDamage() == 1 || entity.getEntityItem().getItemDamage() == 2))
-						{
-							for (int c = 0; c < entity.getEntityItem().stackSize; c++)
-							{
-								if (charcoalCount + oreCount < (2 * maxCount) && charcoalCount < maxCount)
-								{
+								(entity.getEntityItem().getItemDamage() == 1 || entity.getEntityItem().getItemDamage() == 2)) {
+							for (int c = 0; c < entity.getEntityItem().stackSize; c++) {
+								if (charcoalCount + oreCount < (2 * maxCount) && charcoalCount < maxCount) {
 									charcoalCount++;
 									entity.getEntityItem().stackSize--;
 								}
@@ -274,46 +271,33 @@ public class TEBloomery extends NetworkTileEntity
 								entity.setDead();
 						}
 						/*If the item that's been tossed in is a type of Ore and it can melt down into something then add the ore to the list of items in the fire.*/
-						else if (entity.getEntityItem().getItem() instanceof ItemOre && ((ItemOre) entity.getEntityItem().getItem()).isSmeltable(entity.getEntityItem()))
-						{
+						else if (entity.getEntityItem().getItem() instanceof ItemOre && ((ItemOre) entity.getEntityItem().getItem()).isSmeltable(entity.getEntityItem())) {
 							int c = entity.getEntityItem().stackSize;
-							while (c > 0)
-							{
-								if (charcoalCount + oreCount < (2 * maxCount) && oreCount < maxCount && outCount < 5000)
-								{
-									if (addOreToFire(new ItemStack(entity.getEntityItem().getItem(), 1, entity.getEntityItem().getItemDamage())))
-									{
+							while (c > 0) {
+								if (charcoalCount + oreCount < (2 * maxCount) && oreCount < maxCount && outCount < 5000) {
+									if (addOreToFire(new ItemStack(entity.getEntityItem().getItem(), 1, entity.getEntityItem().getItemDamage()))) {
 										oreCount += 1;
 										c--;
-									}
-									else
+									} else
 										break;
-								}
-								else
+								} else
 									break;
 							}
 							if (c == 0)
 								entity.setDead();
 							else
 								entity.getEntityItem().stackSize = c;
-						}
-						else if (entity.getEntityItem().getItem() instanceof ISmeltable &&
-									((ISmeltable) entity.getEntityItem().getItem()).isSmeltable(entity.getEntityItem()))
-						{
+						} else if (entity.getEntityItem().getItem() instanceof ISmeltable &&
+								((ISmeltable) entity.getEntityItem().getItem()).isSmeltable(entity.getEntityItem())) {
 							int c = entity.getEntityItem().stackSize;
-							while (c > 0)
-							{
-								if (((ISmeltable) entity.getEntityItem().getItem()).getMetalReturnAmount(entity.getEntityItem()) < 100 && oreCount < maxCount && outCount < 1000)
-								{
-									if (addOreToFire(new ItemStack(entity.getEntityItem().getItem(), 1, entity.getEntityItem().getItemDamage())))
-									{
+							while (c > 0) {
+								if (((ISmeltable) entity.getEntityItem().getItem()).getMetalReturnAmount(entity.getEntityItem()) < 100 && oreCount < maxCount && outCount < 1000) {
+									if (addOreToFire(new ItemStack(entity.getEntityItem().getItem(), 1, entity.getEntityItem().getItemDamage()))) {
 										oreCount += 1;
 										c--;
-									}
-									else
+									} else
 										break;
-								}
-								else
+								} else
 									break;
 							}
 
@@ -327,7 +311,7 @@ public class TEBloomery extends NetworkTileEntity
 				//Here we make sure that the forge is valid
 				if (this.validationCheck <= 0)
 				{
-					if (((BlockEarlyBloomery) worldObj.getBlock(xCoord, yCoord, zCoord)).canBlockStay(worldObj, xCoord, yCoord, zCoord))
+					if (worldObj.getBlock(xCoord, yCoord, zCoord).canBlockStay(worldObj, xCoord, yCoord, zCoord))
 						validationCheck = 600;
 					else
 					{
@@ -369,18 +353,6 @@ public class TEBloomery extends NetworkTileEntity
 	public void handleInitPacket(NBTTagCompound nbt) {
 		isFlipped = nbt.getBoolean("isFlipped");
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

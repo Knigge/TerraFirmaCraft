@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class AnvilRecipe
 {
 	public ItemStack result;
@@ -118,16 +119,12 @@ public class AnvilRecipe
 	/**
 	 * Used to check if a recipe matches current crafting inventory
 	 */    
-	public boolean matches(AnvilRecipe recipe)
-	{   
-		if(     areItemStacksEqual(input1, recipe.input1) && 
-				areItemStacksEqual(input2, recipe.input2) &&
-				plan.equals(recipe.plan) &&
-				AnvilReq.matches(anvilreq, recipe.anvilreq))
-		{
-			return !this.flux || recipe.flux;
-		}
-		return false;
+	public boolean matches(AnvilRecipe recipe) {
+		return areItemStacksEqual(input1, recipe.input1)
+				&& areItemStacksEqual(input2, recipe.input2)
+				&& plan.equals(recipe.plan)
+				&& AnvilReq.matches(anvilreq, recipe.anvilreq)
+				&& (!this.flux || recipe.flux);
 	}
 
 	public boolean isComplete(AnvilManager am, AnvilRecipe recipe, int[] rules)
@@ -166,10 +163,8 @@ public class AnvilRecipe
 			if (is1.getItemDamage() != 32767 && is1.getItemDamage() != is2.getItemDamage())
 				return false;
 		}
-		else if (is1 == null && is2 != null || is1 != null && is2 == null) // XOR, if both are null return true
-			return false;
 
-		return true;
+		return !(is1 == null && is2 != null || is1 != null && is2 == null);
 	}
 
 	/**

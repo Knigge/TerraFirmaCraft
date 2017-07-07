@@ -30,6 +30,7 @@ import com.bioxx.tfc.Items.Tools.ItemFirestarter;
 import com.bioxx.tfc.TileEntities.TEForge;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("Convert2Diamond")
 public class BlockForge extends BlockTerraContainer
 {
 	private IIcon textureOn;
@@ -143,28 +144,24 @@ public class BlockForge extends BlockTerraContainer
 	public void randomDisplayTick(World world, int i, int j, int k, Random random)
 	{
 		if (this == TFCBlocks.forge)
-		{
 			return;
-		}
-		else
-		{
-			float f = i + 0.5F;
-			float f1 = j + 0.9F + random.nextFloat() * 6F / 16F;
-			float f2 = k + 0.5F;
-			//float f3 = 0.52F;
-			float f4 = random.nextFloat() * 0.6F;
-			float f5 = random.nextFloat() * -0.6F;
-			float f6 = random.nextFloat() * -0.6F;
-			world.spawnParticle("smoke", f+f4 - 0.3F, f1,  f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", f+f4 - 0.3F, f1,  f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("smoke", f+f5 + 0.3F , f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", f+f5 + 0.3F , f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
 
-			if (((TEForge)world.getTileEntity(i, j, k)).fireTemp > 550)
-			{
-				world.spawnParticle("flame", f+f5 + 0.3F , f1, f2 + f6 + 0.2F, 0.0D, 0.0D, 0.0D);
-				world.spawnParticle("flame", f+f4 - 0.3F , f1, f2 + f6 + 0.1F, 0.0D, 0.0D, 0.0D);
-			}
+		float f = i + 0.5F;
+		float f1 = j + 0.9F + random.nextFloat() * 6F / 16F;
+		float f2 = k + 0.5F;
+		//float f3 = 0.52F;
+		float f4 = random.nextFloat() * 0.6F;
+		float f5 = random.nextFloat() * -0.6F;
+		float f6 = random.nextFloat() * -0.6F;
+		world.spawnParticle("smoke", f+f4 - 0.3F, f1,  f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+		world.spawnParticle("flame", f+f4 - 0.3F, f1,  f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+		world.spawnParticle("smoke", f+f5 + 0.3F , f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
+		world.spawnParticle("flame", f+f5 + 0.3F , f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
+
+		if (((TEForge)world.getTileEntity(i, j, k)).fireTemp > 550)
+		{
+			world.spawnParticle("flame", f+f5 + 0.3F , f1, f2 + f6 + 0.2F, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle("flame", f+f4 - 0.3F , f1, f2 + f6 + 0.1F, 0.0D, 0.0D, 0.0D);
 		}
 	}
 

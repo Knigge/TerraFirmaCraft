@@ -7,11 +7,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenMinableTFC extends WorldGenerator
 {
 	private final Block minableBlock;
 	private final int minableBlockMeta;
-	private int numberOfBlocks;
 	private Block layerBlock;
 	private int layerMeta;
 	//private int BiomeId;
@@ -68,7 +68,7 @@ public class WorldGenMinableTFC extends WorldGenerator
 		this.hDens = hDensity;
 	}
 
-	public boolean betterOreDistribution(int xChunk, int zChunk, Block mPMinableBlock, int mPMinableBlockMeta, int min, int max, Random rand)
+	public void betterOreDistribution(int xChunk, int zChunk, Block mPMinableBlock, int mPMinableBlockMeta, int min, int max, Random rand)
 	{
 		if (rand.nextInt(rarity) == 0)
 		{
@@ -78,15 +78,13 @@ public class WorldGenMinableTFC extends WorldGenerator
 				int temp2 = mPCalculateDensityVert(rand, height, vDens, min, max);
 				int temp3 = mPCalculateDensity(rand, diameter, hDens);
 				int l5 = xChunk*16 + temp1;
-				int i9 = temp2;
 				int k13 = zChunk*16 + temp3;
-				bODgenerate(worldObj, rand, l5, i9, k13, veinSi);
+				bODgenerate(worldObj, rand, l5, temp2, k13, veinSi);
 			}
 		}
-		return true;
 	}
 
-	public boolean betterOreDistributionVein(int xChunk, int zChunk, Block mPMinableBlock, int mPMinableBlockMeta, int min, int max, Random rand)
+	public void betterOreDistributionVein(int xChunk, int zChunk, Block mPMinableBlock, int mPMinableBlockMeta, int min, int max, Random rand)
 	{
 		if (rand.nextInt(rarity) == 0)
 		{
@@ -96,15 +94,13 @@ public class WorldGenMinableTFC extends WorldGenerator
 				int temp2 = mPCalculateDensityVert(rand, height, vDens, min, max);
 				int temp3 = mPCalculateDensity(rand, diameter, hDens);
 				int l5 = xChunk*16 + temp1;
-				int i9 = temp2;
 				int k13 = zChunk*16 + temp3;
-				bODgenerateVein(worldObj, rand, l5, i9, k13, veinSi);
+				bODgenerateVein(worldObj, rand, l5, temp2, k13, veinSi);
 			}
 		}
-		return true;
 	}
 
-	public boolean bODgenerateVein(World world, Random rand, int parX, int parY, int parZ, int xyz)
+	public void bODgenerateVein(World world, Random rand, int parX, int parY, int parZ, int xyz)
 	{
 		//boolean doOnce = true;
 
@@ -118,23 +114,22 @@ public class WorldGenMinableTFC extends WorldGenerator
 		int posX2 = 0;
 		int posY2 = 0;
 		int posZ2 = 0;
-		int directionX =0;
-		int directionY =0;
-		int directionZ =0;
-		int directionX2 = 0;
-		int directionY2 = 0;
-		int directionZ2 = 0;
+		int directionX;
+		int directionY;
+		int directionZ;
+		int directionX2;
+		int directionY2;
+		int directionZ2;
 		/*int directionX3 =0;
 		int directionY3 =0;
 		int directionZ3 =0;*/
-		int directionChange =0;
-		int directionChange2 =0;
-		int blocksToUse = xyz;//input number of blocks per vein
-		int blocksToUse2 =0; 
+		int directionChange;
+		int directionChange2;
+		int blocksToUse2;
 
-		for(int  blocksMade=0; blocksMade <= blocksToUse;) // make veins
+		for(int  blocksMade=0; blocksMade <= xyz;) // make veins
 		{
-			blocksToUse2 = 1 + (blocksToUse/30);
+			blocksToUse2 = 1 + (xyz /30);
 			directionChange = rand.nextInt(6);
 			directionX = rand.nextInt(2);
 			directionY = rand.nextInt(2);
@@ -208,29 +203,27 @@ public class WorldGenMinableTFC extends WorldGenerator
 			posY = parY;
 			posZ = parZ;
 		}
-		return true;
 	}
 
-	public boolean bODgenerate(World world, Random rand, int x, int y, int z, int xyz)
+	public void bODgenerate(World world, Random rand, int x, int y, int z, int xyz)
 	{
 		//boolean doOnce = true;
-		numberOfBlocks = xyz;
 		float f = rand.nextFloat() * (float)Math.PI;
-		double d = x + 8 + MathHelper.sin(f) * numberOfBlocks / 8F;
-		double d1 = x + 8 - MathHelper.sin(f) * numberOfBlocks / 8F;
-		double d2 = z + 8 + MathHelper.cos(f) * numberOfBlocks / 8F;
-		double d3 = z + 8 - MathHelper.cos(f) * numberOfBlocks / 8F;
+		double d = x + 8 + MathHelper.sin(f) * xyz / 8F;
+		double d1 = x + 8 - MathHelper.sin(f) * xyz / 8F;
+		double d2 = z + 8 + MathHelper.cos(f) * xyz / 8F;
+		double d3 = z + 8 - MathHelper.cos(f) * xyz / 8F;
 		double d4 = y + rand.nextInt(3) - 2;
 		double d5 = y + rand.nextInt(3) - 2;
 
-		for(int l = 0; l <= numberOfBlocks; l++)
+		for(int l = 0; l <= xyz; l++)
 		{
-			double d6 = d + (d1 - d) * l / numberOfBlocks;
-			double d7 = d4 + (d5 - d4) * l / numberOfBlocks;
-			double d8 = d2 + (d3 - d2) * l / numberOfBlocks;
-			double d9 = rand.nextDouble() * numberOfBlocks / 16D;
-			double d10 = (MathHelper.sin(l * (float)Math.PI / numberOfBlocks) + 1.0F) * d9 + 1.0D;
-			double d11 = (MathHelper.sin(l * (float)Math.PI / numberOfBlocks) + 1.0F) * d9 + 1.0D;
+			double d6 = d + (d1 - d) * l / xyz;
+			double d7 = d4 + (d5 - d4) * l / xyz;
+			double d8 = d2 + (d3 - d2) * l / xyz;
+			double d9 = rand.nextDouble() * xyz / 16D;
+			double d10 = (MathHelper.sin(l * (float)Math.PI / xyz) + 1.0F) * d9 + 1.0D;
+			double d11 = (MathHelper.sin(l * (float)Math.PI / xyz) + 1.0F) * d9 + 1.0D;
 			int i1 = MathHelper.floor_double(d6 - d10 / 2D);
 			int j1 = MathHelper.floor_double(d7 - d11 / 2D);
 			int k1 = MathHelper.floor_double(d8 - d10 / 2D);
@@ -260,9 +253,9 @@ public class WorldGenMinableTFC extends WorldGenerator
 				}
 			}
 		}
-		return true;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean generate(World world, Random random, int x, int z, int min, int max, String n)//absorb default system
 	{
 		mPChunkX = x >> 4;// set output chunk x
@@ -272,7 +265,7 @@ public class WorldGenMinableTFC extends WorldGenerator
 		worldObj = world;
 		//rand = random;
 		if(mPChunkX != mPPrevX || mPChunkZ != mPPrevZ || mPBlock != mPPrevBlock ||
-				mPBlock == mPPrevBlock && mPBlockMeta != mPPrevMeta ||
+				(mPBlock == mPPrevBlock && mPBlockMeta != mPPrevMeta) || // mPBlock == mPPrevBlock is always true, i add () to the statement
 				mPlayerBlock != mPPrevLayerBlock || mPlayerMeta != mPPrevLayerMeta)// if it is a new x or y chunk or is a new ore, then generate
 		{
 			mPPrevX = mPChunkX;
@@ -285,6 +278,7 @@ public class WorldGenMinableTFC extends WorldGenerator
 		return true;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean generateVein(World world, Random random, int x, int z, int min, int max, String n)//absorb default system
 	{
 		mPChunkX = x >> 4;// set output chunk x
@@ -294,6 +288,7 @@ public class WorldGenMinableTFC extends WorldGenerator
 		worldObj = world;
 		//rand = random;
 		if(mPChunkX != mPPrevX || mPChunkZ != mPPrevZ || mPBlock != mPPrevBlock ||
+				//!TODO: check
 				mPBlock == mPPrevBlock && mPBlockMeta != mPPrevMeta ||
 				mPlayerBlock != mPPrevLayerBlock || mPlayerMeta != mPPrevLayerMeta)// if it is a new x or y chunk or is a new ore, then generate
 		{
@@ -328,14 +323,11 @@ public class WorldGenMinableTFC extends WorldGenerator
 	//======================================================================================
 	public int mPCalculateDensity(Random rand, int oreDist, float oreDens) // returns the density value
 	{
-		int lpCnt = 0;
-		int dValPassInr = 0;
-		int dValPass = 0;
 		oreDens = oreDens * .01F;
 		oreDens = oreDens * (oreDist / 2) + 1F;// establishes number of times to loop
-		lpCnt = (int)oreDens; //stores number of times to loop
-		dValPassInr = (int)(oreDist/oreDens+.5F); // distance devided by number of times it will loop, establishes the number for randomization
-		dValPass = 0;
+		int lpCnt = (int)oreDens; //stores number of times to loop
+		int dValPassInr = (int)(oreDist/oreDens+.5F); // distance devided by number of times it will loop, establishes the number for randomization
+		int dValPass = 0;
 		while (lpCnt > 0) // loops to acumulate random values
 		{
 			dValPass = dValPass + rand.nextInt(dValPassInr); // acumulate randoms
@@ -349,14 +341,11 @@ public class WorldGenMinableTFC extends WorldGenerator
 	//======================================================================================
 	public int mPCalculateDensityVert(Random rand, int oreDist, float oreDens, int min, int max) // returns the density value
 	{
-		int lpCnt = 0;
-		int dValPassInr = 0;
-		int dValPass = 0;
 		oreDens = oreDens * .01F;
 		oreDens = oreDens * (oreDist / 2) + 1F;// establishes number of times to loop
-		lpCnt = (int)oreDens; //stores number of times to loop
-		dValPassInr = (int)(oreDist/oreDens+.5F); // distance devided by number of times it will loop, establishes the number for randomization
-		dValPass = min;
+		int lpCnt = (int)oreDens; //stores number of times to loop
+		int dValPassInr = (int)(oreDist/oreDens+.5F); // distance devided by number of times it will loop, establishes the number for randomization
+		int dValPass = min;
 		while (lpCnt > 0) // loops to acumulate random values
 		{
 			dValPass = dValPass + rand.nextInt(dValPassInr); // acumulate randoms

@@ -13,6 +13,7 @@ import com.bioxx.tfc.WorldGen.Generators.Trees.WorldGenCustomFruitTree;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("CanBeFinal")
 public class WorldGenPlants implements IWorldGenerator
 {
 	private static WorldGenFungi plantFungiGen = new WorldGenFungi();

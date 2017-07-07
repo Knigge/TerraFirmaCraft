@@ -24,6 +24,7 @@ public class ColorizerFoliageTFC
 	/**
 	 * Gets the foliage color for pine type (metadata 1) trees
 	 */
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageColorPine()
 	{
 		return 6396257;
@@ -32,31 +33,37 @@ public class ColorizerFoliageTFC
 	/**
 	 * Gets the foliage color for birch type (metadata 2) trees
 	 */
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageColorBirch()
 	{
 		return 8431445;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageColorBasic()
 	{
 		return 4764952;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageDead()
 	{
 		return 9004839;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageOrange()
 	{
 		return 15765504;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageYellow()
 	{
 		return 16763904;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getFoliageRed()
 	{
 		return 9312280;

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Containers.Slots.SlotChest;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 import com.bioxx.tfc.Entities.Mobs.EntityHorseTFC;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerHorseInventoryTFC extends ContainerTFC
 {
 	private IInventory horseInv;

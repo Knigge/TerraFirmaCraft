@@ -13,7 +13,8 @@ import net.minecraft.nbt.NBTTagList;
 import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.api.Metal;
 
-public class Alloy 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
+public class Alloy
 {
 	public List<AlloyMetal> alloyIngred;
 	public Metal outputType;
@@ -87,11 +88,9 @@ public class Alloy
 
 	public boolean searchForAlloyMetal(AlloyMetal am)
 	{
-		Iterator<AlloyMetal> iter = alloyIngred.iterator();
-		while(iter.hasNext())
-		{
-			AlloyMetalCompare amc = (AlloyMetalCompare) iter.next();
-			if(amc.compare(am))
+		for (AlloyMetal anAlloyIngred : alloyIngred) {
+			AlloyMetalCompare amc = (AlloyMetalCompare) anAlloyIngred;
+			if (amc.compare(am))
 				return true;
 		}
 		return false;
@@ -99,12 +98,9 @@ public class Alloy
 
 	public float getPercentForMetal(Metal m)
 	{
-		Iterator<AlloyMetal> iter = alloyIngred.iterator();
 		//AlloyMetal am = new AlloyMetal(m, -1);
-		while(iter.hasNext())
-		{
-			AlloyMetal amc = iter.next();
-			if(amc.metalType == m)
+		for (AlloyMetal amc : alloyIngred) {
+			if (amc.metalType == m)
 				return amc.metal;
 		}
 		return 0;
@@ -152,9 +148,7 @@ public class Alloy
 
 			dos.writeFloat(outputAmount);
 			dos.writeInt(alloyIngred.size());
-			for(int i = 0; i < alloyIngred.size(); i++)
-			{
-				AlloyMetal am = alloyIngred.get(i);
+			for (AlloyMetal am : alloyIngred) {
 				dos.writeUTF(am.metalType.name);
 				dos.writeFloat(am.metal);
 			}
@@ -190,12 +184,10 @@ public class Alloy
 		nbt.setString("outputType", outputType.name);
 		nbt.setFloat("outputAmount", outputAmount);
 		NBTTagList nbtlist = new NBTTagList();
-		for(int i = 0; i < alloyIngred.size(); i++)
-		{
+		for (AlloyMetal anAlloyIngred : alloyIngred) {
 			NBTTagCompound nbt1 = new NBTTagCompound();
-			AlloyMetal am = alloyIngred.get(i);
-			nbt1.setString("metalType", am.metalType.name);
-			nbt1.setFloat("amount", am.metal);
+			nbt1.setString("metalType", anAlloyIngred.metalType.name);
+			nbt1.setFloat("amount", anAlloyIngred.metal);
 			nbtlist.appendTag(nbt1);
 		}
 		nbt.setTag("metalList", nbtlist);

@@ -12,6 +12,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class OreSpawnData
 {
 	public int type, size, meta, rarity, min = 5, max = 128, vDensity, hDensity;
@@ -108,28 +109,24 @@ public class OreSpawnData
 			List<Integer> metadata = base.containsKey(TFCBlocks.stoneIgIn) ? base.get(TFCBlocks.stoneIgIn) : new ArrayList<Integer>();
 			metadata.add(-1);
 			base.put(TFCBlocks.stoneIgIn, metadata);
-			return;
 		}
 		else if ("igneous extrusive".equalsIgnoreCase(name))
 		{
 			List<Integer> metadata = base.containsKey(TFCBlocks.stoneIgEx) ? base.get(TFCBlocks.stoneIgEx) : new ArrayList<Integer>();
 			metadata.add(-1);
 			base.put(TFCBlocks.stoneIgEx, metadata);
-			return;
 		}
 		else if ("sedimentary".equalsIgnoreCase(name))
 		{
 			List<Integer> metadata = base.containsKey(TFCBlocks.stoneSed) ? base.get(TFCBlocks.stoneSed) : new ArrayList<Integer>();
 			metadata.add(-1);
 			base.put(TFCBlocks.stoneSed, metadata);
-			return;
 		}
 		else if ("metamorphic".equalsIgnoreCase(name))
 		{
 			List<Integer> metadata = base.containsKey(TFCBlocks.stoneMM) ? base.get(TFCBlocks.stoneMM) : new ArrayList<Integer>();
 			metadata.add(-1);
 			base.put(TFCBlocks.stoneMM, metadata);
-			return;
 		}
 	}
 }

@@ -15,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings("WeakerAccess")
 public class FamiliarityHighlightHandler {
 
 	//Assumed client only
@@ -85,10 +86,10 @@ public class FamiliarityHighlightHandler {
 		float f1 = 0.00390625F;
 		Tessellator tessellator = Tessellator.instance;
 		tessellator.startDrawingQuads();
-		tessellator.addVertexWithUV(par1 + 0, par2 + par6, 0.0, (par3 + 0) * f, (par4 + par6) * f1);
+		tessellator.addVertexWithUV(par1, par2 + par6, 0.0, (par3) * f, (par4 + par6) * f1);
 		tessellator.addVertexWithUV(par1 + par5, par2 + par6, 0.0, (par3 + par5) * f, (par4 + par6) * f1);
-		tessellator.addVertexWithUV(par1 + par5, par2 + 0, 0.0, (par3 + par5) * f, (par4 + 0) * f1);
-		tessellator.addVertexWithUV(par1 + 0, par2 + 0, 0.0, (par3 + 0) * f, (par4 + 0) * f1);
+		tessellator.addVertexWithUV(par1 + par5, par2, 0.0, (par3 + par5) * f, (par4) * f1);
+		tessellator.addVertexWithUV(par1, par2, 0.0, (par3) * f, (par4) * f1);
 		tessellator.draw();
 	}
 }

@@ -22,7 +22,7 @@ public class ItemMetalTrapDoor extends ItemTerraBlock
 		if(!world.isRemote)
 		{
 			int out = side;
-			int hinge = 0;
+			int hinge;
 			switch(side)
 			{
 			case 0:

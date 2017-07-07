@@ -2,7 +2,8 @@ package com.bioxx.tfc.api;
 
 
 
-public class Armor 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class Armor
 {
 	public static Armor[] armorArray = new Armor[256];
 	public static Armor leather = 				new Armor(0, 200, 250, 300, "Leather");//Tier 0

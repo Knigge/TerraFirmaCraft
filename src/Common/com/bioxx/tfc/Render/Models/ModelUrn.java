@@ -9,10 +9,11 @@ import net.minecraft.client.renderer.Tessellator;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ModelUrn extends ModelBox 
+@SuppressWarnings("WeakerAccess")
+public class ModelUrn extends ModelBox
 {
-	/**
-     * The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
+	/*
+      The (x,y,z) vertex positions and (u,v) texture coordinates for each of the 8 points on a cube
      */
 	//private final PositionTextureVertex[] vertexPositions;
 
@@ -27,7 +28,8 @@ public class ModelUrn extends ModelBox
 		//this.vertexPositions = new PositionTextureVertex[20];
         this.quadList = new TexturedQuad[17];
         float maxX = originX + width;
-        float maxY = originY + height;
+        //float maxY = originY + height;
+		float maxY;
         float maxZ = originZ + depth;
         
         float height2 = height*1.5f;
@@ -144,10 +146,9 @@ public class ModelUrn extends ModelBox
 	@SideOnly(Side.CLIENT)
     public void render(Tessellator par1Tessellator, float par2)
     {
-        for (int var3 = 0; var3 < this.quadList.length; ++var3)
-        {
-            this.quadList[var3].draw(par1Tessellator, par2);
-        }
+	    for (TexturedQuad aQuadList : this.quadList) {
+		    aQuadList.draw(par1Tessellator, par2);
+	    }
     }
 
 }

@@ -11,7 +11,8 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.Player.PlayerInfo;
 import com.bioxx.tfc.Core.Player.PlayerManagerTFC;
 
-public class GuiKnappingButton extends GuiButton 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+public class GuiKnappingButton extends GuiButton
 {
 	public GuiKnappingButton(int index, int xPos, int yPos, int width, int height)
 	{

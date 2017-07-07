@@ -25,6 +25,7 @@ import java.util.Random;
 
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockCoalPile extends BlockTerraContainer
 {
     private IIcon[] icons = new IIcon[3];
@@ -60,7 +61,7 @@ public class BlockCoalPile extends BlockTerraContainer
         }
         else
         {
-            if((TECoalPile)world.getTileEntity(i, j, k)!=null)
+            if(world.getTileEntity(i, j, k) !=null)
             {
 
                 ItemStack is = entityplayer.getCurrentEquippedItem();
@@ -164,6 +165,7 @@ public class BlockCoalPile extends BlockTerraContainer
         eject(world, x, y, z);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
     {
@@ -186,6 +188,7 @@ public class BlockCoalPile extends BlockTerraContainer
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
     {

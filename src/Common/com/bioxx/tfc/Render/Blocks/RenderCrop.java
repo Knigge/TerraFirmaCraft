@@ -141,16 +141,17 @@ public class RenderCrop
 			Tessellator tessellator = Tessellator.instance;
 			//tessellator.startDrawingQuads();
 			//tessellator.setNormal(0.0F, 1.0F, 0.0F);
-			tessellator.addVertexWithUV(x+0, y+0.001, z+1, ((BlockCrop)block).iconInfest.getMinU(), ((BlockCrop)block).iconInfest.getMaxV());
+			tessellator.addVertexWithUV(x, y+0.001, z+1, ((BlockCrop)block).iconInfest.getMinU(), ((BlockCrop)block).iconInfest.getMaxV());
 			tessellator.addVertexWithUV(x+1, y+0.001, z+1, ((BlockCrop)block).iconInfest.getMaxU(), ((BlockCrop)block).iconInfest.getMaxV());
-			tessellator.addVertexWithUV(x+1, y+0.001, z+0, ((BlockCrop)block).iconInfest.getMaxU(), ((BlockCrop)block).iconInfest.getMinV());
-			tessellator.addVertexWithUV(x+0, y+0.001, z+0, ((BlockCrop)block).iconInfest.getMinU(), ((BlockCrop)block).iconInfest.getMinV());
+			tessellator.addVertexWithUV(x+1, y+0.001, z, ((BlockCrop)block).iconInfest.getMaxU(), ((BlockCrop)block).iconInfest.getMinV());
+			tessellator.addVertexWithUV(x, y+0.001, z, ((BlockCrop)block).iconInfest.getMinU(), ((BlockCrop)block).iconInfest.getMinV());
 			//tessellator.draw();
 
 		}
 		return true;
 	}
 
+	@SuppressWarnings("UnnecessaryLocalVariable")
 	private static void renderBlockCropsImpl(Block block, double i, double j, double k, RenderBlocks renderblocks, double width, double height)
 	{
 		Tessellator tess = Tessellator.instance;

@@ -147,7 +147,8 @@ public class BlockSlab extends BlockPartial
 		setBlockBounds(0.0F+ (div * extraX), 0.0F+ (div * extraY), 0.0F+ (div * extraZ), 1.0F-(div * extraX2), 1-(div * extraY2), 1.0F-(div * extraZ2));
 	}
 
-	public void onBlockDestroyedByExplosion(World world, int i, int j, int k) 
+	@SuppressWarnings("EmptyMethod")
+	public void onBlockDestroyedByExplosion(World world, int i, int j, int k)
 	{
 		// Do Nothing
 	}

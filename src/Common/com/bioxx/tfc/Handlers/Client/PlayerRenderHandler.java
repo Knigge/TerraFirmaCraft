@@ -17,6 +17,7 @@ import com.bioxx.tfc.Items.ItemQuiver;
 import com.bioxx.tfc.Render.RenderLargeItem;
 import com.bioxx.tfc.Render.RenderQuiver;
 
+@SuppressWarnings("WeakerAccess")
 public class PlayerRenderHandler {
 
 	public static final RenderQuiver RENDER_QUIVER = new RenderQuiver();

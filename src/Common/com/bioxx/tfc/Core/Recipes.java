@@ -29,7 +29,8 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Crafting.*;
 import com.bioxx.tfc.api.Enums.RuleEnum;
 
-public class Recipes 
+@SuppressWarnings("WeakerAccess")
+public class Recipes
 {
 	public static Item[] axes;
 	public static Item[] chisels;
@@ -982,7 +983,7 @@ public class Recipes
 
 	private static void registerAlloys()
 	{
-		/**metallurgy*/
+		/*metallurgy*/
 		CraftingManagerTFC.getInstance().addShapelessRecipe(new ItemStack(TFCItems.bismuthBronzeUnshaped, 4), 
 				new Object[] {  new ItemStack(TFCItems.copperUnshaped),new ItemStack(TFCItems.copperUnshaped),
 			new ItemStack(TFCItems.tinUnshaped), new ItemStack(TFCItems.bismuthUnshaped)});
@@ -1329,8 +1330,8 @@ public class Recipes
 
 		addWeldRecipes(manager);
 
-		/**
-		 * Normal Recipes Start Here
+		/*
+		  Normal Recipes Start Here
 		 */
 //Processing Ingots and Blooms
 		manager.addRecipe(new AnvilRecipe(new ItemStack(TFCItems.rawBloom, 1, WILD), null, "refinebloom", AnvilReq.BRONZE,
@@ -1974,13 +1975,10 @@ public class Recipes
 				new ItemStack(TFCBlocks.metalTrapDoor, 1, index + (25 << 5))));
 	}
 
-	/**
-	 * @param manager
-	 */
 	private static void addWeldRecipes(AnvilManager manager)
 	{
-/**
-* Weld Recipes
+/*
+ Weld Recipes
 */
 //Ingot2x
 		manager.addWeldRecipe(new AnvilRecipe(new ItemStack(TFCItems.bismuthIngot),new ItemStack(TFCItems.bismuthIngot),AnvilReq.STONE,
@@ -2414,13 +2412,13 @@ public class Recipes
 		{
 			byte[] b = s.getBytes();
 			int out = 0;
-			for(int i = 0; i < b.length; i++)
-				out+=b[i];
+			for (byte aB : b) out += aB;
 			return out;
 		} else
 			return 0;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void removeRecipe(ItemStack resultItem)
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();
@@ -2436,6 +2434,7 @@ public class Recipes
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void removeRecipe(Class clazz)
 	{
 		List<IRecipe> recipes = CraftingManager.getInstance().getRecipeList();

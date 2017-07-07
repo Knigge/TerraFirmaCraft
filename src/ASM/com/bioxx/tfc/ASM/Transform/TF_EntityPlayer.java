@@ -7,9 +7,11 @@ import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
+@SuppressWarnings("Convert2Diamond")
 public class TF_EntityPlayer extends ClassTransformer
 {
 
+	@SuppressWarnings("deprecation")
 	public TF_EntityPlayer()
 	{
 		mcpClassName = "net.minecraft.entity.player.EntityPlayer";
@@ -18,8 +20,8 @@ public class TF_EntityPlayer extends ClassTransformer
 		List<InstrSet> nodes = new ArrayList<InstrSet>();
 		InsnList list = new InsnList();
 
-		/**
-		 * This is for making sure that overburdened works correctly
+		/*
+		  This is for making sure that overburdened works correctly
 		 */
 		LabelNode ln = new LabelNode();
 		// if ( ServerOverrides.canPlayerMove( this ) == false ) {
@@ -43,8 +45,8 @@ public class TF_EntityPlayer extends ClassTransformer
 		mcpMethodNodes.put("moveEntityWithHeading | (FF)V", new Patch(nodes, PatchOpType.Modify));
 		obfMethodNodes.put("e | (FF)V", new Patch(nodes, PatchOpType.Modify));
 
-		/**
-		 * This is for correcting the bow animation speeds
+		/*
+		  This is for correcting the bow animation speeds
 		 */
 		list = new InsnList();
 		nodes = new ArrayList<InstrSet>();

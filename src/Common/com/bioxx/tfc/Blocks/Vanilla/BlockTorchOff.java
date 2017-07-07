@@ -18,6 +18,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.TileEntities.TELightEmitter;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("Convert2Diamond")
 public class BlockTorchOff extends BlockTorch
 {
 

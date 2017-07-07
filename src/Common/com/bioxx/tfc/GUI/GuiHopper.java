@@ -8,6 +8,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Containers.ContainerHopper;
 import com.bioxx.tfc.TileEntities.TEHopper;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiHopper extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_hopper.png");

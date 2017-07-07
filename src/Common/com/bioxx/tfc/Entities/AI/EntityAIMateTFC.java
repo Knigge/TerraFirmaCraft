@@ -1,6 +1,5 @@
 package com.bioxx.tfc.Entities.AI;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -10,6 +9,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 
+@SuppressWarnings("CanBeFinal")
 public class EntityAIMateTFC extends EntityAIBase
 {
 	private IAnimal theAnimal;
@@ -97,11 +97,9 @@ public class EntityAIMateTFC extends EntityAIBase
 		float f = 8F;
 		List list = theWorld.getEntitiesWithinAABB (theAnimal.getClass (), theAnimal.getEntity().boundingBox.expand (f, f, f));
 
-		for (Iterator iterator = list.iterator () ; iterator.hasNext () ;)
-		{
-			Entity entity = (Entity) iterator.next();
-			if(entity instanceof IAnimal)
-			{
+		for (Object aList : list) {
+			Entity entity = (Entity) aList;
+			if (entity instanceof IAnimal) {
 				IAnimal entityanimal = (IAnimal) entity;
 				if (theAnimal.canMateWith(entityanimal))
 					return entityanimal;

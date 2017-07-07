@@ -1,6 +1,7 @@
 package com.bioxx.tfc;
 
-public class Reference 
+@SuppressWarnings("WeakerAccess")
+public class Reference
 {
 	public static final String MOD_ID = "terrafirmacraft";
 	public static final String MOD_NAME = "TerraFirmaCraft";

@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class BlockTerraContainer extends BlockContainer
 {
 	public BlockTerraContainer()

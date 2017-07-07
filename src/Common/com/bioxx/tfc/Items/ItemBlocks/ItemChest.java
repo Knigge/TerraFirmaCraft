@@ -48,6 +48,7 @@ public class ItemChest extends ItemTerraBlock
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

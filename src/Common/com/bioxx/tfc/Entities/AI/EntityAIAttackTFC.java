@@ -5,6 +5,7 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityAIAttackTFC extends  EntityAINearestAttackableTarget{
 	//private final IAnimal theAnimal;
 
@@ -14,8 +15,8 @@ public class EntityAIAttackTFC extends  EntityAINearestAttackableTarget{
 		//this.theAnimal = par1EntityTameable;
 	}
 
-	/**
-	 * Returns whether the EntityAIBase should begin execution.
+	/*
+	  Returns whether the EntityAIBase should begin execution.
 	 */
 	/*@Override
 	public boolean shouldExecute()

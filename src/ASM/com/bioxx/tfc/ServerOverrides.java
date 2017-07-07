@@ -6,6 +6,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings("WeakerAccess")
 public class ServerOverrides
 {
 	static public boolean canPlayerMove( EntityLivingBase entity )
@@ -24,6 +25,6 @@ public class ServerOverrides
 	{
 		if (TFC_Core.isFence(b) || b != null && b.getRenderType() == 11)
 			return 11;
-		return b.getRenderType();
+		return b != null ? b.getRenderType() : 0;
 	}
 }

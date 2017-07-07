@@ -12,6 +12,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TEBarrel;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderVessel implements ISimpleBlockRenderingHandler
 {
 	private static final float MIN = 0.2F;

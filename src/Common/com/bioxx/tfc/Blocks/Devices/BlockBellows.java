@@ -17,6 +17,7 @@ import com.bioxx.tfc.Core.TFC_Sounds;
 import com.bioxx.tfc.TileEntities.TEBellows;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class BlockBellows extends BlockTerraContainer
 {
 	public static IIcon[] sides = new IIcon[4];
@@ -38,7 +39,7 @@ public class BlockBellows extends BlockTerraContainer
 	public boolean onBlockActivated(World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
 	{
 		super.onBlockActivated(world, i, j, k, entityplayer, par6, par7, par8, par9);
-		TEBellows teb = null;
+		TEBellows teb;
 		TileEntity te = world.getTileEntity(i, j, k);
 		if (!world.isRemote && te != null && te instanceof TEBellows)
 		{
@@ -63,14 +64,7 @@ public class BlockBellows extends BlockTerraContainer
 
 	@Override
 	public IIcon getIcon(int i, int j) {
-		if (i == 0)// bottom
-		{
-			if (j == 0) { return sides[0]; }
-			else if (j == 1) { return sides[1]; }
-			else if (j == 2) { return sides[3]; }
-			else if (j == 3) { return sides[2]; }
-		}
-		else if (i == 1)// top
+		if (i == 0 || i == 1)// top or bottom
 		{
 			if (j == 0) { return sides[0]; }
 			else if (j == 1) { return sides[1]; }

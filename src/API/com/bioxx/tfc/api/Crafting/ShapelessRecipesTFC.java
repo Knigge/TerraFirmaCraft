@@ -1,7 +1,6 @@
 package com.bioxx.tfc.api.Crafting;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.inventory.InventoryCrafting;
@@ -54,6 +53,7 @@ public class ShapelessRecipesTFC implements IRecipe
 	/**
 	 * Used to check if a recipe matches current crafting inventory
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public boolean matches(InventoryCrafting par1InventoryCrafting, World world)
 	{
@@ -68,17 +68,14 @@ public class ShapelessRecipesTFC implements IRecipe
 				if (inputIS != null)
 				{
 					boolean var6 = false;
-					Iterator var7 = var2.iterator();
 
-					while (var7.hasNext())
-					{
-						ItemStack recipeIS = (ItemStack)var7.next();
+					for (Object aVar2 : var2) {
+						ItemStack recipeIS = (ItemStack) aVar2;
 
 						if (inputIS.getItem() == recipeIS.getItem() && (
 								recipeIS.getItemDamage() == 32767 ||
-								inputIS.getItemDamage() == recipeIS.getItemDamage()) &&
-								tempMatch(recipeIS, inputIS))
-						{
+										inputIS.getItemDamage() == recipeIS.getItemDamage()) &&
+								tempMatch(recipeIS, inputIS)) {
 							var6 = true;
 							var2.remove(recipeIS);
 							break;

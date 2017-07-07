@@ -37,6 +37,7 @@ import com.bioxx.tfc.api.Interfaces.IBag;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class ItemPotterySmallVessel extends ItemPotteryBase implements IBag
 {
 	@SideOnly(Side.CLIENT)
@@ -74,6 +75,7 @@ public class ItemPotterySmallVessel extends ItemPotteryBase implements IBag
 		this.overlayIcon = registerer.registerIcon(Reference.MOD_ID + ":" + textureFolder + "Ceramic Vessel Overlay");
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{
@@ -300,10 +302,12 @@ public class ItemPotterySmallVessel extends ItemPotteryBase implements IBag
 		if(bag != null)
 		{
 			TFC_Core.handleItemTicking(bag, world, x, y, z, 0.5f);
-			for(ItemStack i : bag)
-			{
-				if(i != null && i.stackSize == 0)
-					i = null;
+			// probably a bug with bag saving, fixed?
+			//!TODO: check
+			for (int i1 = 0, bagLength = bag.length; i1 < bagLength; i1++) {
+				ItemStack i = bag[i1];
+				if (i != null && i.stackSize == 0)
+					bag[i1] = null;
 			}
 			saveContents(is, bag);
 		}

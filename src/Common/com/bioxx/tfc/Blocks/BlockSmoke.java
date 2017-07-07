@@ -162,12 +162,7 @@ public class BlockSmoke extends BlockTerra
 		return world.blockExists(x, y, z) && world.getBlock(x, y, z) == this && world.getBlockMetadata(x, y, z) == meta;
 	}
 
-	private boolean addSmoke(World world, int x, int y, int z, int meta)
-	{
-		if(world.isAirBlock(x, y, z))
-		{
-			return world.setBlock(x, y, z, this, meta+1, 0x2);
-		}
-		return false;
+	private boolean addSmoke(World world, int x, int y, int z, int meta) {
+		return world.isAirBlock(x, y, z) && world.setBlock(x, y, z, this, meta + 1, 0x2);
 	}
 }

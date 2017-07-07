@@ -15,6 +15,7 @@ import com.bioxx.tfc.WorldGen.WorldCacheManager;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFC_Climate
 {
 	public static Map<World, WorldCacheManager> worldPair = new HashMap<World, WorldCacheManager>();
@@ -64,10 +65,7 @@ public class TFC_Climate
 		
 		for(int zCoord = 0; zCoord < getMaxZPos() + 1; ++zCoord)
 		{
-			float factor = 0;
-			float z = zCoord;
-
-			factor = (getMaxZPos()-z)/(getMaxZPos());
+			float factor = (getMaxZPos()- (float) zCoord)/(getMaxZPos());
 
 			Z_FACTOR_CACHE[zCoord] = factor;
 
@@ -292,6 +290,7 @@ public class TFC_Climate
 		return temp;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static float getMaxTemperature()
 	{
 		return 52;
@@ -324,8 +323,8 @@ public class TFC_Climate
 	}
 
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Provides the basic grass color based on the biome temperature and rainfall
+	/*
+	  Provides the basic grass color based on the biome temperature and rainfall
 	 */
 	public static int getGrassColor(World world, int x, int y, int z)
 	{
@@ -340,8 +339,8 @@ public class TFC_Climate
 	}
 
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Provides the basic foliage color based on the biome temperature and rainfall
+	/*
+	  Provides the basic foliage color based on the biome temperature and rainfall
 	 */
 	public static int getFoliageColor(World world, int x, int y, int z)
 	{
@@ -363,8 +362,8 @@ public class TFC_Climate
 	}
 
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Provides the basic foliage color based on the biome temperature and rainfall
+	/*
+	  Provides the basic foliage color based on the biome temperature and rainfall
 	 */
 	public static int getFoliageColorEvergreen(World world, int x, int y, int z)
 	{
@@ -417,6 +416,7 @@ public class TFC_Climate
 		return getCacheManager(world).getRockLayerAt(x, z, index);
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public static int getMaxZPos()
 	{
 		return 30000;
@@ -425,11 +425,8 @@ public class TFC_Climate
 	public static boolean isSwamp(World world, int x, int y, int z)
 	{
 		BiomeGenBase biome = world.getBiomeGenForCoords(x, z);
-		if (biome == TFCBiome.SWAMPLAND){
-			return true;
-		}
-		return false;
-//		float rain = getRainfall(world, x, y, z);
+		return biome == TFCBiome.SWAMPLAND;
+		//		float rain = getRainfall(world, x, y, z);
 //		float evt = getCacheManager(world).getEVTLayerAt(x, z).floatdata1;
 //		return rain >= 500 && evt <= 1.0 && world.getBiomeGenForCoords(x, z).heightVariation < 0.25;
 	}

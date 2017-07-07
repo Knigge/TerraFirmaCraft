@@ -16,6 +16,7 @@ import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.TileEntities.TEAnvil;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerAnvil extends ContainerTFC
 {
 	private TEAnvil anvil;
@@ -135,9 +136,8 @@ public class ContainerAnvil extends ContainerTFC
 	{
 		super.detectAndSendChanges();
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			int cv = anvil.getCraftingValue();
 			int icv = anvil.getItemCraftingValueNoSet(1);
 			int t = this.anvil.anvilTier;

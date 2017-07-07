@@ -5,6 +5,7 @@ import net.minecraft.util.IIcon;
 
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("SameParameterValue")
 public class BlockTFCFence2 extends BlockTFCFence
 {
 	public BlockTFCFence2(String str, Material mat)

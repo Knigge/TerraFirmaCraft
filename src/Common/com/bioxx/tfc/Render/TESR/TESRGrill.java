@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TEGrill;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRGrill extends TESRBase
 {
 

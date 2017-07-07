@@ -10,6 +10,7 @@ import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.WorldCacheManager;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class DataCache
 {
 	/** Reference to the WorldChunkManager */

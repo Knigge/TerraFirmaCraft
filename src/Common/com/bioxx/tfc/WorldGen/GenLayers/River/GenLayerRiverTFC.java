@@ -5,6 +5,7 @@ import net.minecraft.world.gen.layer.GenLayer;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerRiverTFC extends GenLayerTFC
 {
 	public GenLayerRiverTFC(long par1, GenLayer par3GenLayer)
@@ -31,9 +32,9 @@ public class GenLayerRiverTFC extends GenLayerTFC
 		{
 			for (int j2 = 0; j2 < par3; ++j2)
 			{
-				int k2 = this.calcWidth(aint[j2 + 0 + (i2 + 1) * k1]);
+				int k2 = this.calcWidth(aint[j2 + (i2 + 1) * k1]);
 				int l2 = this.calcWidth(aint[j2 + 2 + (i2 + 1) * k1]);
-				int i3 = this.calcWidth(aint[j2 + 1 + (i2 + 0) * k1]);
+				int i3 = this.calcWidth(aint[j2 + 1 + (i2) * k1]);
 				int j3 = this.calcWidth(aint[j2 + 1 + (i2 + 2) * k1]);
 				int k3 = this.calcWidth(aint[j2 + 1 + (i2 + 1) * k1]);
 

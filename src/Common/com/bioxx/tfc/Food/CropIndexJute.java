@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.TileEntities.TECrop;
 
+@SuppressWarnings("SameParameterValue")
 public class CropIndexJute extends CropIndex
 {
 

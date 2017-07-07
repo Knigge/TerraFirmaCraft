@@ -20,6 +20,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import net.minecraftforge.common.util.ForgeDirection;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemCoal extends ItemTerra {
 	public ItemCoal() {
 		super();
@@ -40,6 +41,7 @@ public class ItemCoal extends ItemTerra {
 					{1, 0, 0},
 			};
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void getSubItems(Item item, CreativeTabs tabs, List list) {
@@ -50,7 +52,7 @@ public class ItemCoal extends ItemTerra {
 
 	private boolean createPile(ItemStack itemstack, EntityPlayer entityplayer, World world, int x, int y, int z, int side, int l)
 	{
-		TECoalPile te = null;
+		TECoalPile te;
 		if(world.isAirBlock(x, y, z) && isValid(world, x, y, z))
 		{
 			world.setBlock(x, y, z, TFCBlocks.coalPile, l, 3);
@@ -115,7 +117,7 @@ public class ItemCoal extends ItemTerra {
 					is.stackSize--;
 					return true;
 				} else if (side == 1 && world.isAirBlock(x + map[side][0], y + map[side][1], z + map[side][2])) {
-					world.setBlock(x + map[side][0], y + map[side][1], z + map[side][2], TFCBlocks.charcoal, 1, 0x2);
+					world.setBlock(x + map[1][0], y + map[1][1], z + map[1][2], TFCBlocks.charcoal, 1, 0x2);
 					is.stackSize--;
 					return true;
 				}

@@ -16,6 +16,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.TileEntities.TEHopper;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRHopper extends TESRBase
 {
 	//private ModelPress press = new ModelPress();
@@ -87,6 +88,7 @@ public class TESRHopper extends TESRBase
 		private ModelBox pressModel;
 		private ModelRenderer renderer;
 
+		@SuppressWarnings("unchecked")
 		public ModelPress()
 		{
 			renderer = new ModelRenderer(this);
@@ -95,6 +97,7 @@ public class TESRHopper extends TESRBase
 			renderer.cubeList.add(pressModel);
 		}
 
+		@SuppressWarnings("unchecked")
 		@Override
 		public void render(Entity entity, float x, float y, float z, float maxX, float maxY, float maxZ) 
 		{

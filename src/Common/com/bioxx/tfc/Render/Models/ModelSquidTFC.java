@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings("CanBeFinal")
 @SideOnly(Side.CLIENT)
 public class ModelSquidTFC extends ModelBase
 {
@@ -49,9 +50,7 @@ public class ModelSquidTFC extends ModelBase
 		ModelRenderer[] amodelrenderer = this.squidTentacles;
 		int i = amodelrenderer.length;
 
-		for (int j = 0; j < i; ++j)
-		{
-			ModelRenderer modelrenderer = amodelrenderer[j];
+		for (ModelRenderer modelrenderer : amodelrenderer) {
 			modelrenderer.rotateAngleX = par3;
 		}
 	}
@@ -65,9 +64,8 @@ public class ModelSquidTFC extends ModelBase
 		this.setRotationAngles(par2, par3, par4, par5, par6, par7, par1Entity);
 		this.squidBody.render(par7);
 
-		for (int i = 0; i < this.squidTentacles.length; ++i)
-		{
-			this.squidTentacles[i].render(par7);
+		for (ModelRenderer squidTentacle : this.squidTentacles) {
+			squidTentacle.render(par7);
 		}
 	}
 }

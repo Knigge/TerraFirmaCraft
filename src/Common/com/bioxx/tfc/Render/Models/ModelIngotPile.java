@@ -5,11 +5,13 @@ import net.minecraft.client.model.ModelBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class ModelIngotPile extends ModelBase
 {
 	public ModelRendererTFC[] renderer = new ModelRendererTFC[64];
 
+	@SuppressWarnings("unchecked")
 	public ModelIngotPile()
 	{
 		for (int n = 0; n < 64; n++){

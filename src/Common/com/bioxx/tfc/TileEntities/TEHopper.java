@@ -4,7 +4,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.command.IEntitySelector;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -29,6 +28,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.TFCFluids;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TEHopper extends NetworkTileEntity implements IHopper
 {
 	private ItemStack[] storage = new ItemStack[5];
@@ -237,7 +237,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer p)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : p.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && p.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -258,14 +258,14 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	@Override
 	public void updateEntity()
 	{
-		if (this.worldObj.isRemote)
+		if (this.worldObj != null && this.worldObj.isRemote)
 		{
 			if(pressCooldown > 0)
 				--this.pressCooldown;
 			else
 				this.pressBlock = null;
 		}
-		else if (this.worldObj != null && !this.worldObj.isRemote)
+		else if (this.worldObj != null)
 		{
 			--this.cooldown;
 
@@ -348,11 +348,9 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 	public int hasPressableItem()
 	{
 		int amount = 0;
-		for(int i = 0; i < storage.length; i++)
-		{
-			if(storage[i] != null && storage[i].getItem() == TFCItems.olive)
-			{
-				amount += Math.floor(Food.getWeight(storage[i]));
+		for (ItemStack aStorage : storage) {
+			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
+				amount += Math.floor(Food.getWeight(aStorage));
 			}
 		}
 		return amount;
@@ -360,11 +358,9 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 
 	public ItemStack getPressableItem()
 	{
-		for(int i = 0; i < storage.length; i++)
-		{
-			if(storage[i] != null && storage[i].getItem() == TFCItems.olive)
-			{
-				return storage[i];
+		for (ItemStack aStorage : storage) {
+			if (aStorage != null && aStorage.getItem() == TFCItems.olive) {
+				return aStorage;
 			}
 		}
 		return null;
@@ -790,7 +786,7 @@ public class TEHopper extends NetworkTileEntity implements IHopper
 		//If no block inventory is found then we look for entities that have an inventory
 		if (iinventory == null)
 		{
-			List list = world.getEntitiesWithinAABBExcludingEntity((Entity)null, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectInventories);
+			List list = world.getEntitiesWithinAABBExcludingEntity(null, AxisAlignedBB.getBoundingBox(x, y, z, x + 1.0D, y + 1.0D, z + 1.0D), IEntitySelector.selectInventories);
 
 			if (list != null && !list.isEmpty())
 			{

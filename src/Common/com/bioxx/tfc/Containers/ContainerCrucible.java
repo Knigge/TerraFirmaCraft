@@ -13,6 +13,7 @@ import com.bioxx.tfc.Items.ItemMeltedMetal;
 import com.bioxx.tfc.TileEntities.TECrucible;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("CanBeFinal")
 public class ContainerCrucible extends ContainerTFC
 {
 	private TECrucible te;
@@ -94,9 +95,8 @@ public class ContainerCrucible extends ContainerTFC
 	{
 		super.detectAndSendChanges();
 
-		for (int var1 = 0; var1 < this.crafters.size(); ++var1)
-		{
-			ICrafting var2 = (ICrafting)this.crafters.get(var1);
+		for (Object crafter : this.crafters) {
+			ICrafting var2 = (ICrafting) crafter;
 			if (this.firetemp != this.te.temperature)
 				var2.sendProgressBarUpdate(this, 0, this.te.temperature);
 		}

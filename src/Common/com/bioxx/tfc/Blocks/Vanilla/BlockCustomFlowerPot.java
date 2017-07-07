@@ -62,7 +62,7 @@ public class BlockCustomFlowerPot extends BlockFlowerPot
 
 					if (!player.capabilities.isCreativeMode && --itemstack.stackSize <= 0)
 					{
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
 					}
 
 					return true;					

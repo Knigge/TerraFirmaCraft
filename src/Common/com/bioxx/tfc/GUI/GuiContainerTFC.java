@@ -1,7 +1,6 @@
 package com.bioxx.tfc.GUI;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.client.gui.FontRenderer;
@@ -17,6 +16,7 @@ import org.lwjgl.opengl.GL12;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.Player.PlayerInventory;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class GuiContainerTFC extends GuiContainer
 {
 	protected boolean drawInventory = true;
@@ -119,11 +119,9 @@ public class GuiContainerTFC extends GuiContainer
 			GL11.glDisable(GL11.GL_LIGHTING);
 			//GL11.glDisable(GL11.GL_DEPTH_TEST);
 			int k = 0;
-			Iterator iterator = par1List.iterator();
 
-			while (iterator.hasNext())
-			{
-				String s = (String) iterator.next();
+			for (Object aPar1List : par1List) {
+				String s = (String) aPar1List;
 				int l = font.getStringWidth(s);
 				if (l > k)
 					k = l;

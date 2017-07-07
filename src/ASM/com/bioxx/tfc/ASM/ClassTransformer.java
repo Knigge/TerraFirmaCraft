@@ -1,7 +1,6 @@
 package com.bioxx.tfc.ASM;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +12,7 @@ import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.*;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class ClassTransformer implements net.minecraft.launchwrapper.IClassTransformer
 {
 	public static final Logger LOG = LogManager.getLogger("TerraFirmaCraft ASM");
@@ -46,91 +46,67 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		classReader.accept(classNode, 0);
 		LOG.info("Attempting to Transform: " + classNode.name + " | Found " + getMethodNodeList().size() + " injections");
 		// find method to inject into
-		Iterator<MethodNode> methods = classNode.methods.iterator();
-		while (methods.hasNext())
-		{
-			MethodNode m = methods.next();
-			if (getMethodNodeList().containsKey(m.name + " | " + m.desc))
-			{
+		for (MethodNode m : classNode.methods) {
+			if (getMethodNodeList().containsKey(m.name + " | " + m.desc)) {
 				numInsertions = 0;
 				Patch mPatch = getMethodNodeList().get(m.name + " | " + m.desc);
 				List<InstrSet> instructions = mPatch.instructions;
 				InstrSet target = null;
-				if (!instructions.isEmpty())
-				{
+				if (!instructions.isEmpty()) {
 					target = instructions.get(0);
 				} else {
 					LOG.error("Error in: {" + m.name + " | " + m.desc + "} No Instructions");
 				}
 				//Run this is we plan to just modify the method
-				if(mPatch.opType == PatchOpType.Modify)
-				{
-					for (int index = 0; index < m.instructions.size() && !instructions.isEmpty(); index++ )
-					{
+				if (mPatch.opType == PatchOpType.Modify) {
+					for (int index = 0; index < m.instructions.size() && !instructions.isEmpty(); index++) {
 						numInsertions = 0;
-						while(target != null)
-						{
-							if(target.startLine == -1) {
+						while (target != null) {
+							if (target.startLine == -1) {
 								performDirectOperation(m.instructions, target);
 								instructions.remove(0);
-							} else if(this.isLineNumber(m.instructions.get(index), target.startLine)) {
+							} else if (this.isLineNumber(m.instructions.get(index), target.startLine)) {
 								performAnchorOperation(m.instructions, target, index);
 								instructions.remove(0);
-							}
-							else
-							{
+							} else {
 								break;
 							}
 
 
-							if (!instructions.isEmpty())
-							{
+							if (!instructions.isEmpty()) {
 								target = instructions.get(0);
-							} 
-							else 
-							{
+							} else {
 								target = null;
 							}
 						}
 					}
-				}
-				else if(mPatch.opType == PatchOpType.Replace)
-				{
+				} else if (mPatch.opType == PatchOpType.Replace) {
 					//InsnList old = new InsnList();
-					if (target != null && target.offset != -1)
-					{
-						for (int index = 0; index < m.instructions.size();)
-						{
-							if(index > target.offset)
+					if (target != null && target.offset != -1) {
+						for (int index = 0; index < m.instructions.size(); ) {
+							if (index > target.offset)
 								m.instructions.remove(m.instructions.get(index));
 							else index++;
 						}
 
 					}
-					for (int index = 0; index < m.instructions.size() && !instructions.isEmpty(); index++ )
-					{
+					for (int index = 0; index < m.instructions.size() && !instructions.isEmpty(); index++) {
 						numInsertions = 0;
-						while(target != null)
-						{
-							if(target.startLine == -1) {
+						while (target != null) {
+							if (target.startLine == -1) {
 								performDirectOperation(m.instructions, target);
 								instructions.remove(0);
-							} else if(this.isLineNumber(m.instructions.get(index), target.startLine)) {
+							} else if (this.isLineNumber(m.instructions.get(index), target.startLine)) {
 								performAnchorOperation(m.instructions, target, index);
 								instructions.remove(0);
-							}
-							else
-							{
+							} else {
 								break;
 							}
 
 
-							if (!instructions.isEmpty())
-							{
+							if (!instructions.isEmpty()) {
 								target = instructions.get(0);
-							} 
-							else 
-							{
+							} else {
 								target = null;
 							}
 						}
@@ -239,10 +215,10 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 			methodInsn.remove(current);
 			break;
 		case Switch:
-			/**
-			 * Current is the first node. We will remove it and insert after the chosen index
-			 * and then move back one, grab that node and move it to the original location
-			 * */
+			/*
+			  Current is the first node. We will remove it and insert after the chosen index
+			  and then move back one, grab that node and move it to the original location
+			  */
 			int otherAnchor = findLine(methodInsn, input.offsetLine);
 			AbstractInsnNode other = methodInsn.get(otherAnchor + input.offsetSwitch + numInsertions);
 			methodInsn.remove(current);
@@ -337,6 +313,7 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		}
 	}*/
 
+	@SuppressWarnings("CanBeFinal")
 	public class InstrSet
 	{
 		/**
@@ -402,6 +379,7 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		}
 	}
 
+	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 	public class Patch
 	{
 		/**
@@ -434,9 +412,10 @@ public class ClassTransformer implements net.minecraft.launchwrapper.IClassTrans
 		InsertBefore,
 		Switch,
 		Replace,
-		Remove;
+		Remove
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	public class JumpNode extends JumpInsnNode
 	{
 		public int line;

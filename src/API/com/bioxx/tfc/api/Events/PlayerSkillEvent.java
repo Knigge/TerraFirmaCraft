@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.EntityEvent;
 
 import cpw.mods.fml.common.eventhandler.Cancelable;
 
+@SuppressWarnings("WeakerAccess")
 @Cancelable
 public class PlayerSkillEvent extends EntityEvent
 {

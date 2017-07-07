@@ -14,6 +14,7 @@ import net.minecraft.util.IIcon;
 
 import java.util.List;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemOrePile extends ItemOre
 {
     private short metalAmount;
@@ -27,6 +28,7 @@ public class ItemOrePile extends ItemOre
         metalAmount = 100;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void getSubItems(Item item, CreativeTabs tabs, List list)
     {
@@ -91,7 +93,8 @@ public class ItemOrePile extends ItemOre
             case 12: return true;
             case 13: return true;
             case 14: return true;
-            case 15: if(TFCOptions.enableAluminumSmelting) { return true; } else { return false; }
+            case 15:
+                return TFCOptions.enableAluminumSmelting;
             case 16: return true;
             case 17: return true;
             default:

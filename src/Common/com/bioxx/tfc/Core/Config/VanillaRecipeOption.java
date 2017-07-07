@@ -12,6 +12,7 @@ import com.google.common.collect.ImmutableList;
  * This removes the recipes affected in the constructor, to be re-added later if required.
  * @author Dries007
  */
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class VanillaRecipeOption extends SyncingOption
 {
 	public final ImmutableList<IRecipe> recipes;

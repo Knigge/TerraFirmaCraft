@@ -1,6 +1,5 @@
 package com.bioxx.tfc.Items.Tools;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -67,18 +66,16 @@ public class ItemFlintSteel extends ItemFlintAndSteel implements ISize
 
 				if (list != null && !list.isEmpty())
 				{
-					for (Iterator iterator = list.iterator(); iterator.hasNext();)
-					{
-						EntityItem entity = (EntityItem) iterator.next();
+					for (Object aList1 : list) {
+						EntityItem entity = (EntityItem) aList1;
 						if (entity.getEntityItem().getItem() == TFCItems.stick)
 							numsticks += entity.getEntityItem().stackSize;
 					}
 
 					if (numsticks >= 3)
 					{
-						for (Iterator iterator = list.iterator(); iterator.hasNext();)
-						{
-							EntityItem entity = (EntityItem) iterator.next();
+						for (Object aList : list) {
+							EntityItem entity = (EntityItem) aList;
 							if (entity.getEntityItem().getItem() == TFCItems.stick || entity.getEntityItem().getItem() == TFCItems.straw)
 								entity.setDead();
 						}
@@ -132,6 +129,7 @@ public class ItemFlintSteel extends ItemFlintAndSteel implements ISize
 		return EnumItemReach.SHORT;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

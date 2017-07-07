@@ -26,6 +26,7 @@ import net.minecraft.world.World;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockFruitTreeSapling extends BlockTerraContainer
 {
     protected IIcon[] icons;
@@ -42,6 +43,7 @@ public class BlockFruitTreeSapling extends BlockTerraContainer
         this.icons = new IIcon[fruitNames.length];
     }
 
+    @SuppressWarnings("unchecked")
     @SideOnly(Side.CLIENT)
     @Override
     public void getSubBlocks(Item item, CreativeTabs tabs, List list)
@@ -105,7 +107,7 @@ public class BlockFruitTreeSapling extends BlockTerraContainer
 
             // Set the growTime tick timestamp to be 7-11.2 days times config multiplier from now, plus up to an extra day.
             if (te != null && te.growTime == 0)
-                te.growTime = (long) (TFC_Time.getTotalTicks() + (TFC_Time.DAY_LENGTH * 1) + (world.rand.nextFloat() * TFC_Time.DAY_LENGTH));
+                te.growTime = (long) (TFC_Time.getTotalTicks() + (TFC_Time.DAY_LENGTH) + (world.rand.nextFloat() * TFC_Time.DAY_LENGTH));
         }
     }
 

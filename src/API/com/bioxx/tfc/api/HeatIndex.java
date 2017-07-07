@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class HeatIndex
 {
 	public float specificHeat;
@@ -94,7 +95,7 @@ public class HeatIndex
 	{
 		if(getOutputItem() == null)
 			return null;
-		int rand = 0;
+		int rand;
 		if(outputMax - outputMin > 0) 
 		{
 			rand = outputMin + r.nextInt(outputMax - outputMin);
@@ -106,6 +107,7 @@ public class HeatIndex
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public ItemStack getOutput(ItemStack in, Random r)
 	{
 		ItemStack is = getOutput(r);

@@ -44,7 +44,7 @@ public class RenderWoodConstruct implements ISimpleBlockRenderingHandler
 		float maxY = 1;
 		float minZ = 0;
 		float maxZ = 1;
-		boolean render = false;
+		boolean render;
 		for(int index = 0; index < dd;)
 		{
 			int in3 = index >> 3;

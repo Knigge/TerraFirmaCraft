@@ -12,7 +12,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.Containers.ContainerPlayerTFC;
 
-public class SlotArmorTFC extends Slot 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+public class SlotArmorTFC extends Slot
 {
 	public final int armorType;
 	private final ContainerPlayerTFC parent;

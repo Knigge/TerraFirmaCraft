@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 
 import cpw.mods.fml.common.IFuelHandler;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFCFuelHandler implements IFuelHandler
 {
 	public static Map<Item, Integer> fuelItems = new HashMap<Item, Integer>();

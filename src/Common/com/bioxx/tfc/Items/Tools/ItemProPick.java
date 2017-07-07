@@ -3,6 +3,7 @@ package com.bioxx.tfc.Items.Tools;
 import java.util.*;
 
 import com.bioxx.tfc.Blocks.Terrain.BlockOre2;
+import com.bioxx.tfc.WorldGen.Generators.OreSpawnData;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +23,6 @@ import com.bioxx.tfc.Core.TFC_Textures;
 import com.bioxx.tfc.Core.Player.SkillStats.SkillRank;
 import com.bioxx.tfc.Items.ItemTerra;
 import com.bioxx.tfc.TileEntities.TEOre;
-import com.bioxx.tfc.WorldGen.Generators.OreSpawnData;
 import com.bioxx.tfc.WorldGen.Generators.WorldGenOre;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
@@ -32,6 +32,7 @@ import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class ItemProPick extends ItemTerra
 {
 	private Map<String, ProspectResult> results = new HashMap<String, ProspectResult>();
@@ -102,12 +103,8 @@ public class ItemProPick extends ItemTerra
 			}
 			else if (!TFC_Core.isGround(block)) // Exclude ground blocks to help with performance
 			{
-				Iterator iter = WorldGenOre.oreList.values().iterator();
-				while (iter.hasNext())
-				{
-					OreSpawnData osd = (OreSpawnData) iter.next();
-					if (osd != null && block == osd.block)
-					{
+				for (OreSpawnData osd : WorldGenOre.oreList.values()) {
+					if (osd != null && block == osd.block) {
 						tellResult(player, new ItemStack(block, 1, meta));
 						return true;
 					}
@@ -163,12 +160,8 @@ public class ItemProPick extends ItemTerra
 							ore = new ItemStack(TFCItems.oreMineralChunk, 1, meta + Global.ORE_MINERAL.length);
 						else if (!TFC_Core.isGround(block)) // Exclude ground blocks to help with performance
 						{
-							Iterator iter = WorldGenOre.oreList.values().iterator();
-							while (iter.hasNext())
-							{
-								OreSpawnData osd = (OreSpawnData) iter.next();
-								if (osd != null && block == osd.block)
-								{
+							for (OreSpawnData osd : WorldGenOre.oreList.values()) {
+								if (osd != null && block == osd.block) {
 									ore = new ItemStack(block, 1, meta);
 									break;
 								}
@@ -186,8 +179,8 @@ public class ItemProPick extends ItemTerra
 							else
 								results.put(oreName, new ProspectResult(ore, 1));
 
-							ore = null;
-							oreName = null;
+							// ore = null;
+							//oreName = null;
 						}
 					}
 				}
@@ -260,8 +253,8 @@ public class ItemProPick extends ItemTerra
 				.appendText(" ")
 				.appendSibling(new ChatComponentTranslation(oreName)));
 				
-		oreName = null;
-		result = null;
+		//oreName = null;
+		//result = null;
 	}
 
 	@Override
@@ -270,6 +263,7 @@ public class ItemProPick extends ItemTerra
 		return false;
 	}
 
+	@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 	private class ProspectResult
 	{
 		public ItemStack itemStack;
@@ -306,6 +300,7 @@ public class ItemProPick extends ItemTerra
 		return digSpeed;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

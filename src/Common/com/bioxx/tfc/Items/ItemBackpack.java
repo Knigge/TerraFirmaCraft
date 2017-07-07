@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemBackpack extends ItemTerra
 {
 	public ItemBackpack() 

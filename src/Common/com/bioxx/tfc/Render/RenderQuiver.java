@@ -14,6 +14,7 @@ import com.bioxx.tfc.Items.ItemQuiver;
 import com.bioxx.tfc.Render.Models.ModelQuiver;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class RenderQuiver {
 
 	private ModelQuiver quiver = new ModelQuiver();

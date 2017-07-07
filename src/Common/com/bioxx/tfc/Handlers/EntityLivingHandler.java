@@ -51,6 +51,7 @@ import com.bioxx.tfc.api.Interfaces.IEquipable.EquipType;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class EntityLivingHandler
 {
 	@SubscribeEvent
@@ -415,6 +416,7 @@ public class EntityLivingHandler
 				}
 				event.drops.clear();
 				event.drops.addAll(drop);
+				//noinspection ConstantConditions
 				if(foundFood && p != null)
 				{
 					TFC_Core.getSkillStats(p).increaseSkill(Global.SKILL_BUTCHERING, 1);

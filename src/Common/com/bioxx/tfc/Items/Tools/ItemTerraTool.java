@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.Interfaces.ICausesDamage;
 import com.bioxx.tfc.api.Interfaces.ISize;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemTerraTool extends ItemTool implements ISize
 {
 	//private static boolean registeredGlobalTex = false;
@@ -38,6 +39,7 @@ public class ItemTerraTool extends ItemTool implements ISize
 		setNoRepair();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) 
 	{
@@ -63,6 +65,7 @@ public class ItemTerraTool extends ItemTool implements ISize
 	{
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

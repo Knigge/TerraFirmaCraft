@@ -23,6 +23,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TECrop extends NetworkTileEntity
 {
 	public float growth;

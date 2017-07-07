@@ -18,6 +18,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class ItemCrucible extends ItemTerraBlock implements ISize
 {
 	public Map<String, MetalPair> metals = new HashMap<String, MetalPair>();
@@ -27,6 +28,7 @@ public class ItemCrucible extends ItemTerraBlock implements ISize
 		super(par1);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag) 
 	{
@@ -69,6 +71,7 @@ public class ItemCrucible extends ItemTerraBlock implements ISize
 		}
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean addMetal(Metal m, float amt)
 	{
 		if (getTotalMetal() + amt <= 3000 && !"Unknown".equals(m.name))
@@ -111,7 +114,6 @@ public class ItemCrucible extends ItemTerraBlock implements ISize
 		Iterator iter = metals.values().iterator();
 		float totalAmount = getTotalMetal();
 
-		iter = metals.values().iterator();
 		while(iter.hasNext())
 		{
 			MetalPair m = (MetalPair) iter.next();

@@ -3,6 +3,7 @@ package com.bioxx.tfc.WorldGen.Data;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("CanBeFinal")
 public class DataCacheBlockTFC
 {
 	/** The array of data types stored in this DataCacheBlockTFC. */
@@ -13,10 +14,6 @@ public class DataCacheBlockTFC
 	public int zPosition;
 	/** The last time this DataCacheBlockTFC was accessed, in milliseconds. */
 	public long lastAccessTime;
-	/** The DataCache object that contains this DataCacheBlockTFC */
-	//private final DataCache theDataCache;
-
-	private int index;
 
 	public DataCacheBlockTFC(DataCache datacache, GenLayerTFC indexLayers, int par2, int par3, int ind)
 	{
@@ -24,8 +21,8 @@ public class DataCacheBlockTFC
 		this.data = new DataLayer[256];
 		this.xPosition = par2;
 		this.zPosition = par3;
-		index = ind;
-		DataCache.getChunkManager(datacache).getDataLayerAt(datacache, data, indexLayers, par2 << 4, par3 << 4, 16, 16, false, index);
+		/* The DataCache object that contains this DataCacheBlockTFC */
+		DataCache.getChunkManager(datacache).getDataLayerAt(datacache, data, indexLayers, par2 << 4, par3 << 4, 16, 16, false, ind);
 	}
 
 	public DataCacheBlockTFC(DataCache datacache, int par2, int par3)

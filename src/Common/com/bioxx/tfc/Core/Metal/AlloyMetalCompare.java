@@ -2,6 +2,7 @@ package com.bioxx.tfc.Core.Metal;
 
 import com.bioxx.tfc.api.Metal;
 
+@SuppressWarnings("WeakerAccess")
 public class AlloyMetalCompare extends AlloyMetal
 {
 	private float metalMin;

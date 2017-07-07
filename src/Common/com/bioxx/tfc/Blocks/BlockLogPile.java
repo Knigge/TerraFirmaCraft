@@ -28,6 +28,7 @@ import com.bioxx.tfc.api.TFCOptions;
 
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockLogPile extends BlockTerraContainer
 {
 	private IIcon[] icons = new IIcon[3];
@@ -63,7 +64,7 @@ public class BlockLogPile extends BlockTerraContainer
 		}
 		else
 		{
-			if((TELogPile)world.getTileEntity(i, j, k)!=null)
+			if(world.getTileEntity(i, j, k) !=null)
 			{
 				//TELogPile te;
 				//te = (TELogPile)world.getTileEntity(i, j, k);
@@ -168,6 +169,7 @@ public class BlockLogPile extends BlockTerraContainer
 		eject(world, x, y, z);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
@@ -190,6 +192,7 @@ public class BlockLogPile extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

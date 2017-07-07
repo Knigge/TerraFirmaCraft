@@ -31,6 +31,7 @@ import com.bioxx.tfc.api.TFCItems;
 
 import static net.minecraftforge.common.util.ForgeDirection.UP;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockPottery extends BlockTerraContainer
 {
 	public IIcon clay;
@@ -78,6 +79,7 @@ public class BlockPottery extends BlockTerraContainer
 		return te.isLit() && side == UP;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public int idDropped(int metadata, Random rand, int fortune)
 	{
 		return 0;
@@ -190,6 +192,7 @@ public class BlockPottery extends BlockTerraContainer
 		}
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean removedByPlayer(World world, EntityPlayer player, int x, int y, int z)
 	{
@@ -212,14 +215,9 @@ public class BlockPottery extends BlockTerraContainer
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block)
 	{
-		if(!world.isRemote)
-		{
-			if (!world.isSideSolid(x, y - 1, z, UP))
-			{
-				((TEPottery)world.getTileEntity(x, y, z)).ejectContents();
-				world.setBlockToAir(x, y, z);
-				return;
-			}
+		if (!world.isRemote && !world.isSideSolid(x, y - 1, z, UP)) {
+			((TEPottery) world.getTileEntity(x, y, z)).ejectContents();
+			world.setBlockToAir(x, y, z);
 		}
 	}
 
@@ -230,6 +228,7 @@ public class BlockPottery extends BlockTerraContainer
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

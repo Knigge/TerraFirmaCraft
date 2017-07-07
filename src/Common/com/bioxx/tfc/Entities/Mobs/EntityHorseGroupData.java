@@ -2,6 +2,7 @@ package com.bioxx.tfc.Entities.Mobs;
 
 import net.minecraft.entity.IEntityLivingData;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class EntityHorseGroupData implements IEntityLivingData
 {
     public int horseType;

@@ -6,6 +6,7 @@ package com.bioxx.tfc.api;
  *
  * The order of fields is the same as there appearance in the config file.
  */
+@SuppressWarnings("CanBeFinal")
 public class TFCOptions
 {
 	// General

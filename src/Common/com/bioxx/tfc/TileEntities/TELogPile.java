@@ -21,13 +21,13 @@ import net.minecraft.tileentity.TileEntity;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class TELogPile extends TileEntity implements IInventory
 {
 	public ItemStack[] storage;
 	private int logPileOpeners;
 	public boolean isOnFire;
 	public int fireTimer;
-	private Queue<Vector3f> blocksToBeSetOnFire;
 
 	public TELogPile()
 	{
@@ -267,7 +267,7 @@ public class TELogPile extends TileEntity implements IInventory
 		if(!isOnFire)
 			return;
 		Block block;
-		blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
+		Queue<Vector3f> blocksToBeSetOnFire = new ArrayDeque<Vector3f>();
 
 		block = worldObj.getBlock(xCoord + 1, yCoord, zCoord);
 		if(!TFC_Core.isValidCharcoalPitCover(block))

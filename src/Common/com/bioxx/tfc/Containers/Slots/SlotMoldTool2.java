@@ -9,6 +9,7 @@ import com.bioxx.tfc.Items.Pottery.ItemPotteryMold;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFC_ItemHeat;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotMoldTool2 extends Slot
 {
 	public SlotMoldTool2(IInventory iinventory, int i, int j, int k)

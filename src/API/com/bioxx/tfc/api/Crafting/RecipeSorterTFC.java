@@ -6,6 +6,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 
+@SuppressWarnings("WeakerAccess")
 public class RecipeSorterTFC implements Comparator
 {
 	public final CraftingManagerTFC craftingManager;

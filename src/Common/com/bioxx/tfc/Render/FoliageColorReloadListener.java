@@ -24,7 +24,7 @@ public class FoliageColorReloadListener implements IResourceManagerReloadListene
 		{
 			ColorizerFoliageTFC.setFoliageBiomeColorizer(TextureUtil.readImageData(par1ResourceManager, TEXTURE));
 		}
-		catch (IOException ioexception)
+		catch (IOException ignored)
 		{
 		}
 	}

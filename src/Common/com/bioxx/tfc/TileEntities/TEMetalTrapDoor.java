@@ -54,14 +54,6 @@ public class TEMetalTrapDoor extends NetworkTileEntity
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
-	}
-
-	@Override
 	public void createInitNBT(NBTTagCompound nbt) {
 		nbt.setByte("data", this.data);
 		nbt.setInteger("metalID", sheetStack != null ? sheetStack.getItemDamage() : 0);

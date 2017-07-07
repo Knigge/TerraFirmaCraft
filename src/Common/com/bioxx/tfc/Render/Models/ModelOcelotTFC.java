@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Entities.Mobs.EntityOcelotTFC;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class ModelOcelotTFC extends ModelBase
 {

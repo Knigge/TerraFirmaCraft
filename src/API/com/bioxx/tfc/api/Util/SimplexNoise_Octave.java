@@ -2,12 +2,11 @@ package com.bioxx.tfc.api.Util;
 
 import java.util.Random;
 
-@SuppressWarnings("PMD")
+@SuppressWarnings({"PMD", "WeakerAccess", "CanBeFinal"})
 public class SimplexNoise_Octave 
 {  // Simplex noise in 2D, 3D and 4D
 
 	public static long RANDOMSEED;
-	private static int NUMBEROFSWAPS=400;  
 
 	private static Grad grad3[] = {new Grad(1,1,0),new Grad(-1,1,0),new Grad(1,-1,0),new Grad(-1,-1,0),
 		new Grad(1,0,1),new Grad(-1,0,1),new Grad(1,0,-1),new Grad(-1,0,-1),
@@ -43,7 +42,7 @@ public class SimplexNoise_Octave
 
 	public SimplexNoise_Octave(int seed) 
 	{
-		short p[] = new short[p_supply.length];
+		@SuppressWarnings("UnusedAssignment") short p[] = new short[p_supply.length];
 		p=p_supply.clone();
 
 		if (seed==RANDOMSEED)
@@ -56,7 +55,8 @@ public class SimplexNoise_Octave
 		Random rand=new Random(seed);
 
 		//the seed determines the swaps that occur between the default order and the order we're actually going to use
-		for(int i=0;i<NUMBEROFSWAPS;i++){
+		int NUMBEROFSWAPS = 400;
+		for(int i = 0; i< NUMBEROFSWAPS; i++){
 			int swapFrom=rand.nextInt(p.length);
 			int swapTo=rand.nextInt(p.length);
 
@@ -354,6 +354,7 @@ public class SimplexNoise_Octave
 
 	// Inner class to speed upp gradient computations
 	// (array access is a lot slower than member access)
+	@SuppressWarnings("CanBeFinal")
 	private static class Grad
 	{
 		private double x, y, z, w;

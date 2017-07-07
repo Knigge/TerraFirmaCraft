@@ -116,6 +116,7 @@ public class ItemStoneBrick extends ItemTerra
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List list)
 	{

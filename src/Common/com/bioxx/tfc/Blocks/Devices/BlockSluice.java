@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCFluids;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockSluice extends BlockContainer
 {
 	public static final int HEAD_FOOT_BLOCKMAP[][] = { {0, 1}, {-1, 0}, {0, -1}, {1, 0} };
@@ -67,7 +68,7 @@ public class BlockSluice extends BlockContainer
 		else
 		{
 			if(!isBlockFootOfBed(meta))
-				if((TESluice)world.getTileEntity(i, j, k)!=null)
+				if(world.getTileEntity(i, j, k) !=null)
 				{
 					TESluice tileentitysluice;
 					tileentitysluice = (TESluice)world.getTileEntity(i, j, k);
@@ -103,9 +104,9 @@ public class BlockSluice extends BlockContainer
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
-	 * when first determining what to render.
+	/*
+	  Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
+	  when first determining what to render.
 	 */
 	public int colorMultiplier(IBlockAccess world, int x, int y, int z)
 	{
@@ -130,7 +131,8 @@ public class BlockSluice extends BlockContainer
 		return (i & 4) != 0;
 	}
 
-	public String getItemNameIS(ItemStack itemstack) 
+	@SuppressWarnings("SameReturnValue")
+	public String getItemNameIS(ItemStack itemstack)
 	{
 		return "Sluice";
 	}
@@ -199,10 +201,12 @@ public class BlockSluice extends BlockContainer
 		int dir = getDirectionFromMetadata(world.getBlockMetadata(x, y, z));
 		int[] offset = HEAD_FOOT_BLOCKMAP[dir];
 
-		boolean stay = canStay(world, x, y, z, false, dir) && canStay(world, x + offset[0], y, z + offset[1], true, dir) && 
-				(block.isAir(world, x, y, z) || block.getMaterial().isReplaceable());
-
-		return stay;
+		return canStay(world, x, y, z, false, dir)
+				&& canStay(
+					world, x + offset[0], y, z + offset[1], true, dir)
+					&& (block.isAir(world, x, y, z)
+					|| block.getMaterial().isReplaceable()
+				);
 	}
 
 	public boolean canPlace(World world, int i, int j, int k,int dir)
@@ -210,17 +214,16 @@ public class BlockSluice extends BlockContainer
 		int[] offset = HEAD_FOOT_BLOCKMAP[dir];
 		Block topBlock = world.getBlock(i, j, k);
 		Block footBlock = world.getBlock(i+offset[0],j,k+offset[1]);
-		boolean stay = canStay(world, i, j, k, false, dir) && canStay(world, i + offset[0], j, k + offset[1], true, dir) && 
-				(topBlock.isAir(world, i, j, k) || topBlock.getMaterial().isReplaceable()) &&
-				(footBlock.isAir(world, i+offset[0],j,k+offset[1]) || footBlock.getMaterial().isReplaceable());
 
-		return stay;
+		return canStay(world, i, j, k, false, dir)
+				&& canStay(world, i + offset[0], j, k + offset[1], true, dir)
+				&& (topBlock.isAir(world, i, j, k) || topBlock.getMaterial().isReplaceable())
+				&& (footBlock.isAir(world, i+offset[0],j,k+offset[1]) || footBlock.getMaterial().isReplaceable());
 	}
 
 	private boolean canStay(World world, int i, int j, int k, boolean foot, int dir)
 	{
-		int l = dir;
-		if(l == 0)
+		if(dir == 0)
 			if(!foot && 
 					(!world.getBlock(i+1, j, k).isNormalCube() || 
 							!world.getBlock(i-1, j, k).isNormalCube() || 
@@ -234,7 +237,7 @@ public class BlockSluice extends BlockContainer
 							!world.getBlock(i, j-1, k) .isNormalCube() || 
 							world.getBlock(i, j+2, k).isNormalCube()))
 				return false;
-		if(l == 1)
+		if(dir == 1)
 			if(!foot && 
 					(!world.getBlock(i, j, k+1).isNormalCube() || 
 							!world.getBlock(i, j, k-1).isNormalCube() || 
@@ -248,7 +251,7 @@ public class BlockSluice extends BlockContainer
 							!world.getBlock(i, j-1, k) .isNormalCube() || 
 							world.getBlock(i, j+2, k).isNormalCube()))
 				return false;
-		if(l == 2)
+		if(dir == 2)
 			if(!foot && 
 					(!world.getBlock(i+1, j, k).isNormalCube() || 
 							!world.getBlock(i-1, j, k).isNormalCube() || 
@@ -262,7 +265,7 @@ public class BlockSluice extends BlockContainer
 							!world.getBlock(i, j-1, k) .isNormalCube() || 
 							world.getBlock(i, j+2, k).isNormalCube()))
 				return false;
-		if(l == 3)
+		if(dir == 3)
 			if(!foot && 
 					(!world.getBlock(i, j, k+1).isNormalCube() || 
 							!world.getBlock(i, j, k-1).isNormalCube() || 
@@ -324,6 +327,7 @@ public class BlockSluice extends BlockContainer
 	{
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

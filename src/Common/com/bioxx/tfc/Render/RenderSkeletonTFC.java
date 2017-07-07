@@ -17,6 +17,7 @@ import com.bioxx.tfc.Items.ItemQuiver;
 import com.bioxx.tfc.Render.Models.ModelSkeletonTFC;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 @SideOnly(Side.CLIENT)
 public class RenderSkeletonTFC extends RenderBiped
 {

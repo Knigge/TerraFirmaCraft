@@ -16,6 +16,7 @@ import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.LdcInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class TF_RenderBlock extends ClassTransformer
 {
 
@@ -24,8 +25,8 @@ public class TF_RenderBlock extends ClassTransformer
 		mcpClassName = "net.minecraft.client.renderer.RenderBlocks";
 		obfClassName = "ble";
 
-		/**
-		 * renderFaceZNeg
+		/*
+		  renderFaceZNeg
 		 */
 		List<InstrSet> nodes = new ArrayList<InstrSet>();
 
@@ -65,8 +66,8 @@ public class TF_RenderBlock extends ClassTransformer
 		this.mcpMethodNodes.put("renderFaceZNeg | (Lnet/minecraft/block/Block;DDDLnet/minecraft/util/IIcon;)V", new Patch(nodes));
 		this.obfMethodNodes.put("c | (Lahu;DDDLps;)V", new Patch(nodes));
 
-		/**
-		 * renderFaceXPos
+		/*
+		  renderFaceXPos
 		 */
 		nodes = new ArrayList<InstrSet>();
 

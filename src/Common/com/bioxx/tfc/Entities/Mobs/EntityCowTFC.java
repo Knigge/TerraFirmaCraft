@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class EntityCowTFC extends EntityCow implements IAnimal
 {
 	private static final float GESTATION_PERIOD = 9.0f;
@@ -218,11 +219,11 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 	protected void entityInit()
 	{
 		super.entityInit();	
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
 		
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, canMilk
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, pregnant, canMilk
 		this.dataWatcher.addObject(24, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 	}
 
@@ -570,10 +571,12 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 
 		this.handleFamiliarityUpdate();
 
-		if (getGender() == GenderEnum.FEMALE && isAdult() && hasMilkTime < TFC_Time.getTotalTicks() && this.checkFamiliarity(InteractionEnum.MILK, null))
-			canMilk = true;
-		else
-			canMilk = false;
+		canMilk = (
+				getGender() == GenderEnum.FEMALE
+				&& isAdult()
+				&& hasMilkTime < TFC_Time.getTotalTicks()
+				&& this.checkFamiliarity(InteractionEnum.MILK, null)
+		);
 
 		syncData();
 		if (isAdult())
@@ -598,9 +601,9 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 			}
 		}
 
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		super.onLivingUpdate();
 		TFC_Core.preventEntityDataUpdate = false;
@@ -647,7 +650,7 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 	public void setAge(int par1)
 	{
 		//if(!TFC_Core.PreventEntityDataUpdate) {
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 		//}
 	}
 
@@ -701,7 +704,7 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 	{
 		if (!TFC_Core.preventEntityDataUpdate)
 		{
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 		}
 	}
 
@@ -771,7 +774,7 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 		{
 			if (!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = { TFC_Core.getByteFromSmallFloat(sizeMod), TFC_Core.getByteFromSmallFloat(strengthMod), TFC_Core.getByteFromSmallFloat(aggressionMod), TFC_Core.getByteFromSmallFloat(obedienceMod), (byte) familiarity, (byte) (familiarizedToday
 						? 1 : 0), (byte) (pregnant ? 1 : 0), (byte) (canMilk ? 1 : 0)
@@ -803,7 +806,7 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(24));
-				} catch (NumberFormatException e)
+				} catch (NumberFormatException ignored)
 				{
 				}
 			}
@@ -834,10 +837,9 @@ public class EntityCowTFC extends EntityCow implements IAnimal
 		nbt.setLong("lastFamUpdate", lastFamiliarityUpdate);
 		nbt.setBoolean("Familiarized Today", familiarizedToday);
 
-		NBTTagCompound nbt2 = nbt;
-		nbt2.setFloat("Strength Modifier", strengthMod);
-		nbt2.setFloat("Aggression Modifier", aggressionMod);
-		nbt2.setFloat("Obedience Modifier", obedienceMod);
+		nbt.setFloat("Strength Modifier", strengthMod);
+		nbt.setFloat("Aggression Modifier", aggressionMod);
+		nbt.setFloat("Obedience Modifier", obedienceMod);
 
 		nbt.setInteger("Hunger", hunger);
 		nbt.setBoolean("Pregnant", pregnant);

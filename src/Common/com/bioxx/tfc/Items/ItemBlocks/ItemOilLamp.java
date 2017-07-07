@@ -31,6 +31,7 @@ public class ItemOilLamp extends ItemTerraBlock implements ISmeltable, IFluidCon
 		this.metaNames = new String[]{"Gold", "Platinum", "RoseGold", "Silver", "SterlingSilver", "BlueSteel"};
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getDisplayDamage(ItemStack is)
 	{
@@ -102,13 +103,10 @@ public class ItemOilLamp extends ItemTerraBlock implements ISmeltable, IFluidCon
 	}
 
 	@Override
-	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
-	{
+	public boolean onItemUse(ItemStack is, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
 		MovingObjectPosition mop = this.getMovingObjectPositionFromPlayer(world, player, !is.hasTagCompound());
-		if (mop != null && is.getItemDamage() == 5 && world.getBlock(mop.blockX, mop.blockY, mop.blockZ) == TFCBlocks.lavaStationary)
-		{
-			if(!is.hasTagCompound())
-			{
+		if (mop != null && is.getItemDamage() == 5 && world.getBlock(mop.blockX, mop.blockY, mop.blockZ) == TFCBlocks.lavaStationary) {
+			if (!is.hasTagCompound()) {
 				FluidStack fs = new FluidStack(TFCFluids.LAVA, 250);
 				is.setTagCompound(fs.writeToNBT(new NBTTagCompound()));
 			}
@@ -123,15 +121,9 @@ public class ItemOilLamp extends ItemTerraBlock implements ISmeltable, IFluidCon
 		else
 			return false;
 
-		int xCoord = x;
-		int zCoord = z;
 		//Block block = world.getBlock(xCoord, yCoord, zCoord);
-		if(world.isAirBlock(xCoord, yCoord, zCoord))
-		{
-			return super.onItemUse(is, player, world, xCoord, yCoord, zCoord, side, hitX, hitY, hitZ);
-		}
-
-		return false;
+		return world.isAirBlock(x, yCoord, z)
+				&& super.onItemUse(is, player, world, x, yCoord, z, side, hitX, hitY, hitZ);
 	}
 
 	@Override
@@ -146,6 +138,7 @@ public class ItemOilLamp extends ItemTerraBlock implements ISmeltable, IFluidCon
 		return super.placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

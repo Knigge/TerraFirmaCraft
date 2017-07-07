@@ -10,6 +10,7 @@ import net.minecraft.util.Vec3;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class EntityAIPanicTFC extends EntityAIBase
 {
 	private final EntityCreature theEntityCreature;
@@ -34,8 +35,7 @@ public class EntityAIPanicTFC extends EntityAIBase
 	public boolean shouldExecute()
 	{
 		if (this.theEntityCreature.getAITarget() == null && !this.theEntityCreature.isBurning() &&
-			(this.theEntityCreature instanceof IAnimal && ((IAnimal) this.theEntityCreature).getAttackedVec() == null ||
-				!(this.theEntityCreature instanceof IAnimal)))
+			(!(this.theEntityCreature instanceof IAnimal) || ((IAnimal) this.theEntityCreature).getAttackedVec() == null))
 		{
 			return false;
 		}
@@ -46,6 +46,7 @@ public class EntityAIPanicTFC extends EntityAIBase
 			Vec3 vec3 = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 5, 4);
 			if (attackedVec != null)
 			{
+				//noinspection ConstantConditions
 				if (this.theEntityCreature instanceof IAnimal)
 					attackedVec = updateAttackVec((IAnimal) this.theEntityCreature, attackedVec);
 				vec3 = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntityCreature, 5, 4, attackedVec);

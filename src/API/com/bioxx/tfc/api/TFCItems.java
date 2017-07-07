@@ -9,6 +9,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 
 import com.bioxx.tfc.TerraFirmaCraft;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TFCItems
 {
 	public static Item gemRuby;

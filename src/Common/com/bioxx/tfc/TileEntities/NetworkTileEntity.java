@@ -16,14 +16,14 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Handlers.Network.AbstractPacket;
 import com.bioxx.tfc.Handlers.Network.DataBlockPacket;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class NetworkTileEntity extends TileEntity
 {
 	public boolean shouldSendInitData = true;
 	public EntityPlayer entityplayer;
 	protected int broadcastRange = 256;
 	/**
-	 * Create an initialization packet to be sent when the block loads.
-	 * @param nbt
+	  Create an initialization packet to be sent when the block loads.
 	 */
 	public abstract void handleInitPacket(NBTTagCompound nbt);
 	public void handleDataPacket(NBTTagCompound nbt){}

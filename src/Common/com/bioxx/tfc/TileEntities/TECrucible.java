@@ -17,6 +17,7 @@ import com.bioxx.tfc.api.*;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class TECrucible extends NetworkTileEntity implements IInventory
 {
 	public Map<String, MetalPair> metals = new HashMap<String, MetalPair>();
@@ -43,12 +44,8 @@ public class TECrucible extends NetworkTileEntity implements IInventory
 		nbt.setInteger("temp", temperature);
 
 		NBTTagList nbttaglist = new NBTTagList();
-		Iterator<MetalPair> iter = metals.values().iterator();
-		while(iter.hasNext())
-		{
-			MetalPair m = iter.next();
-			if(m != null)
-			{
+		for (MetalPair m : metals.values()) {
+			if (m != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setInteger("ID", Item.getIdFromItem(m.type.ingot));
 				nbttagcompound1.setFloat("AmountF", m.amount);
@@ -237,7 +234,7 @@ public class TECrucible extends NetworkTileEntity implements IInventory
 		}
 	}
 
-	public boolean drainOutput(float amount)
+	public void drainOutput(float amount)
 	{
 		if(metals != null && metals.values().size() > 0)
 		{
@@ -248,7 +245,6 @@ public class TECrucible extends NetworkTileEntity implements IInventory
 			}
 			updateCurrentAlloy();
 		}
-		return true;
 	}
 
 	public boolean addMetal(Metal m, float amt)
@@ -284,7 +280,6 @@ public class TECrucible extends NetworkTileEntity implements IInventory
 		List<AlloyMetal> a = new ArrayList<AlloyMetal>();
 		Iterator<MetalPair> iter = metals.values().iterator();
 		float totalAmount = getTotalMetal();
-		iter = metals.values().iterator();
 		while(iter.hasNext())
 		{
 			MetalPair m = iter.next();
@@ -414,7 +409,7 @@ public class TECrucible extends NetworkTileEntity implements IInventory
 				if (action == 0) {
 					currentAlloy.toNBT(nbt);
 				}
-				else if (action == 1 && currentAlloy != null) {
+				else if (action == 1) {
 					nbt.setFloat("outputAmount", currentAlloy.outputAmount);
 				}
 			}

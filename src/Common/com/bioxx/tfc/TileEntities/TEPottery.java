@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Crafting.KilnCraftingManager;
 import com.bioxx.tfc.api.Crafting.KilnRecipe;
 
+@SuppressWarnings("WeakerAccess")
 public class TEPottery extends NetworkTileEntity implements IInventory
 {
 	public ItemStack inventory[];
@@ -41,14 +42,9 @@ public class TEPottery extends NetworkTileEntity implements IInventory
 		hasRack = false;
 	}
 
-	public boolean canAddItem(int slot)
-	{
-		if(inventory[0] != null && inventory[0].getItem() instanceof ItemBlock)
-		{
-			return false;
-		}
+	public boolean canAddItem(int slot) {
+		return !(inventory[0] != null && inventory[0].getItem() instanceof ItemBlock) && inventory[slot] == null;
 
-		return inventory[slot] == null;
 	}
 
 	@Override
@@ -410,18 +406,6 @@ public class TEPottery extends NetworkTileEntity implements IInventory
 	public void handleInitPacket(NBTTagCompound nbt)
 	{
 		this.readFromNBT(nbt);
-	}
-
-	@Override
-	public void handleDataPacket(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt)
-	{
-		// TODO Auto-generated method stub
 	}
 
 	@Override

@@ -13,6 +13,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class MapGenCavesTFC extends MapGenBaseTFC
 {
 	//private byte[] metaArray;

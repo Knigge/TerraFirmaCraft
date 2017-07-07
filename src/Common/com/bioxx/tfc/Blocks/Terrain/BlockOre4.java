@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import java.util.ArrayList;
 import java.util.Random;
 
+@SuppressWarnings({"SameParameterValue", "Convert2Diamond"})
 public class BlockOre4 extends BlockOre
 {
     public BlockOre4(Material material)
@@ -55,15 +56,14 @@ public class BlockOre4 extends BlockOre
                 boolean isCoal = meta == 0 || meta == 1;
                 Random random = new Random();
 
-                ItemStack itemstack = null;
+                ItemStack itemstack;
 
                 if(isCoal)
                     itemstack = new ItemStack(TFCItems.coal, 1 + world.rand.nextInt(2));
                 else
                     itemstack = new ItemStack(TFCItems.oreMineralChunk, 1 , damageDropped(meta));
 
-                if (itemstack != null)
-                    dropBlockAsItem(world, x, y, z, itemstack);
+                dropBlockAsItem(world, x, y, z, itemstack);
             }
 
         }

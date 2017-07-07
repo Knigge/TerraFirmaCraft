@@ -4,6 +4,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelBox;
 import net.minecraft.client.model.ModelRenderer;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ModelRendererTFC extends ModelRenderer {
 
 	public ModelBase modelBase;
@@ -32,6 +33,7 @@ public class ModelRendererTFC extends ModelRenderer {
 	/**
      * Creates a textured box. Args: originX, originY, originZ, width, height, depth, scaleFactor.
      */
+    @SuppressWarnings("unchecked")
     @Override
 	public void addBox(float par1, float par2, float par3, int par4, int par5, int par6, float par7)
     {
@@ -41,6 +43,7 @@ public class ModelRendererTFC extends ModelRenderer {
     /**
      * Creates a textured box. Args: originX, originY, originZ, width, height, depth, scaleFactor.
      */
+    @SuppressWarnings("unchecked")
     public void addBox(ModelBox box)
     {
         this.cubeList.add(box);

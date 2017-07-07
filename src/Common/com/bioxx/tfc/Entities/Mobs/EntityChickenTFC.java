@@ -30,6 +30,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings("WeakerAccess")
 public class EntityChickenTFC extends EntityChicken implements IAnimal
 {
 	/*
@@ -42,7 +43,6 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 	protected static final int FAMILIARITY_CAP = 45;
 	private static final int EGG_TIME = TFC_Time.DAY_LENGTH;
 
-	private final EntityAIEatGrass aiEatGrass = new EntityAIEatGrass(this);
 	private int sex;
 	private int hunger;
 	private float sizeMod; //How large the animal is
@@ -77,7 +77,8 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 		this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityChickenTFC.class, 6.0F));
 		this.tasks.addTask(3, new EntityAIAvoidEntityTFC(this, EntityWolfTFC.class, 8f, 0.5F, 0.7F));
 		this.tasks.addTask(7, new EntityAILookIdle(this));
-		this.tasks.addTask(6, this.aiEatGrass);
+		EntityAIEatGrass aiEatGrass = new EntityAIEatGrass(this);
+		this.tasks.addTask(6, aiEatGrass);
 		addAI();
 
 		sizeMod = (float) Math.sqrt((rand.nextInt(rand.nextInt((DEGREE_OF_DIVERSION + 1) * 10) + 1) * (rand.nextBoolean() ? 1 : -1) * 0.01f + 1F) * (1.0F - DIMORPHISM * sex));
@@ -202,11 +203,11 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 	protected void entityInit()
 	{
 		super.entityInit();	
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
 		
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, empty slot, empty slot
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, empty slot, empty slot
 	}
 
 	@Override
@@ -436,9 +437,9 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 	}
 
 	@Override
-	/**
-	 * Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
-	 * the animal type)
+	/*
+	  Checks if the parameter is an item which this animal can be fed to breed it (wheat, carrots or seeds depending on
+	  the animal type)
 	 */
 	public boolean isBreedingItem(ItemStack par1ItemStack)
 	{
@@ -500,9 +501,9 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 
 		//Make sure that the vanilla egg timer is never after to reach 0 but always setting it back to 9999
 		this.timeUntilNextEgg = 9999;
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		if(getGender()==GenderEnum.MALE)
 		{
@@ -554,7 +555,7 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 	@Override
 	public void setAge(int par1)
 	{
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 	}
 
 	@Override
@@ -594,7 +595,7 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 	public void setGrowingAge(int par1)
 	{
 		if(!TFC_Core.preventEntityDataUpdate)
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 	}
 
 	@Override
@@ -648,7 +649,7 @@ public class EntityChickenTFC extends EntityChicken implements IAnimal
 		{
 			if(!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = {
 						TFC_Core.getByteFromSmallFloat(sizeMod),

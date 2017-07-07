@@ -152,18 +152,6 @@ public class TEWorldItem extends NetworkTileEntity implements IInventory
 	}
 
 	@Override
-	public void handleDataPacket(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void createDataNBT(NBTTagCompound nbt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void createInitNBT(NBTTagCompound nbt) {
 		if(storage[0] != null)
 			this.storage[0].writeToNBT(nbt);

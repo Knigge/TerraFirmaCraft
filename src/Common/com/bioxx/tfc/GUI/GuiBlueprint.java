@@ -22,10 +22,10 @@ import com.bioxx.tfc.Handlers.Network.AbstractPacket;
 import com.bioxx.tfc.Handlers.Network.ItemNBTPacket;
 import com.bioxx.tfc.Items.ItemBlueprint;
 
+@SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
 public class GuiBlueprint extends GuiScreen
 {
 	private World world;
-	private EntityPlayer player;
 	private ItemStack stack;
 
 	private GuiTextField nameTextField;
@@ -64,8 +64,7 @@ public class GuiBlueprint extends GuiScreen
 	{
 		//super(new ContainerBlueprint(p, world, i, j, k));
 		this.world = world;
-		player = p;
-		stack = player.inventory.getCurrentItem();
+		stack = p.inventory.getCurrentItem();
 		if (stack.hasTagCompound())
 		{
 			xAngle = stack.stackTagCompound.getInteger(ItemBlueprint.TAG_X_ANGLE);

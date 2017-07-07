@@ -9,7 +9,8 @@ import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 
 import org.lwjgl.opengl.GL11;
 
-public class RenderCrucible  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings("WeakerAccess")
+public class RenderCrucible  implements ISimpleBlockRenderingHandler
 {
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int i, int j, int k, Block block, int modelId, RenderBlocks renderer)

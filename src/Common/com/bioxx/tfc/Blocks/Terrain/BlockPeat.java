@@ -24,10 +24,11 @@ public class BlockPeat extends BlockTerra
 		this.setCreativeTab(TFCTabs.TFC_BUILDING);
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
 	{

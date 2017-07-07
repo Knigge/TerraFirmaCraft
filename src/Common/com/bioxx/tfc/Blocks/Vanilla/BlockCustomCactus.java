@@ -39,6 +39,7 @@ public class BlockCustomCactus extends Block implements IPlantable
 	/**
 	 * Ticks the block if it's been scheduled
 	 */
+	@SuppressWarnings("StatementWithEmptyBody")
 	@Override
 	public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
 	{
@@ -48,7 +49,6 @@ public class BlockCustomCactus extends Block implements IPlantable
 
 			for (var6 = 1; par1World.getBlock(par2, par3 - var6, par4) == this; ++var6)
 			{
-				;
 			}
 
 			if (var6 < 3)
@@ -81,8 +81,8 @@ public class BlockCustomCactus extends Block implements IPlantable
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * Returns the bounding box of the wired rectangular prism to render.
+	/*
+	  Returns the bounding box of the wired rectangular prism to render.
 	 */
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	{
@@ -133,7 +133,7 @@ public class BlockCustomCactus extends Block implements IPlantable
 	@Override
 	public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
 	{
-		return !super.canPlaceBlockAt(par1World, par2, par3, par4) ? false : this.canBlockStay(par1World, par2, par3, par4);
+		return super.canPlaceBlockAt(par1World, par2, par3, par4) && this.canBlockStay(par1World, par2, par3, par4);
 	}
 
 	/**
@@ -150,6 +150,7 @@ public class BlockCustomCactus extends Block implements IPlantable
 		}
 	}
 
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	public boolean canBlockStay(World par1World, int par2, int par3, int par4)
 	{

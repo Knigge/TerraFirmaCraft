@@ -11,6 +11,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Entities.IAnimal;
 
+@SuppressWarnings("CanBeFinal")
 public class AIEatGrass extends EntityAIBase
 {
 	private EntityLiving theEntity;

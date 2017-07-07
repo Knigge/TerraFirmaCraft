@@ -36,6 +36,7 @@ import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 {
 	/**
@@ -278,11 +279,11 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 	protected void entityInit()
 	{
 		super.entityInit();	
-		this.dataWatcher.addObject(13, Integer.valueOf(0)); //sex (1 or 0)
-		this.dataWatcher.addObject(15, Integer.valueOf(0));		//age
+		this.dataWatcher.addObject(13, 0); //sex (1 or 0)
+		this.dataWatcher.addObject(15, 0);		//age
 		
-		this.dataWatcher.addObject(22, Integer.valueOf(0)); //Size, strength, aggression, obedience
-		this.dataWatcher.addObject(23, Integer.valueOf(0)); //familiarity, familiarizedToday, pregnant, empty slot
+		this.dataWatcher.addObject(22, 0); //Size, strength, aggression, obedience
+		this.dataWatcher.addObject(23, 0); //familiarity, familiarizedToday, pregnant, empty slot
 		this.dataWatcher.addObject(24, String.valueOf("0")); // Time of conception, stored as a string since we can't do long
 	}
 	@Override
@@ -650,9 +651,9 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 				pregnant = false;
 			}
 
-		/**
-		 * This Cancels out the changes made to growingAge by EntityAgeable
-		 * */
+		/*
+		  This Cancels out the changes made to growingAge by EntityAgeable
+		  */
 		TFC_Core.preventEntityDataUpdate = true;
 		super.onLivingUpdate();
 		TFC_Core.preventEntityDataUpdate = false;
@@ -716,7 +717,7 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 	@Override
 	public void setAge(int par1)
 	{
-		this.dataWatcher.updateObject(15, Integer.valueOf(par1));
+		this.dataWatcher.updateObject(15, par1);
 	}
 
 	@Override
@@ -763,7 +764,7 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 	public void setGrowingAge(int par1)
 	{
 		if (!TFC_Core.preventEntityDataUpdate)
-			this.dataWatcher.updateObject(12, Integer.valueOf(par1));
+			this.dataWatcher.updateObject(12, par1);
 	}
 
 	@Override
@@ -837,7 +838,7 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 		{
 			if (!this.worldObj.isRemote)
 			{
-				this.dataWatcher.updateObject(13, Integer.valueOf(sex));
+				this.dataWatcher.updateObject(13, sex);
 
 				byte[] values = { TFC_Core.getByteFromSmallFloat(sizeMod), TFC_Core.getByteFromSmallFloat(strengthMod), TFC_Core.getByteFromSmallFloat(aggressionMod), TFC_Core.getByteFromSmallFloat(obedienceMod), (byte) familiarity, (byte) (familiarizedToday
 						? 1 : 0), (byte) (pregnant ? 1 : 0), (byte) 0 // Empty
@@ -868,7 +869,7 @@ public class EntitySheepTFC extends EntitySheep implements IShearable, IAnimal
 				try
 				{
 					timeOfConception = Long.parseLong(this.dataWatcher.getWatchableObjectString(24));
-				} catch (NumberFormatException e)
+				} catch (NumberFormatException ignored)
 				{
 				}
 			}

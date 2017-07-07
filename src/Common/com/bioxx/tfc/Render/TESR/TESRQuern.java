@@ -19,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.TileEntities.TEQuern;
 
+@SuppressWarnings("SameParameterValue")
 public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 {
 	private static final ResourceLocation BASE_TEXTURE = new ResourceLocation(Reference.MOD_ID + ":textures/blocks/devices/Quern Base.png");
@@ -38,9 +39,9 @@ public class TESRQuern extends TESRBase implements ISimpleBlockRenderingHandler
 			this.renderBase(tess);
 			if(teq.hasQuern)
 			{
-				/**
-				 * Both renderRoundTop and renderSquareTop can be used if you want the square block top + the round stone animation
-				 * The last parameter is for rendering the round stone sides, no need to render if you can't see them :)
+				/*
+				  Both renderRoundTop and renderSquareTop can be used if you want the square block top + the round stone animation
+				  The last parameter is for rendering the round stone sides, no need to render if you can't see them :)
 				 */
 				this.renderRoundTop(tess, teq.rotatetimer, teq.getWorldObj().rand, 0.8, true); // Renders a round Quern top stone
 				//this.renderSquareTop(tess); // Renders the top Quern box

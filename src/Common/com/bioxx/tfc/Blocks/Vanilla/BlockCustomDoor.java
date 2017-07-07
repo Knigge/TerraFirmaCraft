@@ -27,6 +27,7 @@ import com.bioxx.tfc.Blocks.BlockTerra;
 import com.bioxx.tfc.Core.Recipes;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond", "ConstantConditions"})
 public class BlockCustomDoor extends BlockTerra
 {
 	private int woodType;
@@ -292,7 +293,7 @@ public class BlockCustomDoor extends BlockTerra
 				par1World.markBlockRangeForRenderUpdate(par2, par3 - 1, par4, par2, par3, par4);
 			}
 
-			par1World.playAuxSFXAtEntity((EntityPlayer)null, 1003, par2, par3, par4, 0);
+			par1World.playAuxSFXAtEntity(null, 1003, par2, par3, par4, 0);
 		}
 	}
 
@@ -363,7 +364,7 @@ public class BlockCustomDoor extends BlockTerra
 	@Override
 	public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
 	{
-		return par3 >= 255 ? false : World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && super.canPlaceBlockAt(par1World, par2, par3, par4) && super.canPlaceBlockAt(par1World, par2, par3 + 1, par4);
+		return par3 < 255 && (World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && super.canPlaceBlockAt(par1World, par2, par3, par4) && super.canPlaceBlockAt(par1World, par2, par3 + 1, par4));
 	}
 
 	/**
@@ -470,6 +471,7 @@ public class BlockCustomDoor extends BlockTerra
 		return ret;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
     public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
     {

@@ -29,6 +29,7 @@ import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.IMultipleBlock;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockCustomFenceGate extends BlockFenceGate implements ITileEntityProvider, IMultipleBlock
 {
 	public String[] woodNames;
@@ -61,6 +62,7 @@ public class BlockCustomFenceGate extends BlockFenceGate implements ITileEntityP
 			return (direction != 2 && direction != 0 ? AxisAlignedBB.getBoundingBox(x + 0.375F, y, z, x + 0.625F, y + 1.5F, z + 1) : AxisAlignedBB.getBoundingBox(x, y, z + 0.375F, x + 1, y + 1.5F, z + 0.625F));
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List) 
@@ -101,11 +103,9 @@ public class BlockCustomFenceGate extends BlockFenceGate implements ITileEntityP
 	}
 
 	@Override
-	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
-		if (par1IBlockAccess.getTileEntity(par3, par3, par4) instanceof TEFenceGate)
-			return ((TEFenceGate) (par1IBlockAccess.getTileEntity(par2, par3, par4))).getOpen();
-		return false;
+	public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
+		return par1IBlockAccess.getTileEntity(par3, par3, par4) instanceof TEFenceGate
+				&& ((TEFenceGate) (par1IBlockAccess.getTileEntity(par2, par3, par4))).getOpen();
 	}
 
 	@Override
@@ -157,12 +157,12 @@ public class BlockCustomFenceGate extends BlockFenceGate implements ITileEntityP
 			if (flag && !te.getOpen())
 			{
 				te.setOpen(true);
-				world.playAuxSFXAtEntity((EntityPlayer) null, 1003, x, y, z, 0);
+				world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
 			}
 			else if (!flag && te.getOpen())
 			{
 				te.setOpen(false);
-				world.playAuxSFXAtEntity((EntityPlayer) null, 1003, x, y, z, 0);
+				world.playAuxSFXAtEntity(null, 1003, x, y, z, 0);
 			}
 
 		}

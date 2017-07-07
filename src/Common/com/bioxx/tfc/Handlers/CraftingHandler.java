@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Handlers;
 
+import java.awt.*;
 import java.util.List;
 
 import net.minecraft.entity.passive.EntitySheep;
@@ -35,6 +36,7 @@ import com.bioxx.tfc.api.TFC_ItemHeat;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Crafting.AnvilManager;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class CraftingHandler
 {
 	@SubscribeEvent
@@ -95,12 +97,10 @@ public class CraftingHandler
 
 			if (!player.worldObj.isRemote && item instanceof ItemIngot)
 			{
-				for (int i = 0; i < iinventory.getSizeInventory(); i++)
+				for (int i = 0; i < (iinventory != null ? iinventory.getSizeInventory() : 0); i++)
 				{
 					ItemStack is = iinventory.getStackInSlot(i);
-					if (is == null)
-						continue;
-					else if (is.getItem() instanceof ItemMeltedMetal)
+					if (is != null && is.getItem() instanceof ItemMeltedMetal)
 					{
 						if (player.worldObj.rand.nextInt(20) == 0)
 							player.worldObj.playSoundAtEntity(player, TFC_Sounds.CERAMICBREAK, 0.7f, player.worldObj.rand.nextFloat() * 0.2F + 0.8F);
@@ -198,6 +198,7 @@ public class CraftingHandler
 
 				if (c != null)
 				{
+					/*
 					int r = (int) (c[0] * 255);
 					int g = (int) (c[1] * 255);
 					int b = (int) (c[2] * 255);
@@ -205,12 +206,14 @@ public class CraftingHandler
 					g = g << 8;
 
 					color += r += g += b;
+					*/
+					color = new Color(c[0], c[1], c[2]).getRGB();
 				}
 			}
 
 			if (color != -1)
 			{
-				NBTTagCompound nbt = null;
+				NBTTagCompound nbt;
 				if (itemstack.hasTagCompound())
 					nbt = itemstack.getTagCompound();
 				else
@@ -254,8 +257,7 @@ public class CraftingHandler
 		{
 			if(iinventory.getStackInSlot(i) == null)
 				continue;
-			for(int j = 0; j < items.length; j++)
-				damageItem(entityplayer, iinventory, i, items[j]);
+			for (Item item : items) damageItem(entityplayer, iinventory, i, item);
 		}
 	}
 
@@ -274,17 +276,17 @@ public class CraftingHandler
 	{
 		if(iinventory.getStackInSlot(i).getItem() == shiftedindex)
 		{
-			int index = i;
-			ItemStack item = iinventory.getStackInSlot(index).copy();
+			ItemStack item = iinventory.getStackInSlot(i).copy();
+			//noinspection ConstantConditions
 			if(item != null)
 			{
 				item.damageItem(1 , entityplayer);
 				if (item.getItemDamage() != 0 || entityplayer.capabilities.isCreativeMode)
 				{
-					iinventory.setInventorySlotContents(index, item);
-					iinventory.getStackInSlot(index).stackSize = iinventory.getStackInSlot(index).stackSize + 1;
-					if(iinventory.getStackInSlot(index).stackSize > 2)
-						iinventory.getStackInSlot(index).stackSize = 2;
+					iinventory.setInventorySlotContents(i, item);
+					iinventory.getStackInSlot(i).stackSize = iinventory.getStackInSlot(i).stackSize + 1;
+					if(iinventory.getStackInSlot(i).stackSize > 2)
+						iinventory.getStackInSlot(i).stackSize = 2;
 				}
 			}
 		}

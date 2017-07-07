@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiScreen;
 
 import cpw.mods.fml.client.IModGuiFactory;
 
+@SuppressWarnings("WeakerAccess")
 public class TFC_GuiFactory implements IModGuiFactory
 {
 	@Override

@@ -25,7 +25,8 @@ import com.bioxx.tfc.Food.ItemMeal;
 import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.FoodRegistry;
 
-public class FMLClientEventHandler 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+public class FMLClientEventHandler
 {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
@@ -71,10 +72,9 @@ public class FMLClientEventHandler
 				int[] fg = Food.getFoodGroups(slot.getStack());
 				TFC_Core.bindTexture(TextureMap.locationItemsTexture);
 				GL11.glColor4f(1, 1, 1, 1.0F);
-				for(int i = 0; i < fg.length; i++)
-				{
-					Item food = FoodRegistry.getInstance().getFood(fg[i]);
-					if(food == null)
+				for (int aFg : fg) {
+					Item food = FoodRegistry.getInstance().getFood(aFg);
+					if (food == null)
 						continue; // We need to continue the loop for when a middle slot was left empty
 					int x = mouseX + 19;
 					int y = mouseY + 11;
@@ -88,7 +88,7 @@ public class FMLClientEventHandler
 					GL11.glDisable(GL11.GL_BLEND);
 					GL11.glPopMatrix();
 
-					shiftx+=8;
+					shiftx += 8;
 				}
 			}
 			GL11.glEnable(GL11.GL_DEPTH_TEST);
@@ -103,10 +103,10 @@ public class FMLClientEventHandler
 	{
 		Tessellator var9 = Tessellator.instance;
 		var9.startDrawingQuads();
-		var9.addVertexWithUV(x + 0, y + ySize, zLevel, ico.getMinU(), ico.getMaxV());
+		var9.addVertexWithUV(x, y + ySize, zLevel, ico.getMinU(), ico.getMaxV());
 		var9.addVertexWithUV(x + xSize, y + ySize, zLevel, ico.getMaxU(), ico.getMaxV());
-		var9.addVertexWithUV(x + xSize, y + 0, zLevel, ico.getMaxU(), ico.getMinV());
-		var9.addVertexWithUV(x + 0, y + 0, zLevel, ico.getMinU(), ico.getMinV());
+		var9.addVertexWithUV(x + xSize, y, zLevel, ico.getMaxU(), ico.getMinV());
+		var9.addVertexWithUV(x, y, zLevel, ico.getMinU(), ico.getMinV());
 		var9.draw();
 	}
 

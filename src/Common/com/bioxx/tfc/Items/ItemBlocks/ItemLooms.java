@@ -40,7 +40,7 @@ public class ItemLooms extends ItemTerraBlock
 		return EnumWeight.HEAVY;
 	}
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"rawtypes", "unchecked"})
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

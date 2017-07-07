@@ -11,7 +11,8 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
-public class RenderNestBox  implements ISimpleBlockRenderingHandler 
+@SuppressWarnings("WeakerAccess")
+public class RenderNestBox  implements ISimpleBlockRenderingHandler
 {
 	/*private static float pixel3 = 3f / 16f;
 	private static float pixel5 = 5f / 16f;

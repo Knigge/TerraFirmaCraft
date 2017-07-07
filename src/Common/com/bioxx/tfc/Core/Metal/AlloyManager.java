@@ -6,7 +6,8 @@ import java.util.List;
 
 import com.bioxx.tfc.api.Metal;
 
-public class AlloyManager 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
+public class AlloyManager
 {
 	public static final AlloyManager INSTANCE = new AlloyManager();
 	
@@ -38,7 +39,7 @@ public class AlloyManager
 	public Metal matchesAlloy(List<AlloyMetal> ingred, Alloy.EnumTier furnaceTier)
 	{
 		Iterator<Alloy> iter = alloys.iterator();
-		Alloy match = null;
+		Alloy match;
 		while (iter.hasNext())
 		{
 			match = iter.next();

@@ -12,5 +12,5 @@ public enum TFCDirection
 	SOUTHWEST,
 	UP,
 	DOWN,
-	NULL;
+	NULL
 }

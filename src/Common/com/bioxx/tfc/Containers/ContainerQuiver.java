@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.Containers.Slots.SlotForShowOnly;
 import com.bioxx.tfc.Containers.Slots.SlotQuiver;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ContainerQuiver extends ContainerTFC
 {
 	/*private World world;

@@ -7,6 +7,7 @@ import com.bioxx.tfc.ASM.ClassTransformer;
 import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LineNumberNode;
 
+@SuppressWarnings("Convert2Diamond")
 public class TF_EntityPlayerMP extends ClassTransformer
 {
 
@@ -15,8 +16,8 @@ public class TF_EntityPlayerMP extends ClassTransformer
 		mcpClassName = "net.minecraft.entity.player.EntityPlayerMP";
 		obfClassName = "mw";
 
-		/**
-		 * This removes the "this.getHealth() != this.lastHealth" part of the if statement
+		/*
+		  This removes the "this.getHealth() != this.lastHealth" part of the if statement
 		 */
 		List<InstrSet> nodes = new ArrayList<InstrSet>();
 		nodes.add(new InstrSet(new LineNumberNode(0, new LabelNode()), 59, InstrOpType.Remove));

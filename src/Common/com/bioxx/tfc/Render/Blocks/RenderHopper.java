@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Blocks.Devices.BlockHopper;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderHopper implements ISimpleBlockRenderingHandler
 {
 	@Override
@@ -53,6 +54,7 @@ public class RenderHopper implements ISimpleBlockRenderingHandler
 		return this.renderBlockHopperMetadata(block, x, y, z, renderer.blockAccess.getBlockMetadata(x, y, z), false, renderer);
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean renderBlockHopperMetadata(Block block, int x, int y, int z, int meta, boolean unknownBool, RenderBlocks renderer)
 	{
 		Tessellator tessellator = Tessellator.instance;

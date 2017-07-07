@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 import com.bioxx.tfc.GUI.GuiContainerCreativeTFC;
 
+@SuppressWarnings("CanBeFinal")
 @SideOnly(Side.CLIENT)
 public class ContainerCreativeTFC extends Container
 {
@@ -72,7 +73,7 @@ public class ContainerCreativeTFC extends Container
                 }
                 else
                 {
-                    GuiContainerCreativeTFC.getInventory().setInventorySlotContents(l + k * 9, (ItemStack)null);
+                    GuiContainerCreativeTFC.getInventory().setInventorySlotContents(l + k * 9, null);
                 }
             }
         }
@@ -101,7 +102,7 @@ public class ContainerCreativeTFC extends Container
 
             if (slot != null && slot.getHasStack())
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack(null);
             }
         }
 

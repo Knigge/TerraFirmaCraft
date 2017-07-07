@@ -2,6 +2,7 @@ package com.bioxx.tfc.api;
 
 import net.minecraft.item.Item;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class Metal
 {
 	public String name;

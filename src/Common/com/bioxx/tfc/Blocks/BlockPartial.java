@@ -117,6 +117,7 @@ public class BlockPartial extends BlockTerraContainer
 		else return 0;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

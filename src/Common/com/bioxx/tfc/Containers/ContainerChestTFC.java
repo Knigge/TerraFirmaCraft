@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Containers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,6 +20,7 @@ import com.bioxx.tfc.TileEntities.TEIngotPile;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class ContainerChestTFC extends ContainerTFC
 {
 	private IInventory lowerChestInventory;
@@ -63,10 +65,7 @@ public class ContainerChestTFC extends ContainerTFC
 	public static List<Item> getExceptions()
 	{
 		List<Item> exceptions = new ArrayList<Item>();
-		for (Item ingot : TEIngotPile.getIngots())
-		{
-			exceptions.add(ingot);
-		}
+		Collections.addAll(exceptions, TEIngotPile.getIngots());
 		exceptions.add(TFCItems.logs);
 		exceptions.add(Item.getItemFromBlock(TFCBlocks.barrel));
 		exceptions.add(Item.getItemFromBlock(TFCBlocks.vessel));

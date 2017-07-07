@@ -1,6 +1,5 @@
 package com.bioxx.tfc.Items;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -21,6 +20,7 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISize;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemCustomLeash extends ItemLead implements ISize
 {
 	public String textureFolder;
@@ -30,9 +30,9 @@ public class ItemCustomLeash extends ItemLead implements ISize
 		textureFolder = "";
 	}
 	@Override
-	/**
-	 * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
-	 * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
+	/*
+	  Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
+	  True if something happen and false if it don't. This is for ITEMS, not BLOCKS
 	 */
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
 	{
@@ -55,6 +55,7 @@ public class ItemCustomLeash extends ItemLead implements ISize
 		}
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public static boolean tryLeash(EntityPlayer par0EntityPlayer, World par1World, int par2, int par3, int par4)
 	{
 		EntityLeashKnot entityleashknot = EntityLeashKnot.getKnotForBlock(par1World, par2, par3, par4);
@@ -64,12 +65,9 @@ public class ItemCustomLeash extends ItemLead implements ISize
 
 		if (list != null)
 		{
-			Iterator iterator = list.iterator();
-			while (iterator.hasNext())
-			{
-				EntityLiving entityliving = (EntityLiving)iterator.next();
-				if (entityliving.getLeashed() && entityliving.getLeashedToEntity() == par0EntityPlayer)
-				{
+			for (Object aList : list) {
+				EntityLiving entityliving = (EntityLiving) aList;
+				if (entityliving.getLeashed() && entityliving.getLeashedToEntity() == par0EntityPlayer) {
 					if (entityleashknot == null)
 						entityleashknot = EntityLeashKnot.func_110129_a(par1World, par2, par3, par4);
 					entityliving.setLeashedToEntity(entityleashknot, true);
@@ -86,6 +84,7 @@ public class ItemCustomLeash extends ItemLead implements ISize
 		return this.itemIcon;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{

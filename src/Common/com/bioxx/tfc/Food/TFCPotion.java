@@ -6,6 +6,7 @@ import net.minecraft.potion.Potion;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class TFCPotion extends Potion
 {
     public static Potion bleed;
@@ -40,8 +41,8 @@ public class TFCPotion extends Potion
 	@Override
 	@SideOnly(Side.CLIENT)
 
-    /**
-     * Returns true if the potion has a associated status icon to display in then inventory when active.
+    /*
+      Returns true if the potion has a associated status icon to display in then inventory when active.
      */
     public boolean hasStatusIcon()
     {

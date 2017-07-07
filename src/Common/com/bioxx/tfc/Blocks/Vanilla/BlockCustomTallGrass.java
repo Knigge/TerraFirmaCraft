@@ -27,6 +27,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Core.*;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockCustomTallGrass extends BlockTallGrass implements IShearable
 {
 	private static final String[] META_NAMES = new String[] {"tallgrass", "fern", "shortgrass"};
@@ -41,6 +42,7 @@ public class BlockCustomTallGrass extends BlockTallGrass implements IShearable
 		this.setCreativeTab(TFCTabs.TFC_DECORATION);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tab, List list)
 	{
@@ -131,6 +133,7 @@ public class BlockCustomTallGrass extends BlockTallGrass implements IShearable
 		world.spawnEntityInWorld(ei);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ArrayList<ItemStack> getDrops(World world, int x, int y, int z, int meta, int fortune)
 	{
@@ -172,10 +175,13 @@ public class BlockCustomTallGrass extends BlockTallGrass implements IShearable
 				this.canThisPlantGrowOnThisBlock(world.getBlock(x, y - 1, z));
 	}
 
+	@SuppressWarnings({"SameReturnValue", "DeprecatedIsStillUsed"})
+	@Deprecated
 	public static ItemStack getSeeds(Random r)
 	{
+		/*
 		ItemStack is = null;
-		/*if(R.nextInt(100) == 0)
+		if(R.nextInt(100) == 0)
 		{
 			int r = R.nextInt(19);
 			switch(r)
@@ -215,8 +221,10 @@ public class BlockCustomTallGrass extends BlockTallGrass implements IShearable
 			case 16:
 				is = new ItemStack(TFCItems.SeedsSquash,1); break;
 			}
-		}*/
+		}
 		return is;
+		*/
+		return null;
 	}
 
 	@SideOnly(Side.CLIENT)

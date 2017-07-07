@@ -64,17 +64,13 @@ public class EntityCreeperTFC extends EntityCreeper implements IInnateArmor
 	}
 
 	@Override
-	public boolean getCanSpawnHere()
-	{
+	public boolean getCanSpawnHere() {
 		int x = MathHelper.floor_double(this.posX);
 		int y = MathHelper.floor_double(this.boundingBox.minY);
 		int z = MathHelper.floor_double(this.posZ);
 		Block b = this.worldObj.getBlock(x, y, z);
 
-		if(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch)
-			return false;
-
-		return super.getCanSpawnHere();
+		return !(b == TFCBlocks.leaves || b == TFCBlocks.leaves2 || b == TFCBlocks.thatch) && super.getCanSpawnHere();
 	}
 
 	/**

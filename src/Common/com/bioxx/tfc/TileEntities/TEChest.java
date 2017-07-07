@@ -1,6 +1,5 @@
 package com.bioxx.tfc.TileEntities;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,6 +23,7 @@ import com.bioxx.tfc.Containers.ContainerChestTFC;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class TEChest extends TileEntityChest implements IInventory
 {
 	private ItemStack[] chestContents = new ItemStack[18];
@@ -175,7 +175,7 @@ public class TEChest extends TileEntityChest implements IInventory
 	@Override
 	public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
 	{
-		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
+		return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) == this && par1EntityPlayer.getDistanceSq(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D) <= 64.0D;
 	}
 
 	public boolean checkType(IBlockAccess access, int x, int y, int z)
@@ -322,18 +322,14 @@ public class TEChest extends TileEntityChest implements IInventory
 			this.numPlayersUsing = 0;
 			float f = 5.0F;
 			List list = this.worldObj.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getBoundingBox(this.xCoord - f, this.yCoord - f, this.zCoord - f, this.xCoord + 1 + f, this.yCoord + 1 + f, this.zCoord + 1 + f));
-			Iterator iterator = list.iterator();
 
-			while (iterator.hasNext())
-			{
-				EntityPlayer entityplayer = (EntityPlayer)iterator.next();
+			for (Object aList : list) {
+				EntityPlayer entityplayer = (EntityPlayer) aList;
 
-				if (entityplayer.openContainer instanceof ContainerChestTFC)
-				{
-					IInventory iinventory = ((ContainerChestTFC)entityplayer.openContainer).getLowerChestInventory();
+				if (entityplayer.openContainer instanceof ContainerChestTFC) {
+					IInventory iinventory = ((ContainerChestTFC) entityplayer.openContainer).getLowerChestInventory();
 
-					if (iinventory == this || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest)iinventory).isPartOfLargeChest(this))
-					{
+					if (iinventory == this || iinventory instanceof InventoryLargeChest && ((InventoryLargeChest) iinventory).isPartOfLargeChest(this)) {
 						++this.numPlayersUsing;
 					}
 				}

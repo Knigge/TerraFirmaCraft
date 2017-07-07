@@ -24,6 +24,7 @@ import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
 import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.Enums.EnumSize;
 
+@SuppressWarnings("CanBeFinal")
 public class ItemCustomBucket extends ItemTerra
 {
 	/** field for checking if the bucket has been filled. */

@@ -22,6 +22,7 @@ import com.bioxx.tfc.WorldGen.DataLayer;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("WeakerAccess")
 public class PrintImageMapCommand extends CommandBase
 {
 	@Override
@@ -46,29 +47,31 @@ public class PrintImageMapCommand extends CommandBase
 		if(params.length >= 2)
 		{
 			String name = params[1];
-			if(params[0].equals("biome"))
-			{
-				int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
-				int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
-				drawBiomeImage((int)Math.floor(player.posX), (int)Math.floor(player.posZ), size, world, name, skipSize);
-			}
-			else if(params[0].equals("temp"))
-			{
-				int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
-				int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
-				drawTempImage((int)Math.floor(player.posX), (int)Math.floor(player.posZ), size, world, name, skipSize);
-			}
-			else if(params[0].equals("drainage"))
-			{
-				int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
-				int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
-				drawDrainageImage((int)Math.floor(player.posX), (int)Math.floor(player.posZ), size, world, name, skipSize);
-			}
-			else if(params[0].equals("ph"))
-			{
-				int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
-				int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
-				drawPhImage((int)Math.floor(player.posX), (int)Math.floor(player.posZ), size, world, name, skipSize);
+			switch (params[0]) {
+				case "biome": {
+					int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
+					int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
+					drawBiomeImage((int) Math.floor(player.posX), (int) Math.floor(player.posZ), size, world, name, skipSize);
+					break;
+				}
+				case "temp": {
+					int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
+					int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
+					drawTempImage((int) Math.floor(player.posX), (int) Math.floor(player.posZ), size, world, name, skipSize);
+					break;
+				}
+				case "drainage": {
+					int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
+					int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
+					drawDrainageImage((int) Math.floor(player.posX), (int) Math.floor(player.posZ), size, world, name, skipSize);
+					break;
+				}
+				case "ph": {
+					int size = params.length >= 3 ? Integer.parseInt(params[2]) : 512;
+					int skipSize = params.length >= 4 ? Integer.parseInt(params[3]) : 1;
+					drawPhImage((int) Math.floor(player.posX), (int) Math.floor(player.posZ), size, world, name, skipSize);
+					break;
+				}
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCFluids;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("WeakerAccess")
 public class TEOilLamp extends TELightEmitter
 {
 	private FluidStack fuel;
@@ -32,8 +33,7 @@ public class TEOilLamp extends TELightEmitter
 	}
 
 	/**
-	 *  Updates the fuel timer of the lamp. Set burn to false to update the timer without consuming fuel, for when the lamp was off.
-	 * @param burn
+	   Updates the fuel timer of the lamp. Set burn to false to update the timer without consuming fuel, for when the lamp was off.
 	 */
 	public void updateLampFuel(Boolean burn)
 	{

@@ -7,6 +7,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.WorldGen.GenLayers.GenLayerTFC;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerShoreTFC extends GenLayerTFC
 {
 	public GenLayerShoreTFC(long par1, GenLayer par3GenLayer)

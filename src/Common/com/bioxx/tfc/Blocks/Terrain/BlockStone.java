@@ -25,6 +25,7 @@ import com.bioxx.tfc.Items.Tools.ItemHammer;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Tools.IToolChisel;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class BlockStone extends BlockCollapsible
 {
 	public BlockStone(Material material)
@@ -37,10 +38,11 @@ public class BlockStone extends BlockCollapsible
 	protected int looseStart;
 	protected int gemChance;
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
-	/**
-	 * returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
+	/*
+	  returns a list of blocks with the same ID, but different meta (eg: wood returns 4 blocks)
 	 */
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List)
 	{
@@ -118,9 +120,7 @@ public class BlockStone extends BlockCollapsible
 			//super.onBlockDestroyedByExplosion(world, i, j, k, ex);
 			Random random = new Random();
 
-			ItemStack is = null;
-
-			is = TFC_Core.randomGem(random, 0);
+			ItemStack is = TFC_Core.randomGem(random, 0);
 
 			if(is != null)
 			{
@@ -183,9 +183,7 @@ public class BlockStone extends BlockCollapsible
 		if(!world.isRemote)
 		{
 			Random random = new Random();
-			ItemStack is = null;
-
-			is = TFC_Core.randomGem(random, gemChance);
+			ItemStack is = TFC_Core.randomGem(random, gemChance);
 
 			if(is != null)
 			{

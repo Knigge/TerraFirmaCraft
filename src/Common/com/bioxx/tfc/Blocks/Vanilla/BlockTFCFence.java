@@ -25,6 +25,7 @@ import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockTFCFence extends BlockFence
 {
 	protected String[] woodNames;
@@ -84,6 +85,7 @@ public class BlockTFCFence extends BlockFence
 		this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item item, CreativeTabs tabs, List list)
@@ -186,6 +188,7 @@ public class BlockTFCFence extends BlockFence
 	/**
 	 * Returns true if the specified block can be connected by a fence
 	 */
+	@SuppressWarnings("SimplifiableIfStatement")
 	@Override
 	public boolean canConnectFenceTo(IBlockAccess bAccess, int x, int y, int z)
 	{
@@ -194,7 +197,7 @@ public class BlockTFCFence extends BlockFence
 		if (TFCBlocks.canFenceConnectTo(block))
 			return true;
 		else
-			return block != this && block.getMaterial().isOpaque() && block.renderAsNormalBlock() ? block.getMaterial() != Material.gourd : false;
+			return (block != this && block.getMaterial().isOpaque() && block.renderAsNormalBlock()) && block.getMaterial() != Material.gourd;
 	}
 
 	public static boolean isBlockAFence(Block block)
@@ -215,13 +218,8 @@ public class BlockTFCFence extends BlockFence
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
-	{
-		if(!world.isRemote)
-		{
-				return ItemLead.func_150909_a(player, world, x, y, z);
-		}
-		return true;
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
+		return world.isRemote || ItemLead.func_150909_a(player, world, x, y, z);
 	}
 
 	@Override

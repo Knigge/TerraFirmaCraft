@@ -7,6 +7,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenFungi extends WorldGenerator
 {
 	private int meta;
@@ -15,6 +16,7 @@ public class WorldGenFungi extends WorldGenerator
 	{
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean genWithMeta(World world, Random rnd, int x, int y, int z, int m)
 	{
 		meta = m;

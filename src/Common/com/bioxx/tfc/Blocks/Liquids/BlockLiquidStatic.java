@@ -27,6 +27,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Sounds;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class BlockLiquidStatic extends BlockLiquid implements IFluidBlock
 {
 	private Block flowing;

@@ -1,5 +1,6 @@
 package com.bioxx.tfc.api;
 
+import java.util.Objects;
 import java.util.Random;
 
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,8 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Util.Helper;
 
-public class Food 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
+public class Food
 {
 	public static final String DECAY_TAG = "foodDecay";
 	public static final String DECAY_TIMER_TAG = "decayTimer";
@@ -75,7 +77,7 @@ public class Food
 				isCooked(is1) == isCooked(is2) &&
 				isDried(is1) == isDried(is2) &&
 				isSalted(is1) == isSalted(is2) &&
-				(isInfused(is1) && isInfused(is2) && getInfusion(is1).equals(getInfusion(is2)) ||
+				(isInfused(is1) && isInfused(is2) && Objects.equals(getInfusion(is1), getInfusion(is2)) ||
 					!isInfused(is1) && !isInfused(is2)) &&
 				(isSmoked(is1) && isSmoked(is2) && isSameSmoked(is1, is2) ||
 					!isSmoked(is1) && !isSmoked(is2));

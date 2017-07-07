@@ -1,6 +1,7 @@
 package com.bioxx.tfc.api.Enums;
 
-public enum EnumDamageType 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public enum EnumDamageType
 {
 	GENERIC(-1), 
 	PIERCING(0), 
@@ -9,7 +10,7 @@ public enum EnumDamageType
 
 	public int damageID;
 
-	private EnumDamageType(int id)
+	EnumDamageType(int id)
 	{
 		damageID = id;
 	}

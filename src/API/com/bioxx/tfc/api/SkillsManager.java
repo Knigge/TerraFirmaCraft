@@ -3,7 +3,8 @@ package com.bioxx.tfc.api;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SkillsManager 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
+public class SkillsManager
 {
 	private List<Skill> skillsArray = new ArrayList<Skill>();
 
@@ -32,6 +33,7 @@ public class SkillsManager
 		return null;
 	}
 
+	@SuppressWarnings("CanBeFinal")
 	public class Skill
 	{
 		public String skillName;

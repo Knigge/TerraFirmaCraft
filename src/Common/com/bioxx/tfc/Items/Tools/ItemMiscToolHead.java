@@ -81,10 +81,7 @@ public class ItemMiscToolHead extends ItemTerra implements ISmeltable
 	@Override
 	public boolean isSmeltable(ItemStack is)
 	{
-		if (this == TFCItems.wroughtIronKnifeHead || this == TFCItems.blackSteelKnifeHead)
-			return true;
-		else
-			return false;
+		return (this == TFCItems.wroughtIronKnifeHead || this == TFCItems.blackSteelKnifeHead);
 	}
 
 	@Override

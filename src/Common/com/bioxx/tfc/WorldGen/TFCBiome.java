@@ -12,6 +12,7 @@ import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Entities.Mobs.*;
 import com.bioxx.tfc.WorldGen.Generators.Trees.*;
 
+@SuppressWarnings({"unchecked", "SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class TFCBiome extends BiomeGenBase
 {
 	public static float riverDepthMin = -0.5F;

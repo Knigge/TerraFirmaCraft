@@ -23,6 +23,7 @@ import com.bioxx.tfc.Items.ItemBlocks.ItemMetalTrapDoor;
 import com.bioxx.tfc.TileEntities.TEGrill;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockGrill extends BlockTerraContainer
 {
 	public BlockGrill()
@@ -255,8 +256,8 @@ public class BlockGrill extends BlockTerraContainer
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns the bounding box of the wired rectangular prism to render.
+	/*
+	  Returns the bounding box of the wired rectangular prism to render.
 	 */
 	public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
 	{

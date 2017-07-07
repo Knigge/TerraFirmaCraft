@@ -9,6 +9,7 @@ import com.bioxx.tfc.Containers.ContainerGrill;
 import com.bioxx.tfc.TileEntities.TEGrill;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class GuiGrill extends GuiContainerTFC
 {
 	public static ResourceLocation texture = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "gui_grill.png");

@@ -12,16 +12,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class CraftingManagerTFC
 {
 	private static final CraftingManagerTFC INSTANCE = new CraftingManagerTFC();
-	public static final CraftingManagerTFC getInstance()
+	public static CraftingManagerTFC getInstance()
 	{
 		return INSTANCE;
 	}
 
 	private List<IRecipe> recipes;
 
+	@SuppressWarnings("unchecked")
 	private CraftingManagerTFC()
 	{
 		recipes = new ArrayList<IRecipe>();
@@ -32,19 +34,17 @@ public class CraftingManagerTFC
 
 	public ShapedRecipesTFC addRecipe(ItemStack itemstack, Object aobj[])
 	{
-		String s = "";
+		StringBuilder s = new StringBuilder();
 		int i = 0;
 		int j = 0;
 		int k = 0;
 		if (aobj[i] instanceof String[])
 		{
 			String as[] = (String[])aobj[i++];
-			for (int l = 0; l < as.length; l++)
-			{
-				String s2 = as[l];
+			for (String s2 : as) {
 				k++;
 				j = s2.length();
-				s = new StringBuilder().append(s).append(s2).toString();
+				s.append(s2);
 			}
 		}
 		else
@@ -54,7 +54,7 @@ public class CraftingManagerTFC
 				String s1 = (String)aobj[i++];
 				k++;
 				j = s1.length();
-				s = new StringBuilder().append(s).append(s1).toString();
+				s.append(s1);
 			}
 		}
 		HashMap<Character, ItemStack> hashmap = new HashMap<Character, ItemStack>();
@@ -81,9 +81,9 @@ public class CraftingManagerTFC
 		for (int i1 = 0; i1 < j * k; i1++)
 		{
 			char c = s.charAt(i1);
-			if (hashmap.containsKey(Character.valueOf(c)))
+			if (hashmap.containsKey(c))
 			{
-				aitemstack[i1] = hashmap.get(Character.valueOf(c)).copy();
+				aitemstack[i1] = hashmap.get(c).copy();
 			}
 			else
 			{
@@ -96,30 +96,23 @@ public class CraftingManagerTFC
 		return shapedRecipesTFC;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public ShapelessRecipesTFC addShapelessRecipe(ItemStack itemstack, Object aobj[])
 	{
 		ArrayList<ItemStack> arraylist = new ArrayList<ItemStack>();
-		Object aobj1[] = aobj;
-		int i = aobj1.length;
-		for (int j = 0; j < i; j++)
-		{
-			Object obj = aobj1[j];
-			if (obj instanceof ItemStack)
-			{
-				arraylist.add(((ItemStack)obj).copy());
+		int i = aobj.length;
+		for (Object obj : aobj) {
+			if (obj instanceof ItemStack) {
+				arraylist.add(((ItemStack) obj).copy());
 				continue;
 			}
-			if (obj instanceof Item)
-			{
-				arraylist.add(new ItemStack((Item)obj));
+			if (obj instanceof Item) {
+				arraylist.add(new ItemStack((Item) obj));
 				continue;
 			}
-			if (obj instanceof Block)
-			{
-				arraylist.add(new ItemStack((Block)obj));
-			}
-			else
-			{
+			if (obj instanceof Block) {
+				arraylist.add(new ItemStack((Block) obj));
+			} else {
 				throw new RuntimeException("Invalid shapeless recipy!");
 			}
 		}
@@ -164,11 +157,8 @@ public class CraftingManagerTFC
 			//            }
 			//            return new ItemStack(itemstack.itemID, 1, k1);
 		}*/
-		for (int k = 0; k < recipes.size(); k++)
-		{
-			IRecipe irecipe = recipes.get(k);
-			if (irecipe.matches(inventorycrafting, world))
-			{
+		for (IRecipe irecipe : recipes) {
+			if (irecipe.matches(inventorycrafting, world)) {
 				return irecipe.getCraftingResult(inventorycrafting);
 			}
 		}

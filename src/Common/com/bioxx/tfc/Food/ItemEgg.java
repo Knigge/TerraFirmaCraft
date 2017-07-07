@@ -16,6 +16,7 @@ import com.bioxx.tfc.api.Food;
 import com.bioxx.tfc.api.Enums.EnumFoodGroup;
 import com.bioxx.tfc.api.Interfaces.IFood;
 
+@SuppressWarnings("unchecked")
 public class ItemEgg extends ItemFoodTFC implements IFood
 {
 	public ItemEgg()

@@ -14,6 +14,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("Convert2Diamond")
 public class BlockClayGrass extends BlockGrass
 {
 	public BlockClayGrass(int texOff)

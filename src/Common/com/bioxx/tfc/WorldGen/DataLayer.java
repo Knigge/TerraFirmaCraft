@@ -5,6 +5,7 @@ import net.minecraft.init.Blocks;
 
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class DataLayer
 {
 	public static DataLayer[] layers = new DataLayer[256];

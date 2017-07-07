@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.TileEntities.TEPottery;
 
+@SuppressWarnings("WeakerAccess")
 public class TESRPottery extends TESRBase
 {
 	//private ModelUrn urnModel;

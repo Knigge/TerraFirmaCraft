@@ -18,6 +18,7 @@ import static com.bioxx.tfc.Core.Config.TFC_ConfigFiles.SYNCING_OPTION_MAP;
 /**
  * @author Dries007
  */
+@SuppressWarnings("Convert2Diamond")
 public class ConfigSyncPacket extends AbstractPacket
 {
 	private Map<String, Boolean> map;

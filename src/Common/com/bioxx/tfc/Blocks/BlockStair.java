@@ -23,6 +23,7 @@ import com.bioxx.tfc.TileEntities.TEPartial;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.Interfaces.ICustomCollision;
 
+@SuppressWarnings({"SameParameterValue", "Convert2Diamond"})
 public class BlockStair extends BlockPartial implements ICustomCollision
 {
 
@@ -40,12 +41,6 @@ public class BlockStair extends BlockPartial implements ICustomCollision
 	@Override
 	public void registerBlockIcons(IIconRegister iconRegisterer)
 	{
-	}
-
-	@Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
-	{
-		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 
 	@Override
@@ -103,6 +98,7 @@ public class BlockStair extends BlockPartial implements ICustomCollision
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addCollisionBoxesToList(World world, int x, int y, int z, List list)
 	{
@@ -143,6 +139,7 @@ public class BlockStair extends BlockPartial implements ICustomCollision
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addCollisionBoxesToList(World world, int i, int j, int k, AxisAlignedBB aabb, List list, Entity entity)
 	{

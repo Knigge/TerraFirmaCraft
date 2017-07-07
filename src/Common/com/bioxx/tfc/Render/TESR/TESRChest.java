@@ -17,6 +17,7 @@ import com.bioxx.tfc.Blocks.Devices.BlockChestTFC;
 import com.bioxx.tfc.TileEntities.TEChest;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class TESRChest extends TileEntitySpecialRenderer
 {
 	private static ResourceLocation[] texNormal;
@@ -58,7 +59,7 @@ public class TESRChest extends TileEntitySpecialRenderer
 			i = te.getBlockMetadata();
 
 			if (block instanceof BlockChestTFC && i == 0)
-			{
+			{/*
 				try
 				{
 					((BlockChestTFC)block).unifyAdjacentChests(te.getWorldObj(), te.xCoord, te.yCoord, te.zCoord);
@@ -68,6 +69,7 @@ public class TESRChest extends TileEntitySpecialRenderer
 					FMLLog.severe("Attempted to render a chest at %d,  %d, %d that was not a chest",
 							te.xCoord, te.yCoord, te.zCoord);
 				}
+			*/
 				i = te.getBlockMetadata();
 			}
 

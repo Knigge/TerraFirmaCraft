@@ -17,6 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockCustomLilyPad extends BlockLilyPad
 {
 	public BlockCustomLilyPad()
@@ -67,8 +68,8 @@ public class BlockCustomLilyPad extends BlockLilyPad
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns the color this block should be rendered. Used by leaves.
+	/*
+	  Returns the color this block should be rendered. Used by leaves.
 	 */
 	public int getRenderColor(int par1)
 	{
@@ -77,9 +78,9 @@ public class BlockCustomLilyPad extends BlockLilyPad
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * When this method is called, your block should register all the icons it needs with the given IconRegister. This
-	 * is the only chance you get to register icons.
+	/*
+	  When this method is called, your block should register all the icons it needs with the given IconRegister. This
+	  is the only chance you get to register icons.
 	 */
 	public void registerBlockIcons(IIconRegister par1IconRegister)
 	{
@@ -88,9 +89,9 @@ public class BlockCustomLilyPad extends BlockLilyPad
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	/**
-	 * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
-	 * when first determining what to render.
+	/*
+	  Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
+	  when first determining what to render.
 	 */
 	public int colorMultiplier(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
 	{
@@ -121,7 +122,7 @@ public class BlockCustomLilyPad extends BlockLilyPad
 	{
 		Block id = world.getBlock(x, y - 1, z);
 		int meta = world.getBlockMetadata(x, y - 1, z);
-		return y > 0 && y < 256 ? TFC_Core.isFreshWaterIncludeIce(id, meta) : false;
+		return (y > 0 && y < 256) && TFC_Core.isFreshWaterIncludeIce(id, meta);
 	}
 
 }

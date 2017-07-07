@@ -17,6 +17,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityFishTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @SideOnly(Side.CLIENT)
 public class RenderFishTFC extends RenderLiving
 {
@@ -71,7 +72,8 @@ public class RenderFishTFC extends RenderLiving
                 f3 = 1.0F;
             }
 
-            //GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, 1.0F);
+            //!TODO: check
+            GL11.glRotatef(f3 * this.getDeathMaxRotation(par1EntityLivingBase), 0.0F, 0.0F, 1.0F);
         }
     }
 

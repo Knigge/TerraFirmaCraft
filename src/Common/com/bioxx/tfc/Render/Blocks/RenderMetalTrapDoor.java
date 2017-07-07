@@ -13,8 +13,10 @@ import com.bioxx.tfc.Blocks.BlockMetalTrapDoor;
 import com.bioxx.tfc.TileEntities.TEMetalTrapDoor;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderMetalTrapDoor implements ISimpleBlockRenderingHandler
 {
+	@SuppressWarnings("SameReturnValue")
 	public static boolean render(Block block, int i, int j, int k, RenderBlocks renderer)
 	{
 		IBlockAccess access = renderer.blockAccess;

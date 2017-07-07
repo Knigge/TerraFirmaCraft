@@ -27,6 +27,7 @@ import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings("WeakerAccess")
 public class FarmlandHighlightHandler
 {
 	@SubscribeEvent
@@ -138,9 +139,9 @@ public class FarmlandHighlightHandler
 				GL11.glEnable(GL11.GL_CULL_FACE);
 
 
-				/**
-				 * Draw the outliens around the boxes
-				 * */
+				/*
+				  Draw the outliens around the boxes
+				  */
 
 				GL11.glColor4f(0.1F, 0.1F, 0.1F, 1.0F);
 				GL11.glLineWidth(3.0F);

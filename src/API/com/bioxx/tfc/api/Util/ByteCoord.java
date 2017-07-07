@@ -1,6 +1,7 @@
 package com.bioxx.tfc.api.Util;
 
-public class ByteCoord 
+@SuppressWarnings("CanBeFinal")
+public class ByteCoord
 {
 	public byte x, y, z;
 

@@ -15,6 +15,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings("WeakerAccess")
 public class ItemArmourStand extends ItemTerraBlock
 {
 	public ItemArmourStand(Block i)

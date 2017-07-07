@@ -6,6 +6,7 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "FieldCanBeLocal"})
 public class ModelUngulate extends ModelBase
 {
 	//fields
@@ -240,6 +241,7 @@ public class ModelUngulate extends ModelBase
 		//LeftHoofFront.render(f5);
 	}
 
+	@SuppressWarnings("SameParameterValue")
 	private void setRotation(ModelRenderer model, float x, float y, float z)
 	{
 		model.rotateAngleX = x;

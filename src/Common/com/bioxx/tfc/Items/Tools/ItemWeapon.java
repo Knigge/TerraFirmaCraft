@@ -34,6 +34,7 @@ import com.bioxx.tfc.api.Util.Helper;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+@SuppressWarnings({"unchecked", "WeakerAccess", "CanBeFinal"})
 public class ItemWeapon extends ItemSword implements ISize, ICausesDamage
 {
 	private float weaponBaseDamage;
@@ -75,7 +76,7 @@ public class ItemWeapon extends ItemSword implements ISize, ICausesDamage
 		ItemTerra.addHeatInformation(is, arraylist);
 
 		if(is.getItem() instanceof ICausesDamage)
-			arraylist.add(EnumChatFormatting.AQUA + TFC_Core.translate(((ICausesDamage) this).getDamageType().toString()));
+			arraylist.add(EnumChatFormatting.AQUA + TFC_Core.translate(this.getDamageType().toString()));
 		ItemTerraTool.addSmithingBonusInformation(is, arraylist);
 		addExtraInformation(is, player, arraylist);
 	}
@@ -90,6 +91,7 @@ public class ItemWeapon extends ItemSword implements ISize, ICausesDamage
 		this.itemIcon = registerer.registerIcon(Reference.MOD_ID + ":" + "tools/"+this.getUnlocalizedName().replace("item.", ""));
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{

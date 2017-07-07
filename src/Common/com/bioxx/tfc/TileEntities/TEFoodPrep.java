@@ -25,6 +25,7 @@ import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.Interfaces.IItemFoodBlock;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess"})
 public class TEFoodPrep extends NetworkTileEntity implements IInventory
 {
 	public ItemStack[] storage = new ItemStack[11];
@@ -174,7 +175,8 @@ public class TEFoodPrep extends NetworkTileEntity implements IInventory
 
 			consumeFoodWeight(saladWeights, getStackInSlot(1), getStackInSlot(2), getStackInSlot(3), getStackInSlot(4));
 
-			TFC_Core.getItemInInventory(TFCItems.potteryBowl, this).stackSize--;
+			ItemStack sz = TFC_Core.getItemInInventory(TFCItems.potteryBowl, this);
+			if (sz != null) sz.stackSize--;
 		}
 	}
 
@@ -248,6 +250,7 @@ public class TEFoodPrep extends NetworkTileEntity implements IInventory
 		return true;
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	public boolean validateIngreds(ItemStack... is)
 	{
 		for(int i = 0; i < is.length; i++)
@@ -277,16 +280,14 @@ public class TEFoodPrep extends NetworkTileEntity implements IInventory
 		int tasteBitter = 0;
 		int tasteUmami = 0;
 
-		for (int i = 0; i < isArray.length; i++)
-		{
+		for (ItemStack anIsArray : isArray) {
 			float weightMult = 1f;//weights[i] / totalW * 2;
-			if(isArray[i] != null)
-			{
-				tasteSweet += ((IFood)isArray[i].getItem()).getTasteSweet(isArray[i]) * weightMult;
-				tasteSour += ((IFood)isArray[i].getItem()).getTasteSour(isArray[i]) * weightMult;
-				tasteSalty += ((IFood)isArray[i].getItem()).getTasteSalty(isArray[i]) * weightMult;
-				tasteBitter += ((IFood)isArray[i].getItem()).getTasteBitter(isArray[i]) * weightMult;
-				tasteUmami += ((IFood)isArray[i].getItem()).getTasteSavory(isArray[i]) * weightMult;
+			if (anIsArray != null) {
+				tasteSweet += ((IFood) anIsArray.getItem()).getTasteSweet(anIsArray) * weightMult;
+				tasteSour += ((IFood) anIsArray.getItem()).getTasteSour(anIsArray) * weightMult;
+				tasteSalty += ((IFood) anIsArray.getItem()).getTasteSalty(anIsArray) * weightMult;
+				tasteBitter += ((IFood) anIsArray.getItem()).getTasteBitter(anIsArray) * weightMult;
+				tasteUmami += ((IFood) anIsArray.getItem()).getTasteSavory(anIsArray) * weightMult;
 			}
 		}
 		nbt.setInteger("tasteSweet", tasteSweet);

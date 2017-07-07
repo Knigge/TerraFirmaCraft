@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 
 import com.bioxx.tfc.Core.TFC_Time;
 
+@SuppressWarnings("CanBeFinal")
 public class ModelBass extends ModelBase
 {
   //fields
@@ -28,12 +29,8 @@ public class ModelBass extends ModelBase
 	private ModelRenderer analFin;
 	private ModelRenderer pelvicFinBox;
 	private ModelRenderer pectoralFinBox;
-    
-	private long n;
-	private float rotateMouth;
-	private float rotateSwim;
-  
-  public ModelBass()
+
+	public ModelBass()
   {
     textureWidth = 128;
     textureHeight = 64;
@@ -146,6 +143,7 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
     pectoralFinBox.render(f5);
   }
   
+  @SuppressWarnings("SameParameterValue")
   private void setRotation(ModelRenderer model, float x, float y, float z)
   {
     model.rotateAngleX = x;
@@ -158,9 +156,9 @@ public void render(Entity entity, float f, float f1, float f2, float f3, float f
   {
 		super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
-		n = TFC_Time.getTotalTicks() % 30;
-		rotateMouth = (n) * (n - 30) * (0.0044f * 0.5f);
-		rotateSwim = (n) * (n - 30) * ( -0.0044f);
+	  long n = TFC_Time.getTotalTicks() % 30;
+	  float rotateMouth = (n) * (n - 30) * (0.0044f * 0.5f);
+	  float rotateSwim = (n) * (n - 30) * (-0.0044f);
 
 		setRotation(mouth, -0.2617994F + -0.2617994F * rotateMouth, 0F, 0F);
 

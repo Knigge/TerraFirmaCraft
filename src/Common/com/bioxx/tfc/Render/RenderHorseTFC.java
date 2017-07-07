@@ -19,6 +19,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Entities.Mobs.EntityHorseTFC;
 import com.google.common.collect.Maps;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @SideOnly(Side.CLIENT)
 public class RenderHorseTFC extends RenderHorse
 {
@@ -72,6 +73,7 @@ public class RenderHorseTFC extends RenderHorse
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private ResourceLocation getTexture(EntityHorse par1EntityHorse)
 	{
 		String s = par1EntityHorse.getHorseTexture();

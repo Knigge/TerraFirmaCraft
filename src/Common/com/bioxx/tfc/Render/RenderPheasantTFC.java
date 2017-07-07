@@ -13,6 +13,7 @@ import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Entities.Mobs.EntityPheasantTFC;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class RenderPheasantTFC extends RenderChicken
 {
 	private static final ResourceLocation FEMALE_TEXTURE = new ResourceLocation(Reference.MOD_ID, "textures/mob/PheasantF.png");

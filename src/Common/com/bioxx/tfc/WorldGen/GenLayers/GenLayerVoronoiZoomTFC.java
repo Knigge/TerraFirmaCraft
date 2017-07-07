@@ -2,6 +2,7 @@ package com.bioxx.tfc.WorldGen.GenLayers;
 
 import net.minecraft.world.gen.layer.GenLayer;
 
+@SuppressWarnings("SameParameterValue")
 public class GenLayerVoronoiZoomTFC extends GenLayerTFC
 {
 	public GenLayerVoronoiZoomTFC(long par1, GenLayer par3GenLayer)
@@ -28,9 +29,9 @@ public class GenLayerVoronoiZoomTFC extends GenLayerTFC
 		for (int k2 = 0; k2 < l1 - 1; ++k2)
 		{
 			l2 = 0;
-			int i3 = aint[l2 + 0 + (k2 + 0) * k1];
+			int i3 = aint[l2 + (k2) * k1];
 
-			for (int j3 = aint[l2 + 0 + (k2 + 1) * k1]; l2 < k1 - 1; ++l2)
+			for (int j3 = aint[l2 + (k2 + 1) * k1]; l2 < k1 - 1; ++l2)
 			{
 				//double d0 = 3.6D;
 				this.initChunkSeed(l2 + i1 << 2, k2 + j1 << 2);
@@ -45,7 +46,7 @@ public class GenLayerVoronoiZoomTFC extends GenLayerTFC
 				this.initChunkSeed(l2 + i1 + 1 << 2, k2 + j1 + 1 << 2);
 				double d7 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
 				double d8 = (this.nextInt(1024) / 1024.0D - 0.5D) * 3.6D + 4.0D;
-				int k3 = aint[l2 + 1 + (k2 + 0) * k1] & 255;
+				int k3 = aint[l2 + 1 + (k2) * k1] & 255;
 				int l3 = aint[l2 + 1 + (k2 + 1) * k1] & 255;
 
 				for (int i4 = 0; i4 < 4; ++i4)

@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.Entities.IAnimal;
 import com.bioxx.tfc.api.Entities.IAnimal.GenderEnum;
+@SuppressWarnings("CanBeFinal")
 public class ModelSheep2TFC extends ModelSheep2
 {
 	private ModelRenderer horn1;

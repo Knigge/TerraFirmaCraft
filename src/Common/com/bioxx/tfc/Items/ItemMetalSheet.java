@@ -18,13 +18,13 @@ import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ItemMetalSheet extends ItemTerra implements ISmeltable
 {
 	protected int[][] sidesMap = new int[][]{{0,-1,0},{0,1,0},{0,0,-1},{0,0,+1},{-1,0,0},{1,0,0}};
 	public int metalID;
 	private String metal;
 	protected short metalAmount;
-	private boolean smeltable = true;
 
 	public ItemMetalSheet(int mID)
 	{
@@ -55,7 +55,7 @@ public class ItemMetalSheet extends ItemTerra implements ISmeltable
 			if(itemstack.hasTagCompound())
 				return false;
 
-			TEMetalSheet te = null;
+			TEMetalSheet te;
 			int[] sides = sidesMap[side];
 
 			// Adding to a sheet block with the same type of sheet
@@ -188,7 +188,7 @@ public class ItemMetalSheet extends ItemTerra implements ISmeltable
 	public boolean isSmeltable(ItemStack is)
 	{
 		// TODO Auto-generated method stub
-		return smeltable;
+		return true;
 	}
 
 	@Override

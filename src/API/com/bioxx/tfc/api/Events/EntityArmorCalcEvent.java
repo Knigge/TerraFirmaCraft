@@ -4,9 +4,10 @@ import net.minecraft.entity.EntityLivingBase;
 
 import net.minecraftforge.event.entity.EntityEvent;
 
-public class EntityArmorCalcEvent extends EntityEvent 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+public class EntityArmorCalcEvent extends EntityEvent
 {	
-	public static enum EventType { PRE, POST }
+	public enum EventType { PRE, POST }
 
 	public float incomingDamage;
 	public final EventType eventType;

@@ -7,5 +7,5 @@ public enum EnumFoodGroup
 	Grain,
 	Protein,
 	Dairy,
-	None;
+	None
 }

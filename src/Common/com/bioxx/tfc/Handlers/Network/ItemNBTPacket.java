@@ -14,6 +14,7 @@ import net.minecraft.network.PacketBuffer;
 import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.Core.TFC_Core;
 
+@SuppressWarnings("Convert2Diamond")
 public class ItemNBTPacket extends AbstractPacket {
 	private NBTTagCompound tags;
 	private List<String> tagNames;

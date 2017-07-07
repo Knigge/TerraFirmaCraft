@@ -20,8 +20,8 @@ public class ItemUnfinishedArmor extends ItemTerra implements ISmeltable
 	private String metal;
 	private short metalAmount;
 	private short metalAmount2;
-	private boolean smeltable = true;
-	public ItemUnfinishedArmor() 
+
+	public ItemUnfinishedArmor()
 	{
 		super();
 		this.hasSubtypes = true;
@@ -50,19 +50,20 @@ public class ItemUnfinishedArmor extends ItemTerra implements ISmeltable
 		else
 			arraylist.add(TFC_Core.translate("gui.stage2"));
 	}
-
+/*
 	@Override
 	public String getItemStackDisplayName(ItemStack itemstack)
 	{
-		return new StringBuilder().append(super.getItemStackDisplayName(itemstack)).toString();
+		return super.getItemStackDisplayName(itemstack);
 	}
-
+*/
 	/*@Override
 	public String getUnlocalizedName(ItemStack itemstack)
 	{
 		return super.getUnlocalizedName(itemstack);
 	}*/
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getItemStackLimit()
 	{
@@ -103,7 +104,7 @@ public class ItemUnfinishedArmor extends ItemTerra implements ISmeltable
 	@Override
 	public boolean isSmeltable(ItemStack is)
 	{
-		return smeltable;
+		return true;
 	}
 
 	@Override

@@ -16,9 +16,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+@SuppressWarnings("WeakerAccess")
 public class FoodCraftingHandler
 {
 	public static boolean preCrafted;
+	@SuppressWarnings("EmptyMethod")
 	@SubscribeEvent
 	public void onFoodCook(ItemCookEvent event)
 	{
@@ -85,7 +87,7 @@ public class FoodCraftingHandler
 			}
 			else if (craftResult.hasTagCompound() && craftResult.getTagCompound().hasKey(Food.WEIGHT_TAG))
 			{
-				craftResult = processFoodInput(e.player, craftResult, craftingInv);
+				/*craftResult = */processFoodInput(e.player, craftResult, craftingInv);
 			}
 		}
 	}
@@ -96,6 +98,7 @@ public class FoodCraftingHandler
 	 * craftResult should already have all the NBT data updated due to updateOutput called by
 	 * ContainerPlayerTFC.onCraftMatrixChanged()
 	 */
+	@SuppressWarnings("UnusedReturnValue")
 	private static ItemStack processFoodInput(EntityPlayer player, ItemStack craftResult, IInventory craftingInv)
 	{
 		float finalWeight = 0;
@@ -333,7 +336,7 @@ public class FoodCraftingHandler
 						inputDecay -= decayChange; // Remove the decay from the input
 						if (finalDecay < 0) // Still within the 24 hour grace period
 						{
-							if (decayChange > finalDecay) // The input is losing more decay than what the output currently has
+							if (inputDecay/*decayChange*/ > finalDecay) // The input is losing more decay than what the output currently has
 								finalDecay = decayChange; // Set the output's decay to the amount removed from the input
 						}
 						else
@@ -396,8 +399,7 @@ public class FoodCraftingHandler
 					float grainDecay = Food.getDecay(inputStack);
 					if (grainDecay >= 0) // Account for -24.0 decay on fresh food
 						grainWeight -= grainDecay;
-					float doughWeight = Math.min(grainWeight, 80) * 2;
-					finalWeight = doughWeight;
+					finalWeight = Math.min(grainWeight, 80) * 2;
 					finalDecay = 0;
 				}
 			}
@@ -528,7 +530,7 @@ public class FoodCraftingHandler
 		}
 		else if(craftResult.hasTagCompound() && craftResult.getTagCompound().hasKey(Food.WEIGHT_TAG))
 		{
-			craftResult = processFoodInput(player, craftResult, craftingInv);
+			/*craftResult = */processFoodInput(player, craftResult, craftingInv);
 		}
 	}
 

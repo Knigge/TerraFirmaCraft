@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.TileEntities.TEBarrel;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public class EntityBarrel extends Entity
 {
 	public int fuse;
@@ -77,7 +78,7 @@ public class EntityBarrel extends Entity
 	@Override
 	protected void entityInit()
 	{
-		this.dataWatcher.addObject(20, Integer.valueOf(0));
+		this.dataWatcher.addObject(20, 0);
 	}
 
 	@Override

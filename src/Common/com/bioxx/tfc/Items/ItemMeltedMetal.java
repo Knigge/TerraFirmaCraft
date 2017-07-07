@@ -86,6 +86,7 @@ public class ItemMeltedMetal extends ItemTerra
 	{
 		return stack.getItemDamage() > 1;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addExtraInformation(ItemStack is, EntityPlayer player, List arraylist)
 	{	

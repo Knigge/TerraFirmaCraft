@@ -39,6 +39,7 @@ import com.bioxx.tfc.api.Crafting.AnvilReq;
 import com.bioxx.tfc.api.Enums.RuleEnum;
 import com.bioxx.tfc.api.Events.AnvilCraftEvent;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TEAnvil extends NetworkTileEntity implements IInventory
 {
 	public ItemStack anvilItemStacks[];
@@ -109,9 +110,9 @@ public class TEAnvil extends NetworkTileEntity implements IInventory
 				workedRecently--;
 			//Deal with temperatures
 			TFC_Core.handleItemTicking(this, this.worldObj, xCoord, yCoord, zCoord);
-			/**
-			 * Check if the recipe is considered complete
-			 * */
+			/*
+			  Check if the recipe is considered complete
+			  */
 			if(workRecipe!= null && getItemCraftingValue() != itemCraftingValue)
 			{
 				itemCraftingValue = getItemCraftingValue();
@@ -205,8 +206,8 @@ public class TEAnvil extends NetworkTileEntity implements IInventory
 		if(itemCraftingValue == workRecipe.getCraftingValue())
 		{
 			out = manager.findCompleteRecipe(new AnvilRecipe(anvilItemStacks[INPUT1_SLOT],anvilItemStacks[INPUT2_SLOT], craftingPlan,
-					workRecipe.getCraftingValue(), 
-					anvilItemStacks[FLUX_SLOT] != null ? true : false, anvilTier, null), getItemRules());
+					workRecipe.getCraftingValue(),
+					anvilItemStacks[FLUX_SLOT] != null, anvilTier, null), getItemRules());
 		}
 		return out;
 	}
@@ -549,11 +550,11 @@ public class TEAnvil extends NetworkTileEntity implements IInventory
 				//new Random(worldObj.getSeed());  // Why is this here?
 				AnvilRecipe recipe = new AnvilRecipe(anvilItemStacks[WELD1_SLOT],anvilItemStacks[WELD2_SLOT],"", 
 						0,
-						anvilItemStacks[FLUX_SLOT] != null ? true : false, anvilTier, null);
+						anvilItemStacks[FLUX_SLOT] != null, anvilTier, null);
 
 				AnvilRecipe recipe2 = new AnvilRecipe(anvilItemStacks[WELD2_SLOT],anvilItemStacks[WELD1_SLOT],"",
 						0,
-						anvilItemStacks[FLUX_SLOT] != null ? true : false, anvilTier, null);
+						anvilItemStacks[FLUX_SLOT] != null, anvilTier, null);
 
 				ItemStack result = manager.findCompleteWeldRecipe(recipe);
 				if(result == null)
@@ -661,12 +662,13 @@ public class TEAnvil extends NetworkTileEntity implements IInventory
 		return false;
 	}
 
+	@SuppressWarnings("UnusedReturnValue")
 	public boolean setItemCraftingValue(int i)
 	{
 		ItemStack input = anvilItemStacks[INPUT1_SLOT];
 		if (input != null)
 		{
-			NBTTagCompound tag = null;
+			NBTTagCompound tag;
 			if (input.hasTagCompound())
 			{
 				tag = input.getTagCompound();

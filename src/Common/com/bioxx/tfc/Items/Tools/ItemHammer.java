@@ -29,9 +29,10 @@ import net.minecraft.world.World;
 
 import java.util.Set;
 
+@SuppressWarnings({"BooleanMethodIsAlwaysInverted", "WeakerAccess", "CanBeFinal"})
 public class ItemHammer extends ItemTerraTool implements ICausesDamage
 {
-	private static final Set<Block> BLOCKS = Sets.newHashSet(new Block[] { TFCBlocks.cokeblock });
+	private static final Set<Block> BLOCKS = Sets.newHashSet(TFCBlocks.cokeblock);
 	private float damageVsEntity;
 
 	public ItemHammer(ToolMaterial e, float damage)
@@ -68,11 +69,10 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
     	boolean placed = false;
         int toolSlot = player.inventory.currentItem;
         int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
-        ItemStack nextSlotStack = null;
 
         if (toolSlot < 8)
         {
-            nextSlotStack = player.inventory.getStackInSlot(nextSlot);
+	        ItemStack nextSlotStack = player.inventory.getStackInSlot(nextSlot);
             if (nextSlotStack != null)
             {
                 Item item = nextSlotStack.getItem();
@@ -108,17 +108,14 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
                     AxisAlignedBB blockBounds = AxisAlignedBB.getBoundingBox(posX, posY, posZ, posX + 1, posY + 1, posZ + 1);
                     AxisAlignedBB playerBounds = player.boundingBox;
 
-                    if(item instanceof ItemBlock)
-                    {
-                        Block blockToPlace = ((ItemBlock) item).field_150939_a;
-                        if(blockToPlace.getMaterial().blocksMovement())
-                        {
-                            if (playerBounds.intersectsWith(blockBounds))
-                                return false;
-                        }
-                    }
+	                Block blockToPlace = ((ItemBlock) item).field_150939_a;
+	                if(blockToPlace.getMaterial().blocksMovement())
+	                {
+	                    if (playerBounds.intersectsWith(blockBounds))
+	                        return false;
+	                }
 
-                    int dmg = nextSlotStack.getItemDamage();
+	                int dmg = nextSlotStack.getItemDamage();
                     int count = nextSlotStack.stackSize;
 
                 	placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
@@ -130,7 +127,6 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
                     }
                     if (nextSlotStack.stackSize < 1)
                     {
-                    	nextSlotStack = null;
                         player.inventory.setInventorySlotContents(nextSlot, null);
                     }
                 }
@@ -153,6 +149,7 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
 		return EnumDamageType.CRUSHING;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Multimap getAttributeModifiers(ItemStack is)
 	{
@@ -192,7 +189,7 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
 	            return false;
 	        }
 	        else {
-	        	itemstack.damageItem( (int) itemstack.getMaxDamage()/ 30 + 100, player);
+	        	itemstack.damageItem( itemstack.getMaxDamage() / 30 + 100, player);
 	        	TFC_Core.addPlayerExhaustion(player, 0.1F);
 	        }
 
@@ -223,6 +220,7 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage
          String checkBlockName = block.getUnlocalizedName().toLowerCase();
         return block instanceof BlockSmooth || checkBlockName.contains("brick") || checkBlockName.contains("smooth") || checkBlockName.contains("glass");
     }
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private boolean checkNeighbourBlock(Block block) {
     	return block instanceof BlockStone || block instanceof BlockOre;
 	}

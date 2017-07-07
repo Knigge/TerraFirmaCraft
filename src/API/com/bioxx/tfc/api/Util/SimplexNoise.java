@@ -20,6 +20,7 @@ import java.util.Random;
  *
  */
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class SimplexNoise {
 
 	public SimplexNoise_Octave[] octaves;

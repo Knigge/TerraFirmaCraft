@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 
 import com.bioxx.tfc.api.Crafting.QuernManager;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotQuernGrain extends Slot
 {
 	public SlotQuernGrain(IInventory iinventory, int i, int j, int k)

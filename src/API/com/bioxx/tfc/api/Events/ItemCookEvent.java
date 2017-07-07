@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import cpw.mods.fml.common.eventhandler.Cancelable;
 import cpw.mods.fml.common.eventhandler.Event;
 
+@SuppressWarnings("CanBeFinal")
 @Cancelable
 public class ItemCookEvent extends Event 
 {	

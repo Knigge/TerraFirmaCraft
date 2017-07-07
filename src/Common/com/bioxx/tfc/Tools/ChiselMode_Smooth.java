@@ -14,6 +14,7 @@ import com.bioxx.tfc.api.Tools.ChiselMode;
 /**
  * Created by raymondbh on 08.07.2015.
  */
+@SuppressWarnings({"SameParameterValue", "CanBeFinal"})
 public class ChiselMode_Smooth extends ChiselMode {
 	//private static String name;
     private static ResourceLocation resourcelocation = new ResourceLocation(Reference.MOD_ID, Reference.ASSET_PATH_GUI + "icons.png");

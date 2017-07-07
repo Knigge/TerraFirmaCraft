@@ -13,6 +13,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Entities.Mobs.EntitySquidTFC;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 @SideOnly(Side.CLIENT)
 public class RenderSquidTFC extends RenderSquid
 {

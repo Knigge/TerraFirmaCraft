@@ -1,5 +1,6 @@
 package com.bioxx.tfc.api.Crafting;
 
+@SuppressWarnings("WeakerAccess")
 public enum AnvilReq
 {
     STONE("Stone", 0),

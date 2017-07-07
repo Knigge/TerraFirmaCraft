@@ -12,6 +12,7 @@ import net.minecraftforge.common.AchievementPage;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class TFC_Achievements
 {
 	public static Achievement achLooseRock;

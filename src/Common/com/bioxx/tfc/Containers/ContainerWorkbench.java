@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import com.bioxx.tfc.TileEntities.TEWorkbench;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class ContainerWorkbench extends ContainerTFC
 {
 	/** The crafting matrix inventory (3x3). */
@@ -82,7 +83,7 @@ public class ContainerWorkbench extends ContainerTFC
 	@Override
 	public boolean canInteractWith(EntityPlayer par1EntityPlayer)
 	{
-		return this.worldObj.getBlock(this.posX, this.posY, this.posZ) != TFCBlocks.workbench ? false : par1EntityPlayer.getDistanceSq(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D) <= 64.0D;
+		return this.worldObj.getBlock(this.posX, this.posY, this.posZ) == TFCBlocks.workbench && par1EntityPlayer.getDistanceSq(this.posX + 0.5D, this.posY + 0.5D, this.posZ + 0.5D) <= 64.0D;
 	}
 
 	@Override
@@ -119,7 +120,7 @@ public class ContainerWorkbench extends ContainerTFC
 			}
 
 			if (var5.stackSize == 0)
-				var4.putStack((ItemStack)null);
+				var4.putStack(null);
 			else
 				var4.onSlotChanged();
 

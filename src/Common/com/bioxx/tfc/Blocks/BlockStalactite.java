@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Textures;
 
+@SuppressWarnings("WeakerAccess")
 public class BlockStalactite extends BlockTerra
 {
 	private Random r;
@@ -51,7 +52,8 @@ public class BlockStalactite extends BlockTerra
 		boolean isStalac = isStalactite(access.getBlockMetadata(i, j, k));
 		boolean isStalag = isStalagmite(access.getBlockMetadata(i, j, k));
 		//int style = access.getBlockMetadata(i, j, k) & 7;
-		float f = 0.125F;
+		//float f = 0.125F;
+		float f;
 		r = new Random(i + (i * k));
 		if(isStalac)
 		{
@@ -81,7 +83,8 @@ public class BlockStalactite extends BlockTerra
 		boolean isStalac = isStalactite(world.getBlockMetadata(i, j, k));
 		boolean isStalag = isStalagmite(world.getBlockMetadata(i, j, k));
 		//int style = world.getBlockMetadata(i, j, k) & 7;
-		float f = 0.125F;
+		//float f = 0.125F;
+		float f;
 		r = new Random(i + (i * k));
 		if(isStalac)
 		{
@@ -145,13 +148,8 @@ public class BlockStalactite extends BlockTerra
 	@Override
 	public void onNeighborBlockChange(World world, int i, int j, int k, Block b)
 	{
-		if(!world.isRemote)
-		{
-			if(!canBlockStay(world, i, j, k))
-			{
-				world.setBlockToAir(i, j, k);
-				return;
-			}
+		if (!world.isRemote && !canBlockStay(world, i, j, k)) {
+			world.setBlockToAir(i, j, k);
 		}
 	}
 
@@ -259,6 +257,7 @@ public class BlockStalactite extends BlockTerra
 	{
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack getPickBlock(MovingObjectPosition target, World world, int x, int y, int z)
 	{

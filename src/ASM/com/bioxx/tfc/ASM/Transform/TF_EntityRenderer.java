@@ -14,9 +14,11 @@ import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
+@SuppressWarnings("Convert2Diamond")
 public class TF_EntityRenderer extends ClassTransformer
 {
 
+	@SuppressWarnings("deprecation")
 	public TF_EntityRenderer()
 	{
 		mcpClassName = "net.minecraft.client.renderer.EntityRenderer";

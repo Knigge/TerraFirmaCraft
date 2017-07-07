@@ -10,6 +10,7 @@ import com.bioxx.tfc.api.Enums.EnumWeight;
 import com.bioxx.tfc.api.Interfaces.IEquipable;
 import com.bioxx.tfc.api.Interfaces.ISmeltable;
 
+@SuppressWarnings("WeakerAccess")
 public abstract class ItemAnvil extends ItemTerraBlock implements ISmeltable, IEquipable
 {
 	public ItemAnvil(Block par1)

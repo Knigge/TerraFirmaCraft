@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCItems;
 
+@SuppressWarnings("SameParameterValue")
 public class SlotFirepitFuel extends Slot
 {
 	public SlotFirepitFuel(EntityPlayer entityplayer, IInventory iinventory, int i, int j, int k)

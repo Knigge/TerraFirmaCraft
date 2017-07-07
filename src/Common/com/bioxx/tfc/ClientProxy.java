@@ -186,14 +186,6 @@ public class ClientProxy extends CommonProxy
 	}
 
 	@Override
-	public void onClientLogin()
-	{
-		/*PlayerManagerTFC.getInstance().Players.add(new PlayerInfo(
-				Minecraft.getMinecraft().thePlayer.getDisplayName(),
-				Minecraft.getMinecraft().thePlayer.getUniqueID()));*/
-	}
-
-	@Override
 	public World getCurrentWorld()
 	{
 		return Minecraft.getMinecraft().theWorld;
@@ -269,7 +261,7 @@ public class ClientProxy extends CommonProxy
 				TFC_Climate.getCacheManager(getCurrentWorld()).getEVTLayerAt(i, k).floatdata1 >= 0.8
 					&& TFC_Climate.getHeightAdjustedTemp(getCurrentWorld(), i, j, k) < 30)
 			{
-				int color = 0;
+				int color;
 				for (int var8 = -1; var8 <= 1; ++var8)
 				{
 					for (int var9 = -1; var9 <= 1; ++var9)
@@ -335,7 +327,7 @@ public class ClientProxy extends CommonProxy
 		}
 		else if (temperature <= 10 && TFC_Time.getSeasonAdjustedMonth(k) >= 6 && TFC_Time.getSeasonAdjustedMonth(k) < 9 && (meta == 4 || meta == 7 || meta == 5 || meta == 14))
 		{
-			int color = 0;
+			int color;
 			//Get the fade multiplie
 			for (int var8 = -1; var8 <= 1; ++var8)
 			{

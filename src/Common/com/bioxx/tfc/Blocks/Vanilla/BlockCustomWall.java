@@ -23,6 +23,7 @@ import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.api.TFCBlocks;
 import com.bioxx.tfc.api.TFCOptions;
 
+@SuppressWarnings("CanBeFinal")
 public class BlockCustomWall extends BlockWall
 {
 	private int totalsubTypes;
@@ -75,6 +76,7 @@ public class BlockCustomWall extends BlockWall
 		return TFCBlocks.wallRenderId;
 	}
 
+	@SuppressWarnings("unchecked")
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(Item par1, CreativeTabs par2CreativeTabs, List par3List)
@@ -152,13 +154,20 @@ public class BlockCustomWall extends BlockWall
     }
 
 	@Override
-	public boolean canConnectWallTo(IBlockAccess access, int i, int j, int k)
-	{
+	public boolean canConnectWallTo(IBlockAccess access, int i, int j, int k) {
 		Block block = access.getBlock(i, j, k);
-		if (block != this && block != Blocks.fence_gate && block != TFCBlocks.fenceGate && block != TFCBlocks.fenceGate2 && !(block instanceof BlockCustomWall))
-			return block != null && block.getMaterial().isOpaque() && block.renderAsNormalBlock() ? block.getMaterial() != Material.gourd : false;
-		else
-			return true;
+		return !(
+					block != this
+					&& block != Blocks.fence_gate
+					&& block != TFCBlocks.fenceGate
+					&& block != TFCBlocks.fenceGate2
+					&& !(block instanceof BlockCustomWall)
+				) || (
+					block != null
+					&& block.getMaterial().isOpaque()
+					&& block.renderAsNormalBlock()
+				)
+				&& block.getMaterial() != Material.gourd;
 	}
 
 	@Override

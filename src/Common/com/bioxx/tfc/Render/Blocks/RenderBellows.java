@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.bioxx.tfc.Blocks.Devices.BlockBellows;
 
+@SuppressWarnings("WeakerAccess")
 public class RenderBellows implements ISimpleBlockRenderingHandler
 {
 	@Override

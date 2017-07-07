@@ -14,6 +14,7 @@ import com.bioxx.tfc.Entities.EntityCustomMinecart;
 import com.bioxx.tfc.api.Enums.EnumSize;
 import com.bioxx.tfc.api.Enums.EnumWeight;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ItemCustomMinecart extends ItemTerra
 {
 	public int minecartType;
@@ -53,6 +54,7 @@ public class ItemCustomMinecart extends ItemTerra
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item par1, CreativeTabs par2CreativeTabs, List par3List)
 	{

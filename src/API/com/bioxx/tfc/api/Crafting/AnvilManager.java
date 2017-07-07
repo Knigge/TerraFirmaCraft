@@ -9,10 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
+@SuppressWarnings({"CanBeFinal", "Convert2Diamond"})
 public class AnvilManager
 {
 	private static final AnvilManager INSTANCE = new AnvilManager();
-	public static final AnvilManager getInstance()
+	public static AnvilManager getInstance()
 	{
 		return INSTANCE;
 	}
@@ -65,9 +66,7 @@ public class AnvilManager
 
 	public AnvilRecipe findMatchingRecipe(AnvilRecipe recipe)
 	{
-		for (int k = 0; k < recipes.size(); k++)
-		{
-			AnvilRecipe irecipe = recipes.get(k);
+		for (AnvilRecipe irecipe : recipes) {
 			if (irecipe != null && irecipe.matches(recipe))
 				return irecipe;
 		}
@@ -77,9 +76,7 @@ public class AnvilManager
 
 	public AnvilRecipe findMatchingWeldRecipe(AnvilRecipe recipe)
 	{
-		for (int k = 0; k < recipesWeld.size(); k++)
-		{
-			AnvilRecipe irecipe = recipesWeld.get(k);
+		for (AnvilRecipe irecipe : recipesWeld) {
 			if (irecipe != null && irecipe.matches(recipe))
 				return irecipe;
 		}
@@ -89,11 +86,9 @@ public class AnvilManager
 
 	public Object[] findCompleteRecipe(AnvilRecipe recipe, int[] rules)
 	{
-		for (int k = 0; k < recipes.size(); k++)
-		{
-			AnvilRecipe irecipe = recipes.get(k);
+		for (AnvilRecipe irecipe : recipes) {
 			if (irecipe != null && irecipe.isComplete(INSTANCE, recipe, rules))
-				return new Object[] {irecipe, irecipe.getCraftingResult(recipe.input1)};
+				return new Object[]{irecipe, irecipe.getCraftingResult(recipe.input1)};
 		}
 
 		return null;
@@ -101,9 +96,7 @@ public class AnvilManager
 
 	public ItemStack findCompleteWeldRecipe(AnvilRecipe recipe)
 	{
-		for (int k = 0; k < recipesWeld.size(); k++)
-		{
-			AnvilRecipe irecipe = recipesWeld.get(k);
+		for (AnvilRecipe irecipe : recipesWeld) {
 			if (irecipe != null && irecipe.matches(recipe))
 				return irecipe.getCraftingResult(recipe.input1);
 		}

@@ -9,6 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.api.TFCBlocks;
 
+@SuppressWarnings("SameParameterValue")
 public class WorldGenPineTall extends WorldGenerator
 {
 	private final Block blockLeaf, blockWood;
@@ -21,6 +22,7 @@ public class WorldGenPineTall extends WorldGenerator
 		blockWood = TFCBlocks.logNatural;
 	}
 
+	@SuppressWarnings("SuspiciousNameCombination")
 	@Override
 	public boolean generate(World world, Random par2Random, int xCoord, int yCoord, int zCoord)
 	{

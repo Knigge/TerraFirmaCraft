@@ -41,6 +41,7 @@ import com.bioxx.tfc.api.Interfaces.IMergeableFood;
 import com.bioxx.tfc.api.Interfaces.ISize;
 import com.bioxx.tfc.api.Util.Helper;
 
+@SuppressWarnings({"SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class ItemFoodTFC extends ItemTerra implements ISize, ICookableFood, IMergeableFood
 {
 	/**
@@ -189,6 +190,7 @@ public class ItemFoodTFC extends ItemTerra implements ISize, ICookableFood, IMer
 		return decayRate * (TFC_Time.getYearRatio(96)) * mult;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void getSubItems(Item item, CreativeTabs tabs, List list)
 	{
@@ -252,6 +254,7 @@ public class ItemFoodTFC extends ItemTerra implements ISize, ICookableFood, IMer
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void addInformation(ItemStack is, EntityPlayer player, List arraylist, boolean flag)
 	{
@@ -535,6 +538,7 @@ public class ItemFoodTFC extends ItemTerra implements ISize, ICookableFood, IMer
 		return EnumAction.eat;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public int getDisplayDamage(ItemStack is)
 	{

@@ -13,7 +13,7 @@ public enum EnumItemReach
 	private static final EnumItemReach DISTANCES[] = new EnumItemReach[] {
 		SHORT, MEDIUM, FAR};
 
-	private EnumItemReach(String s, double i)
+	EnumItemReach(String s, double i)
 	{
 		name = s;
 		multiplier = i;

@@ -34,6 +34,7 @@ import static com.bioxx.tfc.api.TFCOptions.*;
 /**
  * @author Dries007
  */
+@SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFC_ConfigFiles
 {
 	// General
@@ -267,9 +268,9 @@ public class TFC_ConfigFiles
 			new VanillaRecipeOption("woodToolsRecipe", new ItemStack(Items.wooden_pickaxe), new ItemStack(Items.wooden_axe), new ItemStack(Items.wooden_shovel), new ItemStack(Items.wooden_hoe), new ItemStack(Items.wooden_sword));
 			new VanillaRecipeOption("woolRecipe", new ItemStack(Blocks.wool));
 
-			/**
-			 * Custom SyncingOption for enableBowlsAlwaysBreak
-			 * getRecipes() is unused, but returns an ImmutableList of the bowl crafting recipe for conviniance & consistency.
+			/*
+			  Custom SyncingOption for enableBowlsAlwaysBreak
+			  getRecipes() is unused, but returns an ImmutableList of the bowl crafting recipe for conviniance & consistency.
 			 */
 			new SyncingOption("enableBowlsAlwaysBreak", TFCCrafting.class, craftingConfig, CRAFTING_OPTIONS)
 			{
@@ -476,6 +477,7 @@ public class TFC_ConfigFiles
 	 * Does not return a new byte array, it modifies the default instance, which it returns for convenience.
 	 * To deal with the fact that bytes are signed in java, and we like to use 0 - 255 in the config, values are being "& 0xFF".
 	 */
+	@SuppressWarnings("UnusedReturnValue")
 	private static byte[] getColor(Configuration cfg, String subcat, byte[] def, String langKey)
 	{
 		final String cat = COLORS + '.' + subcat;

@@ -9,12 +9,13 @@ import com.bioxx.tfc.Core.TFC_Time;
 import com.bioxx.tfc.api.TFCItems;
 import com.bioxx.tfc.api.Constant.Global;
 
+@SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class FloraManager
 {
 	private static final FloraManager INSTANCE = new FloraManager();
 	private List<FloraIndex> floraList;
 
-	public static final FloraManager getInstance()
+	public static FloraManager getInstance()
 	{
 		return INSTANCE;
 	}
@@ -31,11 +32,8 @@ public class FloraManager
 
 	public FloraIndex findMatchingIndex(String input)
 	{
-		for (int k = 0; k < floraList.size(); k++)
-		{
-			FloraIndex tempIndex = floraList.get(k);
-			if (tempIndex.type.equalsIgnoreCase(input))
-			{
+		for (FloraIndex tempIndex : floraList) {
+			if (tempIndex.type.equalsIgnoreCase(input)) {
 				return tempIndex;
 			}
 		}

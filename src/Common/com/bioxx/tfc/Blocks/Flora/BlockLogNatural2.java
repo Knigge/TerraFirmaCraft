@@ -22,7 +22,9 @@ public class BlockLogNatural2 extends BlockLogNatural
 	@Override
 	public int damageDropped(int dmg)
 	{
-		return dmg += 16;
+		//return dmg += 16;
+		//!TODO: check
+		return dmg + 16;
 	}
 
 	@Override

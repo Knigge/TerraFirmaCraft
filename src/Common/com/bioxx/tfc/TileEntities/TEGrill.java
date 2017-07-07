@@ -24,6 +24,7 @@ import com.bioxx.tfc.api.Interfaces.ICookableFood;
 import com.bioxx.tfc.api.Interfaces.IFood;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 
+@SuppressWarnings("WeakerAccess")
 public class TEGrill extends NetworkTileEntity implements IInventory
 {
 	public ItemStack[] storage = new ItemStack[6];
@@ -91,6 +92,7 @@ public class TEGrill extends NetworkTileEntity implements IInventory
 		return wallCount >= 5;
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean isDoor(int x, int y, int z)
 	{
 

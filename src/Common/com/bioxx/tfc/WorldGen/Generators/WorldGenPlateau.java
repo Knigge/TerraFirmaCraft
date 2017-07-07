@@ -4,12 +4,14 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 
+@SuppressWarnings("WeakerAccess")
 public class WorldGenPlateau
 {
 	public WorldGenPlateau()
 	{
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	public boolean generate(World par1World, Random rand, int x, int y, int z, int radiusStart, int radiusTop, int height, int centers, int radiusJitter, int taperChance)
 	{
 		// template call// (new WorldGenPlateau()).generate(/*currentWorld*/   , /*randomGenerator*/   ,/*x*/   ,/*y*/   ,/*z*/   ,/*radiusStart*/   ,/*radiusTop*/   ,
@@ -26,9 +28,9 @@ public class WorldGenPlateau
 		//int tempX = x; 
 		//int tempY = y;
 		//int tempZ = z;
-		int radius = radiusStart;
+		int radius;
 
-		y = par1World.getTopSolidOrLiquidBlock(x, z);
+		//y = par1World.getTopSolidOrLiquidBlock(x, z);
 		for(int centerRun=0; centerRun <= centers; centerRun++) // make the seperate towers
 		{
 			radius = radiusStart;
