@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Commands;
 
+import com.bioxx.tfc.WorldGen.Generators.OreSpawnData;
 import net.minecraft.block.Block;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
@@ -56,7 +57,7 @@ public class StripChunkCommand extends CommandBase
 							else
 							{
 								Boolean isOre = false;
-								for (Object osd : WorldGenOre.oreList.values()) {
+								for (OreSpawnData osd : WorldGenOre.oreList.values()) {
 									if (osd != null && id == osd.block) {
 										isOre = true;
 										break;
@@ -100,7 +101,7 @@ public class StripChunkCommand extends CommandBase
 									else
 									{
 										Boolean isOre = false;
-										for (Object osd : WorldGenOre.oreList.values()) {
+										for (OreSpawnData osd : WorldGenOre.oreList.values()) {
 											if (osd != null && id == osd.block) {
 												isOre = true;
 												break;

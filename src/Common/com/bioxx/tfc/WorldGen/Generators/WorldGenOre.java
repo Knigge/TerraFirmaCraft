@@ -41,7 +41,7 @@ public class WorldGenOre implements IWorldGenerator
 		worldObj = world;
 		random = rand;
 
-		for (Object osd : oreList.values()) {
+		for (OreSpawnData osd : oreList.values()) {
 			if (osd.type == 0) {
 				if (osd.size == 0)
 					oreSmall(osd.block, osd.meta, osd.base, osd.rarity, osd.min, osd.max, osd.vDensity, osd.hDensity);

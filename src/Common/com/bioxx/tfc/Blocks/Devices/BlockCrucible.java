@@ -1,5 +1,6 @@
 package com.bioxx.tfc.Blocks.Devices;
 
+import com.bioxx.tfc.Core.Metal.MetalPair;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
@@ -99,7 +100,7 @@ public class BlockCrucible extends BlockTerraContainer
 		nbt.setInteger("temp", te.temperature);
 
 		NBTTagList nbttaglist = new NBTTagList();
-		for (Object m : te.metals.values()) {
+		for (MetalPair m : te.metals.values()) {
 			if (m != null) {
 				NBTTagCompound nbttagcompound1 = new NBTTagCompound();
 				nbttagcompound1.setInteger("ID", Item.getIdFromItem(m.type.ingot));

@@ -27,6 +27,11 @@ configFile.withReader {
 
 allprojects {
     apply plugin: 'java'
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.7"
+        targetCompatibility = "1.7"
+    }
+
     apply plugin: 'forge'
     apply plugin: 'maven'
     group = config.group_name

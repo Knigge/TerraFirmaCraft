@@ -725,12 +725,12 @@ public class GuiContainerCreativeTFC extends InventoryEffectRenderer
 		RenderHelper.enableGUIStandardItemLighting();
 		CreativeTabs creativetabs = CreativeTabs.creativeTabArray[selectedTabIndex];
 		CreativeTabs[] acreativetabs = CreativeTabs.creativeTabArray;
-
+		int l;
 		int start = tabPage * 10;
 		int k = Math.min(acreativetabs.length, ((tabPage + 1) * 10 + 2));
 		if (tabPage != 0) start += 2;
 		GL11.glEnable(GL11.GL_ALPHA_TEST);
-		for (int l = start; l < k; ++l)
+		for (l = start; l < k; ++l)
 		{
 			CreativeTabs creativetabs1 = acreativetabs[l];
 			this.mc.getTextureManager().bindTexture(TEXTURE);
