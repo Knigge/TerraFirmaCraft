@@ -13,10 +13,17 @@ import java.util.Random;
 
 @SuppressWarnings({"unchecked", "SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class TFCBiome extends BiomeGenBase {
+	public static float riverDepthMin = -0.5F;
+	public static float riverDepthMax = -0.3F;
+	public float temperatureTFC;
+
+	public BiomeDecoratorTFC theBiomeDecorator;
+	public static TFCBiome[] biomeList = new TFCBiome[256];
 	/**
 	 * An array of all the biomes, indexed by biome id.
 	 */
 	public static final TFCBiome OCEAN = new TFCBiome(0).setBiomeName("Ocean").setMinMaxHeight(-0.9F, 0.00001F).setBiomeColor(0x0000ff);
+	public static final TFCBiome RIVER = new TFCBiome(7).setBiomeName("River").setMinMaxHeight(riverDepthMin, riverDepthMax).setBiomeColor(0xffffff);
 	public static final TFCBiome HELL = new TFCBiome(8).setColor(16711680).setBiomeName("Hell").setDisableRain().setTemperatureRainfall(2.0F, 0.0F);
 	public static final TFCBiome BEACH = new TFCBiome(16).setColor(0xfade55).setBiomeName("Beach").setMinMaxHeight(0.01F, 0.02F).setBiomeColor(0xffb873);
 	public static final TFCBiome GRAVEL_BEACH = new TFCBiome(17).setColor(0xfade55).setBiomeName("Gravel Beach").setMinMaxHeight(0.01F, 0.02F).setBiomeColor(0x8f7963);
@@ -30,10 +37,7 @@ public class TFCBiome extends BiomeGenBase {
 	public static final TFCBiome HIGH_PLAINS = new TFCBiome(35).setBiomeName("High Plains").setMinMaxHeight(0.4F, 0.43F).setBiomeColor(0xa6a41c);
 	public static final TFCBiome DEEP_OCEAN = new TFCBiome(36).setBiomeName("Deep Ocean").setMinMaxHeight(-1.5F, 0.00001F).setBiomeColor(0x0e055a);
 	public static final TFCBiome LAKE = new TFCBiome(2).setBiomeName("Lake").setMinMaxHeight(-0.5F, 0.001F).setBiomeColor(0x4a8e9e).setLilyPads(2);
-	public static float riverDepthMin = -0.5F;
-	public static float riverDepthMax = -0.3F;
-	public static final TFCBiome RIVER = new TFCBiome(7).setBiomeName("River").setMinMaxHeight(riverDepthMin, riverDepthMax).setBiomeColor(0xffffff);
-	public static TFCBiome[] biomeList = new TFCBiome[256];
+
 	protected static WorldGenAcaciaKoaTrees worldGenAcaciaKoaTrees;
 	protected static WorldGenCustomTallTrees worldGenAshTallTrees;
 	protected static WorldGenCustomTallTrees worldGenAspenTallTrees;
@@ -63,8 +67,7 @@ public class TFCBiome extends BiomeGenBase {
 	protected static WorldGenCustomShortTrees worldGenSycamoreShortTrees;
 	protected static WorldGenCustomShortTrees worldGenWhiteElmShortTrees;
 	protected static WorldGenCustomWillowTrees worldGenWillowShortTrees;
-	public float temperatureTFC;
-	public BiomeDecoratorTFC theBiomeDecorator;
+
 	protected int biomeColor;
 
 	public TFCBiome(int par1) {
