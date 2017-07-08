@@ -142,7 +142,8 @@ public class EntityDamageHandler {
 			entity.setHealth(entity.getHealth() - eventPost.incomingDamage);
 			entity.func_110142_aN().func_94547_a(source, hasHealth, eventPost.incomingDamage);
 		}
-		return Math.round(damage); //!TODO: check if this should be a damage, not 0
+		//return Math.round(damage);
+		return 0; // my mistake, i should not change this.
 	}
 
 	private float processDamageSource(DamageSource source, float damage,
