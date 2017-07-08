@@ -68,6 +68,8 @@ public class TFCOptions {
 	public static int ravineRarity = 100;
 	public static int lavaFissureRarity = 25;
 	public static int waterFissureRarity = 90;
+	public static boolean enableCaveGeneration = false;
+	public static boolean enableCaveDecorations = false;
 
 	// Crops
 	public static boolean enableCropsDie;

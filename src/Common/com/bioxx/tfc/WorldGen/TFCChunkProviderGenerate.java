@@ -247,7 +247,8 @@ public class TFCChunkProviderGenerate extends ChunkProviderGenerate {
 		replaceBlocksForBiomeHigh(chunkX, chunkZ, idsTop, rand, idsBig, metaBig);
 		replaceBlocksForBiomeLow(chunkX, chunkZ, rand, idsBig, metaBig);
 
-		caveGen.generate(this, this.worldObj, chunkX, chunkZ, idsBig, metaBig);
+		if (TFCOptions.enableCaveGeneration)
+			caveGen.generate(this, this.worldObj, chunkX, chunkZ, idsBig, metaBig);
 		surfaceRavineGen.generate(this, this.worldObj, chunkX, chunkZ, idsBig, metaBig);//surface
 		ravineGen.generate(this, this.worldObj, chunkX, chunkZ, idsBig, metaBig);//deep
 		riverRavineGen.generate(this, this.worldObj, chunkX, chunkZ, idsBig, metaBig);

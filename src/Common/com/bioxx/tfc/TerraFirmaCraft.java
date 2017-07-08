@@ -100,7 +100,8 @@ public class TerraFirmaCraft {
 		//Surface Hotsprings
 		GameRegistry.registerWorldGenerator(new WorldGenFissureCluster(), 1);
 		GameRegistry.registerWorldGenerator(new WorldGenOre(), 2);
-		GameRegistry.registerWorldGenerator(new WorldGenCaveDecor(), 3);
+		if (TFCOptions.enableCaveDecorations)
+			GameRegistry.registerWorldGenerator(new WorldGenCaveDecor(), 3);
 		GameRegistry.registerWorldGenerator(new WorldGenForests(), 4);
 		GameRegistry.registerWorldGenerator(new WorldGenLooseRocks(), 5);
 		GameRegistry.registerWorldGenerator(new WorldGenSoilPits(), 6);

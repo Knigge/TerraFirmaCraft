@@ -380,6 +380,9 @@ public class TFC_ConfigFiles {
 		ravineRarity = generalConfig.getInt("ravineRarity", WORLD_GEN, ravineRarity, 0, 1000, "Controls the chance of a ravine generating, smaller value is higher chance, more ravines. Set to 0 to disable ravines.", "config.gui.TFCConfig.worldgen.ravineRarity");
 		lavaFissureRarity = generalConfig.getInt("lavaFissureRarity", WORLD_GEN, lavaFissureRarity, 0, 1000, "Controls the chance of a lava fissure generating, smaller value is higher chance, more fissures. Set to 0 to disable lava fissures.", "config.gui.TFCConfig.worldgen.lavaFissureRarity");
 		waterFissureRarity = generalConfig.getInt("waterFissureRarity", WORLD_GEN, waterFissureRarity, 0, 1000, "Controls the chance of a water fissure generating, smaller value is higher chance, more fissures. Set to 0 to disable water fissures.", "config.gui.TFCConfig.worldgen.waterFissureRarity");
+		// caves
+		enableCaveGeneration = generalConfig.getBoolean("enableCaveGeneration", WORLD_GEN, enableCaveGeneration, "Set this to false to disable (currently) useless cave-generation.", "config.gui.TFCConfig.worldgen.enableCaveGeneration");
+		enableCaveDecorations = generalConfig.getBoolean("enableCaveDecorations", WORLD_GEN, enableCaveDecorations, "Set this to false to disable cave-styled decorations in worldgen (affects both caves & ravines).", "config.gui.TFCConfig.worldgen.enableCaveDecorations");
 
 		generalConfig.setCategoryLanguageKey(CROPS, "config.gui.TFCConfig.crops");
 
