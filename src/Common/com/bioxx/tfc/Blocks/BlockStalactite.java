@@ -32,7 +32,7 @@ public class BlockStalactite extends BlockTerra {
 
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random) {
-		if (random.nextInt(40) == 0 && isStalactite(world.getBlockMetadata(i, j, k))) {
+		if (random.nextInt(80) == 0 && isStalactite(world.getBlockMetadata(i, j, k))) {
 			AxisAlignedBB aabb = getCollisionBoundingBoxFromPool(world, i, j, k);
 
 			double xRand = random.nextFloat() * (aabb.maxX - aabb.minX) + aabb.minX;
@@ -40,7 +40,7 @@ public class BlockStalactite extends BlockTerra {
 
 			if (TFCOptions.stalactiteDripWaterEnabled) {
 				world.spawnParticle("dripWater", xRand + 0.2, aabb.minY + 0.9, zRand + 0.2, 0.0D, 0.0D, 0.0D);
-				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, TFC_Sounds.WATERDRIP, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+				world.playSound(i, j, k, TFC_Sounds.WATERDRIP, 1.0F, random.nextFloat() * 0.1F + 0.9F, true);
 			}
 		}
 	}

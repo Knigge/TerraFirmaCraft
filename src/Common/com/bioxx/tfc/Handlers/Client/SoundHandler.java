@@ -13,9 +13,9 @@ public class SoundHandler {
 	@SubscribeEvent
 	public void onSound17(PlaySoundEvent17 event) {
 		if (event.sound != null && event.category != null && "music".equalsIgnoreCase(event.category.getCategoryName())) {
-			if (event.manager.isSoundPlaying(iSound))
+			if (event.manager.isSoundPlaying(iSound)) {
 				event.result = null;
-			else {
+			} else if (event.sound.getVolume() > 0) {
 				iSound = PositionedSoundRecord.func_147673_a(new ResourceLocation(Reference.MOD_ID + ":music.tfc"));
 				event.result = iSound;
 			}
