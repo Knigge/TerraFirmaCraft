@@ -27,6 +27,7 @@ public class BlockStalactite extends BlockTerra {
 	public BlockStalactite() {
 		super();
 		this.setStepSound(soundTypeStone);
+		this.setTickRandomly(TFCOptions.stalactiteDripWaterEnabled);
 	}
 
 	@Override
