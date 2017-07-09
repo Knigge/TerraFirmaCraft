@@ -11,7 +11,7 @@ import java.io.File;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenTreeLayer extends GenLayerTFC {
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenTreeLayer(long par1) {
 		super(par1);

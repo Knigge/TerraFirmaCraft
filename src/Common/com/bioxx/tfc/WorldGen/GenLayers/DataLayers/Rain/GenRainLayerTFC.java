@@ -14,7 +14,7 @@ import java.io.File;
 public abstract class GenRainLayerTFC extends GenLayerTFC {
 	public static final int WET = DataLayer.RAIN_4000.layerID;
 	public static final int DRY = DataLayer.RAIN_125.layerID;
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenRainLayerTFC(long par1) {
 		super(par1);

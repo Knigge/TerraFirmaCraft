@@ -23,7 +23,7 @@ import java.util.Random;
 @SuppressWarnings("WeakerAccess")
 @SideOnly(Side.CLIENT)
 public class ClientOverrides {
-	private static int rainSoundCounter;
+	private static int rainSoundCounter = 0;
 
 	@SuppressWarnings({"unchecked", "ConstantConditions"})
 	public static void loadRenderers() {

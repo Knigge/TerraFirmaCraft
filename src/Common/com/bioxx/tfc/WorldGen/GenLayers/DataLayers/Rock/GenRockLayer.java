@@ -12,7 +12,7 @@ import java.io.File;
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenRockLayer extends GenLayerTFC {
 
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenRockLayer(long par1) {
 		super(par1);

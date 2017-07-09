@@ -29,7 +29,7 @@ public class GenCommand extends CommandBase {
 		}
 
 		if (params.length == 1) {
-			if (params[0].equalsIgnoreCase("fruittree")) {
+			if ("fruittree".equalsIgnoreCase(params[0])) {
 				TFC_Core.sendInfoMessage(player, new ChatComponentText("Generating Fruit Tree"));
 				WorldGenerator fruitGen = new WorldGenCustomFruitTree(false, TFCBlocks.fruitTreeLeaves, 0);
 
@@ -37,7 +37,7 @@ public class GenCommand extends CommandBase {
 					TFC_Core.sendInfoMessage(player, new ChatComponentText("Generation Failed"));
 			}
 		} else if (params.length == 2) {
-			if (params[0].equals("fissure")) {
+			if ("fissure".equals(params[0])) {
 				WorldGenFissure gen;
 				switch (params[1]) {
 					case "water":
@@ -57,7 +57,7 @@ public class GenCommand extends CommandBase {
 						break;
 				}
 				gen.generate(sender.getEntityWorld(), sender.getEntityWorld().rand, (int) player.posX, (int) player.posY - 1, (int) player.posZ);
-			} else if (params[0].equalsIgnoreCase("tree")) {
+			} else if ("tree".equalsIgnoreCase(params[0])) {
 				int i = getTree(params[1]);
 
 				if (i != -1) {
@@ -69,7 +69,7 @@ public class GenCommand extends CommandBase {
 				} else
 					TFC_Core.sendInfoMessage(player, new ChatComponentText("Invalid Tree"));
 			}
-		} else if (params.length == 3 && params[0].equalsIgnoreCase("tree") && params[2].equalsIgnoreCase("big")) {
+		} else if (params.length == 3 && "tree".equalsIgnoreCase(params[0]) && "big".equalsIgnoreCase(params[2])) {
 			int i = getTree(params[1]);
 
 			if (i != -1) {

@@ -4,8 +4,12 @@ import com.bioxx.tfc.api.TFCBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"WeakerAccess"})
 public class DataLayer {
+	//@formatter:off
+	public static DataLayer[] layers = new DataLayer[256];
+	//@formatter:on
+
 	public static final DataLayer GRANITE = new DataLayer(0, TFCBlocks.stoneIgIn, 0, 0, "Granite");
 	public static final DataLayer DIORITE = new DataLayer(1, TFCBlocks.stoneIgIn, 1, 1, "Diorite");
 	public static final DataLayer GABBRO = new DataLayer(2, TFCBlocks.stoneIgIn, 2, 2, "Gabbro");
@@ -74,7 +78,7 @@ public class DataLayer {
 	public static final DataLayer PH_NEUTRAL = new DataLayer(132, "Neutral", 2);
 	public static final DataLayer PH_ALKALINE_LOW = new DataLayer(133, "Low Alkalinity", 3);
 	public static final DataLayer PH_ALKALINE_HIGH = new DataLayer(134, "High Alkalinity", 4);
-	public static DataLayer[] layers = new DataLayer[256];
+
 	public int layerID;
 	public Block block = Blocks.air;
 	public int data1;

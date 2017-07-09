@@ -7,24 +7,18 @@ import java.util.List;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class KeyBindings {
-	public static List<KeyBinding> keyBindingsList;
-	public static List<Boolean> isRepeatingList;
+	public static List<KeyBinding> keyBindingsList = new ArrayList<KeyBinding>();
+	public static List<Boolean> isRepeatingList = new ArrayList<Boolean>();
 
 	public static void addKeyBinding(String name, int value, String category) {
-		if (keyBindingsList == null)
-			keyBindingsList = new ArrayList<KeyBinding>();
 		keyBindingsList.add(new KeyBinding(name, value, category));
 	}
 
 	public static void addKeyBinding(KeyBinding binding) {
-		if (keyBindingsList == null)
-			keyBindingsList = new ArrayList<KeyBinding>();
 		keyBindingsList.add(binding);
 	}
 
 	public static void addIsRepeating(boolean value) {
-		if (isRepeatingList == null)
-			isRepeatingList = new ArrayList<Boolean>();
 		isRepeatingList.add(value);
 	}
 

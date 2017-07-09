@@ -172,7 +172,7 @@ public class TESluice extends TileEntity implements IInventory {
 		if (isFoot || soilAmount == -1)
 			return;
 
-		/******************************************************
+		/*****************************************************
 		 Server Only Begin
 		 */
 		if (!worldObj.isRemote) {
@@ -346,7 +346,7 @@ public class TESluice extends TileEntity implements IInventory {
 			if (soilAmount == 0)
 				processTimeRemaining = 0;
 		}
-		/******************************************************
+		/*****************************************************
 		 Server Only End
 		 */
 		//Here we make sure that the water flags are checked

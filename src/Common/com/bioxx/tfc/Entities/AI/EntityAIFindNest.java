@@ -148,7 +148,7 @@ public class EntityAIFindNest extends EntityAIBase {
 				ArrayList<EntityChickenTFC> crowd = (ArrayList<EntityChickenTFC>) theCreature.worldObj.getEntitiesWithinAABB(EntityChickenTFC.class, theCreature.boundingBox.expand(24, 2, 24));
 				ArrayList<EntityChickenTFC> invalid = new ArrayList<EntityChickenTFC>();
 				for (EntityChickenTFC chicken : crowd) {
-					if (chicken.getGender().equals(GenderEnum.MALE) || chicken.isChild()) {
+					if (chicken.getGender() == GenderEnum.MALE || chicken.isChild()) {
 						invalid.add(chicken);
 					}
 				}

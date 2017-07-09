@@ -7,6 +7,9 @@ import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class CropManager {
+	//@formatter:off
+	public List<CropIndex> crops;
+	//@formatter:on
 	protected static final CropManager INSTANCE = new CropManager();
 
 	static {
@@ -50,8 +53,6 @@ public class CropManager {
 		// If adding another crop, use the following spreadsheet to make sure nutrients on average don't hit 0 before crop reaches maturity:
 		// https://www.dropbox.com/s/sznzc08nly1i6tt/Crop%20GrowthNutriDrain%20Calculator.xlsx?dl=0
 	}
-
-	public List<CropIndex> crops;
 
 	public CropManager() {
 		crops = new ArrayList<CropIndex>();

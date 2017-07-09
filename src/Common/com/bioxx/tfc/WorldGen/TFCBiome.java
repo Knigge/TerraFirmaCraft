@@ -13,12 +13,14 @@ import java.util.Random;
 
 @SuppressWarnings({"unchecked", "SameParameterValue", "WeakerAccess", "CanBeFinal"})
 public class TFCBiome extends BiomeGenBase {
-	public static float riverDepthMin = -0.5F;
-	public static float riverDepthMax = -0.3F;
+	//@formatter:off
+	public static final float riverDepthMin = -0.5F;
+	public static final float riverDepthMax = -0.3F;
 	public float temperatureTFC;
 
 	public BiomeDecoratorTFC theBiomeDecorator;
 	public static TFCBiome[] biomeList = new TFCBiome[256];
+	//@formatter:on
 	/**
 	 * An array of all the biomes, indexed by biome id.
 	 */

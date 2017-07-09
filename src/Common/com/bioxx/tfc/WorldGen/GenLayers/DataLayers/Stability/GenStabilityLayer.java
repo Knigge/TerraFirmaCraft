@@ -12,7 +12,7 @@ import java.io.File;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenStabilityLayer extends GenLayerTFC {
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenStabilityLayer(long par1) {
 		super(par1);

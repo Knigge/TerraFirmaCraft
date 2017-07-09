@@ -20,7 +20,7 @@ public class ItemCustomWoodH3 extends ItemTerraBlock {
 			int meta = is.getItemDamage();
 			if (meta > 15) meta -= 16;
 			if (metaNames != null && meta < metaNames.length)
-				return getUnlocalizedName().concat("." + metaNames[meta]);
+				return getUnlocalizedName() + "." + metaNames[meta];
 		} catch (Exception ex) {
 			TerraFirmaCraft.LOG.error(ex.getLocalizedMessage());
 		}

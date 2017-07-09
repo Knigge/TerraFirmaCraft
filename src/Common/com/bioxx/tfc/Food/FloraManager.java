@@ -10,6 +10,9 @@ import java.util.List;
 
 @SuppressWarnings({"WeakerAccess", "Convert2Diamond"})
 public class FloraManager {
+	//@formatter:off
+	private List<FloraIndex> floraList;
+	//@formatter:on
 	private static final FloraManager INSTANCE = new FloraManager();
 
 	static {
@@ -47,8 +50,6 @@ public class FloraManager {
 		INSTANCE.addIndex(new FloraIndex("Cloudberry", TFC_Time.JULY, TFC_Time.AUGUST,
 				new ItemStack(TFCItems.cloudberry, 1)).setHangTime(2).setTemp(0, 18).setBioTemp(0, 25).setRain(1000, 8000).setEVT(0.125f, 4));
 	}
-
-	private List<FloraIndex> floraList;
 
 	public FloraManager() {
 		floraList = new ArrayList<FloraIndex>();

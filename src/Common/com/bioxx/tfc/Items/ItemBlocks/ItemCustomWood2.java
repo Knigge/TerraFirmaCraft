@@ -18,7 +18,7 @@ public class ItemCustomWood2 extends ItemCustomWood {
 			int meta = is.getItemDamage();
 			if (meta > 15) meta -= 16;
 			if (metaNames != null && meta < metaNames.length)
-				return getUnlocalizedName().concat("." + metaNames[meta]);
+				return getUnlocalizedName() + "." + metaNames[meta];
 		} catch (Exception ex) {
 			TerraFirmaCraft.LOG.error(ex.getLocalizedMessage());
 		}

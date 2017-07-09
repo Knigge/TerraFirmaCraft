@@ -29,7 +29,7 @@ import java.util.Random;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess", "Convert2Diamond"})
 public class BlockCollapsible extends BlockTerraContainer {
-	public static boolean fallInstantly;
+	public static boolean fallInstantly = false;
 	public Block dropBlock;
 
 	protected BlockCollapsible(Material material, Block block) {

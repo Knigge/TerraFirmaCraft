@@ -38,7 +38,7 @@ public class CommandTime extends CommandBase {
 				int i;
 				long currentTime = TFC_Time.getTotalTicks();
 
-				if (par2ArrayOfStr[0].equals("set")) {
+				if ("set".equals(par2ArrayOfStr[0])) {
 					switch (par2ArrayOfStr[1]) {
 						case "day":
 							i = (int) (currentTime + (24000 - (currentTime % 24000)));
@@ -59,7 +59,7 @@ public class CommandTime extends CommandBase {
 					return;
 				}
 
-				if (par2ArrayOfStr[0].equals("add")) {
+				if ("add".equals(par2ArrayOfStr[0])) {
 					i = parseIntWithMin(par1ICommandSender, par2ArrayOfStr[1], 0);
 					if (i + currentTime < currentTime) {
 						par1ICommandSender.addChatMessage(new ChatComponentText("Cannot set time to before current time."));
@@ -82,7 +82,7 @@ public class CommandTime extends CommandBase {
 	 */
 	@Override
 	public List addTabCompletionOptions(ICommandSender par1ICommandSender, String[] par2ArrayOfStr) {
-		return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "set", "add") : par2ArrayOfStr.length == 2 && par2ArrayOfStr[0].equals("set") ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "day", "night") : null;
+		return par2ArrayOfStr.length == 1 ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "set", "add") : par2ArrayOfStr.length == 2 && "set".equals(par2ArrayOfStr[0]) ? getListOfStringsMatchingLastWord(par2ArrayOfStr, "day", "night") : null;
 	}
 
 	/**

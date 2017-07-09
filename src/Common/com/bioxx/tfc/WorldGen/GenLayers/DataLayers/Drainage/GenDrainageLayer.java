@@ -17,7 +17,7 @@ import java.io.File;
 public abstract class GenDrainageLayer extends GenLayerTFC {
 	public static final int MIN = DataLayer.DRAINAGE_NONE.layerID;
 	public static final int MAX = DataLayer.DRAINAGE_VERY_GOOD.layerID;
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenDrainageLayer(long par1) {
 		super(par1);

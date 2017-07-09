@@ -14,7 +14,7 @@ import java.io.File;
 public abstract class GenEVTLayer extends GenLayerTFC {
 	public static final int LOW = DataLayer.EVT_0_25.layerID;
 	public static final int HIGH = DataLayer.EVT_8.layerID;
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenEVTLayer(long par1) {
 		super(par1);

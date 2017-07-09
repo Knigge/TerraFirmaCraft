@@ -16,7 +16,7 @@ import java.io.File;
 
 @SuppressWarnings({"SameParameterValue", "WeakerAccess"})
 public abstract class GenLayerTFC extends GenLayer {
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 	protected long worldGenSeed;
 	protected GenLayerTFC parent;
 	protected long chunkSeed;

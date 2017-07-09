@@ -40,7 +40,7 @@ public class ItemTerraBlock extends ItemBlock implements ISize {
 	public String getUnlocalizedName(ItemStack is) {
 		try {
 			if (metaNames != null && is.getItemDamage() < metaNames.length)
-				return getUnlocalizedName().concat("." + metaNames[is.getItemDamage()]);
+				return getUnlocalizedName() + "." + metaNames[is.getItemDamage()];
 		} catch (Exception ex) {
 			TerraFirmaCraft.LOG.error(ex.getLocalizedMessage());
 		}

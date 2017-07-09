@@ -119,11 +119,13 @@ public class TEFireEntity extends NetworkTileEntity {
 		// TODO Auto-generated method stub
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	@Override
 	public void handleDataPacket(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub
 	}
 
+	@SuppressWarnings("EmptyMethod")
 	@Override
 	public void createDataNBT(NBTTagCompound nbt) {
 		// TODO Auto-generated method stub

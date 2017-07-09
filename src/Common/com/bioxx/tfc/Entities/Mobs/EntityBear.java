@@ -61,7 +61,7 @@ public class EntityBear extends EntityTameable implements ICausesDamage, IAnimal
 	 * true is the wolf is wet else false
 	 */
 	private boolean isWet;
-	private int sex;
+	private int sex = 0;
 	private int hunger;
 	private boolean pregnant;
 	private int pregnancyRequiredTime;

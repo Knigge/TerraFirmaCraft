@@ -78,6 +78,7 @@ public class EntityDamageHandler {
 		}
 	}
 
+	@SuppressWarnings("SameReturnValue")
 	protected int applyArmorCalculations(EntityLivingBase entity, DamageSource source, float originalDamage) {
 		ItemStack[] armor = entity.getLastActiveItems();
 		int pierceRating = 0;

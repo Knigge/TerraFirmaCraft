@@ -17,7 +17,7 @@ import java.io.File;
 public abstract class GenPHLayer extends GenLayerTFC {
 	public static final int MIN = DataLayer.PH_ACID_HIGH.layerID;
 	public static final int MAX = DataLayer.PH_ALKALINE_HIGH.layerID;
-	private static boolean shouldDraw;
+	private static boolean shouldDraw = false;
 
 	public GenPHLayer(long par1) {
 		super(par1);
