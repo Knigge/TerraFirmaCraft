@@ -432,7 +432,7 @@ public class TEForge extends TEFireEntity implements IInventory {
 	}
 
 	private void createSmoke() {
-		if (!TFCOptions.generateSmoke)
+		if (!TFCOptions.generateSmoke_Forge)
 			return;
 
 		if (checkChimney(xCoord + 1, yCoord + 1, zCoord))

@@ -4,6 +4,7 @@ import com.bioxx.tfc.TileEntities.TECoalPile;
 import com.bioxx.tfc.TileEntities.TELogPile;
 import com.bioxx.tfc.TileEntities.TEPottery;
 import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +26,9 @@ public class ItemTorch extends ItemTerraBlock {
 				te.lightNeighbors();
 				entityItem.setDead();
 			} else {
-				if (entityItem.worldObj.rand.nextInt(10) < 2)
+				if (entityItem.worldObj.rand.nextInt(10) < 2 && TFCOptions.generateSmoke_Torch) {
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
+				}
 				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}
@@ -38,8 +40,9 @@ public class ItemTorch extends ItemTerraBlock {
 				te.lightNeighbors();
 				entityItem.setDead();
 			} else {
-				if (entityItem.worldObj.rand.nextInt(10) < 2)
+				if (entityItem.worldObj.rand.nextInt(10) < 2 && TFCOptions.generateSmoke_Torch) {
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
+				}
 				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}
@@ -50,8 +53,9 @@ public class ItemTorch extends ItemTerraBlock {
 				if (!entityItem.worldObj.isRemote && tepot.wood == 8 && tepot.burnStart == 0)
 					tepot.startPitFire();
 			} else {
-				if (entityItem.worldObj.rand.nextInt(10) < 2)
+				if (entityItem.worldObj.rand.nextInt(10) < 2 && TFCOptions.generateSmoke_Torch) {
 					entityItem.worldObj.spawnParticle("lava", entityItem.posX, entityItem.posY, entityItem.posZ, -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat(), -0.5F + entityItem.worldObj.rand.nextFloat());
+				}
 				entityItem.getEntityData().setInteger("torchCount", count + 1);
 			}
 		}

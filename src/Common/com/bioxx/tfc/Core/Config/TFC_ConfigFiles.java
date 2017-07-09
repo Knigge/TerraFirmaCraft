@@ -37,6 +37,7 @@ import static com.bioxx.tfc.api.TFCOptions.*;
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFC_ConfigFiles {
 	// General
+	public static final String FX = "FX-control";
 	public static final String GENERAL = "general";
 	public static final String TIME = "time";
 	public static final String FOOD_DECAY = "food decay";
@@ -333,6 +334,7 @@ public class TFC_ConfigFiles {
 		enableDebugMode = generalConfig.getBoolean("enableDebugMode", GENERAL, enableDebugMode, "Set this to true if you want to turn on debug mode which is useful for bug hunting.", "config.gui.TFCConfig.general.enableDebugMode");
 		enableFiniteWater = generalConfig.getBoolean("enableFiniteWater", GENERAL, enableFiniteWater, "Set this to true to enable finite water. Two adjacent source water blocks will not create a third.", "config.gui.TFCConfig.general.enableFiniteWater");
 		onionsAreGross = generalConfig.getBoolean("onionsAreGross", GENERAL, onionsAreGross, "Set this to true if you don't like onions.", "config.gui.TFCConfig.general.onionsAreGross");
+
 		quiverHUDPosition = generalConfig.getString("quiverHUDPosition", GENERAL, quiverHUDPosition, "Valid position strings are: bottomleft, left, topleft, bottomright, right, topright", new String[]{"bottomleft", "left", "topleft", "bottomright", "right", "topright"}, "config.gui.TFCConfig.general.quiverHUDPosition");
 		enableSolidDetailed = generalConfig.getBoolean("enableSolidDetailed", GENERAL, enableSolidDetailed, "Should sides of detailed blocks be considered solid?", "config.gui.TFCConfig.general.enableSolidDetailed");
 		maxRemovedSolidDetailed = generalConfig.getInt("maxRemovedSolidDetailed", GENERAL, maxRemovedSolidDetailed, 0, 64, "Maximum count of removed sub-blocks on one side for the detailed block side to still be solid.", "config.gui.TFCConfig.general.maxRemovedSolidDetailed");
@@ -341,6 +343,18 @@ public class TFC_ConfigFiles {
 		bleedEffectID = generalConfig.getInt("bleedID", GENERAL, 28, 24, 255, "The Potion ID for the Bleed potion effect.");
 		heatStrokeEffectID = generalConfig.getInt("heatStrokeID", GENERAL, 29, 24, 255, "The Potion ID for the Heat Stroke potion effect.");
 		enableToolModeIndicator = generalConfig.getBoolean("enableToolModeIndicator", GENERAL, enableToolModeIndicator, "Set to false to hide the tool mode indicator that is displayed next to the hotbar for tools such as chisels and hoes.", "config.gui.TFCConfig.general.enableToolModeIndicator");
+
+		generalConfig.setCategoryLanguageKey(FX, "config.gui.TFCConfig.FX");
+		generateSmoke_Forge = generalConfig.getBoolean("generateSmoke_Forge", FX, generateSmoke_Forge, "Should Forge (and Bellows) generate smoke & flame particles?");
+		generateSmoke_Firepit = generalConfig.getBoolean("generateSmoke_Firepit", FX, generateSmoke_Firepit, "Should Firepit generate smoke & flame particles?");
+		generateSmoke_Coalpit = generalConfig.getBoolean("generateSmoke_Coalpit", FX, generateSmoke_Coalpit, "Should working Coalpit generate smoke particles? Better to not disable this feature.");
+		generateSmoke_Lava = generalConfig.getBoolean("generateSmoke_Lava", FX, generateSmoke_Lava, "Should lava blocks produce smoke particles in rain? This option does not have effect without minecraft particles enabled.");
+		generateSmoke_Torch = generalConfig.getBoolean("generateSmoke_Torch", FX, generateSmoke_Torch, "Should torches & oil lamps generate smoke & flame particles?");
+
+		gasFXEnabled = generalConfig.getBoolean("gasFXEnabled", FX, gasFXEnabled, "Set this to false to disable GasFX particles comming from hot water to avoid graphical bugs with shaders enabled or for a better performance in hot-water waterfalls.");
+		rainFXEnabled = generalConfig.getBoolean("rainFXEnabled", FX, rainFXEnabled, "Set this to false to disable RainFX particles to spawn in rain. This option does not have effect without minecraft particles enabled.");
+		stalactiteDripWaterEnabled = generalConfig.getBoolean("stalactiteDripWaterEnabled", FX, stalactiteDripWaterEnabled, "Should stalactites randomly generate dripping water particles? Including sound effects.");
+
 		generalConfig.setCategoryLanguageKey(TIME, "config.gui.TFCConfig.time");
 		yearLength = generalConfig.getInt("yearLength", TIME, yearLength, 96, 12000, "This is how many days are in a year. Keep this to multiples of 12.", "config.gui.TFCConfig.time.yearLength");
 		if (yearLength % 12 != 0) {
@@ -381,8 +395,8 @@ public class TFC_ConfigFiles {
 		lavaFissureRarity = generalConfig.getInt("lavaFissureRarity", WORLD_GEN, lavaFissureRarity, 0, 1000, "Controls the chance of a lava fissure generating, smaller value is higher chance, more fissures. Set to 0 to disable lava fissures.", "config.gui.TFCConfig.worldgen.lavaFissureRarity");
 		waterFissureRarity = generalConfig.getInt("waterFissureRarity", WORLD_GEN, waterFissureRarity, 0, 1000, "Controls the chance of a water fissure generating, smaller value is higher chance, more fissures. Set to 0 to disable water fissures.", "config.gui.TFCConfig.worldgen.waterFissureRarity");
 		// caves
-		enableCaveGeneration = generalConfig.getBoolean("enableCaveGeneration", WORLD_GEN, enableCaveGeneration, "Set this to false to disable (currently) useless cave-generation.", "config.gui.TFCConfig.worldgen.enableCaveGeneration");
-		enableCaveDecorations = generalConfig.getBoolean("enableCaveDecorations", WORLD_GEN, enableCaveDecorations, "Set this to false to disable cave-styled decorations in worldgen (affects both caves & ravines).", "config.gui.TFCConfig.worldgen.enableCaveDecorations");
+		enableCaveGeneration = generalConfig.getBoolean("enableCaveGeneration", WORLD_GEN, enableCaveGeneration, "Set this to false to disable (currently) useless cave-generation.");
+		enableCaveDecorations = generalConfig.getBoolean("enableCaveDecorations", WORLD_GEN, enableCaveDecorations, "Set this to false to disable cave-styled decorations in worldgen (affects both caves & ravines).");
 
 		generalConfig.setCategoryLanguageKey(CROPS, "config.gui.TFCConfig.crops");
 

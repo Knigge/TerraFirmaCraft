@@ -41,6 +41,7 @@ public class TFC_Sounds {
 	public static final String CATMEOW = LOCATION + "mob.cat.meow";
 	public static final String CATCOUGH = LOCATION + "mob.cat.cough";
 	public static final String KITTENMEOW = LOCATION + "mob.kitten.meow";
+	public static final String WATERDRIP = LOCATION + "cave.water.drip";
 
 
 	public static final String TFCMUSIC = LOCATION + "music.tfc";

@@ -7,7 +7,7 @@ import net.minecraft.item.Item.ToolMaterial;
 
 import java.util.List;
 
-@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
+@SuppressWarnings({"WeakerAccess"})
 public class TFCItems {
 	public static Item gemRuby;
 	public static Item gemSapphire;

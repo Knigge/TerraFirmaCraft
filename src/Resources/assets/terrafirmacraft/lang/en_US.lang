@@ -30,6 +30,9 @@ config.gui.TFCConfig.tooltip=General configuration file
 config.gui.TFCConfig.general=General
 config.gui.TFCConfig.general.tooltip=Miscellaneous options
 
+config.gui.TFCConfig.FX=FX options
+config.gui.TFCConfig.FX.tooltip=Options to to control the particles or other rendering-related features
+
 config.gui.TFCConfig.time=Time
 config.gui.TFCConfig.time.tooltip=Time and Calendar related options
 

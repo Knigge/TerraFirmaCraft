@@ -1,12 +1,11 @@
 package com.bioxx.tfc.Blocks.Liquids;
 
-import com.bioxx.tfc.Effects.GasFX;
+import com.bioxx.tfc.Effects.GasFXFactory;
 import com.bioxx.tfc.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -34,28 +33,14 @@ public class BlockHotWaterStatic extends BlockLiquidStatic {
 	public void randomDisplayTick(World world, int i, int j, int k, Random random) {
 		if (world.isAirBlock(i - 1, j, k) || world.isAirBlock(i + 1, j, k) ||
 				world.isAirBlock(i, j, k - 1) || world.isAirBlock(i, j, k + 1) ||
-				world.isAirBlock(i, j + 1, k)) {
-			double f = (double) i + 0.5F;
-			double f1 = (double) j + 1f;
-			double f2 = (double) k + 0.5F;
+				world.isAirBlock(i, j + 1, k))
+		{
+			GasFXFactory fx = new GasFXFactory(world, i + 0.5F, j + 1F, k + 0.5F);
 
-			double f4 = random.nextFloat() * -0.1F;
-			double f5 = random.nextFloat() * -0.1F;
-			double f6 = random.nextFloat() * -0.1F;
-
-			Minecraft.getMinecraft().effectRenderer.addEffect(new GasFX(world, f, f1, f2, f4, f5, f6));
-			f4 = random.nextFloat() * -0.1F;
-			f5 = random.nextFloat() * -0.1F;
-			f6 = random.nextFloat() * -0.1F;
-			Minecraft.getMinecraft().effectRenderer.addEffect(new GasFX(world, f, f1, f2, f4, f5, f6));
-			f4 = random.nextFloat() * -0.1F;
-			f5 = random.nextFloat() * -0.1F;
-			f6 = random.nextFloat() * -0.1F;
-			Minecraft.getMinecraft().effectRenderer.addEffect(new GasFX(world, f, f1, f2, f4, f5, f6));
-			f4 = random.nextFloat() * -0.1F;
-			f5 = random.nextFloat() * -0.1F;
-			f6 = random.nextFloat() * -0.1F;
-			Minecraft.getMinecraft().effectRenderer.addEffect(new GasFX(world, f, f1, f2, f4, f5, f6));
+			fx.createEffect(random, -0.1F);
+			fx.createEffect(random, -0.1F);
+			fx.createEffect(random, -0.1F);
+			fx.createEffect(random, -0.1F);
 		}
 	}
 

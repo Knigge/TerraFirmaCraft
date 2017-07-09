@@ -276,6 +276,16 @@
       "kitten_meow3"
     ]
   },
+  "cave.water.drip" {
+    "category": "block",
+	"sounds": [
+		"drip1",
+		"drip2",
+		"drip3",
+		"drip4",
+		"drip5",
+	]
+  },
   "music.tfc": {
     "category": "music",
     "sounds": [

@@ -1,7 +1,9 @@
 package com.bioxx.tfc.Blocks;
 
 import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Sounds;
 import com.bioxx.tfc.Core.TFC_Textures;
+import com.bioxx.tfc.api.TFCOptions;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -29,13 +31,16 @@ public class BlockStalactite extends BlockTerra {
 
 	@Override
 	public void randomDisplayTick(World world, int i, int j, int k, Random random) {
-		if (isStalactite(world.getBlockMetadata(i, j, k)) && random.nextInt(80) == 0) {
+		if (random.nextInt(40) == 0 && isStalactite(world.getBlockMetadata(i, j, k))) {
 			AxisAlignedBB aabb = getCollisionBoundingBoxFromPool(world, i, j, k);
 
 			double xRand = random.nextFloat() * (aabb.maxX - aabb.minX) + aabb.minX;
 			double zRand = random.nextFloat() * (aabb.maxZ - aabb.minZ) + aabb.minZ;
 
-			world.spawnParticle("dripWater", xRand + 0.2, aabb.minY + 0.9, zRand + 0.2, 0.0D, 0.0D, 0.0D);
+			if (TFCOptions.stalactiteDripWaterEnabled) {
+				world.spawnParticle("dripWater", xRand + 0.2, aabb.minY + 0.9, zRand + 0.2, 0.0D, 0.0D, 0.0D);
+				world.playSoundEffect(i + 0.5D, j + 0.5D, k + 0.5D, TFC_Sounds.WATERDRIP, 1.0F, random.nextFloat() * 0.4F + 0.8F);
+			}
 		}
 	}
 

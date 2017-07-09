@@ -18,10 +18,9 @@ public class TFCOptions {
 	public static boolean enableSeaweedRegen = true;
 	public static boolean enableBerryBushRegen = true;
 	public static boolean enableDebrisRegen = true;
-	public static boolean enableDebugMode;
-	public static boolean enableFiniteWater;
-	public static boolean onionsAreGross;
-	public static boolean generateSmoke;
+	public static boolean enableDebugMode = false;
+	public static boolean enableFiniteWater = false;
+	public static boolean onionsAreGross = false;
 	public static String quiverHUDPosition = "bottomleft";
 	public static boolean enableSolidDetailed = true;
 	public static int maxRemovedSolidDetailed = 12;
@@ -30,6 +29,16 @@ public class TFCOptions {
 	public static int recursionLimit = 220;
 	public static int bleedEffectID = 28;
 	public static int heatStrokeEffectID = 29;
+
+	// FX
+	public static boolean generateSmoke_Forge = true;
+	public static boolean generateSmoke_Lava = true;
+	public static boolean generateSmoke_Firepit = true;
+	public static boolean generateSmoke_Coalpit = true;
+	public static boolean generateSmoke_Torch = true;
+	public static boolean gasFXEnabled = true;
+	public static boolean rainFXEnabled = true;
+	public static boolean stalactiteDripWaterEnabled = true;
 
 	// Time
 	public static int yearLength = 96;
@@ -72,7 +81,7 @@ public class TFCOptions {
 	public static boolean enableCaveDecorations = false;
 
 	// Crops
-	public static boolean enableCropsDie;
+	public static boolean enableCropsDie = false;
 	public static float cropGrowthMultiplier = 1.0f;
 
 	// Protection

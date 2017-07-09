@@ -1,6 +1,7 @@
 package com.bioxx.tfc;
 
 import com.bioxx.tfc.Core.WeatherManager;
+import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.Util.Helper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -106,7 +107,11 @@ public class ClientOverrides {
 
 						if (!b.isAir(worldclient, x, y - 1, z)) {
 							if (b.getMaterial() == Material.lava) {
-								Minecraft.getMinecraft().effectRenderer.addEffect(new EntitySmokeFX(worldclient, x + f1, y + 0.1F - b.getBlockBoundsMinY(), z + f2, 0.0D, 0.0D, 0.0D));
+								if (TFCOptions.generateSmoke_Lava) {
+									Minecraft.getMinecraft().effectRenderer.addEffect(
+											new EntitySmokeFX(worldclient, x + f1, y + 0.1F - b.getBlockBoundsMinY(), z + f2, 0.0D, 0.0D, 0.0D)
+									);
+								}
 							} else {
 								++l;
 
@@ -116,7 +121,11 @@ public class ClientOverrides {
 									d2 = z + f2;
 								}
 
-								Minecraft.getMinecraft().effectRenderer.addEffect(new EntityRainFX(worldclient, x + f1, y + 0.1F - b.getBlockBoundsMinY(), z + f2));
+								if (TFCOptions.rainFXEnabled) {
+									Minecraft.getMinecraft().effectRenderer.addEffect(
+											new EntityRainFX(worldclient, x + f1, y + 0.1F - b.getBlockBoundsMinY(), z + f2)
+									);
+								}
 							}
 						}
 					}

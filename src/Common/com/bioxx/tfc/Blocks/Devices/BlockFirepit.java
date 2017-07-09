@@ -7,6 +7,7 @@ import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.TerraFirmaCraft;
 import com.bioxx.tfc.TileEntities.TEFirepit;
 import com.bioxx.tfc.api.TFCBlocks;
+import com.bioxx.tfc.api.TFCOptions;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -112,13 +113,16 @@ public class BlockFirepit extends BlockTerraContainer {
 			float f4 = rand.nextFloat() * 0.6F;
 			float f5 = rand.nextFloat() * -0.6F;
 			float f6 = rand.nextFloat() * -0.6F;
-			world.spawnParticle("smoke", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("smoke", f + f5 + 0.3F, f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
-			world.spawnParticle("flame", f + f5 + 0.3F, f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
-			if (((TEFirepit) world.getTileEntity(x, y, z)).fireTemp > 550) {
-				world.spawnParticle("flame", f + f5 + 0.3F, f1, f2 + f6 + 0.2F, 0.0D, 0.0D, 0.0D);
-				world.spawnParticle("flame", f + f4 - 0.3F, f1, f2 + f6 + 0.1F, 0.0D, 0.0D, 0.0D);
+			if (TFCOptions.generateSmoke_Firepit) {
+				world.spawnParticle("smoke", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("smoke", f + f5 + 0.3F, f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
+				world.spawnParticle("flame", f + f5 + 0.3F, f1, f2 + f4 - 0.3F, 0.0D, 0.0D, 0.0D);
+
+				if (((TEFirepit) world.getTileEntity(x, y, z)).fireTemp > 550) {
+					world.spawnParticle("flame", f + f5 + 0.3F, f1, f2 + f6 + 0.2F, 0.0D, 0.0D, 0.0D);
+					world.spawnParticle("flame", f + f4 - 0.3F, f1, f2 + f6 + 0.1F, 0.0D, 0.0D, 0.0D);
+				}
 			}
 		}
 	}

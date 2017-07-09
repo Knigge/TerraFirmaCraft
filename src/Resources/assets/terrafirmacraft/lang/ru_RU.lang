@@ -2,7 +2,8 @@
 #This is the Russian language configuration file, translated by Jee_Host, transcengopher & politehnik
 
 
-
+config.gui.TFCConfig.FX=Настройки графики
+config.gui.TFCConfig.FX.tooltip=Опции для управления частицами или другими визуальными фичами
 
 
 generator.TFCDefault=TFC по умолчанию

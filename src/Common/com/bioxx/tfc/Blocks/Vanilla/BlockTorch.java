@@ -350,6 +350,10 @@ public class BlockTorch extends BlockTerraContainer {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, int x, int y, int z, Random rand) {
+		if (!TFCOptions.generateSmoke_Torch) {
+			return;
+		}
+
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta >= 8)
 			return;

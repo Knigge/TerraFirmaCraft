@@ -6,9 +6,9 @@ import net.minecraft.world.World;
 
 public class GasFX extends EntityFX {
 
-	public GasFX(World world, double par2, double par4, double par6,
-	             double par8, double par10, double par12) {
-		super(world, par2, par4, par6, par8, par10, par12);
+	public GasFX(World world, double x, double y, double z,
+	             double motionX, double motionY, double motionZ) {
+		super(world, x, y, z, motionX, motionY, motionZ);
 		this.setParticleIcon(TFC_Textures.gasFXIcon);
 		this.setSize(1f, 1f);
 		this.particleMaxAge = (int) (12.0F / (this.rand.nextFloat() * 0.9F + 0.1F));

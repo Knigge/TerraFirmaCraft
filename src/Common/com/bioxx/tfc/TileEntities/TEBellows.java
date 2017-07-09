@@ -1,5 +1,6 @@
 package com.bioxx.tfc.TileEntities;
 
+import com.bioxx.tfc.api.TFCOptions;
 import com.bioxx.tfc.api.TileEntities.TEFireEntity;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -59,7 +60,9 @@ public class TEBellows extends NetworkTileEntity {
 		float f4 = random.nextFloat() * 0.6F;
 		float f5 = random.nextFloat() * -0.6F;
 		//float f6 = random.nextFloat() * -0.6F;
-		worldObj.spawnParticle("smoke", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+		if (TFCOptions.generateSmoke_Forge) {
+			worldObj.spawnParticle("smoke", f + f4 - 0.3F, f1, f2 + f5 + 0.3F, 0.0D, 0.0D, 0.0D);
+		}
 	}
 
 	public void giveAir() {
