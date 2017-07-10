@@ -19,6 +19,7 @@ public class TFCOptions {
 	public static boolean enableBerryBushRegen = true;
 	public static boolean enableDebrisRegen = true;
 	public static boolean enableDebugMode = false;
+	public static boolean worldgenDebugMode = false;
 	public static boolean enableFiniteWater = false;
 	public static boolean onionsAreGross = false;
 	public static String quiverHUDPosition = "bottomleft";

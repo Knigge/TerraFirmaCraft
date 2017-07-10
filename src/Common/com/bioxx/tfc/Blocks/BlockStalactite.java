@@ -40,7 +40,7 @@ public class BlockStalactite extends BlockTerra {
 
 			if (TFCOptions.stalactiteDripWaterEnabled) {
 				world.spawnParticle("dripWater", xRand + 0.2, aabb.minY + 0.9, zRand + 0.2, 0.0D, 0.0D, 0.0D);
-				world.playSound(i, j, k, TFC_Sounds.WATERDRIP, 1.0F, random.nextFloat() * 0.1F + 0.9F, true);
+				world.playSound(i, j - 2, k, TFC_Sounds.WATERDRIP, 1.0F, random.nextFloat() * 0.1F + 0.9F, true);
 			}
 		}
 	}

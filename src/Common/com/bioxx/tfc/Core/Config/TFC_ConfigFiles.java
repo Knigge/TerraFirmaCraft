@@ -332,6 +332,7 @@ public class TFC_ConfigFiles {
 		enableBerryBushRegen = generalConfig.getBoolean("enableBerryBushRegen", GENERAL, enableBerryBushRegen, "Set this to true to enable Berry bushes to slowly regenerate every year.");
 		enableDebrisRegen = generalConfig.getBoolean("enableDebrisRegen", GENERAL, enableDebrisRegen, "Set this to true to enable sticks, rocks and ore pieces to slowly regenerate every year.");
 		enableDebugMode = generalConfig.getBoolean("enableDebugMode", GENERAL, enableDebugMode, "Set this to true if you want to turn on debug mode which is useful for bug hunting.", "config.gui.TFCConfig.general.enableDebugMode");
+		worldgenDebugMode = generalConfig.getBoolean("worldgenDebugMode", GENERAL, worldgenDebugMode, "Draw debug images during world generation.");
 		enableFiniteWater = generalConfig.getBoolean("enableFiniteWater", GENERAL, enableFiniteWater, "Set this to true to enable finite water. Two adjacent source water blocks will not create a third.", "config.gui.TFCConfig.general.enableFiniteWater");
 		onionsAreGross = generalConfig.getBoolean("onionsAreGross", GENERAL, onionsAreGross, "Set this to true if you don't like onions.", "config.gui.TFCConfig.general.onionsAreGross");
 
