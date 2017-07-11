@@ -80,6 +80,8 @@ public class TFCOptions {
 	public static int waterFissureRarity = 90;
 	public static boolean enableCaveGeneration = false;
 	public static boolean enableCaveDecorations = false;
+	public static boolean generateVinesInJungle = true;
+	public static boolean generateVinesInForest = true;
 
 	// Crops
 	public static boolean enableCropsDie = false;

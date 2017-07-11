@@ -8,6 +8,7 @@ import com.bioxx.tfc.WorldGen.Generators.Trees.WorldGenKapokTrees;
 import com.bioxx.tfc.WorldGen.TFCBiome;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.Enums.EnumTree;
+import com.bioxx.tfc.api.TFCOptions;
 import cpw.mods.fml.common.IWorldGenerator;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -72,6 +73,9 @@ public class WorldGenForests implements IWorldGenerator {
 			numTreesBase -= 6;
 		}
 
+		int rain = rainfall > 4000 ? 4000 : (int)rainfall;
+		WorldGenCustomVines vineGen = new WorldGenCustomVines();
+
 		int numTrees = 1;
 		for (int var2 = 0; var2 < numTrees; ++var2) {
 			xCoord = chunkX + random.nextInt(16);
@@ -91,6 +95,7 @@ public class WorldGenForests implements IWorldGenerator {
 				rainfall *= 2;
 				evt /= 2;
 			}
+
 			try {
 				if (zCoord > 14500 || zCoord < -14500)
 					gen2 = TFCBiome.getTreeGen(8, random.nextBoolean());
@@ -116,6 +121,19 @@ public class WorldGenForests implements IWorldGenerator {
 					gen1.generate(world, random, xCoord, yCoord, zCoord);
 				} else if (randomNumber < 100 && gen2 != null && (spawnParam2 == 5 || spawnParam2 == 7)) {
 					gen2.generate(world, random, xCoord, yCoord, zCoord);
+				}
+
+				int vinesAmountMax = Math.round(((rain + 250) * 3) / 4000);
+				int vines = 0;
+
+				if (TFCOptions.generateVinesInForest && rain >= 2000 && temperature >= 20) {
+					for (; vines < vinesAmountMax; vines++) {
+						vineGen.generate(world, random,
+								xCoord + random.nextInt(4),
+								yCoord + 10 + random.nextInt(5),
+								zCoord + random.nextInt(4)
+						);
+					}
 				}
 			} catch (IndexOutOfBoundsException ignored) {
 			}
@@ -197,7 +215,7 @@ public class WorldGenForests implements IWorldGenerator {
 				//TerraFirmaCraft.log.catching(e);//TerraFirmaCraft.log.info("Tree0 Type: "+TreeType0);TerraFirmaCraft.log.info("Tree1 Type: "+TreeType1);TerraFirmaCraft.log.info("Tree2 Type: "+TreeType2);
 			}
 		}
-		if (completed) {
+		if (completed && TFCOptions.generateVinesInJungle) {
 			WorldGenCustomVines vineGen = new WorldGenCustomVines();
 			/*for (int var6 = 0; var6 < 20; ++var6)
 			{

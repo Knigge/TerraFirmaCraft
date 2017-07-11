@@ -399,6 +399,9 @@ public class TFC_ConfigFiles {
 		enableCaveGeneration = generalConfig.getBoolean("enableCaveGeneration", WORLD_GEN, enableCaveGeneration, "Set this to false to disable (currently) useless cave-generation.");
 		enableCaveDecorations = generalConfig.getBoolean("enableCaveDecorations", WORLD_GEN, enableCaveDecorations, "Set this to false to disable cave-styled decorations in worldgen (affects both caves & ravines).");
 
+		generateVinesInJungle = generalConfig.getBoolean("generateVinesInJungle", WORLD_GEN, generateVinesInJungle, "Generate vines in jungles.");
+		generateVinesInForest = generalConfig.getBoolean("generateVinesInForest", WORLD_GEN, generateVinesInForest, "Generate vines in forest areas. 2000-rainfall & 20* temp is a minimal requirements.");
+
 		generalConfig.setCategoryLanguageKey(CROPS, "config.gui.TFCConfig.crops");
 
 		enableCropsDie = generalConfig.getBoolean("enableCropsDie", CROPS, enableCropsDie, "Set to true to enable crop death from old age.", "config.gui.TFCConfig.crops.enableCropsDie");
