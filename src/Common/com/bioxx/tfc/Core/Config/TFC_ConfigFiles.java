@@ -30,6 +30,7 @@ import java.util.Map;
 import static com.bioxx.tfc.Reference.MOD_ID;
 import static com.bioxx.tfc.WorldGen.Generators.WorldGenOre.oreList;
 import static com.bioxx.tfc.api.TFCOptions.*;
+import com.bioxx.tfc.api.TFCItems;
 
 /**
  * @author Dries007
@@ -37,6 +38,7 @@ import static com.bioxx.tfc.api.TFCOptions.*;
 @SuppressWarnings({"WeakerAccess", "CanBeFinal", "Convert2Diamond"})
 public class TFC_ConfigFiles {
 	// General
+	public static final String TOOLS = "Tools";
 	public static final String FX = "FX-control";
 	public static final String GENERAL = "general";
 	public static final String TIME = "time";
@@ -322,6 +324,35 @@ public class TFC_ConfigFiles {
 
 		if (craftingConfig.hasCategory("nei hiding"))
 			generalConfig.get(GENERAL, "enableNEIHiding", enableNEIHiding).set(craftingConfig.getBoolean("enableNEIHiding", "nei hiding", enableNEIHiding, ""));
+
+		generalConfig.setCategoryLanguageKey(TOOLS, "config.gui.TFCConfig.TOOLS");
+		TFCItems.igInStoneUses = generalConfig.getInt("igInStoneUses", TOOLS, TFCItems.igInStoneUses, 1, 65535, "Durability: Stone tools (Igneous Intrusive).");
+		TFCItems.igExStoneUses = generalConfig.getInt("igExStoneUses", TOOLS, TFCItems.igExStoneUses, 1, 65535, "Durability: Stone tools (Igneous Extrusive).");
+		TFCItems.sedStoneUses = generalConfig.getInt("sedStoneUses", TOOLS, TFCItems.sedStoneUses, 1, 65535, "Durability: Stone tools (Sedimentary).");
+		TFCItems.mMStoneUses = generalConfig.getInt("mMStoneUses", TOOLS, TFCItems.mMStoneUses, 1, 65535, "Durability: Stone tools (Metamorphic).");
+		TFCItems.copperUses = generalConfig.getInt("copperUses", TOOLS, TFCItems.copperUses, 1, 65535, "Durability: Copper tools.");
+		TFCItems.bronzeUses = generalConfig.getInt("bronzeUses", TOOLS, TFCItems.bronzeUses, 1, 65535, "Durability: Bronze tools.");
+		TFCItems.bismuthBronzeUses = generalConfig.getInt("bismuthBronzeUses", TOOLS, TFCItems.bismuthBronzeUses, 1, 65535, "Durability: Bismuth bronze tools.");
+		TFCItems.blackBronzeUses = generalConfig.getInt("blackBronzeUses", TOOLS, TFCItems.blackBronzeUses, 1, 65535, "Durability: Black bronze tools.");
+		TFCItems.wroughtIronUses = generalConfig.getInt("wroughtIronUses", TOOLS, TFCItems.wroughtIronUses, 1, 65535, "Durability: Wrought iron tools.");
+		TFCItems.steelUses = generalConfig.getInt("steelUses", TOOLS, TFCItems.steelUses, 1, 65535, "Durability: Steel tools.");
+		TFCItems.blackSteelUses = generalConfig.getInt("blackSteelUses", TOOLS, TFCItems.blackSteelUses, 1, 65535, "Durability: Black steel tools.");
+		TFCItems.blueSteelUses = generalConfig.getInt("blueSteelUses", TOOLS, TFCItems.blueSteelUses, 1, 65535, "Durability: Blue steel tools.");
+		TFCItems.redSteelUses = generalConfig.getInt("redSteelUses", TOOLS, TFCItems.redSteelUses, 1, 65535, "Durability: Red steel tools.");
+
+		TFCItems.igInStoneEff = generalConfig.getFloat("igInStoneEff", TOOLS, TFCItems.igInStoneEff, 1, 65535, "Efficiency: Stone tools (Igneous Intrusive).");
+		TFCItems.igExStoneEff = generalConfig.getFloat("igExStoneEff", TOOLS, TFCItems.igExStoneEff, 1, 65535, "Efficiency: Stone tools (Igneous Extrusive).");
+		TFCItems.sedStoneEff = generalConfig.getFloat("sedStoneEff", TOOLS, TFCItems.sedStoneEff, 1, 65535, "Efficiency: Stone tools (Sedimentary).");
+		TFCItems.mMStoneEff = generalConfig.getFloat("mMStoneEff", TOOLS, TFCItems.mMStoneEff, 1, 65535, "Efficiency: Stone tools (Metamorphic).");
+		TFCItems.copperEff = generalConfig.getFloat("copperEff", TOOLS, TFCItems.copperEff, 1, 65535, "Efficiency: Copper tools.");
+		TFCItems.bronzeEff = generalConfig.getFloat("bronzeEff", TOOLS, TFCItems.bronzeEff, 1, 65535, "Efficiency: Bronze tools.");
+		TFCItems.bismuthBronzeEff = generalConfig.getFloat("bismuthBronzeEff", TOOLS, TFCItems.bismuthBronzeEff, 1, 65535, "Efficiency: Bismuth bronze tools.");
+		TFCItems.blackBronzeEff = generalConfig.getFloat("blackBronzeEff", TOOLS, TFCItems.blackBronzeEff, 1, 65535, "Efficiency: Black bronze tools.");
+		TFCItems.wroughtIronEff = generalConfig.getFloat("wroughtIronEff", TOOLS, TFCItems.wroughtIronEff, 1, 65535, "Efficiency: Wrought iron tools.");
+		TFCItems.steelEff = generalConfig.getFloat("steelEff", TOOLS, TFCItems.steelEff, 1, 65535, "Efficiency: Steel tools.");
+		TFCItems.blackSteelEff = generalConfig.getFloat("blackSteelEff", TOOLS, TFCItems.blackSteelEff, 1, 65535, "Efficiency: Black steel tools.");
+		TFCItems.blueSteelEff = generalConfig.getFloat("blueSteelEff", TOOLS, TFCItems.blueSteelEff, 1, 65535, "Efficiency: Blue steel tools.");
+		TFCItems.redSteelEff = generalConfig.getFloat("redSteelEff", TOOLS, TFCItems.redSteelEff, 1, 65535, "Efficiency: Red steel tools.");
 
 		enableNEIHiding = generalConfig.getBoolean("enableNEIHiding", GENERAL, enableNEIHiding, "Set to false to show hidden items in NEI. Note that most of these items were hidden to prevent players from cheating them in and crashing their game.");
 		enablePowderKegs = generalConfig.getBoolean("enablePowderKegs", GENERAL, enablePowderKegs, "Set this to false to disable powder keg explosions.", "config.gui.TFCConfig.general.enablePowderKegs");
