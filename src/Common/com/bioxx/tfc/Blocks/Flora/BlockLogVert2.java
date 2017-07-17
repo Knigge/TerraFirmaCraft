@@ -15,9 +15,7 @@ public class BlockLogVert2 extends BlockLogVert {
 
 	@Override
 	public int damageDropped(int dmg) {
-		//return dmg += 16;
-		//!TODO: check
-		return dmg + 16;
+		return dmg += 16;
 	}
 
 	@Override

@@ -12,7 +12,6 @@ public class TFCOptions {
 	// General
 	public static boolean enableNEIHiding = true;
 	public static boolean enablePowderKegs = true;
-	public static boolean enableBetterGrass = true;
 	public static boolean enableSaplingDrops = true;
 	public static boolean enableSeedDrops = true;
 	public static boolean enableSeaweedRegen = true;
@@ -40,6 +39,9 @@ public class TFCOptions {
 	public static boolean gasFXEnabled = true;
 	public static boolean rainFXEnabled = true;
 	public static boolean stalactiteDripWaterEnabled = true;
+
+	public static boolean enableBetterGrass = true;
+	public static boolean enableBetterLogs = true;
 
 	// Time
 	public static int yearLength = 96;

@@ -325,7 +325,6 @@ public class TFC_ConfigFiles {
 
 		enableNEIHiding = generalConfig.getBoolean("enableNEIHiding", GENERAL, enableNEIHiding, "Set to false to show hidden items in NEI. Note that most of these items were hidden to prevent players from cheating them in and crashing their game.");
 		enablePowderKegs = generalConfig.getBoolean("enablePowderKegs", GENERAL, enablePowderKegs, "Set this to false to disable powder keg explosions.", "config.gui.TFCConfig.general.enablePowderKegs");
-		enableBetterGrass = generalConfig.getBoolean("enableBetterGrass", GENERAL, enableBetterGrass, "If true, then the side of a grass block which has another grass block adjacent and one block lower than it will show as completely grass.", "config.gui.TFCConfig.general.enableBetterGrass");
 		enableSaplingDrops = generalConfig.getBoolean("enableSaplingDrops", GENERAL, enableSaplingDrops, "Set this to false to disable saplings dropping from harvested leaf blocks.", "config.gui.TFCConfig.general.enableSaplingDrops");
 		enableSeedDrops = generalConfig.getBoolean("enableSeedDrops", GENERAL, enableSeedDrops, "Set this to false to disable seeds being placed on the ground when a crop on farmland dies from natural causes such as freezing temperatures, old age, or not enough sunlight.", "config.gui.TFCConfig.general.enableSeedDrops");
 		enableSeaweedRegen = generalConfig.getBoolean("enableSeaweedRegen", GENERAL, enableSeaweedRegen, "Set this to true to enable Seaweed to slowly regenerate every year.");
@@ -355,6 +354,9 @@ public class TFC_ConfigFiles {
 		gasFXEnabled = generalConfig.getBoolean("gasFXEnabled", FX, gasFXEnabled, "Set this to false to disable GasFX particles comming from hot water to avoid graphical bugs with shaders enabled or for a better performance in hot-water waterfalls.");
 		rainFXEnabled = generalConfig.getBoolean("rainFXEnabled", FX, rainFXEnabled, "Set this to false to disable RainFX particles to spawn in rain. This option does not have effect without minecraft particles enabled.");
 		stalactiteDripWaterEnabled = generalConfig.getBoolean("stalactiteDripWaterEnabled", FX, stalactiteDripWaterEnabled, "Should stalactites randomly generate dripping water particles? Including sound effects.");
+
+		enableBetterGrass = generalConfig.getBoolean("enableBetterGrass", FX, enableBetterGrass, "If true, then the side of a grass block which has another grass block adjacent and one block lower than it will show as completely grass.", "config.gui.TFCConfig.general.enableBetterGrass");
+		enableBetterLogs = generalConfig.getBoolean("enableBetterLogs", FX, enableBetterLogs, "Enable full-side textures on log blocks (naturally spawned only).");
 
 		generalConfig.setCategoryLanguageKey(TIME, "config.gui.TFCConfig.time");
 		yearLength = generalConfig.getInt("yearLength", TIME, yearLength, 96, 12000, "This is how many days are in a year. Keep this to multiples of 12.", "config.gui.TFCConfig.time.yearLength");

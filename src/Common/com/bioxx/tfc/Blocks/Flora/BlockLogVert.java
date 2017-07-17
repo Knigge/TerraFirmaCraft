@@ -73,7 +73,7 @@ public class BlockLogVert extends BlockTerra {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-		return TFCBlocks.logNatural.getIcon(side, meta);
+		return TFCBlocks.logNatural2.getIcon(side, meta);
 	}
 
 	@SuppressWarnings("unchecked")

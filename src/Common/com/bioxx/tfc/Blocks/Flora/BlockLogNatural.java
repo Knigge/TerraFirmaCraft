@@ -4,6 +4,7 @@ import com.bioxx.tfc.Blocks.BlockTerra;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.api.Constant.Global;
 import com.bioxx.tfc.api.TFCItems;
+import com.bioxx.tfc.api.TFCOptions;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -94,7 +95,7 @@ public class BlockLogNatural extends BlockTerra {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int meta) {
-		if (side == 0 || side == 1)
+		if ((side == 0 || side == 1) && !TFCOptions.enableBetterLogs)
 			return innerIcons[meta];
 		return sideIcons[meta];
 	}
