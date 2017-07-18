@@ -426,6 +426,10 @@ tile.Pottery.name=Глиняная поверхность
 item.ClayBowl.Ceramic Bowl.name=Керамическая миска
 item.ClayBowl.Clay Bowl.name=Глиняная миска
 
+tile.CeramicBricks.name=Кирпичная кладка
+item.Ceramic Brick.Unfired Clay Brick.name=Необожженный кирпич
+item.Ceramic Brick.Ceramic Brick.name=Керамический кирпич
+
 #= Gems =
 item.Agate.Chipped.name=Выщербленный агат
 item.Amethyst.Chipped.name=Выщербленный аметист

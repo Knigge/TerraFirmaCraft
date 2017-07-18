@@ -520,6 +520,10 @@ item.Fire Brick.Clay Fire Brick.name=Clay Fire Brick
 tile.FireBrick.name=Fire Brick Block
 tile.Pottery.name=Pottery
 
+tile.CeramicBricks.name=Bricks
+item.Ceramic Brick.Unfired Clay Brick.name=Unfired Clay Brick
+item.Ceramic Brick.Ceramic Brick.name=Ceramic Brick
+
 item.ClayBowl.Ceramic Bowl.name=Ceramic Bowl
 item.ClayBowl.Clay Bowl.name=Clay Bowl
 
