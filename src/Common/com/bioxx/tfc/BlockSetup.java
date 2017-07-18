@@ -142,6 +142,7 @@ public class BlockSetup extends TFCBlocks {
 		GameRegistry.registerBlock(waterPlant, "SeaGrassStill");
 
 		GameRegistry.registerBlock(fireBrick, "FireBrick");
+		GameRegistry.registerBlock(ceramicBricks, "CeramicBricks");
 		GameRegistry.registerBlock(metalSheet, "MetalSheet");
 		GameRegistry.registerBlock(metalBlock, ItemMetalBlock1.class, "MetalBlock");
 		GameRegistry.registerBlock(metalAlloyBlock, ItemMetalAlloyBlock.class, "MetalAlloyBlock");
@@ -422,6 +423,7 @@ public class BlockSetup extends TFCBlocks {
 		waterPlant = new BlockWaterPlant(0).setBlockName("SeaGrassStill").setHardness(0.5f).setStepSound(Block.soundTypeGravel);
 
 		fireBrick = new BlockFireBrick().setBlockName("FireBrick").setHardness(8);
+		ceramicBricks = new BlockCeramicBricks().setBlockName("CeramicBricks").setHardness(8);
 		metalSheet = new BlockMetalSheet().setBlockName("MetalSheet").setHardness(80);
 		leatherRack = new BlockLeatherRack().setBlockName("LeatherRack").setHardness(1);
 		metalBlock = new BlockMetal(Material.iron) {

@@ -779,6 +779,7 @@ public class TFCItems {
 	public static Item straw;
 	public static Item flatClay;
 	public static Item fireBrick;
+	public static Item ceramicBrick;
 	public static Item stick;
 	public static Item arrow;
 	public static Item rope;
@@ -1433,6 +1434,7 @@ public class TFCItems {
 
 		GameRegistry.registerItem(ceramicMold, ceramicMold.getUnlocalizedName());
 		GameRegistry.registerItem(fireBrick, fireBrick.getUnlocalizedName());
+		GameRegistry.registerItem(ceramicBrick, ceramicBrick.getUnlocalizedName());
 
 		GameRegistry.registerItem(clayMoldAxe, clayMoldAxe.getUnlocalizedName());
 		GameRegistry.registerItem(clayMoldChisel, clayMoldChisel.getUnlocalizedName());

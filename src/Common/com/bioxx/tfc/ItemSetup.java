@@ -613,6 +613,7 @@ public class ItemSetup extends TFCItems {
 		potteryBowl = new ItemPotteryBase().setMetaNames(new String[]{"Clay Bowl", "Ceramic Bowl"}).setUnlocalizedName("ClayBowl");
 		clayBall = new ItemClay().setSpecialCraftingType(flatClay, new ItemStack(flatClay, 1, 1)).setMetaNames(new String[]{"Clay", "Fire Clay"}).setUnlocalizedName("Clay");
 		fireBrick = new ItemPotteryBase().setMetaNames(new String[]{"Clay Fire Brick", "Fire Brick"}).setUnlocalizedName("Fire Brick");
+		ceramicBrick = new ItemPotteryBase().setMetaNames(new String[]{"Unfired Clay Brick", "Ceramic Brick"}).setUnlocalizedName("Ceramic Brick");
 
 		clayMoldAxe = new ItemPotteryMold().setMetaNames(new String[]{"Clay Mold Axe", "Ceramic Mold Axe",
 				"Ceramic Mold Axe Copper", "Ceramic Mold Axe Bronze", "Ceramic Mold Axe Bismuth Bronze", "Ceramic Mold Axe Black Bronze"}).setUnlocalizedName("Axe Mold");

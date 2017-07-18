@@ -133,6 +133,9 @@ public class Recipes {
 				'P', new ItemStack(TFCItems.powder, 1, 2), 'X', new ItemStack(TFCItems.powder, 1, 1), 'C', "lumpClay"));
 		GameRegistry.addRecipe(new ItemStack(TFCItems.fireBrick, 2, 0), "PP", "PP", 'P', new ItemStack(TFCItems.clayBall, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(TFCBlocks.fireBrick, 2, 0), "PXP", "XPX", "PXP", 'P', new ItemStack(TFCItems.fireBrick, 1, 1), 'X', new ItemStack(TFCItems.mortar, 1));
+//Ceramic bricks
+		GameRegistry.addRecipe(new ItemStack(TFCItems.ceramicBrick, 2, 0), "PP", "PP", 'P', new ItemStack(TFCItems.clayBall, 1, 0));
+		GameRegistry.addRecipe(new ItemStack(TFCBlocks.ceramicBricks, 1, 0), "PXP", "XPX", "PXP", 'P', new ItemStack(TFCItems.ceramicBrick, 1, 1), 'X', new ItemStack(TFCItems.mortar, 1));
 //Straw & Thatch
 		GameRegistry.addRecipe(new ItemStack(TFCBlocks.thatch, 1), "PP", "PP", 'P', new ItemStack(TFCItems.straw, 1));
 		GameRegistry.addShapelessRecipe(new ItemStack(TFCItems.straw, 4), new ItemStack(TFCBlocks.thatch, 1));
@@ -2345,6 +2348,12 @@ public class Recipes {
 						new ItemStack(TFCItems.fireBrick, 1, 0),
 						0,
 						new ItemStack(TFCItems.fireBrick, 1, 1)));
+
+		manager.addRecipe(
+				new KilnRecipe(
+						new ItemStack(TFCItems.ceramicBrick, 1, 0),
+						0,
+						new ItemStack(TFCItems.ceramicBrick, 1, 1)));
 
 		manager.addRecipe(
 				new KilnRecipe(

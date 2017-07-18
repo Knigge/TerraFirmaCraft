@@ -178,6 +178,7 @@ public class TFCBlocks {
 	public static Block bloom;
 	public static Block crucible;
 	public static Block fireBrick;
+	public static Block ceramicBricks;
 	public static Block metalSheet;
 	public static Block metalBlock;
 	public static Block metalAlloyBlock;
