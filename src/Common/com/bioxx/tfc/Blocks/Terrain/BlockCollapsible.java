@@ -1,6 +1,7 @@
 package com.bioxx.tfc.Blocks.Terrain;
 
 import com.bioxx.tfc.Blocks.BlockTerraContainer;
+import com.bioxx.tfc.Blocks.Terrain.Path.BlockSandPath;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Core.TFC_Core;
 import com.bioxx.tfc.Core.TFC_Sounds;
@@ -96,7 +97,7 @@ public class BlockCollapsible extends BlockTerraContainer {
 		if (!world.isRemote) {
 
 			int meta = world.getBlockMetadata(x, y, z);
-			if (canFallBelow(world, x, y - 1, z) && y >= 0 && (!isNearSupport(world, x, y, z, 4, 0) || block instanceof BlockSand)) {
+			if (canFallBelow(world, x, y - 1, z) && y >= 0 && (!isNearSupport(world, x, y, z, 4, 0) || block instanceof BlockSand || block instanceof BlockSandPath)) {
 				byte byte0 = 32;
 
 				if (!fallInstantly && world.checkChunksExist(x - byte0, y - byte0, z - byte0, x + byte0, y + byte0, z + byte0)) {

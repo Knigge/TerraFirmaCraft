@@ -5,6 +5,7 @@ import com.bioxx.tfc.Blocks.Devices.*;
 import com.bioxx.tfc.Blocks.Flora.*;
 import com.bioxx.tfc.Blocks.Liquids.*;
 import com.bioxx.tfc.Blocks.Terrain.*;
+import com.bioxx.tfc.Blocks.Terrain.Path.*;
 import com.bioxx.tfc.Blocks.Vanilla.*;
 import com.bioxx.tfc.Core.TFCTabs;
 import com.bioxx.tfc.Items.ItemBlocks.*;
@@ -149,6 +150,17 @@ public class BlockSetup extends TFCBlocks {
 
 		GameRegistry.registerBlock(cokeblock, ItemTerraBlock.class, "FuelBlock");
 
+		GameRegistry.registerBlock(pathDirt, "DirtPath");
+		GameRegistry.registerBlock(pathGrass, "GrassPath");
+		GameRegistry.registerBlock(pathDryGrass, "DryGrassPath");
+		GameRegistry.registerBlock(pathGravel, "GravelPath");
+		GameRegistry.registerBlock(pathSand, "SandPath");
+
+		GameRegistry.registerBlock(pathDirt2, "DirtPath2");
+		GameRegistry.registerBlock(pathGrass2, "GrassPath2");
+		GameRegistry.registerBlock(pathDryGrass2, "DryGrassPath2");
+		GameRegistry.registerBlock(pathGravel2, "GravelPath2");
+		GameRegistry.registerBlock(pathSand2, "SandPath2");
 
 		// Wooden Doors
 		for (int i = 0; i < Global.WOOD_ALL.length; i++)
@@ -443,6 +455,18 @@ public class BlockSetup extends TFCBlocks {
 		oilLamp = new BlockOilLamp().setHardness(1F).setBlockName("OilLamp");
 		hopper = new BlockHopper().setHardness(2F).setBlockName("Hopper");
 		flowerPot = new BlockCustomFlowerPot().setHardness(0.0F).setStepSound(Block.soundTypeStone).setBlockName("FlowerPot").setBlockTextureName("flower_pot");
+
+		pathDirt = new BlockDirtPath(false);
+		pathGrass = new BlockGrassPath(false);
+		pathDryGrass = new BlockDryGrassPath(false);
+		pathGravel = new BlockGravelPath(false);
+		pathSand = new BlockSandPath(false);
+
+		pathDirt2 = new BlockDirtPath(true);
+		pathGrass2 = new BlockGrassPath(true);
+		pathDryGrass2 = new BlockDryGrassPath(true);
+		pathGravel2 = new BlockGravelPath(true);
+		pathSand2 = new BlockSandPath(true);
 
 		stoneIgIn.setHarvestLevel("pickaxe", 0);
 		stoneIgEx.setHarvestLevel("pickaxe", 0);

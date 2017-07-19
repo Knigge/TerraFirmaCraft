@@ -1,11 +1,14 @@
 package com.bioxx.tfc.Items.Tools;
 
 
+import com.bioxx.tfc.Blocks.Terrain.BlockDirt;
 import com.bioxx.tfc.Blocks.Terrain.BlockOre;
 import com.bioxx.tfc.Blocks.Terrain.BlockSmooth;
 import com.bioxx.tfc.Blocks.Terrain.BlockStone;
+import com.bioxx.tfc.Blocks.Terrain.Path.*;
 import com.bioxx.tfc.Core.TFC_Achievements;
 import com.bioxx.tfc.Core.TFC_Core;
+import com.bioxx.tfc.Core.TFC_Sounds;
 import com.bioxx.tfc.TileEntities.TEAnvil;
 import com.bioxx.tfc.api.Crafting.AnvilManager;
 import com.bioxx.tfc.api.Enums.EnumDamageType;
@@ -39,11 +42,7 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage {
 		this.damageVsEntity = damage;
 	}
 
-	@Override
-	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
-		Block id2 = player.worldObj.getBlock(x, y, z);
-		int meta2 = player.worldObj.getBlockMetadata(x, y, z);
-
+	private boolean tryMakeAnvil(World world, EntityPlayer player, int x, int y, int z, int side, Block id2, int meta) {
 		if (id2 == TFCBlocks.stoneIgEx || id2 == TFCBlocks.stoneIgIn) {
 			if (side == 1) {
 				world.setBlock(x, y, z, TFCBlocks.anvil);
@@ -53,13 +52,70 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage {
 					world.setTileEntity(x, y, z, new TEAnvil());
 				if (te != null) {
 					te.stonePair[0] = Block.getIdFromBlock(id2);
-					te.stonePair[1] = meta2;
+					te.stonePair[1] = meta;
 					te.validate();
 				}
 				//world.markBlockForUpdate(x, y, z);
 				return true;
 			}
 		}
+
+		return false;
+	}
+
+	private boolean tryMakeRoadPath(World world, int x, int y, int z, int side, Block id2, int meta) {
+		Block update = null;
+
+		if (id2 == TFCBlocks.grass) {
+			update = TFCBlocks.pathGrass;
+		} else if (id2 == TFCBlocks.grass2) {
+			update = TFCBlocks.pathGrass2;
+		} else if (id2 == TFCBlocks.dryGrass) {
+			update = TFCBlocks.pathDryGrass;
+		} else if (id2 == TFCBlocks.dryGrass2) {
+			update = TFCBlocks.pathDryGrass2;
+		} else if (id2 == TFCBlocks.dirt) {
+			update = TFCBlocks.pathDirt;
+		} else if (id2 == TFCBlocks.dirt2) {
+			update = TFCBlocks.pathDirt2;
+		}
+
+		if (update != null) {
+			world.setBlock(x, y, z, update, meta, 0x2);
+			return true;
+		}
+
+		return false;
+	}
+
+	// for a some damn reason this code is not working in onItemUseFirst trigger
+	// so i replaced it with onItemUse
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		Block id2 = player.worldObj.getBlock(x, y, z);
+		int meta2 = player.worldObj.getBlockMetadata(x, y, z);
+
+		if (side == 1 && tryMakeRoadPath(world, x, y, z, side, id2, meta2)) {
+			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, id2.stepSound.getStepResourcePath(), 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+			stack.damageItem(5, player);
+			return true;
+		}
+
+		return false;
+	}
+
+	@Override
+	public boolean onItemUseFirst(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		Block id2 = player.worldObj.getBlock(x, y, z);
+		int meta2 = player.worldObj.getBlockMetadata(x, y, z);
+
+		if (tryMakeAnvil(world, player, x, y, z, side, id2, meta2))
+			return true;
+
+		// to avoid missplacement of blocks on roads
+		if (id2 instanceof BaseBlockPath)
+			return true;
+
 		boolean placed = false;
 		int toolSlot = player.inventory.currentItem;
 		int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;
@@ -110,19 +166,18 @@ public class ItemHammer extends ItemTerraTool implements ICausesDamage {
 					placed = item.onItemUse(nextSlotStack, player, world, x, y, z, side, hitX, hitY, hitZ);
 
 					if (player.capabilities.isCreativeMode) {
-
 						nextSlotStack.setItemDamage(dmg);
 						nextSlotStack.stackSize = count;
 					}
+
 					if (nextSlotStack.stackSize < 1) {
 						player.inventory.setInventorySlotContents(nextSlot, null);
 					}
 				}
 			}
 		}
+
 		return placed;
-
-
 	}
 
 	@Override

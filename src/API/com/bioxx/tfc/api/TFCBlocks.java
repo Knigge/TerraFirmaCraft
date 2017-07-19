@@ -239,6 +239,17 @@ public class TFCBlocks {
 	public static Block hopper;
 	public static Block flowerPot;
 
+	public static Block pathDirt;
+	public static Block pathGrass;
+	public static Block pathDryGrass;
+	public static Block pathGravel;
+	public static Block pathSand;
+
+	public static Block pathDirt2;
+	public static Block pathGrass2;
+	public static Block pathDryGrass2;
+	public static Block pathGravel2;
+	public static Block pathSand2;
 
 	public static boolean isBlockVSupport(Block block) {
 		return block == woodSupportV || block == woodSupportV2;

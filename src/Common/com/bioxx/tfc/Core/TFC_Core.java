@@ -471,6 +471,31 @@ public class TFC_Core {
 		return isDirt(block) || isGravel(block) || isSand(block) || isGrassNormal(block) || isDryGrass(block);
 	}
 
+	public static boolean isDirtPath(Block block) {
+		return block == TFCBlocks.pathDirt || block == TFCBlocks.pathDirt2;
+	}
+
+	public static boolean isGrassPath(Block block) {
+		return block == TFCBlocks.pathGrass || block == TFCBlocks.pathGrass2;
+	}
+
+	public static boolean isDryGrassPath(Block block) {
+		return block == TFCBlocks.pathDryGrass || block == TFCBlocks.pathDryGrass2;
+	}
+
+	public static boolean isGravelPath(Block block) {
+		return block == TFCBlocks.pathGravel || block == TFCBlocks.pathGravel2;
+	}
+
+	public static boolean isSandPath(Block block) {
+		return block == TFCBlocks.pathSand || block == TFCBlocks.pathSand2;
+	}
+
+	public static boolean isRoadBlock(Block block) {
+		return isDirtPath(block) || isGrassPath(block) || isDryGrassPath(block) ||
+				isGravelPath(block) || isSandPath(block);
+	}
+
 	public static int getSoilMetaFromStone(Block inBlock, int inMeta) {
 		if (inBlock == TFCBlocks.stoneIgIn)
 			return inMeta;

@@ -1,5 +1,8 @@
 package com.bioxx.tfc.Items.Tools;
 
+import com.bioxx.tfc.Blocks.Terrain.Path.BaseBlockPath;
+import com.bioxx.tfc.Blocks.Terrain.Path.BlockGravelPath;
+import com.bioxx.tfc.Blocks.Terrain.Path.BlockSandPath;
 import com.bioxx.tfc.Reference;
 import com.bioxx.tfc.api.Enums.EnumItemReach;
 import com.bioxx.tfc.api.TFCBlocks;
@@ -53,9 +56,43 @@ public class ItemCustomShovel extends ItemTerraTool {
 		return EnumItemReach.FAR;
 	}
 
+	private boolean tryMakeRoadPath(World world, int x, int y, int z, int side, Block id2, int meta) {
+		Block update = null;
+
+		if (id2 == TFCBlocks.gravel) {
+			update = TFCBlocks.pathGravel;
+		} else if (id2 == TFCBlocks.gravel2) {
+			update = TFCBlocks.pathGravel2;
+		} else if (id2 == TFCBlocks.sand) {
+			update = TFCBlocks.pathSand;
+		} else if (id2 == TFCBlocks.sand2) {
+			update = TFCBlocks.pathSand2;
+		}
+
+		if (update != null) {
+			world.setBlock(x, y, z, update, meta, 0x2);
+			return true;
+		}
+
+		return false;
+	}
+
 	//From Tinkers Construct Harvest tool class. Thanks you geniuses. Allows place item/block from next slot in hotbar.
 	@Override
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ) {
+		Block id2 = player.worldObj.getBlock(x, y, z);
+		int meta2 = player.worldObj.getBlockMetadata(x, y, z);
+
+		if (side == 1 && tryMakeRoadPath(world, x, y, z, side, id2, meta2)) {
+			world.playSoundEffect(x + 0.5D, y + 0.5D, z + 0.5D, id2.stepSound.getStepResourcePath(), 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
+			stack.damageItem(5, player);
+			return true;
+		}
+
+		// to avoid missplacement of blocks on roads
+		if (id2 instanceof BaseBlockPath)
+			return true;
+
 		boolean placed = false;
 		int toolSlot = player.inventory.currentItem;
 		int nextSlot = toolSlot == 0 ? 8 : toolSlot + 1;

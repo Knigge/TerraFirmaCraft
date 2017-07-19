@@ -9,6 +9,7 @@ import com.bioxx.tfc.Blocks.Flora.BlockFruitLeaves;
 import com.bioxx.tfc.Blocks.Flora.BlockFruitWood;
 import com.bioxx.tfc.Blocks.Flora.BlockWaterPlant;
 import com.bioxx.tfc.Blocks.Terrain.*;
+import com.bioxx.tfc.Blocks.Terrain.Path.*;
 import com.bioxx.tfc.Blocks.Vanilla.BlockCustomDoor;
 import com.bioxx.tfc.Blocks.Vanilla.BlockTorch;
 import com.bioxx.tfc.Core.Player.SkillStats.SkillRank;
@@ -156,6 +157,12 @@ public class WAILAData implements IWailaDataProvider {
 		reg.registerBodyProvider(new WAILAData(), BlockSand.class);
 		reg.registerBodyProvider(new WAILAData(), BlockGrass.class);
 		reg.registerBodyProvider(new WAILAData(), BlockGravel.class);
+		
+		reg.registerBodyProvider(new WAILAData(), BlockDirtPath.class);
+		reg.registerBodyProvider(new WAILAData(), BlockSandPath.class);
+		reg.registerBodyProvider(new WAILAData(), BlockGrassPath.class);
+		reg.registerBodyProvider(new WAILAData(), BlockDryGrassPath.class);
+		reg.registerBodyProvider(new WAILAData(), BlockGravelPath.class);
 
 		reg.registerBodyProvider(new WAILAData(), BlockTorch.class);
 		reg.registerNBTProvider(new WAILAData(), BlockTorch.class);
@@ -335,6 +342,9 @@ public class WAILAData implements IWailaDataProvider {
 
 		else if (TFC_Core.isSoilWAILA(block))
 			currenttip = soilBody(itemStack, currenttip, accessor, config);
+
+		else if (TFC_Core.isRoadBlock(block))
+			currenttip = roadBody(itemStack, currenttip, accessor, config);
 
 		else if (tileEntity instanceof TEWorldItem)
 			currenttip = worldBody(itemStack, currenttip, accessor, config);
@@ -1235,6 +1245,24 @@ public class WAILAData implements IWailaDataProvider {
 			currenttip.add(Global.STONE_ALL[dam]);
 		else
 			currenttip.add(EnumChatFormatting.DARK_RED + "Unknown");
+
+		return currenttip;
+	}
+
+	public List<String> roadBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+		Block b = accessor.getBlock();
+		int dam = itemStack.getItemDamage();
+
+		if (b == TFCBlocks.pathDirt2
+		 || b == TFCBlocks.pathGrass2
+		 || b == TFCBlocks.pathDryGrass2
+		 || b == TFCBlocks.pathGravel2
+		 || b == TFCBlocks.pathSand2)
+		{
+			dam += 16;
+		}
+
+		currenttip.add(Global.STONE_ALL[dam]);
 
 		return currenttip;
 	}

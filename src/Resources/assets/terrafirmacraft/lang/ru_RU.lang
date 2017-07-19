@@ -1932,6 +1932,12 @@ tile.tilledSoil.name=Грядка
 tile.LooseRock.name=Мусор
 tile.Ice.name=Лёд
 
+tile.DirtPath.name=Грунтовка
+tile.GrassPath.name=Тропинка
+tile.DryGrassPath.name=Высохшая Тропинка
+tile.GravelPath.name=Дорогая из гравия
+tile.SandPath.name=Песчанная Тропинка
+
 #=================
 #= Miscellaneous =
 #=================

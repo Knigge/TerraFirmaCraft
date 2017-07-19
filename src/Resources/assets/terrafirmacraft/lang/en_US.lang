@@ -2200,6 +2200,12 @@ tile.tilledSoil.name=Farmland
 tile.LooseRock.name=Debris
 tile.Ice.name=Ice
 
+tile.DirtPath.name=Dirt Road
+tile.GrassPath.name=Grass Road
+tile.DryGrassPath.name=Dry Grass Road
+tile.GravelPath.name=Gravel Road
+tile.SandPath.name=Sand Road
+
 #=================
 #= Miscellaneous =
 #=================
