@@ -134,7 +134,7 @@ public class MapGenRavineTFC extends MapGenBaseTFC {
 								double var45 = (index + chunkZ * 16 + 0.5D - zCoord) / var53;
 								int index2 = (x * 16 + index) * 256 + maxY;
 
-								if (var59 * var59 + var45 * var45 < 1.0D) {
+								if (var59 * var59 + var45 * var45 < 0.9D) {
 									for (int var49 = maxY - 1; var49 >= minY; --var49) {
 										double var50 = (var49 + 0.5D - yCoord) / var30;
 										if ((var59 * var59 + var45 * var45) * this.multipliers[var49] + var50 * var50 / 6.0D < 1.0D) {
